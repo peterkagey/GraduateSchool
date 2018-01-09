@@ -1,6 +1,6 @@
 # Solutions for USC's Qualifying Exams in Mathematics
 The USC Mathematics Graduate Student Association (MGSA) has [solutions to old qualifying exams](https://dornsife.usc.edu/mgsa/quals/) on their website submitted by other graduate students.
-This project is an attempt to have solutions written in LaTeX so that other students can fix mistakes and add solutions to new exams.
+This project is an attempt to have open-source solutions written in LaTeX so that other students can fix mistakes and add solutions to other exams.
 
 # How to contribute
 Please contribute by submitting a pull request, or by opening an issue that describes the change you would like me to make.
