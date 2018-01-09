@@ -115,9 +115,37 @@ Thus the Dominated Convergence Theorem with $g$ allows the limit to be moved ins
             \frac{\exp(-nbx)}{n} - \frac{\exp(-nax)}{n} \Big|_{0}^{\infty} = 
             0 - \left(\frac{-1}{n} + \frac{1}{n}\right) = 
             0
-        \] because $exp(-kx) \rightarrow 0$ as $x \rightarrow \infty$ for $k > 0$, and $\exp(0) = 1$.
-        (from Daniel Douglas)
-        \item
+        \] because $exp(-kx) \rightarrow 0$ as $x \rightarrow \infty$ for
+        $k > 0$, and $\exp(0) = 1$. \\
+
+        (idea from Daniel Douglas's solution) \\
+        By the identity \[
+          \sum_{n = 1}^{\infty} x^n = \frac{x}{1 - x}
+        \] we can see that \[
+          \sum_{n = 1}^{\infty} a\exp(-nax) - b\exp(-nbx) =
+          a\sum_{n = 1}^{\infty} \exp(-ax)^n - b\sum_{n = 1}^{\infty}\exp(-bx)^n =
+          \frac{a}{1 - e^{-ax}} - \frac{b}{1 - e^{-bx}}
+        \] so integrating this value gives \[
+          \int_{0}^{\infty} \sum_{n = 1}^{\infty} f_n(x) dx =
+          \int_{0}^{\infty} \frac{ae^{-ax}}{1 - e^{-ax}} - \frac{be^{-bx}}{1 - e^{-bx}}\ dx
+        \] doing substition with $u = 1 - e^{-ax}$ and $v = 1 - e^{-bx}$ gives \[
+          \int_{0}^{1} \frac{dv}{v} - \int_{0}^{1} \frac{du}{u} =
+          \log(v) - \log(u) \Big|_0^1 =
+          \log(1 - e^{-a}) - \log(1 - e^{-b}) =
+          \log\left(\frac{1 - e^{-a}}{1 - e^{-b}}\right)
+        \]
+
+        \item Let $g_n = \sum_{k = 1}^{n} f_k(x)$. Fubini's theorem says that when $g_n$ is integrable, \[
+          \lim_{n \rightarrow \infty} \int_0^\infty g_n dm =
+          \int_0^\infty \lim_{n \rightarrow \infty} g_n dm
+        \]
+
+        Thus $g_n $ is not integrable and by the triangle inequality \[
+          \int_{0}^{\infty} \sum_{n = 1}^{\infty} \left|f_n(x)\right| dx \geq
+          \int_{0}^{\infty} \left|\sum_{n = 1}^{\infty} f_n(x)\right| dx =
+          \int_{0}^{\infty} \left|\lim_{n \rightarrow \infty} g_n\right| dm =
+          \infty.
+        \]
     \end{enumerate}
 \end{proof}
 
