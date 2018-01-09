@@ -44,6 +44,24 @@
 \end{problem}
 
 \begin{proof}
+  Because the integrand $sin(\pi x)x^n/(1-x)$ is positive, Tonelli's theorem
+  gives \begin{align}
+    \sum_{n=0}^\infty \int_0^1 \frac{x^n}{1 - x}\sin(\pi x) dx &=
+    \int_0^1 \sum_{n=0}^\infty \frac{x^n}{1 - x}\sin(\pi x) dx \\ &=
+    \int_0^1 \frac{\sin(\pi x)}{1 - x} \sum_{n=0}^\infty x^n dx \\ &=
+    \int_0^1 \frac{\sin(\pi x)}{1 - x} \cdot \frac{1}{1 - x} dx \\ &=
+    \int_0^1 \frac{\sin(\pi x)}{(1 - x)^2} dx.
+  \end{align}
+  Notice that (2) implies (3) because the bounds of the integral ensure that $x$
+  is $m$-almost everwhere within the radius of convergece of the sum. \\
+
+  Because the integrand is non-negative, by elementary calculus \[
+    \int_0^1 \frac{\sin(\pi x)}{(1 - x)^2} dx \geq
+    \int_{1/2}^1 \frac{\sin(\pi x)}{(1 - x)^2} dx \geq
+    \int_{1/2}^1 \frac{1 - x}{(1 - x)^2} dx =
+    \int_{1/2}^1 (1 - x)^{-1} dx =
+    \infty.
+  \] Therefore $\sum_{n=0}^\infty a_n = \infty$.
 \end{proof}
 
 % -----------------------------------------------------
