@@ -78,6 +78,18 @@
 \end{problem}
 
 \begin{proof}
+  ($\Longrightarrow$)
+  Assume that $\int_X |f_n - f| d\mu \rightarrow 0$
+  as $n \rightarrow \infty$; in particular choose sufficiently large $n$ so that
+  $\int_X |f_n - f| d\mu < \varepsilon$. Then for any set $A \subset X$ \[
+    \varepsilon =
+    \int_X |f_n - f| d\mu =
+    \int_A |f_n - f| d\mu +
+    \int_{A^{\mathsf{c}}} |f_n - f| d\mu \geq
+    \int_A |f_n - f| d\mu \geq
+    \left| \int_A f_n - f\ d\mu \right|.
+  \]
+  Since this holds for all $A\in\mathcal{M}$, it also holds for the supremum.
 \end{proof}
 
 % -----------------------------------------------------
