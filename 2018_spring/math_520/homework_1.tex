@@ -19,10 +19,71 @@
 % -----------------------------------------------------
 % First problem
 % -----------------------------------------------------
-\begin{problem}{1}
+\begin{problem}{2} (page 2) \\
+  If $z = x + iy$ ($x$ and $y$ real), find the real and imaginary parts of \[
+    z^4, \hspace{30pt}
+    \frac{1}{z}, \hspace{30pt}
+    \frac{z - 1}{z + 1}, \hspace{30pt}
+    \frac{1}{z^2}.
+  \]
 \end{problem}
 
 \begin{proof}
+  \begin{enumerate}[(a)]
+    \item
+    \begin{align*}
+      z^4 &= ((x + iy)^2)^2 \\
+      &= (x^2 - y^2 - 2xyi)^2 \\
+      &= (x^2 - y^2)^2 - (2xy)^2 - 2(x^2 - y^2)(2xy)i \\
+      &= x^4 - 6x^2y^2 + y^4 + 4xy(x^2-y^2)i
+    \end{align*}
+    Therefore the real and imaginary parts are \[
+      \operatorname{Re}(z^4) = x^4 - 6x^2y^2 + y^4, \text { and }
+      \operatorname{Im}(z^4) = 4xy(x^2-y^2).
+    \]
+
+    \item
+    \begin{align*}
+      \frac{1}{z}
+      &= \frac{1}{x + iy} \\
+      &= \frac{1}{x + iy} \cdot \frac{x - iy}{x - iy} \\
+      &= \frac{x - iy}{x^2 + y^2} \\
+      &= \frac{\bar{z}}{|z|^2}
+    \end{align*}
+    Therefore the real and imaginary parts are \[
+      \operatorname{Re}\left(\frac{1}{z}\right)
+        = x/(x^2 + y^2), \text { and }
+      \operatorname{Im}\left(\frac{1}{z}\right)
+        = -y/(x^2 + y^2).
+    \]
+
+    \item
+    \begin{align*}
+      \frac{z - 1}{z + 1}
+      &= \frac{x - 1 + iy}{x + 1 + iy} \\
+      &= \frac{x - 1 + iy}{x + 1 + iy} \cdot \frac{x + 1 - iy}{x + 1 - iy} \\
+      &= \frac{x^2 + y^2 - 1+ 2yi}{(x + 1)^2 + y^2}
+    \end{align*}
+    Therefore the real and imaginary parts are \[
+      \operatorname{Re}\left(\frac{z - 1}{z + 1}\right) =
+        \frac{x^2 + y^2 - 1}{(x + 1)^2 + y^2}, \text { and }
+      \operatorname{Im}\left(\frac{z - 1}{z + 1}\right) =
+        \frac{2y}{(x + 1)^2 + y^2}.
+    \]
+
+    \item
+    \begin{align*}
+      \frac{1}{z^2}
+      &= \left(\frac{x - iy}{x^2 + y^2}\right)^2 \\
+      &= \frac{x^2 - y^2 -2xyi}{x^4 + 2x^2y^2 + y^4}
+    \end{align*}
+    Therefore the real and imaginary parts are \[
+      \operatorname{Re}\left(\frac{1}{z^2}\right) =
+        \frac{x^2 - y^2}{x^4 + 2x^2y^2 + y^4}, \text { and }
+      \operatorname{Im}\left(\frac{1}{z^2}\right) =
+      \frac{-2xy}{x^4 + 2x^2y^2 + y^4}.
+    \]
+  \end{enumerate}
 \end{proof}
 
 % -----------------------------------------------------
@@ -30,10 +91,75 @@
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{2}
+\begin{problem}{1} (page 6) \\
+  Show that the system of all matrices of the special form \[
+    \begin{bmatrix}
+      \alpha & \beta \\
+      -\beta  & \alpha
+    \end{bmatrix}
+  \] combined by matrix addition and matrix multiplication, is isomorphic to the
+  field of complex numbers.
 \end{problem}
 
 \begin{proof}
+  Define the mapping $\phi$ by \[
+    \phi\left(
+      \begin{bmatrix}
+        \alpha & \beta \\
+        -\beta  & \alpha
+      \end{bmatrix}
+    \right) = \alpha + \beta i.
+  \] Then $\phi$ a homomorphism with respect to matrix/complex addition.
+  \begin{align*}
+    \phi\left(\begin{bmatrix}
+      \alpha_0 & \beta_0 \\
+      -\beta_0  & \alpha_0
+    \end{bmatrix} + \begin{bmatrix}
+      \alpha_1 & \beta_1 \\
+      -\beta_1  & \alpha_1
+    \end{bmatrix}\right)
+    &= \phi\left(\begin{bmatrix}
+      \alpha_0 + \alpha_1 & \beta_0 + \beta_1 \\
+      -(\beta_0 + \beta_1)  & \alpha_0 + \alpha_1
+    \end{bmatrix}\right)\\
+    &= \alpha_0 + \alpha_1 + (\beta_0 + \beta_1)i\\
+    &= \alpha_0 + \beta_0i + \alpha_1 + \beta_1i\\
+    &= \phi\left(\begin{bmatrix}
+      \alpha_0 & \beta_0 \\
+      -\beta_0  & \alpha_0
+    \end{bmatrix}\right) + \phi\left(\begin{bmatrix}
+      \alpha_1 & \beta_1 \\
+      -\beta_1  & \alpha_1
+    \end{bmatrix}\right).
+  \end{align*} And similarly $\phi$ is a homomorphism with respect to
+  matrix/complex multiplication. \begin{align*}
+    \phi\left(\begin{bmatrix}
+      \alpha_0 & \beta_0 \\
+      -\beta_0  & \alpha_0
+    \end{bmatrix} \begin{bmatrix}
+      \alpha_1 & \beta_1 \\
+      -\beta_1  & \alpha_1
+    \end{bmatrix}\right)
+    &= \phi\left(\begin{bmatrix}
+      \alpha_0\alpha_1-\beta_0\beta_1 & \alpha_0\beta_1 + \beta_0\alpha_1 \\
+      -(\alpha_0\beta_1 + \beta_0\alpha_1)  & \alpha_0\alpha_1-\beta_0\beta_1
+    \end{bmatrix}\right)\\
+    &= \alpha_0\alpha_1 - \beta_0\beta_1 + (\alpha_0\beta_1 + \beta_0\alpha_1)i\\
+    &= (\alpha_0 + \beta_0i)(\alpha_1 + \beta_1i)\\
+    &= \phi\left(\begin{bmatrix}
+      \alpha_0 & \beta_0 \\
+      -\beta_0  & \alpha_0
+    \end{bmatrix}\right)\phi\left(\begin{bmatrix}
+      \alpha_1 & \beta_1 \\
+      -\beta_1  & \alpha_1
+    \end{bmatrix}\right).
+  \end{align*}
+  Lastly, $\phi$ is clearly a bijection with \[
+    \phi^{-1}(\alpha + \beta i) = \begin{bmatrix}
+      \alpha & \beta \\
+      -\beta  & \alpha
+    \end{bmatrix}.
+  \]
 \end{proof}
 
 % -----------------------------------------------------
@@ -41,10 +167,40 @@
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{3}
+\begin{problem}{3} (page 8) \\
+  Prove that \[
+    \left|\frac{a - b}{1 - \bar{a}b}\right| = 1
+  \] if either $|a| = 1$ or $|b| = 1$.
+  What exception must be made if $|a| = |b| = 1$?
 \end{problem}
 
 \begin{proof}
+  Because of the identity \[
+    \left|\frac{a - b}{1 - \bar{a}b}\right| =
+    \frac{|a - b|}{|1 - \bar{a}b|},
+  \] it is sufficient to show that $|a - b| = |1 - \bar{a}b|$.\\
+  \begin{enumerate}[\text{Case} 1:]
+    \item Assume that $|a| = 1$. \[
+      |1 - \bar{a}b|
+      = \left|(1 - \bar{a}b)\cdot \frac{a}{a}\right|
+      = \left|\frac{a - |a|^2b}{a}\right|
+      = \left|\frac{a - b}{a}\right|
+      = \frac{|a - b|}{|a|}
+      = |a - b|.
+    \]
+    \item Assume that $|b| = 1$ (and so $|\bar{b}| = 1$.) \[
+      |1 - \bar{a}b|
+      = \left|(1 - \bar{a}b)\cdot \frac{\bar{b}}{\bar{b}}\right|
+      = \left|\frac{\bar{b} - \bar{a}|b|^2}{\bar{b}}\right|
+      = \left|\frac{\bar{a} - \bar{b}}{\bar{b}}\right|
+      = \frac{|\bar{a} - \bar{b}|}{|\bar{b}|}
+      = |\bar{a} - \bar{b}|
+      = |\overline{a-b}|
+      = |a - b|.
+    \]
+  \end{enumerate}
+
+  Notice that if $\bar{a}b = 1$ (and thus $a = b$), then the quotient is not well-defined.
 \end{proof}
 
 % -----------------------------------------------------
@@ -52,10 +208,261 @@
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{4}
+\begin{problem}{4} (page 8) \\
+  Find the conditions under which the equation $az + b\bar{z} + c = 0$ in one
+  complex unknown has exactly one solution, and compute that solution.
 \end{problem}
 
 \begin{proof}
+  Assuming that $a, b, c \in \mathbb{R}$. Denote $z$ by $\alpha + \beta i$ with
+  $\alpha, \beta \in \mathbb{R}$.\\
+  Then \begin{align*}
+    az + b\bar{z} + c
+    &= a(\alpha + \beta i) + b(\alpha - \beta i) + c \\
+    &= \alpha(a + b) + \beta i(a - b) + c \\
+    &= 0
+  \end{align*}
+  So considering the real and imaginary parts separately \begin{align*}
+  &\operatorname{Im}(\alpha(a + b) + \beta i(a - b) + c) &&= \beta(a - b)      &&= 0\\
+  &\operatorname{Re}(\alpha(a + b) + \beta i(a - b) + c) &&= \alpha(a + b) + c &&= 0.
+  \end{align*}
+  In order for the imaginary part to vanish, either $a = b$ or $\beta = 0$.
+  However if $a = b$ then $\beta$ can take on any value, so the equation has
+  infinitely many solutions. Thus $\beta = 0$, $\alpha = -c/(a + b)$, and $z = \bar{z} = -c/(a + b)$.
 \end{proof}
+
+% -----------------------------------------------------
+% Fifth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{1} (page 11) \\
+  Prove that \[
+    \left|\frac{a - b}{1 - \bar{a}b}\right| < 1
+  \] if $|a| < 1$ and $|b| < 1$.
+\end{problem}
+
+\begin{proof}
+  It is sufficient to show that \[
+    \left|\frac{a - b}{1 - \bar{a}b}\right|^2
+    = \frac{(a - b)\overline{(a - b)}}{(1 - \bar{a}b)(1 - a\bar{b})}
+    = \frac{|a|^2 + |b|^2 - a\bar{b} - \bar{a}b}{1 + |a\bar{b}|^2 - a\bar{b} - \bar{a}b}
+    = \frac{|a|^2 + |b|^2 - 2\operatorname{Re}(a\bar{b})}{1 + |a\bar{b}|^2 - 2\operatorname{Re}(a\bar{b})}
+    < 1.
+  \]
+  The denominator is nonzero because $|\bar{a}b| < 1$,
+  so $(1 - \bar{a}b)^2 \not= 0$.\\ \\
+  Since $|a| < 1$ and $|b| < 1$, it follows that $1 - |a|^2 > 0$  and $1 - |b|^2 > 0$. Thus
+  \begin{align*}
+    0 < (1 - |a|^2)(1 - |b|^2) &= 1 - |a|^2 - |b|^2 + |ab|^2, \text { so} \\
+    |a|^2 + |b|^2 &< 1 + |ab|^2.
+  \end{align*} Therefore \[
+    \left|\frac{a - b}{1 - \bar{a}b}\right|^2 < 1
+  \] and the result follows.
+\end{proof}
+
+% -----------------------------------------------------
+% Sixth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{1} (page 17) \\
+  When does $az + b\bar{z} + c = 0$ represent a line?
+\end{problem}
+
+\begin{proof}
+  As in problem 4 on page 8, let $z = \alpha + \beta i$ with
+  $\alpha, \beta \in \mathbb{R}$, and as shown previously: \begin{align*}
+    &\operatorname{Im}(\alpha(a + b) + \beta i(a - b) + c) &&= \beta(a - b)      &&= 0\\
+    &\operatorname{Re}(\alpha(a + b) + \beta i(a - b) + c) &&= \alpha(a + b) + c &&= 0.
+  \end{align*}
+
+  In order to satisfy the imaginary part either $\beta = 0$ or $a = b$ .
+  If $\beta = 0$ then $\alpha$ is determined by the equation: $\alpha = -c/(a + b)$.
+  If $a = b$ then $\alpha = -c/(2a)$ and $\beta$ can take on any value, and so
+  the equation describes a line.
+\end{proof}
+
+% -----------------------------------------------------
+% Seventh
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{1} (page 20) \\
+  Show that $z$ and $z'$ correspond to diametrically opposite points on the
+  Riemann sphere if and only if $z\bar{z}' = -1$.
+\end{problem}
+
+\begin{proof}
+  ($\Longrightarrow$) Assume that $z$ and $z'$ correspond to diametrically opposite points on the Riemann sphere.\\
+  Then \[
+    z = \frac{x_1 + ix_2}{1 - x_3},
+    z' = \frac{-x_1 - ix_2}{1 + x_3}, \text{ and } \\
+    z\bar{z}' = \frac{x_1 + ix_2}{1 - x_3} \cdot \frac{-x_1 + ix_2}{1 + x_3} =
+    \frac{x_1^2 + x_2^2}{x_3^2 - 1}.
+  \] because $(x_1, x_2, x_3)$ is on the unit sphere \[
+    x_1^2 + x_2^2 = -1(x_3^2 - 1) \Longrightarrow \frac{x_1^2 + x_2^2}{x_3^2 - 1} = -1.
+  \]
+  \\
+  ($\Longleftarrow$) Assume that $z\bar{z}' = -1$.
+  Then denote \[
+    z = \frac{x_1 + ix_2}{1 - x_3} \text{ and } \bar{z}' = \frac{\alpha_1 - i\alpha_2}{1 - \alpha_3}.
+  \] Then using the identity $z = 1/\bar{z}'$ \[
+    |z|^2
+    = \frac{1 + x_3}{1 - x_3}
+    = \frac{1}{|\bar{z}'|}
+    = \frac{1 - \alpha_3}{1 + \alpha_3}.
+  \] and solving for $x_3$ \begin{align*}
+    (1 + x_3)(1 + \alpha_3) &= (1 - x_3)(1 - \alpha_3) \\
+    1 + x_3 + \alpha_3 + x_3\alpha_3 &= 1 - x_3 - \alpha_3 + x_3\alpha_3 \\
+    2(x_3 + \alpha_3) &= 0 \\
+    x_3 &= -\alpha_3.
+  \end{align*}
+  Then \begin{align*}
+    z\bar{z}' & = -1 \\
+    (x_1 + ix_2)(\alpha_1 - i\alpha_2) &= -(1 - x_3)(1 - \alpha_3) \\
+    \operatorname{Im}((x_1 + ix_2)(\alpha_1 - i\alpha_2)) &= -\operatorname{Im}((1 - x_3)(1 - \alpha_3)) \\
+    \alpha_1x_2 - x_1\alpha_2 &= 0 \\
+    \frac{x_1}{\alpha_1} &= \frac{x_2}{\alpha_2}.
+  \end{align*}
+  So combining the above fact that $x_3 = -\alpha_3$ \begin{align*}
+    x_1^2 + x_2^2 + x_3^2 &= \alpha_1^2 + \alpha_2^2 + \alpha_3^2 = 1\\
+    x_1^2 + x_2^2 &= \alpha_1^2 + \alpha_2^2 \\
+    \frac{1}{x_1^2}(x_1^2 + x_2^2)
+      = 1 + \left(\frac{x_2}{x_1}\right)^2
+      &= 1 + \left(\frac{\alpha_2}{\alpha_1}\right)^2
+      = \frac{1}{\alpha_1^2}(\alpha_1^2 + \alpha_2^2) \\
+    \frac{1}{x_1^2} &= \frac{1}{\alpha_1^2} \\
+    x_1 &= \alpha_1 \text { or } -\alpha_1.
+  \end{align*} Similarly \begin{align*}
+  \frac{1}{x_2^2}(x_1^2 + x_2^2)
+    = \left(\frac{x_1}{x_2}\right)^2 + 1
+    &= \left(\frac{\alpha_1}{\alpha_2}\right)^2 + 1
+    = \frac{1}{\alpha_2^2}(\alpha_1^2 + \alpha_2^2) \\
+    \frac{1}{x_2^2} &= \frac{1}{\alpha_2^2} \\
+    x_2 &= \alpha_2 \text{ or } -\alpha_2.
+  \end{align*}
+  By the identity $\alpha_1 x_2 = x_1 \alpha_2$,
+  either $\alpha_1 = -x_1$ and $\alpha_2 = -x_2$,
+  or $\alpha_1 = x_1$ and $\alpha_2 = x_2$.\\
+  Since $x_3 \leq 1$, \[
+    x_1\alpha_1 + x_2\alpha_2 = x_3^2 - 1 \leq 0
+  \] and so $\alpha_1 = -x_1$, $\alpha_2 = -x_2$. Therefore $z$ and $z'$
+  correspond to antipodal points on the Riemann sphere.
+\end{proof}
+
+% -----------------------------------------------------
+% Eighth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 28) \\
+  Find the most general harmonic polynomial of the form
+  $ax^3 + bx^2y + cxy^2 + dy^3$.
+  Determine the conjugate harmonic function and the corresponding analytic
+  function by integration and by the formal method.
+\end{problem}
+
+\begin{proof}
+  I'm assuming that $z = x + yi$ with $x, y \in \mathbb{R}$,
+  so the function is real valued. Thus \[
+    f(x + yi) = ax^3 + bx^2y + cxy^2 + dy^3 = u(x + yi) + iv(x + yi)
+  \] where $u = f$ and $v = 0$. Taking the derivative: \begin{align*}
+    u_{xx} &= 6ax + 2by,\\
+    u_{yy} &= 2cx + 6dy,\\
+    v_{xx} &= 0, \\
+    v_{yy} &= 0.
+  \end{align*}
+  Because $f$ is harmonic for all $x, y$, \begin{align*}
+    6ax + 2by + 2cx + 6dy &= 0 \\
+    (6a + 2c)x + (2b + 6d)y &= 0.
+  \end{align*} Thus $c = -3a$ and $b = -3d$. So the most general form of $f$ is \[
+    f(x + yi) = u(x + yi) = ax^3 -3dx^2y -3axy^2 + dy^3.
+  \]\\
+  To determine the conjugate harmonic function via integration \begin{align*}
+    &\frac{\partial u}{\partial x} &&= 3ax^2 -6dxy - 3ay^2 &&= \frac{\partial v}{\partial y}\\
+    &\frac{\partial u}{\partial y} &&= -3dx^2 - 6axy + 3dy^2 &&= -\frac{\partial v}{\partial x}
+  \end{align*} so \begin{align*}
+    v(x + yi) &= \int 3ax^2 -6dxy - 3ay^2\ \partial y \\
+    &= 3ax^2y - 3dxy^2 - ay^3 + \psi(x)
+  \end{align*} and similarly \begin{align*}
+    v(x + yi) &= \int 3dx^2 + 6axy - 3dy^2\ \partial x \\
+    &= dx^3 + 3ax^2y - 3dxy^2 + \xi(y).
+  \end{align*} Thus $v(x + yi) = dx^3 + 3ax^2y - 3dxy^2 + ay^3$,
+  and the corresponding analytic function $g$ is \[
+    g(x + iy) = (ax^3 -3dx^2y -3axy^2 + dy^3) + (dx^3 + 3ax^2y - 3dxy^2 + ay^3)i.
+  \]\\
+
+  Using the formal method, \begin{align*}
+    g(z) &= 2u(z/2, z/2i) - u(0, 0) \\
+    &= 2\left(
+      a\frac{z^3}{8}
+      - 3d\frac{z^2}{4}\cdot\frac{z}{2i}
+      - 3a\frac{z}{2} \cdot \frac{z^2}{-4}
+      + d\frac{z^3}{-8i}
+    \right) \\
+    &= \frac{a}{4}{z^3} - \frac{3d}{4i}z^3 +\frac{3a}{4}z^3 - \frac{d}{4i}z^3 \\
+    &= z^3\left(
+      \frac{ai -3d + 3ai -d}{4i}
+    \right)
+    = z^3\left(
+      \frac{ai -d}{i}
+    \right)
+    =z^3(a + di)
+  \end{align*}
+
+\end{proof}
+
+% -----------------------------------------------------
+% Ninth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4} (page 28) \\
+  Show that an analytic function cannot have a constant absolute value without
+  reducing to a constant.
+\end{problem}
+
+\begin{proof}
+  If $|f(z)| = 0$ then $f(z) = 0$, which is analytic, so suppose that $|f(z)| = c > 0$.
+  Then \[
+    \frac{1}{f(z)} = \frac{\overline{f(z)}}{|z|^2} = \frac{\overline{f(z)}}{c^2}.
+  \] Clearly $1$ is analytic, and $f(z) \not= 0$ so $\frac{1}{f(z)}$ is analytic too.
+
+  However, since $\overline{f(z)}$ is analytic, it has derivative $0$ with
+  respect to $z$. therefore $\overline{f(z)}$ (and thus $f(z)$) is a constant.
+\end{proof}
+
+% -----------------------------------------------------
+% Tenth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5} (page 28) \\
+  Prove rigorously that the functions $f(z)$ and $\overline{f(\bar{z})}$ are simultaneously
+  analytic.
+\end{problem}
+
+\begin{proof}
+  It is sufficient to show that $f(z)$ being analytic implies $\overline{f(\bar{z})}$
+  is analytic because $\overline{\overline{f(\bar{\bar{z}})}} = f(z)$.\\
+  From section 1.2, if $f(z) = u(z) + iv(z)$ is analytic,
+  then $u(x, y)$ and $v(x, y)$ have partial derivatives
+  which satisfy the Cauchy-Riemann equations, and the converse is also true.
+  Thus it is sufficient to show that $u(x, -y)$ and $-v(x, -y)$ have partial
+  derivatives which satisfy the Cauchy-Riemann equations. \begin{align*}
+    \frac{\partial}{\partial x} u(x, -y) &= u_x \\
+    \frac{\partial}{\partial y} u(x, -y) &= -u_y \\
+    \frac{\partial}{\partial x} [-v(x, -y)] &= -v_x \\
+    \frac{\partial}{\partial y} [-v(x, -y)] &= -(-v_y) = v_y
+  \end{align*}
+  Because $f$ is analytic \begin{align*}
+    \frac{\partial}{\partial x} u(x, -y) = u_x &= v_y = \frac{\partial}{\partial y} [-v(x, -y)] \\
+    -\frac{\partial}{\partial y} u(x, -y) = u_y &= -v_x = \frac{\partial}{\partial x} [-v(x, -y)]
+  \end{align*}
+  So $f(z)$ is analytic if and only if $\overline{f(\bar{z})}$ is analytic.
+
+\end{proof}
+
 
 \end{document}
