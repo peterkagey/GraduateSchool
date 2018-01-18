@@ -1,0 +1,122 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Differential Geometry: Homework 1}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  Show that the induced topology
+  (for a subset $X \subset Y$ of a topological space $Y$)
+  and the quotient topology (for a surjection $X \twoheadrightarrow Y$ from a
+  topological space $X$ onto a set $Y$)
+  satisfy the axioms of a topological space.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2}
+  Show that the topological spaces $S^1 \subset \mathbb{R}^2$
+  (with topology induced by the inclusion into $\mathbb{R}^2$)
+  and $[0, 1]/\{0, 1\}$
+  (with the quotient topology from the topology on $[0, 1] \subset \mathbb{R}$)
+  are homeomorphic.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3}
+  Prove that $S^1$, with either topology considered above, is a topological
+  manifold.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4}
+  Show that the derivative of a function
+  $f: \mathbb{R}^n \rightarrow \mathbb{R}^m$
+  if it exists at a point $a \in \mathbb{R}^m$ is unique.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Fifth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5}
+  Produce, with proofs, examples of the following topological spaces which are
+  not topological manifolds: \begin{enumerate}[a)]
+    \item A space $X$ which is locally Euclidean and second countable,
+      but not Hausdorff.
+    \item A space $X$ which is Hausdorff and second countable, but not locally
+      Euclidean.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Sixth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{6}
+  Let $h$ be a continuous real-valued function on
+  $S^1 = \{x^2 + y^2 = 1 \subset \mathbb{R}^2\}$ satisfying
+  $h(0, 1) = h(1, 0) = 0$ and $h(-x_1, -x_2) = -h(x_1, x_2)$.
+  Define a function $f: \mathbb{R}^2 \rightarrow \mathbb{R}$ by \[
+    f(x) = \begin{cases}
+      ||x||h(x/||x||) & x \not= 0 \\
+      0 & x = 0
+    \end{cases}
+  \]
+  \begin{enumerate}[a)]
+    \item Show that $f$ is continuous at $(0, 0)$,
+      that the partial derivatives of $f$ at $(0, 0)$ are defined,
+      and that more generally all directional derivatives of $f$ are defined.
+
+    \item Show that $f$ is not differentiable at $(0, 0)$
+      except if $h$ is identically zero.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+\end{document}
