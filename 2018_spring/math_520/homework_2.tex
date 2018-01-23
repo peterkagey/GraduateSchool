@@ -1,0 +1,206 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Homework 2}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{5} (page 37) \\
+  Discuss the uniform convergence of the series \[
+    \sum_{n = 1}^{\infty} \frac{x}{n(1 + nx^2)}
+  \] for real values of $x$.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 41) \\
+  Find the radius of convergence of the following power series: \begin{enumerate}[(a)]
+    \item $\displaystyle\sum n^p z^n$
+    \item $\displaystyle\sum \frac{z^n}{n!}$
+    \item $\displaystyle\sum n!z^n$
+    \item $\displaystyle\sum q^{n^2}z^n$ where $|q| < 1$
+    \item $\displaystyle\sum z^{n!}$
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+  \begin{enumerate}[(a)]
+    \item By Hadamard's formula, let
+      \[
+        \frac{1}{R} = \limsup_{n \rightarrow \infty} |n^p|^{1/n}
+        = \limsup_{n \rightarrow \infty} |n^p|^{1/n}
+        = \limsup_{n \rightarrow \infty} n^{p/n}
+        = 1
+      \] So the radius of convergence is $R = 1$.
+
+    \item Let N be an arbitrarily large integer, then by Hadamard's formula,\[
+      \frac{1}{R} = \limsup_{n \rightarrow \infty} \left(\frac{1}{n!}\right)^{1/n}
+      < \limsup_{n \rightarrow \infty} \left(\frac{1}{N^n}\right)^{1/n}
+      = \frac{1}{N}.
+    \] Because $R > N$ for all $N$, the radius of convergence is $\infty$.
+
+    \item Let N be an arbitrarily large integer, then by Hadamard's formula,\[
+      \frac{1}{R} = \limsup_{n \rightarrow \infty} (n!)^{1/n}
+      > \limsup_{n \rightarrow \infty} (N^n)^{1/n}
+      = N.
+    \] Because $R < 1/N$ for all $N$, the radius of convergence is $0$.
+
+    \item By Hadamard's formula, let \[
+      \frac{1}{R} = \limsup_{n \rightarrow \infty} (q^{n^2})^{1/n}
+      = \limsup_{n \rightarrow \infty} q^{n} = 0 \text { for } |q| < 1.
+    \] Thus the radius of convergence is $\infty$.
+    \item Notice that $|z^{n!}| \geq |z^n|$ for $|z| \geq 1$,
+    and $|z^{n!}| \leq |z^n|$ for $|z| < 1$. \begin{align*}
+      \left|\sum z^{n!}\right| \leq \left|\sum z^n\right| < \infty \text { for } |z| < 1 \\
+      \left|\sum z^{n!}\right| \geq \left|\sum z^n\right| = \infty \text { for } |z| \geq 1
+    \end{align*}
+    Thus the radius of convergence is 0.
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{8} (page 41) \\
+  For what values of $z$ is \[
+    \sum_{n = 0}^\infty \left(
+      \frac{z}{1 + z}
+    \right)^n
+  \] convergent?
+\end{problem}
+
+\begin{proof}
+  The sum $\sum_{n = 0}^\infty w^n$ is convergent for $|w| < 1$.
+  The sum in the problem is convergent when \[
+    \left|\frac{z}{1 + z}\right| < 1 \Longrightarrow |z| < |1 + z|.
+  \]
+  Letting $z = a + bi$, and comparing the squares of the absolute values: \begin{align*}
+    a^2 + b^2 &< (1 + a)^2 + b^2 \\
+    a^2 &< 1 + 2a + a^2 \\
+    -2a &< 1 \\
+    a &> -1/2
+  \end{align*}
+  Thus the sum converges when $\operatorname{Re}(z) > -1/2$.
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 44) \\
+  Use the addition formulas to separate
+    $\cos(x + iy)$ and $\sin(x + iy)$
+    in real and imaginary parts.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Fifth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4} (page 44) \\
+  Show that \[
+    |\cos z|^2
+    = \sinh^2 y + \cos^2 x
+    = \cosh^2 y - \sin^2 x
+    = \frac{1}{2}(\cosh 2y + \cos 2x)
+  \] and \[
+    |\sin z|^2
+    = \sinh^2 y + \sin^2 x
+    = \cosh^2 y - \cos^2 x
+    = \frac{1}{2}(\cosh 2y - \cos 2x)
+  \]
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Sixth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{6} (page 47) \\
+  Determine all values of \begin{enumerate}[(a)]
+    \item $2^i$,
+    \item $i^i$,
+    \item $(-1)^{2i}$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Seventh
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{7} (page 47) \\
+  Determine the real and imaginary parts of $z^z$.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Eighth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{?} (page ?) \\
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Ninth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{?} (page ?) \\
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Tenth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{?} (page ?) \\
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+
+\end{document}
