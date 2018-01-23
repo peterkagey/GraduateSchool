@@ -2,7 +2,7 @@
 
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amsthm,amssymb}
-\usepackage{bbm, enumerate}
+\usepackage{bbm,enumerate,mathtools}
 
 \newenvironment{problem}[2][Problem]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
@@ -27,7 +27,53 @@
   satisfy the axioms of a topological space.
 \end{problem}
 
-\begin{proof}
+\begin{proof} \text{} \\
+  \textbf{Induced topology.}
+  Let $\mathcal{T}_X = \{i^{-1}(U_y) | U_y \in \mathcal{T}_Y\}$.
+  \begin{itemize}
+    \item $\emptyset, X \in \mathcal{T_X}$:
+    $i^{-1}(Y) = X$ and $i^{-1}(\emptyset) = \emptyset$.
+    ($Y, \emptyset \in \mathcal{T}_Y$.)
+    \item Closed under arbitrary union:\\
+    Let $\{U_{X,j}\}_{j \in I}$ be a collection of open sets in $\mathcal{T}_X$.
+    Then \[
+      \bigcup\limits_{j\in I} U_{X, j}
+      = \bigcup\limits_{j\in I} i^{-1}(U_{Y,j})
+      = i^{-1}(\bigcup_{j\in I} U_{Y, j})
+    \] where $\bigcup_{j\in I} U_{Y, j} \in \mathcal{T}_Y$
+    because $Y$ is a topological space.
+    \item Closed under finite intersection.\\
+    Similarly \[
+      \bigcap_{j = 1}^N U_{X, j}
+      = \bigcap_{j = 1}^N i^{-1}(U_{Y,j})
+      = i^{-1}(\bigcap_{j = 1}^N U_{Y, j})
+    \] where $\bigcap_{j = 1}^N U_{Y, j} \in \mathcal{T}_Y$
+    because $Y$ is a topological space.
+  \end{itemize}
+
+  \textbf{Quotient topology.}
+  Let $\mathcal{T}_Y = \{V \subset Y\ |\ p^{-1}(V) \in \mathcal{T}_X\}$. \\
+  \begin{itemize}
+    \item $\emptyset, Y \in \mathcal{T_Y}$:\\
+    Because $p$ is surjective, $p^{-1}(Y) = X \in \mathcal{T}_X$. Also
+    $p^{-1}(\emptyset) = \emptyset \in \mathcal{T}_X$.
+
+    \item Closed under arbitrary union:\\
+    Let $\{U_{Y,j}\}_{j \in I}$ be a collection of open sets in $\mathcal{T}_Y$.
+    Then $p^{-1}(U_{Y, j}) \in \mathcal{T}_X$ for all $j \in I$, so \[
+      \bigcup\limits_{j\in I} p^{-1}(U_{Y,j})
+      = p^{-1}(\bigcup\limits_{j\in I} U_{Y,j})
+      \in \mathcal{T}_X
+    \] because $\mathcal{T}_X$ is closed under union.
+    Therefore $\bigcup_{j\in I} U_{Y, j} \in \mathcal{T}_Y$.
+    \item Closed under finite intersection:\\
+    Similarly \[
+      \bigcap_{j = 1}^N p^{-1}(U_{Y, j})
+      = p^{-1}\left(\bigcap_{j = 1}^N U_{Y, j}\right)
+      \in \mathcal{T}_X
+    \] because $\mathcal{T}_X$ is closed under finite intersection.
+    Therefore $\bigcap_{j = 1}^N U_{Y, j} \in \mathcal{T}_Y$.
+  \end{itemize}
 \end{proof}
 
 % -----------------------------------------------------
@@ -44,6 +90,39 @@
 \end{problem}
 
 \begin{proof}
+  Let $f: [0, 1] \rightarrow S^1$ be the map $t \xmapsto{f} (\cos(2\pi t), \sin(2\pi t))$.
+  Because $\sin$ and $\cos$ are continuous functions
+  with respect to the standard topology on $\mathbb{R}^2$,
+  $f$ is continuous, so it is sufficient to show that $f$
+  has a two-sided inverse.
+
+  Let \[
+    f^{-1}(x, y) = \begin{cases}
+      0 \sim 1 & (x, y) = (0, 0) \\
+      1/2 & (x, y) = (-1, 0) \\
+      \frac{1}{2\pi}\cos^{-1}(x) & y > 0 \\
+      1 - \frac{1}{2\pi}\cos^{-1}(x) & y < 0
+    \end{cases}.
+  \] The continuity of $f^{-1}$ follows from the continuity of $\cos^{-1}$
+  and the equality of $f^{-1}$ at the ``handoff'' points.\\
+  Then \[
+    f(f^{-1}(x, y)) = \begin{cases}
+      (\sin(0), \cos(0)) = (\sin(2\pi), \cos(2\pi)) = (0, 0) & (x, y) = (0, 0) \\
+      (\cos(\pi), \sin(\pi)) = (-1, 0) & (x, y) = (-1, 0) \\
+      (\cos(\cos^-1(x)), \sin(\cos^-1(x))) = (x, \sqrt{1 - x^2}) = (x, y) & y > 0 \\
+      (\cos(-\cos^{-1}(x)), \sin(-\cos^{-1}(x))) = (x, y) & y < 0
+    \end{cases}.
+  \] Similarly \[
+    f^{-1}(f(t)) = \begin{cases}
+      f^{-1}(0, 0) = (0 \sim 1)              & t =  (0 \sim 1) \\
+      f^{-1}(-1, 0) = 1/2                    & t =  1/2 \\
+      f^{-1}(\cos(2\pi t), \sin(2\pi t)) = t & t\in (0, 1/2) \\
+      f^{-1}(\cos(2\pi t), \sin(2\pi t)) = t & t\in (1/2, 1)
+    \end{cases}.
+  \]
+
+  Thus $f$ is a homeomorphism, so
+   the two spaces are homeomorphic.
 \end{proof}
 
 % -----------------------------------------------------
@@ -56,7 +135,44 @@
   manifold.
 \end{problem}
 
-\begin{proof}
+\begin{proof} Consider the quotient topology $[0, 1]$
+  \begin{enumerate}[(i)]
+    \item (Hausdorff)\\
+    Let $a, b$ be distinct points in $[0, 1]/(0 \sim 1)$.\\
+    \textbf{Case 1:} $a, b \not= (0 \sim 1)$.
+    Then take $r = |a - b|/2$. \[
+      B_r(a) \cap B_r(b) = \emptyset.
+    \]
+    \textbf{Case 2:} Without loss of generality, assume $a = (0 \sim 1)$.
+    Let $r = \min(b, 1 - b)/2$. Then \[
+      B_r(a) \cap B_r(b) = \emptyset.
+    \]
+    \item (Second countable)\\
+    A countable basis for $[0, 1]/(0 \sim 1)$ is: \[
+      \{ B_r(x) \cap (0, 1)\ |\ r \in \mathbb{Q}, x \in \mathbb{Q}\} \cup \{ [0, r) \cup (1-r, 1]\ |\ r \in \mathbb{Q}\}.
+    \]
+
+    \item (Locally Euclidean) \\
+      Assume that $x \not= (0 \sim 1)$. Then the ball with radius
+      $r = \min(x, 1 - x)$ maps in the obvious way to
+      $B_r(x) \subset (0, 1) \subset \mathbb{R}$.
+
+      Assume that $x = (0 \sim 1)$.
+      Then the open set $[0, 1/4) \cup (3/4, 1]$
+      is homeomorphic to $(0, 1/2)$ via \[
+        f(x) = \begin{cases}
+          x - 3/4 & x \in (3/4, 1) \\
+          1/4     & x = (0 \sim 1) \\
+          x + 1/4 & x \in (0, 1/4)
+        \end{cases}.
+      \] Where $f$ is continuous and has two sided inverse \[
+        f^{-1}(p) = \begin{cases}
+          p + 3/4 & p \in (0, 1/4) \\
+          (0 \sim 1) & p = 1/4 \\
+          p - 1/4 & p \in (1/4, 1/2) \\
+        \end{cases}.
+      \]
+  \end{enumerate}
 \end{proof}
 
 % -----------------------------------------------------
@@ -71,6 +187,31 @@
 \end{problem}
 
 \begin{proof}
+  I will prove this starting only from the definition that if the derivative of
+  a function exists at a point $a \in \mathbb{R}^n$ then the derivative is a
+  linear map $L: \mathbb{R}^n \rightarrow \mathbb{R}^m$ satisfying \[
+    \lim_{\vec{h} \rightarrow 0}
+      \frac{|f(a + \vec{h}) - f(a) - L(\vec{h})|}{|\vec{h}|} = 0.
+  \]
+
+  Suppose for the sake of contradiction that there is another linear map
+  $L_2: \mathbb{R}^n \rightarrow \mathbb{R}^m$ that satisfies the above property.
+  By the triangle inequality \[
+    0 = \lim_{\vec{h} \rightarrow 0}
+      \frac{|f(a + \vec{h}) - f(a) - L(\vec{h})|}{|\vec{h}|} +
+      \frac{|-f(a + \vec{h}) + f(a) + L_2(\vec{h})|}{|\vec{h}|}
+      \geq \lim_{\vec{h} \rightarrow 0} \frac{|L_2(\vec{h}) - L(\vec{h})|}{|\vec{h}|}
+      \geq 0.
+  \] Thus \[
+    \lim_{\vec{h} \rightarrow 0} \frac{|L_2(\vec{h}) - L(\vec{h})|}{|\vec{h}|} = 0.
+  \]
+  Notice that the limit does not depend on $\vec{h}$ being small.
+  Let $\vec{h} = \varepsilon\vec{v}$. By linearity \[
+    \frac{|L_2(\vec{h}) - L(\vec{h})|}{|\vec{h}|}
+    = \frac{|\varepsilon L_2(\vec{v}) - \varepsilon L(\vec{v})|}{|\varepsilon\vec{v}|}
+    = \frac{| L_2(\vec{v}) -  L(\vec{v})|}{|\vec{v}|}.
+  \] Thus if the the ratio vanishes in the limit, it must vanish everywhere.
+  So $L_2 = L$ for all $\vec{v}$, and the derivative is unique.
 \end{proof}
 
 % -----------------------------------------------------
@@ -88,7 +229,57 @@
   \end{enumerate}
 \end{problem}
 
-\begin{proof}
+\begin{proof} \text{} \\
+  \begin{enumerate}[a)]
+    \item Let $X = \mathbb{R} \cup \{\star\}$,
+    and let the topology $\mathcal{T}$ on $X$ be defined by \[
+      \mathcal{T}
+        = \mathcal{T}_{\mathbb{R},\text{std}} \cup
+        \{ U \setminus \{0\} \cup \{ \star \}\ |
+          \ U \in \mathcal{T}_{\mathbb{R},\text{std}} \text{ and } 0\in U
+        \}.
+    \]
+    \textbf{Locally Euclidean:} Suppose that $x \not= \star$.
+    Then the open ball of radius $r > 0$ centered at $x$ in $X$ is homeomorphic to
+    $(-r, r) \in \mathcal{T}_{\mathbb{R},\text{std}}$ in the obvious way.\\
+    Suppose then that $x = \star$,
+    then the open ball of radius $1$ centered at $\star$ is homeomorphic to $(-1, 1)$ via \[
+      f(x) = \begin{cases}
+        0 & x = \star \\
+        x & \text{otherwise}
+      \end{cases} \text{ with inverse }
+      f^{-1}(x) = \begin{cases}
+        \star & x = 0 \\
+        x & \text{otherwise}
+      \end{cases}.
+    \]
+    \textbf{Second countable:} A countable basis for $\mathcal{T}$ is \[
+      \{B_r(x)\ |\ r \in \mathbb{Q}, x \in \mathbb{Q} \cup \{\star\}\}.
+    \]
+    \textbf{Not Hausdorff:} For every open set which contains $0$ or $\star$
+    contains points near $0$, so $0$ and $\star$
+    do not have distinct neighborhoods. \\
+    Let $U \in \mathcal{T}$ be a set that contains $0$.
+    Then there exists some $\varepsilon_0 > 0$
+    such that $B_{\varepsilon_0}(0) \in U$.
+    At the same time, let $V \in \mathcal{T}$ be a set that contains $\star$.
+    By construction, there exists some $\varepsilon_1 > 0$
+    such that $B_{\varepsilon_1}(0) \setminus \{ 0\} \in V$.
+
+    Thus for all such open sets $U$ and $V$, the point
+    $(\varepsilon_0 + \varepsilon_1)/2 \in U \cap V$.
+    So $0$ and $\star$ have no disjoint neighborhoods.
+
+    \item
+      Let $X = [0, 1]$
+      with the induced topology from $\mathbb{R}$ (with the standard topology).\\
+      \textbf{Hausdorff:} This is inherited from the standard topology on $\mathbb{R}$.\\
+      \textbf{Second countable:} This is also inherited from the standard topology on $\mathbb{R}$.\\
+      \textbf{Not locally Euclidean:}
+        X is compact, which is not true of any open subset of $\mathbb{R}$.
+        Thus $X$ cannot be homeomorphic to any open subset of $\mathbb{R}$,
+        because this property is preserved under continuous maps.
+  \end{enumerate}
 \end{proof}
 
 % -----------------------------------------------------
@@ -116,7 +307,39 @@
   \end{enumerate}
 \end{problem}
 
-\begin{proof}
+\begin{proof} \text{\\}
+  \begin{enumerate}[a)]
+    \item $S^1$ is a compact subspace of $R^2$, so the continuity of $h$ implies
+    that the image of $S^1$ under $h$ is bounded by some $N$.
+    Let $\varepsilon > 0$. Then for all $x$ with $||x|| < \varepsilon/N$, \[
+      ||f(x)|| < ||x||N < \varepsilon.
+    \] So $f$ is continuous at $0$. \\ \\
+    The existence of partial derivatives follows from the existence of
+    directional derivatives, so it is sufficient to show that all directional
+    derivatives are defined. \[
+      df(0)(\vec{a})
+        = \lim_{k \rightarrow 0} \frac{f(0 + k\vec{a}) + f(0)}{k}
+        = \lim_{k \rightarrow 0} \frac{f(k\vec{a})}{k}
+        = \lim_{k \rightarrow 0} \frac{
+          ||k\vec{a}|| h\left(
+            \frac{k\vec{a}}{||k\vec{a}||}
+          \right)
+        }{k}
+        = ||\vec{a}|| h\left(\frac{\vec{a}}{||\vec{a}||}\right).
+    \]
+    \item
+    If $f$ is differentiable at a point, all derivatives agree with the linear map.
+    Because $df(0)(\vec{e}_1) = df(0)(\vec{e}_2) = 0$, this means that the
+    directional derivative in the direction
+    $\vec{a} = a_1 \vec{e}_1 + a_2 \vec{e}_2$ must vanish:
+    \[
+      df(0)(\vec{a}) = a_1 df(0)(\vec{e}_1) + a_2 df(0)(\vec{e}_2) = 0a_1 + 0a_2 = 0.
+    \]
+    This implies that if $f$ is differentiable at $(0, 0)$, then for all $\vec{a}$, \[
+      df(0)(\vec{a}) = ||\vec{a}|| h\left(\frac{\vec{a}}{||\vec{a}||}\right) = 0.
+    \]
+    Thus $h$ (and consequently $f$) must be identically $0$.
+  \end{enumerate}
 \end{proof}
 
 \end{document}
