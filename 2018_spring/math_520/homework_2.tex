@@ -159,6 +159,21 @@
 \end{problem}
 
 \begin{proof}
+  Starting with the proof of $\cos$. From the above problem \[
+    \cos(z) = \cos(x)\cosh(y) + i\sin(x)\sinh(y)
+  \] so the square of the absolute value of $\cos(z)$ is \begin{align*}
+    |\cos z|^2 &= (\cos(x)\cosh(y))^2 + (\sin(x)\sinh(y))^2 \\
+    &= (\cos(x)\cosh(y))^2 + (\sin(x)\sinh(y))^2 + (\cos(x)\sinh(y))^2 - (\cos(x)\sinh(y))^2\\
+    &= \sinh^2(y)(\sin^2(x) + \cos^2(x)) + \cos^2(x)(\cosh^2(y)-\sinh^2(y)) \\
+    &= \sinh^2(y) + \cos^2(x)
+  \end{align*}
+
+  \begin{align*}
+    |\cos z|^2 &= (\cos(x)\cosh(y))^2 + (\sin(x)\sinh(y))^2 \\
+    &= (\cos(x)\cosh(y))^2 + (\sin(x)\sinh(y))^2 + (\sin(x)\cosh(y))^2 - (\sin(x)\cosh(y))^2\\
+    &= \cosh^2(y)(\sin^2(x) + \cos^2(x)) + \sin^2(x)(\sinh^2(y)-\cosh^2(y)) \\
+    &= \cosh^2(y) - \sin^2(x)
+  \end{align*}
 \end{proof}
 
 % -----------------------------------------------------
