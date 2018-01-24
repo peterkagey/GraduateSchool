@@ -165,17 +165,39 @@
     |\cos z|^2 &= (\cos(x)\cosh(y))^2 + (\sin(x)\sinh(y))^2 \\
     &= (\cos(x)\cosh(y))^2 + (\sin(x)\sinh(y))^2 + (\cos(x)\sinh(y))^2 - (\cos(x)\sinh(y))^2\\
     &= \sinh^2(y)(\sin^2(x) + \cos^2(x)) + \cos^2(x)(\cosh^2(y)-\sinh^2(y)) \\
-    &= \sinh^2(y) + \cos^2(x)
-  \end{align*}
-
-  \begin{align*}
+    &= \sinh^2(y) + \cos^2(x)\\
+    \\
     |\cos z|^2 &= (\cos(x)\cosh(y))^2 + (\sin(x)\sinh(y))^2 \\
     &= (\cos(x)\cosh(y))^2 + (\sin(x)\sinh(y))^2 + (\sin(x)\cosh(y))^2 - (\sin(x)\cosh(y))^2\\
     &= \cosh^2(y)(\sin^2(x) + \cos^2(x)) + \sin^2(x)(\sinh^2(y)-\cosh^2(y)) \\
     &= \cosh^2(y) - \sin^2(x)
   \end{align*}
-\end{proof}
+  Thus adding the two different values together yields \begin{align*}
+    2|\cos z|^2 &= \sinh^2(y) + \cos^2(x) + \cosh^2(y) - \sin^2(x) \\
+    &= (\sinh^2(y) + \cosh^2(y)) + (\cos^2(x) - \sin^2(x))\\
+    &= \cosh(2y) + \cos(2x)
+  \end{align*}
 
+  Similarly for $\sin$, from the above problem \[
+    \sin(z) = \sin(x)\cosh(y) + i\cos(x)\sinh(y)
+  \] so the square of the absolute value of $\cos(z)$ is \begin{align*}
+    |\sin z|^2 &= (\sin(x)\cosh(y))^2 + (\cos(x)\sinh(y))^2 \\
+    &= (\sin(x)\cosh(y))^2 + (\cos(x)\sinh(y))^2 + (\sin(x)\sinh(y))^2 - (\sin(x)\sinh(y))^2\\
+    &= \sinh^2(y)(\sin^2(x) + \cos^2(x)) + \sin^2(x)(\cosh^2(y)-\sinh^2(y)) \\
+    &= \sinh^2(y) + \sin^2(x) \\
+    \\
+    |\sin z|^2 &= (\sin(x)\cosh(y))^2 + (\cos(x)\sinh(y))^2 \\
+    &= (\sin(x)\cosh(y))^2 + (\cos(x)\sinh(y))^2 + (\cos(x)\cosh(y))^2 - (\cos(x)\cosh(y))^2\\
+    &= \cosh^2(y)(\sin^2(x) + \cos^2(x)) + \cos^2(x)(\sinh^2(y)-\cosh^2(y)) \\
+    &= \cosh^2(y) - \cos^2(x)
+  \end{align*}
+
+  Thus adding the two different values together yields \begin{align*}
+    2|\sin z|^2 &= \sinh^2(y) + \sin^2(x) + \cosh^2(y) - \cos^2(x) \\
+    &= (\sinh^2(y) + \cosh^2(y)) - (\cos^2(x) - \sin^2(x)) \\
+    &= \cosh(2y) - \cos(2x)
+  \end{align*}
+\end{proof}
 % -----------------------------------------------------
 % Sixth
 % -----------------------------------------------------
