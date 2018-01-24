@@ -117,6 +117,26 @@
 \end{problem}
 
 \begin{proof}
+  First note the identites of $\sin$ and $\cos$ with purely imaginary inputs: \[
+    \cos(iy) = 1 - \frac{i^2y^2}{2!} + \frac{i^4y^4}{4!} - \cdots
+      = 1 + \frac{y^2}{2!} + \frac{y^4}{4!} + \cdots
+      = \cosh(y)
+  \]\[
+    \sin(iy) = iy - \frac{i^3y^2}{3!} + \frac{i^5y^5}{5!} - \cdots
+      = i(y + \frac{y^3}{3!} + \frac{y^5}{5!} + \cdots)
+      = i\sinh(y)
+  \]
+
+  Then using the addition formulas
+  \begin{align*}
+    \cos(a + b) &= \cos(a)\cos(b) - \sin(a)\sin(b) \text{ and }\\
+    \sin(a + b) &= \cos(a)\sin(b) + \sin(a)\cos(b),
+  \end{align*}
+  it is clear that \begin{align*}
+    \cos(x + iy) &= \cos(x)\cosh(y) + i\sin(x)\sinh(y) \text { and} \\
+    \sin(x + iy) &= \sin(x)\cosh(y) + i\cos(x)\sinh(y).
+\end{align*}
+
 \end{proof}
 
 % -----------------------------------------------------
