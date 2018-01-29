@@ -1,0 +1,325 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Differential Geometry: Homework 2}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  Let $V$ be a vector space of a field $k$ and let $W \subset V$ be a subspace. \\
+  % (meaning a subset satisfying for any $a, b \in W$, $c\cdot a + d\cdot b \in W$
+  % for any scalars $c,d \in k$. Such a subset is automatically a vector space
+  % over $k$; with all operations coming from those in $V$).
+  (a) Show that $V/W$ is a vector space, with operations induced by those of $V$ in
+    the following sense: for $\alpha$ and $\beta$ in $V/W$,
+    choose elements $a$ and $b$ with $[a] = \alpha, [b] = \beta$, and define
+    $\alpha + \beta = [a + b]$ and $c \cdot \alpha = [c \cdot a]$
+\end{problem}
+
+\begin{proof} \text{} \\
+  \textbf{Addition is well-defined.}\\
+    Let $\alpha = [a_1] = [a_2]$, and let $\beta = [b_1] = [b_2]$.
+    Then by definition of the equivalence class
+    $\sim$, $a_1 - a_2 \in W$ and $b_1 - b_2 \in W$. In order to show that
+    that $\alpha + \beta = [a_1 + b_1] = [a_2 + b_2]$ is well-defined, it is
+    sufficient to show that $a_1 + b_1 \sim a_2 + b_2$. By closure of $W$ under
+    addition,
+    \[
+      (a_1 + b_1) - (a_2 + b_2) = (a_1 - a_2) - (b_1 - b_2) \in W
+    \]
+%
+  \textbf{Multiplication is well-defined.}\\
+    Let $\alpha = [a_1] = [a_2]$ and $c \in k$.
+    Then by definition of the equivalence class
+    $\sim$, $a_1 - a_2 \in W$. In order to show that
+    that $c \cdot \alpha = [c\cdot a_1] = [c\cdot a_2]$ is well-defined, it is
+    sufficient to show that $c\cdot a_1 \sim c\cdot a_2$. By
+    distributivity laws and closure of $W$ under scalar multiplication,
+    \[
+      c\cdot a_1 - c\cdot a_2 = c(a_1 - a_2) \in W
+    \]
+%
+  \textbf{$V/W$ is an abelian group under +.}
+  \textit{Associativity.}\\
+  This is more-or-less inherited from the associativity of addition in $V$. \[
+    (\alpha + \beta) + \gamma
+      = [(a + b) + c]
+      = [a + (b + c)]
+      = \alpha + (\beta + \gamma).
+  \]
+  \textit{Commutivity.}\\
+  This is more-or-less inherited from the commutivity of addition in $V$. \[
+    (\alpha + \beta)
+      = [a + b]
+      = [b + a]
+      = \beta + \alpha.
+  \]
+  \textit{Identity element.}\\
+  Let $0 = [\vec{0}]$ where $\vec{0} \in W$. \begin{align*}
+    \alpha + 0 = [a + \vec{0}] = [a] = \alpha\\
+    0 + \alpha = [\vec{0} + a] = [a] = \alpha
+  \end{align*}
+  \textit{Inverse element.}\\
+  Let $\alpha = [a]$, then $-\alpha = [-a]$. \begin{align*}
+    \alpha + -\alpha = [a + -a] = [\vec{0}] = e\\
+    -\alpha + \alpha = [-a + a] = [\vec{0}] = e
+  \end{align*}
+%
+  \textbf{Multiplication is well-behaved.}\\
+  \begin{enumerate}[(i)]
+    \item $1 \cdot \alpha = [1 \cdot a] = [a] = \alpha.$
+    \item $
+      c_1 \cdot (c_2 \cdot \alpha)
+      = c_1 \cdot [c_2\cdot a]
+      = [c_1 \cdot (c_2\cdot a)]
+      = [(c_1 c_2) \cdot a]
+      = (c_1 c_2) \cdot \alpha.
+    $
+    \item $
+      c_1 \cdot (\alpha + \beta)
+      = c_1 \cdot [a + b]
+      = [c_1 \cdot (a + b)]
+      = [c_1 \cdot a + c_1 \cdot b]
+      = [c_1 \cdot a] + [c_1 \cdot b]
+      = c_1\cdot \alpha + c_1\cdot \beta.
+    $
+    \item $
+      (c_1 + c_2) \cdot \alpha
+      = [(c_1 + c_2) \cdot a]
+      = [c_1 \cdot a + c_2 \cdot a]
+      = [c_1 \cdot a] + [c_2 \cdot a]
+      = c_1\cdot \alpha + c_2\cdot \alpha
+    $
+  \end{enumerate}
+\end{proof}
+
+\begin{problem}{1} (b) \\
+  The quotient comes equipped with a natural linear map \begin{align*}
+    \pi: V &\longrightarrow V/W \\
+    v      &\longrightarrow [v] = v + W,
+  \end{align*}
+  called the \textit{projection}, which has $\ker \pi = W$ (check that $\pi$ is
+  linear and has kernel as desired.) Suppose $V$ is finite-dimensional,
+  and let $U$ be a subspace complementary to $W$, that is a subspace such that
+  $V = W \oplus U$.
+  Show that the restriction of projection to $U$ \[
+    \pi_U: U \longrightarrow V/W
+  \] is an isomorphism.
+\end{problem}
+
+\begin{proof} \text{} \\
+  To see that $\pi$ is linear, check its additivity and homogeneity.
+  The additivity of $\pi$ follows from \[
+    \pi(v + w) = [v + w] = [v] + [w] = \pi(v) + \pi(w),
+  \]
+  and the homogeneity of $\pi$ follows from \[
+    \pi(c\cdot v) = [c \cdot v] = c \cdot [v] = c\cdot\pi(v).
+  \]\\
+  \\
+  To check that $\ker \pi = W$, see that \[
+    \ker \pi
+    = \{ v\ |\ \pi(v) = 0 \}
+    = \{ v\ |\ v + W = 0 + W \}
+    = \{ v\ |\ v \in W \}
+    = W
+  \] because $W$ is closed under addition.\\ \\
+\end{proof}
+
+\begin{problem}{1} (c) \\
+  Let $U$ denote the subspace of $C^\infty(\mathbb{R})$ consisting of functions
+  which vanish at 3 and 5 \[
+    U = \{ f \in C^\infty(\mathbb{R})\ |\ f(3) = f(5) = 0 \}.
+  \] Prove that the quotient vector space $C^\infty(\mathbb{R})/U$ is
+  finite-dimensional. What is its dimension?
+\end{problem}
+\begin{proof} \text{} \\
+  Let $\ell_5(x) = (5-x)/2$ and $\ell_3(x) = (x-3)/2$, so that
+  $\ell_5(5) = 0 = \ell_3(3)$ and $\ell_5(3) = 1 = \ell_3(5)$. Because
+  $\ell_5$ and $\ell_3$ are lines, they are smooth.\\ \\
+%
+  Then for any function $f \in C^\infty(\mathbb{R})$ \begin{align*}
+    f(x) - (f(3)\ell_5(x) + f(5)\ell_3(x)) &\in U \text{ because}\\
+    f(5) - (f(3)\ell_5(5) + f(5)\ell_3(5)) &= f(5) - (0 + f(5)) = 0 \text{ and}\\
+    f(3) - (f(3)\ell_5(3) + f(5)\ell_3(3)) &= f(3) - (f(3) + 0) = 0.
+  \end{align*}
+  Since any smooth function $f$ is in a coset with a sum of two smooth functions,
+  $[f(x)] = f(3)\cdot[\ell_5(x)] + f(5)\cdot[\ell_3(x)]$,
+  $C^\infty(\mathbb{R})/U$ has dimension at most two.\\
+  Since $\ell_5 \not\in U$, and $\ell_3 + U \not\in \text{span} \{ 0 + U, \ell_5 + U \}$,
+  $C^\infty(\mathbb{R})/U$ has dimension exactly two.
+\end{proof}
+
+\begin{problem}{1} (d) \\
+  Let $V$ be a vector space and $W \subset V$ be a vector subspace.
+  We denote the inclusion map by $i:W \rightarrow V$.
+  Denote $V^* = \operatorname{Hom}_k(V, k)$.
+  There is a natural induced map $i^*:V^*\rightarrow W^*$ dual to the inclusion
+  sending a linear map $\phi \mapsto \phi|_W$.
+  The kernel of $i^*$ is called the \textit{annihilator} of $W$ and denoted \[
+    \operatorname{Ann}(W) = \{ \phi \in V^*\ |\ \phi|_W = 0 \in W^* \}.
+  \]
+  It is the set of linear maps from $V$ to $k$ that return $0$ on any element
+  in $W$.
+
+  Prove that there is a canonical isomorphism \[
+    \operatorname{Ann}(W) \cong (V/W)^*.
+  \]
+\end{problem}
+\begin{proof} \text{} \\
+  The ``obvious'' maps to consider are \begin{alignat*}{4}
+    \psi&:\operatorname{Ann}(W) &&\rightarrow (V/W)^* &&\text{ via }
+      g \mapsto ([\vec{v}] &&\mapsto g(\vec{v}))\\
+    \psi^{-1}&: (V/W)^* &&\rightarrow\operatorname{Ann}(W) &&\text{ via }
+      f \mapsto (\vec{v} &&\mapsto f([\vec{v}]))
+  \end{alignat*}
+  It is sufficient to show that these maps
+    (i) are well-defined,
+    (ii) satisfy $\psi \circ \psi^{-1} = \mathrm{id}_{(V/W)^*}$, and
+    (iii) satisfy $\psi^{-1} \circ \psi = \mathrm{id}_{\operatorname{Ann}(W)}$.
+  \\
+  \\\textbf{Proof of (i).}
+  For the well-definedness of $\psi$, it is sufficient to show that if
+  $[\vec{v}] = [\vec{u}]$ then $g(\vec{v}) = g(\vec{u})$.
+  Since $\vec{v} - \vec{u} \in W$,
+  $g(\vec{v} - \vec{u}) = 0 = g(\vec{v}) - g(\vec{u})$, so
+  $g(\vec{v}) = g(\vec{u})$\\ \\
+  For the well-definedness of $\psi^-1$, it is sufficient to show that
+  for all $\varphi \in \operatorname{Ann}(W)$ if
+  $[\vec{v}_1] = [\vec{v}_2]$ and the map $\varphi(\vec{v}_1) = f([\vec{v}_1])$
+  then $\varphi(\vec{v}_2) = f([\vec{v}_1])$.
+  \begin{align*}
+    \varphi(\vec{v}_1 - \vec{v}_2) &= 0 \\
+    &= \varphi(\vec{v}_1) - \varphi(\vec{v}_2)
+  \end{align*} So $\varphi(\vec{v}_1) = \varphi(\vec{v}_2) = f([\vec{v}_1])$.\\
+  \\\textbf{Proof of (ii).}
+  Let $f: V/W \rightarrow k$ be a linear function.
+    \[
+      \psi(\psi^{-1}(f))
+      = \psi(\vec{v} \mapsto f([\vec{v}]))
+      = [\vec{v}] \mapsto f([\vec{v}])
+      = f
+    \] Therefore $\psi \circ \psi^{-1} = \mathrm{id}_{(V/W)^*}$ \\
+  \\\textbf{Proof of (iii).}
+  Let $g: \operatorname{Ann}(W)$ be a linear function. \[
+    \psi^{-1}(\psi(g))
+    = \psi^{-1}([\vec{v}] \mapsto g(\vec{v}))
+    = \vec{v} \mapsto g(\vec{v})
+    = g
+  \] Therefore $\psi^{-1} \circ \psi = \mathrm{id}_{\operatorname{Ann}(W)}$. \\
+\end{proof}
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2}
+  Let \[
+    S^n = \{
+      (x_1, \hdots, x_{n + 1})\ |\
+      x_1^2 + \hdots + x_{n + 1}^2 = 1
+    \} \subset \mathbb{R}^{n + 1}.
+  \] Prove that $S^n$ has the structure of a smooth manifold,
+  using charts associated to the cover $U_N = \{ x_1 \not= 1 \}$, $U_S = \{ x_1 \not= 1 \}$.
+\end{problem}
+
+\begin{proof}
+  Let $f_p$ be a parameterization of a line that begins at $(1, 0, \hdots, 0)$ and
+  equals $p$ at time 1: \[
+    f_p(t) = (1 - t)(1, 0, \hdots, 0) + t(x_1, \hdots, x_{n + 1}).
+  \]
+  This line intersects the subspace
+  $T = \{ (x_1, \hdots, x_{n + 1}) \in \mathbb{R}^{n + 1}\ |\ x_1 = 0\} \cong \mathbb{R}^n$
+  when \begin{align*}
+    0 &= (1 - t) + tx_1 \\
+    t &= 1/(1 - x_1).
+  \end{align*}
+  Thus we can define $\phi_N: U_N \rightarrow T$ by \begin{align*}
+    p &\mapsto f_p\left(\frac{1}{1-\pi_1(p)}\right) \\
+    (x_1, \hdots, x_{n + 1}) &\mapsto \frac{1}{1-x_1}(0, x_2, \hdots, x_{n + 1}).
+  \end{align*}
+  Similarly $\phi_S: U_S \rightarrow T$ is defined by \[
+    (x_1, \hdots, x_{n + 1}) \mapsto \frac{1}{1+x_1}(0, x_2, \hdots, x_{n + 1}).
+  \]
+
+  The functions $\phi_N$ and $\phi_S$ are smooth because the first coordinate is the
+  constant map $0$, and the other coordinates are being multiplied by a constant scalar.
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3}
+  Prove that the product of two smooth manifolds \begin{align*}
+    (M^m,\ \mathcal{A}_M &= \{(U_\alpha,\ \phi_\alpha: U_\alpha \rightarrow \mathbb{R}^m)\}_{\alpha \in I}), \text{ and}\\
+    (N^n,\ \mathcal{A}_N &= \{(U_\beta,\ \psi_\beta: U_\beta \rightarrow \mathbb{R}^n)\}_{\beta \in J})
+  \end{align*}
+  naturally has the structure of a smooth manifold, with atlas given by \[
+    \mathcal{A}_{M\times N} = \{
+      (U_\alpha \times V_\beta,\
+      (\phi_\alpha, \psi_\beta):
+        U_\alpha \times V_\beta \rightarrow
+        \mathbb{R}^m \times \mathbb{R}^n = \mathbb{R}^{m + n})
+    \}_{(\alpha, \beta) \in I \times J}.
+  \]
+
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4}
+  Prove that the antipodal map $S^n \rightarrow S^n$, $x \mapsto -x$ is a
+  diffeomorphism of manifolds.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Fifth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5}
+  Finish the proof from class that $\mathbb{R}P^n$ is a smooth manifold.
+\end{problem}
+
+\begin{proof} \text{} \\
+\end{proof}
+
+% -----------------------------------------------------
+% Sixth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{6}
+  Finish the proof from class that $\mathbb{T}^2 = \mathbb{R}^2/\mathbb{Z}^2$
+  is a smooth 2-manifold.
+\end{problem}
+
+\begin{proof} \text{\\}
+\end{proof}
+
+\end{document}
