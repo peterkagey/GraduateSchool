@@ -258,6 +258,25 @@
 
   The functions $\phi_N$ and $\phi_S$ are smooth because the first coordinate is the
   constant map $0$, and the other coordinates are being multiplied by a constant scalar.
+
+  The inverse $\phi_N^{-1}$ is constructed in a similar way. The line $f_p$
+  intersects $S^n$ when \begin{align*}
+    1 &= (1 - t)^2 + t^2x_1^2 + \hdots + t^2x_{n + 1}^2 \\
+    2t &= t^2(1 + x_1^2 + \hdots + x_{n + 1}^2) \\
+    t &= \frac{2}{1 + ||p||^2}
+  \end{align*}
+  Thus $\phi_N^{-1}: T \rightarrow U_N$ is defined by \[
+    p = (x_1, \hdots, x_{n + 1}) \mapsto \frac{1}{1 + ||p||^2}(||p||^2 - 1, 2x_2, 2x_3, \hdots, 2x_{n + 1}),
+  \]
+  and $\phi_S^{-1}: T \rightarrow U_S$ is defined by \[
+    p = (x_1, \hdots, x_{n + 1}) \mapsto \frac{1}{1 + ||p||^2}(1 - ||p||^2, 2x_2, 2x_3, \hdots, 2x_{n + 1}).
+  \]
+  The square of the Euclidean norm, $||\cdot||^2$, is smooth, so
+  $(1 - ||p||^2)/(1 + ||p||^2)$, and $2x_i/(1 + ||p||^2)$ is smooth. Therefore
+  $\phi_N^{-1}$ and $\phi_S^{-1}$ are smooth.
+
+  Therefore $\phi_S\circ\phi_N^{-1}$ and $\phi_N\circ\phi_S^{-1}$ are both
+  smooth on $U_N \cap U_S$, and $S^n$ is a smooth manifold.
 \end{proof}
 
 % -----------------------------------------------------
