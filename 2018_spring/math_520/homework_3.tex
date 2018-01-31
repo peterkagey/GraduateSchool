@@ -81,6 +81,26 @@
 \end{problem}
 
 \begin{proof}
+  Let \begin{alignat*}{2}
+    &w &&= \sqrt{1 + z} + \sqrt{1 - z} \\
+    &w^2 &&= 2 + 2\sqrt{1-z^2} \\
+    &\frac{w^2}{2} - 1 &&= \sqrt{1 - z^2} \\
+    &\left(\frac{w^2}{2} - 1\right)^2 &&= 1 - z^2 \\
+    &\frac{w^4}{4} - w^2 &&= - z^2 \\
+    &w\sqrt{1 - \frac{w^2}{4}} &&= z \\
+  \end{alignat*}
+  Take $\Omega = \mathbb{C} \setminus [-1, 1]$ where $[-1, 1] \subset \mathbb{R}$.
+  And let the branch be values in the first quadrant with a strictly positive real part.
+  Then the derivative \[
+    \frac{dw}{dz} = \frac{1}{\left(\frac{dz}{dw}\right)}
+    = \frac{\sqrt{-w^2(w^2 - 4)}}{w(w^2 - 2)}
+    = \frac{
+      \sqrt{(-2 - 2\sqrt{1-z^2})(-2 + 2\sqrt{1-z^2})}
+      }{
+      (\sqrt{1 + z} + \sqrt{1 - z})(2\sqrt{1-z^2})
+    }
+    = \frac{2z}{(\sqrt{1 + z} + \sqrt{1 - z})(2\sqrt{1-z^2})}
+    \] exists for all $z \not \in \{0, \pm1\}$, in particular all $z \in \Omega$.\\
 \end{proof}
 
 
@@ -97,6 +117,14 @@
 \end{problem}
 
 \begin{proof}
+  Suppose for the sake of contradiction that $\operatorname{Re}(f) = 0$ at some
+  point $z_0$. Then $f(z_0) = 0 + iv(z_0)$ where $v$ is real valued, and so
+  $f(z_0)^2 = -v(z_0)^2$. But then $|f(z)^2 - 1| = |-v(z_0)^2 - 1| = |v(z_0)^2 + 1| \geq 1$
+  because $v(z_0) \in \mathbb{R}$, which is a contradiction.\\
+  \\
+  Because $f$ is analytic on $\Omega$, it is continuous. Therefore if
+  $\operatorname{Re} f(z_0) > 0$, then $\operatorname{Re}(f) > 0$ on $\Omega$, and if
+  $\operatorname{Re} f(z_0) < 0$, then $\operatorname{Re}(f) < 0$ on $\Omega$.
 \end{proof}
 
 % -----------------------------------------------------
