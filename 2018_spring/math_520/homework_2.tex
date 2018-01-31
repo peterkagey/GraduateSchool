@@ -26,6 +26,16 @@
 \end{problem}
 
 \begin{proof}
+  When $x = 0$, each term in the sum is $0$, so the series converges to $0$.
+  Let $|x| = \varepsilon > 0$
+  in the denominator yields the inequality \begin{align*}
+    \left|\sum_{n = N}^\infty \frac{x}{n(1 + nx^2)}\right| &=
+    \varepsilon\sum_{n = N}^\infty \frac{1}{n(1 + n\varepsilon^2)} \\
+    &= \sum_{n = N}^{1/\varepsilon^2} \frac{1}{n(1 + n\varepsilon^2)} + \sum_{n = 1 + 1/\varepsilon^2}^{\infty} \frac{1}{n(1 + n\varepsilon^2)} \\
+    &\geq \sum_{n = N}^{1/\varepsilon^2} \frac{1}{n(1 + n\varepsilon^2)} + \frac{1}{2\varepsilon^2}\sum_{n = 1 + 1/\varepsilon^2}^{\infty} \frac{1}{n^2}
+  \end{align*} which can be made arbitrarily large by choosing small enough $\varepsilon$\\
+%
+  Thus the sum is not uniformly convergent on $\mathbb{R}$ (particularly near 0).
 \end{proof}
 
 % -----------------------------------------------------
