@@ -300,7 +300,23 @@
 
 \end{problem}
 
-\begin{proof}
+\begin{proof} \text{} \\
+  It is clear enough (I think!) that if $(M, \mathcal{A}_M)$ and
+  $(N, \mathcal{A}_N)$ are \textit{topological} manifolds then $M \times N$ is too.
+  Thus it is sufficient to show that for every
+  $(U \times V)_i, (U \times V)_j \in M \times N$ (with $i, j \in I \times J$),
+  that the transition map
+  \[
+    \omega_j \circ \omega_i^{-1}:\omega_i((U \times V)_i \cap (U \times V)_j) \rightarrow \omega_j((U \times V)_i \cap (U \times V)_j)
+  \] is smooth.\\
+  \\
+  Inheriting from the original manifolds, \begin{align*}
+    \phi_j \circ \phi_i^{-1}&:\phi_i(U_i \cap U_j) \rightarrow \phi_j(U_i \cap U_j) \text{ and}\\
+    \psi_j \circ \psi_i^{-1}&:\psi_i(V_i \cap V_j) \rightarrow \psi_j(V_i \cap V_j)
+  \end{align*} are smooth. So the product $(\phi_j \circ \phi_i^{-1}) \times (\psi_j \circ \psi_i^{-1}) = \omega_j \circ \omega_i^{-1}$
+  is therefore smooth.\\
+  \\
+  Thus the product of two smooth manifolds is itself a smooth manifold.
 \end{proof}
 
 % -----------------------------------------------------
@@ -313,7 +329,20 @@
   diffeomorphism of manifolds.
 \end{problem}
 
-\begin{proof}
+\begin{proof} \text{}\\
+  It is enough to check that
+    (i) $f(x) = -x$ is a smooth map, and
+    (ii) it admits a smooth two-sided inverse.\\
+  \\
+  \textbf{Proof of (i).} \\
+  Clearly $f$ is a map, due to the symmetry of $S^n$, if $p \in S^n$ then $-p \in S^n$.\\
+  The constant function $-1$ and the identity function $id_{S^n}$ are smooth.
+  Since the product of smooth functions is smooth, $f = -1 \cdot id_{S^n}$
+  is smooth.
+  \\
+  \textbf{Proof of (ii).} \\
+  Existence of the inverse is easy: $f(f(x)) = -(-x) = x$ so $f^{-1} = f$ which
+  has been shown by (i) to be smooth.
 \end{proof}
 
 % -----------------------------------------------------
@@ -326,7 +355,51 @@
 \end{problem}
 
 \begin{proof} \text{} \\
-\end{proof}
+  We left off with the atlas $\mathcal{A} = \{U_k, \phi_k\}$
+  where $U_k = \{x_k \not= 0\}/\sim$ and \[
+    \phi_k\left(\left[
+      \frac{x_0}{x_k}, \hdots,
+      \frac{x_{k - 1}}{x_k}, 1, \frac{x_{k + 1}}{x_k}, \hdots,
+      \frac{x_n}{x_k}
+    \right]\right) = \left(
+      \frac{x_0}{x_k}, \hdots,
+      \frac{x_{k - 1}}{x_k}, \frac{x_{k + 1}}{x_k}, \hdots,
+      \frac{x_n}{x_k}
+    \right).
+  \]
+  It is now sufficient to show that (i) $U_k$ is an open subset of $\mathbb{R}P^n$,
+  and (ii) $\phi_j \circ \phi_k^{-1}$ is smooth.\\
+  \\
+  \textbf{Proof of (i).}\\
+  Let $q : \mathbb{R}^{n + 1} \rightarrow \mathbb{R}^{n + 1}/\sim$ be the
+  projection map from $\mathbb{R}^{n + 1}$ to $\mathbb{R}P^n$. Then \[
+    q^{-1}(U_k) = \{p \in \mathbb{R}^{n + 1}\ |\ \pi_k(p) \not= 0\}
+  \] which is an open set in $\mathbb{R}^{n + 1}$, as can be seen by placing an
+  open ball of radius $\pi_k(p)$ around any point.\\
+  \\
+  \textbf{Proof of (ii).}\begin{align*}
+    (\phi_j \circ \phi_k^{-1})((x_0, \hdots, x_{k - 1}, x_{k + 1}, \hdots, x_n))
+    &= \phi_j([x_0, \hdots, x_{k - 1}, 1, x_{k + 1}, \hdots, x_n]) \\
+    &= \phi_j\left(\left[
+      \frac{x_0}{x_j}, \hdots,
+      \frac{x_{j - 1}}{x_j}, 1, \frac{x_{j + 1}}{x_j}, \hdots,
+      \frac{x_{k - 1}}{x_j}, \frac{1}{x_j}, \frac{x_{k + 1}}{x_j}, \hdots,
+      \frac{x_n}{x_j}
+    \right]\right) \\
+    &= \left(
+      \frac{x_0}{x_j}, \hdots,
+      \frac{x_{j - 1}}{x_j}, \frac{x_{j + 1}}{x_j}, \hdots,
+      \frac{x_{k - 1}}{x_j}, \frac{1}{x_j}, \frac{x_{k + 1}}{x_j}, \hdots,
+      \frac{x_n}{x_j}
+    \right)
+  \end{align*}
+  Where each coordinate is smooth because each coordinate is either \begin{enumerate}
+    \item A smooth constant function ($x \mapsto 1$) divided by a projection
+    ($x \mapsto x_j$), which is smooth or
+    \item a projection divided by another projection.
+  \end{enumerate}
+  Thus the composition $\phi_j \circ \phi_k^{-1}$ is smooth.
+  \end{proof}
 
 % -----------------------------------------------------
 % Sixth
@@ -339,6 +412,22 @@
 \end{problem}
 
 \begin{proof} \text{\\}
+  We left off with the atlas \[
+    \mathcal{A} = \{(
+      U_{\vec{x}} = p(B_{1/2}(\vec{x})),\
+      \mathrm{id}_{\vec{x}}: \mathbb{R}^2/\mathbb{Z}^2 \rightarrow \mathbb{R}^2
+    )\}_{\vec{x}\in \mathbb{R}^2}
+  \] where
+  $p$ is the surjective map from $\mathbb{R}^2$ to $\mathbb{R}^2/\mathbb{Z}^2 = \mathbb{T}^2$.\\
+  It is sufficient to show that for two points $t, s \in \mathbb{T}^2$, \[
+    \mathrm{id}_{t} \circ \mathrm{id}_{s}^{-1} : \mathrm{id}_{s}(U_s \cap U_t) \rightarrow \mathrm{id}_{t}(U_s \cap U_t)
+  \] is smooth.
+
+  Because we have shown that $\mathrm{id}_s$ and $\mathrm{id}_s$ are bijections
+  onto their domains, and the identity map is smooth,
+  $\mathrm{id}_{t} \circ \mathrm{id}_{s}^{-1}$ is smooth. In particular,
+  $\mathrm{id}_{s}(U_s \cap U_t) = \mathrm{id}_{t}(U_s \cap U_t) = V \subset \mathbb{R}^2$
+  and $\mathrm{id}_{t} \circ \mathrm{id}_{s}^{-1} = \mathrm{id}_{\mathbb{R}^2}|_V$.
 \end{proof}
 
 \end{document}
