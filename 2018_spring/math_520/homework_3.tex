@@ -19,8 +19,6 @@
 % -----------------------------------------------------
 % First problem
 % -----------------------------------------------------
-\pagebreak
-
 \begin{problem}{6} (page 47) \\
   Determine all values of \begin{enumerate}[(a)]
     \item $2^i$,
@@ -29,7 +27,19 @@
   \end{enumerate}
 \end{problem}
 
-\begin{proof}
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item $2^i = \exp(i\log(2)) = \cos(log(2)) + i\sin(log(2))$,
+    \item $i^i = \exp(i\log(i))
+      = \exp(i\pi/2 + 2\pi i k)^i
+      = \exp(i\pi/2 + 2\pi i k)^i
+      = \exp(-\pi/2 - 2\pi k)
+    $,
+    \item $(-1)^{2i} = \exp(\pi i)^{2i}
+      = \exp(\pi i + 2\pi i k)^{2i}
+      = \exp(-2\pi - 4\pi k)
+    $.
+  \end{enumerate}
 \end{proof}
 % -----------------------------------------------------
 % Second problem
@@ -41,13 +51,33 @@
 \end{problem}
 
 \begin{proof}
+  Let $z = x + iy$ where $x,y\in\mathbb{R}$
+  \begin{align*}
+    x^x &= \exp(\log(z))^z \\
+    &= \exp(\log|z| + i\arg(z))^z \\
+    &= \exp(\log|z|)^z + \exp(iz\arg(z)) \\
+    &= |z|^z \cdot \exp(iz\arg(z)) \\
+    &= |z|^x \cdot |z|^{iy} \cdot \exp(iz\arg(z)) \\
+    &= |z|^x \cdot |z|^{iy} \cdot \exp((ix-y)\arg(z)) \\
+    &= |z|^x \cdot |z|^{iy} \cdot \exp(ix\arg(z)) \cdot \exp(-y\arg(z)) \\
+    &= |z|^x \cdot \exp(iy\log|z|) \cdot \exp(ix\arg(z)) \cdot \exp(-y\arg(z)) \\
+    &= |z|^x \cdot \exp(-y\arg(z)) \cdot \exp(i(y\log|z| + x\arg(z)))
+  \end{align*}
+  Therefore \begin{align*}
+    \operatorname{Re}(z^z) &= |z|^x e^{-y\arg(z)} \cos(y\log|z| + x\arg(z)) \text{ and}\\
+    \operatorname{Im}(z^z) &= |z|^x e^{-y\arg(z)} \sin(y\log|z| + x\arg(z)).
+  \end{align*}
+  (Where the argument is up to integer multiples of $2\pi$.)
 \end{proof}
 % -----------------------------------------------------
 % Third problem
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{?} (page ??) \\
+\begin{problem}{1} (page 72) \\
+  Give a precise defintion of a single-valued branch of
+  $\sqrt{1 + z} + \sqrt{1 - z}$
+  in a suitable region and prove that it is analytic.
 \end{problem}
 
 \begin{proof}
@@ -59,7 +89,11 @@
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{?} (page ??) \\
+\begin{problem}{3} (page 72) \\
+  Suppose that $f(z)$ is analytic and satisfies the condition $|f(z)^2 - 1| < 1$
+  in a region $\Omega$.
+  Show that either $\operatorname{Re} f(z) > 0$ or $\operatorname{Re} f(z) < 0$
+  throughout $\Omega$.
 \end{problem}
 
 \begin{proof}
@@ -70,18 +104,169 @@
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{?} (page ??) \\
+\begin{problem}{3} (page 78) \\
+  Prove that the most general transformation which leaves the origin fixed and
+  preserves all distances is either a rotation or a rotation followed by a
+  reflection in the real axis.
 \end{problem}
 
-\begin{proof}
+\begin{proof} \text{}\\
+  Let $S$ be a linear transformation that maps $0 \mapsto 0$,
+  $\infty \mapsto \infty$, and $1 \mapsto e^{i\alpha}$
+  for some $\alpha \in \mathbb{R}$ (in order to preserve the unit distance
+  between $S(1)$ and the origin.)\\
+  \\
+  Then $S^{-1}$ maps $0 \mapsto 0$, $\infty \mapsto \infty$, and
+  $e^{i\alpha} \mapsto 1$, so $S^{-1}$ is described the the cross ratio \[
+    S^{-1}z = (z, e^{i\alpha}, 0, \infty) =
+    \frac{z}{e^{i\alpha}} = ze^{-i\alpha}.
+  \] and has inverse \[
+    (S^{-1})^{-1}z = \frac{e^{i\alpha}z - 0}{-0z + 1} = e^{i\alpha}z = Sz.
+  \]\\
+  \\
+  Therefore the corresponding matrix in $GL_2(\mathbb{C})$ is the rotation matrix
+  \[
+     \begin{bmatrix}
+       e^{i\alpha} & 0 \\
+       0 & 1
+     \end{bmatrix}.
+  \]
+  Also because both $S$ and complex conjugation preserve distance, the map
+  $x \mapsto S\bar{z}$ is also a (not linear) transformation that leaves the
+  origin fixed and preserves all distances.
 \end{proof}
 % -----------------------------------------------------
 % Sixth
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{?} (page ??) \\
+\begin{problem}{4} (page 78) \\
+  Show that any linear transformation which transforms the real axis into itself
+  can be written with real coefficients.
+\end{problem}
+
+\begin{proof} \text{} \\
+  Let $S$ be the linear transformation that maps the real axis into itself.
+  Thus $0 \mapsto r_0$, and $1 \mapsto r_1$ with $r_0, r_1 \in \mathbb{R}$.\\
+  \\
+  Thus $S^{-1}z$ can be written as the cross ratio $(z, r_1, r_0, z_3)$ for some
+  $z_3 \in \mathbb{C}$. Let $z \in \mathbb{R} \setminus \{r_0, r_1\}$.
+  Then $(z, r_1, r_0, z_4) \in \mathbb{R}$
+  (because $S^{-1}$ maps the real axis into itself.) Then by Theorem 13, $z_4$ is
+  on the same line as $z, r_1$, and $r_0$, that is, $z_4 = \infty$ or
+  $z_4 \in \mathbb{R}$.\\
+  \\
+  \textbf{Case 1.} Assume $z_4 = \infty$. Then \[
+    S^{-1}z = \frac{z - r_0}{r_1 - r_0}
+  \] is written with real coefficients (so $S$ is too.)\\
+  \\
+  \textbf{Case 2.} Assume $z_4 \in \mathbb{R}$. Then \[
+    S^{-1}z = \frac{z - r_0}{z - z_4} \cdot \frac{r_1 - z_4}{r_1 - r_0} = \frac{(r_1 - z_4)z - (r_1 - z_4)r_0}{(r_1 - r_0)z - (r_1 - r_0)z_4}
+  \] is written with real coefficients (so $S$ is too.)\\
+  \\
+\end{proof}
+
+% -----------------------------------------------------
+% Seventh
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 80) \\
+  If the consecutive vertices $z_1, z_2, z_3, z_4$ of a quadrilateral lie on a
+  circle, prove that \[
+    |z_1 - z_3| \cdot |z_2 - z_4|
+      = |z_1 - z_2| \cdot |z_3 - z_4|
+      + |z_2 - z_3| \cdot |z_1 - z_4|
+  \] and interpret the result geometrically.
 \end{problem}
 
 \begin{proof}
+  By Theorem 13, the cross ratio $(z_1, z_2, z_3, z_4) = r$ for some real $r$ because the
+  points lie on a circle. \[
+    (z_1, z_2, z_3, z_4)
+    = \frac{z_1 - z_3}{z_1 - z_4} \cdot \frac{z_2 - z_4}{z_2 - z_3}
+    = \frac{z_1z_2 -z_1z_4 - z_2z_3 + z_3z_4}{z_1z_2 - z_1z_3 -z_2z_4 + z_3z_4}
+    = r \in \mathbb{R}
+  \] Similarly \begin{align*}
+    (z_1, z_3, z_2, z_4)
+    &= \frac{z_1 - z_2}{z_1 - z_4} \cdot \frac{z_3 - z_4}{z_3 - z_2} \\
+    &= \frac{z_1z_3 -z_1z_4 - z_2z_3 + z_2z_4}{z_1z_2 - z_1z_3 -z_2z_4 + z_3z_4}\\
+    &= \frac{(z_1z_2 -z_1z_4 - z_2z_3 + z_3z_4)-(z_1z_2 - z_1z_3 -z_2z_4 + z_3z_4)}{z_1z_2 - z_1z_3 -z_2z_4 + z_3z_4} \\
+    &= (z_1, z_2, z_3, z_4) - 1
+  \end{align*} Therefore \[
+    (z_1 - z_3)(z_2 - z_4) = r(z_1 - z_4)(z_2 - z_3)
+  \] and \[
+    (z_1 - z_2)(z_3 - z_4) = (r - 1)(z_1 - z_4)(z_3 - z_2)
+  \] thus \begin{align*}
+    (z_1 - z_3)(z_2 - z_4) &= (z_1 - z_4)(z_2 - z_3) + (r - 1)(z_1 - z_4)(z_3 - z_2) \\
+    &= (z_1 - z_4)(z_2 - z_3) + (z_1 - z_2)(z_3 - z_4)
+  \end{align*}
+  The geometric interpretation is that the sum of the products of the lengths of
+  the opposite sides is equal to the sum of the lengths of the diagonals. (This is Ptolemy's Theorem.)
 \end{proof}
+
+% -----------------------------------------------------
+% Eight
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4} (page 80) \\
+  Show that any four distinct points can be carried by a linear transformation
+  to positions $1, -1, k, -k$, where the value of $k$ depends on the points.
+  How many solutions are there? How are they related?
+\end{problem}
+
+\begin{proof}
+  Let $c_1, c_2, c_3, c_4 \in \mathbb{C}$ be four arbitrary (distinct points).\\
+  Construct a linear map $S$ that maps
+  $c_1 \mapsto 1$, $c_2 \mapsto 0$, and $c_3 \mapsto \infty$. \[
+    Sz = (z, c_1, c_2, c_3) = \frac{z-c_2}{z-c_3}\cdot\frac{c_1-c_3}{c_1-c_2}
+    \text{ with corresponding matrix }
+    \begin{bmatrix}
+      c_1 - c_3 & c_2(c_3 - c_1) \\
+      c_1 - c_2 & c_3(c_2 - c_1)
+    \end{bmatrix}.
+  \]
+  The construct another map $T$ that maps
+  $1 \mapsto 1$, $-1 \mapsto 0$, and $k \mapsto \infty$. \[
+    Tz = (z, c_1, c_2, c_3) = \frac{z + 1}{z-k}\cdot\frac{1-k}{2}
+    \text{ with corresponding matrix }
+    \begin{bmatrix}
+      1 - k & 1 - k \\
+      2 & -2k
+    \end{bmatrix}.
+  \]
+
+  These are constructed to so that $T^{-1} \circ S$ maps $c_1 \mapsto 1$,
+  $c_2 \mapsto -1$, and $c_3 \mapsto k$.
+  Now we must simply pick the value of $k$ so that $c_4 \mapsto -k$ under
+  $T^{-1} \circ S$. \[
+  \begin{bmatrix}
+    -2k & k-1 \\
+    -2 & 1 - k
+  \end{bmatrix}\begin{bmatrix}
+    c_1 - c_3 & c_2(c_3 - c_1) \\
+    c_1 - c_2 & c_3(c_2 - c_1)
+  \end{bmatrix}
+  \] which corresponds to \[
+    \frac{
+      ((k - 1) (c_1 - c_2) - 2 k (c_1 - c_3))z +
+      (k - 1) (c_1 - c_2) c_3 - 2 k c_2 (c_3 - c_1)
+    }{
+      ((1 - k) (c_1 - c_2) - 2 (c_1 - c_3))z +
+      -(1 - k) (c_1 - c_2) c_3 - 2 c_2 (c_3 - c_1)
+    }
+  \]
+  Therefore when $z = c_4$, solving for $k$ \[
+  \frac{
+    ((k - 1) (c_1 - c_2) - 2 k (c_1 - c_3))c_4 + (k - 1) (c_1 - c_2) c_3 - 2 k c_2 (c_3 - c_1)
+  }{
+    ((1 - k) (c_1 - c_2) - 2 (c_1 - c_3))c_4 +
+    -(1 - k) (c_1 - c_2) c_3 - 2 c_2 (c_3 - c_1)
+  } = -k
+  \] multiplying by the denominator will result in a quadratic equation with two
+  complex roots.Thus there are two solutions for $k$ related by the complex
+  conjugate.
+\end{proof}
+
+\end{document}
