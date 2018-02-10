@@ -1,0 +1,246 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\title{Differential Geometry: Homework 2}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+\end{problem}
+
+\begin{proof} \text{} \\
+\end{proof}
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3}
+\end{problem}
+
+\begin{proof} \text{} \\
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4}
+\end{problem}
+
+\begin{proof} \text{}\\
+\end{proof}
+
+% -----------------------------------------------------
+% Fifth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5}
+\end{problem}
+
+\begin{proof} \text{} \\
+\end{proof}
+
+% -----------------------------------------------------
+% Sixth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{6}
+\end{problem}
+
+\begin{proof} \text{\\}
+\end{proof}
+
+% -----------------------------------------------------
+% Seventh
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{7}
+\end{problem}
+
+\begin{proof} \text{}\\
+\begin{problempart}{(a)}
+  It is sufficient to show that
+  (i) there exists an identity morphism for each object in $\text{Alg}_k$,
+  (ii) the composition of two (composable) $k$-algebra homomorphisms is a
+    $k$-algebra homomorphism, and
+  (iii) $k$-algebra homomorphisms are associative.
+  \begin{enumerate}[(i)]
+    \item For each object $x\in\operatorname{ob}(\text{Alg}_k)$, let
+      $1_X \in \operatorname{hom}_{\text{Alg}_k}(X,X)$ be the
+      identity map that sends each element $x \in X$ to itself.
+      Clearly $1_X$ is a $k$-algebra homomorphism because $1_X$ is a linear map
+      of vector spaces which is compatible with the multiplication maps \[
+        1_X(\alpha \cdot \beta) = \alpha \cdot \beta
+        = 1_X(\alpha) \cdot 1_X(\beta)
+      \] and preserves the identity elements ($1_X(1) = 1.$)\\
+      Also if $f \in \operatorname{hom}_{\text{Alg}_k}(Z,X)$ is a $k$-algebra
+      homomorphism, \[
+        1_X \circ f(\alpha) = 1_X(f(\alpha)) = f(\alpha),
+      \] and if $g \in \operatorname{hom}_{\text{Alg}_k}(X,Y)$ is a $k$-algebra
+      homomorphism \[
+        g\circ 1_X(\alpha) = g(1_X(\alpha)) = g(\alpha).
+      \] So indeed $1_X \circ f = f$ and $g \circ 1_X = g$, and therefore $1_X$
+      is an identity morphism.
+    \item Let
+      $f \in \operatorname{hom}_{\text{Alg}_k}(Z,X)$ and
+      $g \in \operatorname{hom}_{\text{Alg}_k}(X,Y)$.\\
+      Then $g \circ f$ is compatible with the multiplication maps \[
+        g \circ f(\alpha \cdot \beta) = g(f(\alpha) \cdot f(\beta))
+        = g(f(\alpha)) \cdot g(f(\beta))
+        = g\circ f(\alpha) \cdot g\circ f(\beta),
+      \] and $g \circ f$ preserves the identity elements \[
+        g\circ f(1) = g(1) = 1.
+      \] Therefore $g \circ f \in \operatorname{hom}_{\text{Alg}_k}(Z,Y)$.
+    \item For each composable triple $f, g$, and $h$ \[
+    h \circ (g \circ f) = (h \circ g) \circ f
+    \] because associativity is inherited from ordinary composition of functions.
+  \end{enumerate}
+\end{problempart}
+
+\begin{problempart}{(b)}
+  It is sufficient to show that
+  (i) $C^0(X)$ is a vector space over $\mathbb{R}$,
+  (ii) multiplication is bilinear,
+  (iii) multiplication is associative, and
+  (iv) there is a multiplicative identity.
+  \begin{enumerate}[(i)]
+    \item $C^0(X)$ is a vector space with pointwise addition and ordinary scalar
+      multiplication. In general continuous functions are closed under addition.
+      Multiplying (or dividing) every element in an open set $U$ by a scalar $a$
+      yields an open set $aU$,
+      so if $f^{-1}(U)$ is open for every open set $U$,
+      then $(af)^{-1}(aU)$ is also open.
+      Therefore $C^0(X)$ is closed under scalar multiplication.\\
+      $C^0(X)$ inherits structure from $\mathbb{R}$ so that.
+      \begin{itemize}
+        \item Associativity and commutivity of addition follow from $\mathbb{R}$.
+        \item The zero function (which is proven to be in $C^0(X)$ below) satisfies $f + 0 = f$ for all $f$.
+        \item All elements are invertible with respect to addition: $f(x) + (-1)\cdot f(x) = 0$.
+        \item The scalar $1 \in \mathbb{R}$ behaves as an identity element for scalar multiplication: $1f = f$.
+        \item Everything distributes nicely: $a(b \cdot f) = (ab) \cdot f$, $a(f + g) = af + ag$, and $(a + b)f = af + bf$.
+      \end{itemize}
+      Lastly, it is important to check that continuous functions remain
+      continuous after addition and scalar multiplication.
+    \item Bilinearity follows from well-behaved distributivity on $\mathbb{R}.$
+      Let $f,g,h\in C^0(X)$ and $\alpha \in \mathbb{R}$, then
+    \begin{alignat*}{3}
+      &(f + g) \times h &&= (f \cdot h) + (g \cdot h) &&= (f \times h) + (g \times h)\\
+      &f \times (g + h) &&= (f \cdot g) + (f \cdot h) &&= (f \times g) + (f \times h)\\
+      &(\alpha \cdot f) \times g &&= \alpha \cdot (f \cdot g) &&= \alpha \cdot (f \times g) \\
+      &f \times (\alpha \cdot g) &&= \alpha \cdot (f \cdot g) &&= \alpha \cdot (f \times g).
+    \end{alignat*}
+    \item Associativity follows from associativity on $\mathbb{R}$. \[
+      (f \times g) \times h = (f \cdot g) \cdot h = f \cdot (g \cdot h) = f \times (g \times h).
+    \]
+    \item The multiplicative identity is the constant function $1$. Constant
+    functions are in $C^0(X)$ because any open set that contains the constant
+    has a preimage of $X$ (which is an open set) and any set that does not
+    contain the constant has a preimage of $\emptyset$ (which is also an open set.)
+    For each function $f\in C^0(X)$ and each point $x \in X$ \[
+      1(x) \times f(x) = 1 \cdot f(x) = f(x) = f(x) \cdot 1 = f(x) \times 1(x),
+    \] therefore $1 \times f = f = f \times 1$.
+  \end{enumerate}
+\end{problempart}
+\begin{problempart}{(c)}
+  Let $f$ be a continuous map $f \in \operatorname{hom}_{\textbf{Top}}(X, Y)$.\\
+  In order to prove that $F$ is a contravariant functor, it is sufficient to show that
+    (i) $F(f)$ is an $\mathbb{R}$-algebra homomorphism,
+    (ii) $F\colon\operatorname{hom}_{\textbf{Top}}(X,Y) \rightarrow \operatorname{hom}_{\textbf{Alg}_\mathbb{R}}(F(Y), F(X))$
+      sends identity morphisms to identity morphisms, and
+    (iii) $F(f) \circ F(g) = F(g\circ f)$ for composable morphisms.
+\end{problempart}
+\begin{enumerate}[(i)]
+  \item{
+    Let $g,h \in C^0(Y)$.
+    Then $F(f)\colon C^0(Y) \rightarrow C^0(X)$ is an $\mathbb{R}$-algebra
+    homomorphism because it is compatible with multiplication maps \[
+      F(f)(g \cdot h) = (g \cdot h)\circ f
+      = (g \circ f) \cdot (h\circ f)
+      = F(f)(g) \cdot F(f)(h)
+    \] and because it preserves the (multiplicative) identity element
+    (the constant map $1$) \[
+      F(f)(y\mapsto 1) = (y \mapsto 1) \circ f = (x \mapsto 1)
+    \]
+  }
+  \item{
+    Let $\operatorname{id}_X \in \operatorname{hom}_{\textbf{Top}}(X, X)$.
+    Then for all $g \in F(X) = C^0(X)$, \[
+      F(\operatorname{id}_X)(g) = g \circ \operatorname{id}_X
+      = g
+      = \operatorname{id}_{C^0(X)}(g).
+    \] Therefore $F(\operatorname{id}_X) = \operatorname{id}_{C^0(X)}$.
+  }
+  \item{
+    Let $g \in \operatorname{hom}_{\textbf{Top}}(Y, Z)$ and $h \in C^0(Z)$.
+    Then \[
+      (F(f) \circ F(g))(h) = F(f)(F(g)(h))
+      = F(f)(h\circ g)
+      = (h\circ g\circ f)
+      = F(g\circ f)(h),
+    \] so $F(f) \circ F(g) = F(g\circ f)$.
+  }
+\end{enumerate}
+\begin{problempart}{(d)}
+  It is sufficent to show that (i) there exists a functor $\textit{Forget}$ from
+  $\textbf{Alg}_\mathbb{R}$ to $\textbf{Set}$ (that maps algebras to their
+  underlying sets and algebra homomorphisms to the corresponding map of sets),
+  (ii) this functor is faithful, and (iii) this functor is not full.
+  \begin{enumerate}
+    \item{
+      $\mathit{Forget}$ naturally maps identity morphisms to identity morphisms
+      because the identity morphism on an $\mathbb{R}$-algebra is the same as
+      the identity morphism on the underlying set, namely $x \mapsto x$.
+      Composition is compatible because it is the same as the set theoretic
+      function composition.
+    }
+    \item{(?)
+      Let $A = \mathbb{R}$ with the ordinary multiplication $a \times b = ab$, and
+      let $B = \mathbb{R}$ with the multiplication $a \times b = ab/2$. Then
+      $A \not= B$ as $\mathbb{R}$-algebras, but $A = B$ as sets.
+    }
+    \item{
+      Let $\phi\colon C^0(X) \rightarrow C^0(X)$ be the function
+      $\phi(f) = (x\mapsto x + 1) \circ f$. Then the unity element (the constant
+      function $x \mapsto 1$)
+      is not preserved under $\phi$, so $\phi$ is not an $\mathbb{R}$-algebra
+      homomorphism. Therefore $\phi$ is not in the image of $\textit{Forget}$, and so $\textit{Forget}$ is
+      not full.
+    }
+  \end{enumerate}
+\end{problempart}
+\end{proof}
+
+\end{document}
