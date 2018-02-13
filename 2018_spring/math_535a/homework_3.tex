@@ -3,6 +3,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
 
 \newenvironment{problem}[2][Problem]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
@@ -22,9 +23,65 @@
 % First problem
 % -----------------------------------------------------
 \begin{problem}{1}
+  Let $x_0 \in \mathbb{R}^n$ be a point and $r_1 < r_2$ positive real numbers.
+  Construct (with proof) a $C^\infty$ function
+  $h\colon \mathbb{R}^n \rightarrow \mathbb{R}$ which equals 1 inside the ball
+  of radius $r_1$ around $x_0$ and which equals $0$ outside the ball of radius
+  $r_2$ around $x_0$. Such functions are collectively called smooth bump
+  functions.
 \end{problem}
 
 \begin{proof} \text{} \\
+  I'll construct a bump function from $\mathbb{R}\rightarrow\mathbb{R}$
+  following the Wikipedia construction\footnote{
+    \url{https://en.wikipedia.org/wiki/Non-analytic_smooth_function\#Smooth_transition_functions}
+  }.
+  First construct a smooth function $f$ such that $f(0) = 0$ and
+  $f^{(k)}(0) = 0$ for all $k \in \mathbb{N}$, but $f(1) \not=0$.
+  Let \[
+    f(x) = \begin{cases}
+      0 & x \leq 0\\
+      \exp(-1/x^2) & x > 0
+    \end{cases}.
+  \]
+  Now if there is a differentiable function $p_k(x)$ such that \[
+  f^{(k)}(x) = \begin{cases}
+    0 & x < 0 \\
+    p_k(x)\exp(-1/x^2) & x \geq 0 \\
+  \end{cases},
+  \]
+  then by the product rule, \[
+  f^{(k+1)}(x) = \begin{cases}
+    0 & x < 0 \\
+    (p_k(x)2x^{-3} + p_k'(x))\exp(-1/x^2) & x \geq 0 \\
+  \end{cases}.
+  \] Therefore $p_0(x) = 1$ and $p_{k + 1}(x) = p_k(x)2x^{-3} + p_k'(x)$.
+  And an inductive argument shows that by sufficiently many applications of
+  L'H\^{o}pital's rule, \[
+    \lim_{x\rightarrow 0}f^{(k)}(x) = 0
+  \] for all $k \in \mathbb{N}$ as desired.
+  Now, given $\alpha < \beta$, let \[
+    b_{\alpha,\beta}(x) = \frac{f(x - \alpha)}{f(x - \alpha) + f(\beta - x)}
+  \]
+  so that $b_{\alpha,\beta}(x_0) = 0$ for $x_0 \leq \alpha$ and
+  $b_{\alpha,\beta}(x_1) = f(x_1-\alpha)/f(x_1-\alpha) = 1$ for $x_1 \geq \beta$.
+
+  The function has strictly positive denominator because $f$ is nonnegative,
+  $f(x-\alpha) > 0$ for $x > \alpha$, and
+  $f(\beta - x) > 0$ for $x < \beta$. Therefore, as the quotient of a smooth
+  function and a smooth positive function, $b_{\alpha,\beta}$ is smooth.
+%
+  Next, because the difference of smooth functions is smooth, let \[
+    g_{r_1,r_2}(x) = b_{-r_2,-r_1}(x) - b_{r_1,r_2}(x).
+  \]
+
+  In order to make this work in $\mathbb{R}^n$,
+  let $d_{x_0}: \mathbb{R}^n \rightarrow \mathbb{R}$ be the Euclidean distance
+  between $x$ and $x_0$.
+
+  Since $d_{x_0}$ is smooth, and the composition of smooth functions is smooth,
+  our desired function $h: \mathbb{R}^n \rightarrow \mathbb{R}$ can be defined
+  by $h = g_{r_1,r_2} \circ d_{x_0}$.
 \end{proof}
 
 % -----------------------------------------------------
@@ -33,9 +90,17 @@
 \pagebreak
 
 \begin{problem}{2}
+  Assume $U \in \mathbb{R}^m$ and $V \in \mathbb{R}^n$ are open sets and
+  $f\colon U \rightarrow V$ is an immersion.
+  Prove the immersion version of the implicit function theorem, assuming only
+  the inverse function theorem: there exists a function $G\colon \tilde{V} \rightarrow Z$
+  where $Z$ is an open set in $\mathbb{R}^n$.
 \end{problem}
 
 \begin{proof}
+  Denote $f$ by $(x_1,\hdots,x_m) \mapsto (f_1,\hdots,f_n)$. We want to construct
+  $G: \mathbb{R}^n \rightarrow \mathbb{R}^n$ such that $G \circ f = \pi_\text{imm}$
+  and $dG$ is an isomorphism.
 \end{proof}
 
 % -----------------------------------------------------
@@ -47,6 +112,37 @@
 \end{problem}
 
 \begin{proof} \text{} \\
+  \textbf{($\Longrightarrow$)} Assume that there exists an injective immersion
+  $f: M^m \rightarrow Y \subset N^n$ onto $Y$, and let $p_Y$ be a point in $Y$.
+  The atlas of $N^n$ contains an open set $U$ around $p_Y$ with a map
+  $\phi\colon U \rightarrow \mathbb{R}^n$. Similarly because $f$ is injective,
+  the preimage of $p_Y$ is a single point $f^{-1}(p_Y) = p_M \in M^m$,
+  and there exists a chart
+  $(V, \psi\colon V \rightarrow \mathbb{R}^m) \in \mathcal{A}_{M}$ centered at
+  $p_M$.\\
+
+  %
+  Because (1) $f$ is an injective immersion and (2) $\psi^{-1}$ and $\phi$ are
+  continuous bijections,
+  $\phi \circ f \circ \psi^{-1}$ is an injective immersion.
+  So by the implicit function theorem (immersion version) there exists a
+  diffeomorphism $G$ such that $G \circ \phi \circ f \circ \psi^{-1} = \pi_{imm}$.\\
+
+  Therefore let $\phi_G = G \circ \phi$. Then $(U, \phi_G)$ is a chart in $N$'s maximal atlas $\mathcal{A}_N$, and
+  $\phi_G \circ f(M^m) = \phi_G(U \cap Y)$ is the image of the model immersion, so
+  $\phi_G(U \cap Y) = \phi_G(U) \cap (\mathbb{R}^m \times \{ 0 \})$.
+  \\~\\
+%
+  \textbf{($\Longleftarrow$)} Assume that there exists a subset $Y \subset N^n$
+  such that for each point $p \in Y$ there exists a chart $(U_p, \phi_p)$ with
+  $\phi_p(U_p\cap Y)$ = $\phi_p(U_p) \cap (\mathbb{R}^m \times \{ 0\})$. Composing
+  with the model submersion $\pi_{\text{sub}}: \mathbb{R}^n \rightarrow \mathbb{R}^m$
+  yields $\pi_{\text{sub}} \circ \phi_p: Y \rightarrow \mathbb{R}^m$.
+
+  Therefore $Y$ is a manifold with atlas
+  $\mathcal{A}_Y = \{\, (U_p \cap Y, \pi_{\text{sub}} \circ \phi_p) \,\}_{p \in Y}$,
+  and naturally has embedding via the inclusion map $i\colon Y \rightarrow \mathbb{R}^n$,
+  which is (as shown in lecture) a injective immersion.
 \end{proof}
 
 % -----------------------------------------------------
@@ -55,9 +151,34 @@
 \pagebreak
 
 \begin{problem}{4}
+  Prove the following result: if $f\colon M^m \rightarrow N^n$ is a submersion
+  between two smooth manifolds, or more generally if $f$ is simply a smooth map
+  and $y \in N$ is a regular value of $f$, then $S = f^{-1}(y)$ has the
+  structure of a smooth submanifold of $M$ of dimension $m - n$.
 \end{problem}
 
 \begin{proof} \text{}\\
+  For each point $p \in S$, there exists a chart that contains $p$:
+    $(U_p, \phi_p: M^m \rightarrow \mathbb{R}^m)$.
+  Similarly, the maximal atlas of $N$ contains many charts centered at $y$, namely
+    $(f(U_p), \psi: N^n \rightarrow \mathbb{R}^n)$.
+  Because $f$ is a submersion by hypothesis, the implicit value theorem
+  (submersion version) guarantees the existence of a diffeomorphism
+  $F_p: \phi_p(U_p) \rightarrow \mathbb{R}^m$ such that
+  $\psi \circ f \circ \phi_p^{-1} \circ F_p^{-1}$ is the model submersion
+  $\pi_\text{sub}: F_p(\phi_p(U_p)) \rightarrow \mathbb{R}^n$.
+
+  Because $\psi$ is centered at $y$, \[
+    F_p\circ\phi_p\circ f^{-1}(y) = \pi_\text{sub}^{-1} \circ \psi(y)
+      = \{ 0 \in \mathbb{R}^n\} \times \mathbb{R}^{m - n}
+  \]
+  Therefore by permuting coordinates and applying ``Definition 2'' of a submanifold,
+  $S$ is a submanifold of $M^m$ with atlas \[
+    \mathcal{A} = \{\, (
+      U_p \cap S,
+      (\pi \circ F_p \circ \phi_p)\colon U_p \cap S \rightarrow \mathbb{R}^{m-n}
+    ) \,\}
+  \] where $\pi$ is the projection onto the last $m - n$ coordinates.
 \end{proof}
 
 % -----------------------------------------------------
@@ -66,9 +187,24 @@
 \pagebreak
 
 \begin{problem}{5}
+  Prove that $S^n = \{\,x_1^2+\hdots+x_{n+1}^2=1\,\} \subset \mathbb{R}^{n+1}$
+  can be given the structure of an $n$-dimensional manifold by exhibiting it as
+  the regular value of some smooth map between manifolds.
 \end{problem}
 
 \begin{proof} \text{} \\
+  Let $f(x) = x_1^2+\hdots+x_n^2$, which is a smooth map from $\mathbb{R}^{n+1}$
+  to $\mathbb{R}$.
+  Then \begin{align*}
+    df(p) &= \left[
+      \frac{\partial f}{\partial x_1}(p) \frac{\partial f}{\partial x_2}(p) \hdots
+      \frac{\partial f}{\partial x_{n+1}}(p)
+    \right] \\
+    &= [2p_1 2p_2 \hdots 2p_{n+1}].
+  \end{align*}
+  So $df$ has rank $1$ for all $x \in \mathbb{R}^{n + 1} \setminus \{0\}$, so
+  $f$ is submersive for all $x \not= 0$. Therefore the preimage $f^{-1}(1)$ has
+  the structure of a manifold of dimension $n + 1 - 1 = n$.
 \end{proof}
 
 % -----------------------------------------------------
@@ -76,10 +212,45 @@
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{6}
+\begin{problem}{6} $ $\\
+  \begin{enumerate}[(a)]
+    \item Show that $\operatorname{Sym}(n)$ is a submanifold of
+    $M_n(\mathbb{R})$ (and in particular a manifold), and compute its dimension.
+    \item Prove that $I \in \operatorname{Sym}(n)$ is a regular value of $\phi$.
+    \item Prove that $O(n)$ is a submanifold of $M_n(\mathbb{R})$. What is its dimension?
+    \item Prove that $O(n)$ is compact.
+  \end{enumerate}
 \end{problem}
 
 \begin{proof} \text{\\}
+  \begin{problempart}{(a)}
+    Let $A_{ij}$ be an $n\times n$ matrix where the $ij$ and $ji$ entries are $1$
+    and all other entries are $0$. Then $\operatorname{Sym}(n)$ has basis
+    $\{A_{ij} : i \leq j\}$, and has a (smooth) linear isomorphsim
+    $\varphi:\operatorname{Sym}(n) \rightarrow \mathbb{R}^{n(n+1)/2}$. Similarly
+    let $\psi: M_n(\mathbb{R}) \rightarrow \mathbb{R}^{n^2}$ be the analogous
+    linear isomorphism between $ M_n(\mathbb{R})$ and $\mathbb{R}^{n^2}$.
+
+    Then $\psi^{-1} \circ \pi_\text{imm} \circ \varphi: \operatorname{Sym}(n) \hookrightarrow (\mathbb{R})$
+    is an embedding which demonstrates that $\operatorname{Sym}(n)$ is a submanifold of $(\mathbb{R})$.
+  \end{problempart}
+  \begin{problempart}{(b)}
+    (?)\footnote{\url{https://math.stackexchange.com/a/383458/121988}}
+  \end{problempart}
+  \begin{problempart}{(c)}
+    This follows from the corollary to the implicit function theorem. As shown in
+    part (b), $I$ is a regular value of $\phi$, so $\phi^{-1}(I) = O(n)$ is a
+    submanifold of $M_n(\mathbb{R})$ of dimension $n^2 - n(n+1)/2 = n(n-1)/2$.
+  \end{problempart}
+  \begin{problempart}{(d)}
+    Because $\phi$ is continuous and the singleton set $\{ I \}$ is closed,
+    $\phi^{-1}(I) = O(n)$ is closed as well.
+    Since $\phi(A) = 1$ for each $j \in \{ 1,\hdots,n\}$, \[
+      \sum_{i=1}^{n} a_{ij}^2 = 1.
+    \]
+    Since $a_{ij}^2$ is positive, each entry must be strictly less than $1$, and
+    therefore $O(n)$ is closed and bounded.
+  \end{problempart}
 \end{proof}
 
 % -----------------------------------------------------
@@ -87,160 +258,157 @@
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{7}
+\begin{problem}{7} $ $\\
+  \begin{problempart}{(a)}
+    It is sufficient to show that
+    (i) there exists an identity morphism for each object in $\text{Alg}_k$,
+    (ii) the composition of two (composable) $k$-algebra homomorphisms is a
+      $k$-algebra homomorphism, and
+    (iii) $k$-algebra homomorphisms are associative.
+    \begin{enumerate}[(i)]
+      \item For each object $x\in\operatorname{ob}(\text{Alg}_k)$, let
+        $1_X \in \operatorname{hom}_{\text{Alg}_k}(X,X)$ be the
+        identity map that sends each element $x \in X$ to itself.
+        Clearly $1_X$ is a $k$-algebra homomorphism because $1_X$ is a linear map
+        of vector spaces which is compatible with the multiplication maps \[
+          1_X(\alpha \cdot \beta) = \alpha \cdot \beta
+          = 1_X(\alpha) \cdot 1_X(\beta)
+        \] and preserves the identity elements ($1_X(1) = 1.$)\\
+        Also if $f \in \operatorname{hom}_{\text{Alg}_k}(Z,X)$ is a $k$-algebra
+        homomorphism, \[
+          1_X \circ f(\alpha) = 1_X(f(\alpha)) = f(\alpha),
+        \] and if $g \in \operatorname{hom}_{\text{Alg}_k}(X,Y)$ is a $k$-algebra
+        homomorphism \[
+          g\circ 1_X(\alpha) = g(1_X(\alpha)) = g(\alpha).
+        \] So indeed $1_X \circ f = f$ and $g \circ 1_X = g$, and therefore $1_X$
+        is an identity morphism.
+      \item Let
+        $f \in \operatorname{hom}_{\text{Alg}_k}(Z,X)$ and
+        $g \in \operatorname{hom}_{\text{Alg}_k}(X,Y)$.\\
+        Then $g \circ f$ is compatible with the multiplication maps \[
+          g \circ f(\alpha \cdot \beta) = g(f(\alpha) \cdot f(\beta))
+          = g(f(\alpha)) \cdot g(f(\beta))
+          = g\circ f(\alpha) \cdot g\circ f(\beta),
+        \] and $g \circ f$ preserves the identity elements \[
+          g\circ f(1) = g(1) = 1.
+        \] Therefore $g \circ f \in \operatorname{hom}_{\text{Alg}_k}(Z,Y)$.
+      \item For each composable triple $f, g$, and $h$ \[
+      h \circ (g \circ f) = (h \circ g) \circ f
+      \] because associativity is inherited from ordinary composition of functions.
+    \end{enumerate}
+  \end{problempart}
+  \begin{problempart}{(b)}
+    It is sufficient to show that
+    (i) $C^0(X)$ is a vector space over $\mathbb{R}$,
+    (ii) multiplication is bilinear,
+    (iii) multiplication is associative, and
+    (iv) there is a multiplicative identity.
+    \begin{enumerate}[(i)]
+      \item $C^0(X)$ is a vector space with pointwise addition and ordinary scalar
+        multiplication. In general continuous functions are closed under addition.
+        Multiplying (or dividing) every element in an open set $U$ by a scalar $a$
+        yields an open set $aU$,
+        so if $f^{-1}(U)$ is open for every open set $U$,
+        then $(af)^{-1}(aU)$ is also open.
+        Therefore $C^0(X)$ is closed under scalar multiplication.\\
+        $C^0(X)$ inherits structure from $\mathbb{R}$ so that.
+        \begin{itemize}
+          \item Associativity and commutativity of addition follow from $\mathbb{R}$.
+          \item The zero function (which is proven to be in $C^0(X)$ below) satisfies $f + 0 = f$ for all $f$.
+          \item All elements are invertible with respect to addition: $f(x) + (-1)\cdot f(x) = 0$.
+          \item The scalar $1 \in \mathbb{R}$ behaves as an identity element for scalar multiplication: $1f = f$.
+          \item Everything distributes nicely: $a(b \cdot f) = (ab) \cdot f$, $a(f + g) = af + ag$, and $(a + b)f = af + bf$.
+        \end{itemize}
+        Lastly, it is important to check that continuous functions remain
+        continuous after addition and scalar multiplication.
+      \item Bilinearity follows from well-behaved distributivity on $\mathbb{R}.$
+        Let $f,g,h\in C^0(X)$ and $\alpha \in \mathbb{R}$, then
+      \begin{alignat*}{3}
+        &(f + g) \times h &&= (f \cdot h) + (g \cdot h) &&= (f \times h) + (g \times h)\\
+        &f \times (g + h) &&= (f \cdot g) + (f \cdot h) &&= (f \times g) + (f \times h)\\
+        &(\alpha \cdot f) \times g &&= \alpha \cdot (f \cdot g) &&= \alpha \cdot (f \times g) \\
+        &f \times (\alpha \cdot g) &&= \alpha \cdot (f \cdot g) &&= \alpha \cdot (f \times g).
+      \end{alignat*}
+      \item Associativity follows from associativity on $\mathbb{R}$. \[
+        (f \times g) \times h = (f \cdot g) \cdot h = f \cdot (g \cdot h) = f \times (g \times h).
+      \]
+      \item The multiplicative identity is the constant function $1$. Constant
+      functions are in $C^0(X)$ because any open set that contains the constant
+      has a preimage of $X$ (which is an open set) and any set that does not
+      contain the constant has a preimage of $\emptyset$ (which is also an open set.)
+      For each function $f\in C^0(X)$ and each point $x \in X$ \[
+        1(x) \times f(x) = 1 \cdot f(x) = f(x) = f(x) \cdot 1 = f(x) \times 1(x),
+      \] therefore $1 \times f = f = f \times 1$.
+    \end{enumerate}
+  \end{problempart}
+  \begin{problempart}{(c)}
+    Let $f$ be a continuous map $f \in \operatorname{hom}_{\textbf{Top}}(X, Y)$.\\
+    In order to prove that $F$ is a contravariant functor, it is sufficient to show that
+      (i) $F(f)$ is an $\mathbb{R}$-algebra homomorphism,
+      (ii) $F\colon\operatorname{hom}_{\textbf{Top}}(X,Y) \rightarrow \operatorname{hom}_{\textbf{Alg}_\mathbb{R}}(F(Y), F(X))$
+        sends identity morphisms to identity morphisms, and
+      (iii) $F(f) \circ F(g) = F(g\circ f)$ for composable morphisms.
+    \begin{enumerate}[(i)]
+      \item{
+        Let $g,h \in C^0(Y)$.
+        Then $F(f)\colon C^0(Y) \rightarrow C^0(X)$ is an $\mathbb{R}$-algebra
+        homomorphism because it is compatible with multiplication maps \[
+          F(f)(g \cdot h) = (g \cdot h)\circ f
+          = (g \circ f) \cdot (h\circ f)
+          = F(f)(g) \cdot F(f)(h)
+        \] and because it preserves the (multiplicative) identity element
+        (the constant map $1$) \[
+          F(f)(y\mapsto 1) = (y \mapsto 1) \circ f = (x \mapsto 1)
+        \]
+      }
+      \item{
+        Let $\operatorname{id}_X \in \operatorname{hom}_{\textbf{Top}}(X, X)$.
+        Then for all $g \in F(X) = C^0(X)$, \[
+          F(\operatorname{id}_X)(g) = g \circ \operatorname{id}_X
+          = g
+          = \operatorname{id}_{C^0(X)}(g).
+        \] Therefore $F(\operatorname{id}_X) = \operatorname{id}_{C^0(X)}$.
+      }
+      \item{
+        Let $g \in \operatorname{hom}_{\textbf{Top}}(Y, Z)$ and $h \in C^0(Z)$.
+        Then \[
+          (F(f) \circ F(g))(h) = F(f)(F(g)(h))
+          = F(f)(h\circ g)
+          = (h\circ g\circ f)
+          = F(g\circ f)(h),
+        \] so $F(f) \circ F(g) = F(g\circ f)$.
+        }
+    \end{enumerate}
+  \end{problempart}
+  \begin{problempart}{(d)}
+    It is sufficient to show that (i) there exists a functor $\textit{Forget}$ from
+    $\textbf{Alg}_\mathbb{R}$ to $\textbf{Set}$ (that maps algebras to their
+    underlying sets and algebra homomorphisms to the corresponding map of sets),
+    (ii) this functor is faithful, and (iii) this functor is not full.
+    \begin{enumerate}
+      \item{
+        $\mathit{Forget}$ naturally maps identity morphisms to identity morphisms
+        because the identity morphism on an $\mathbb{R}$-algebra is the same as
+        the identity morphism on the underlying set, namely $x \mapsto x$.
+        Composition is compatible because it is the same as the set theoretic
+        function composition.
+      }
+      \item{
+        By definition of $k$-algebra homomorphism equality, if two $k$-algebra
+        homomorphisms $\phi\colon A \rightarrow B$ and $\psi\colon A \rightarrow B$
+        have the same underlying map of sets, then they are equal. Therefore
+        $\textit{Forget}$ is faithful.
+      }
+      \item{
+        Let $\phi\colon C^0(X) \rightarrow C^0(X)$ be the function
+        $\phi(f) = (x\mapsto x + 1) \circ f$. Then the unity element (the constant
+        function $x \mapsto 1$)
+        is not preserved under $\phi$, so $\phi$ is not an $\mathbb{R}$-algebra
+        homomorphism. Therefore $\phi$ is not in the image of $\textit{Forget}$, and so $\textit{Forget}$ is
+        not full.
+      }
+    \end{enumerate}
+  \end{problempart}
 \end{problem}
-
-\begin{proof} \text{}\\
-\begin{problempart}{(a)}
-  It is sufficient to show that
-  (i) there exists an identity morphism for each object in $\text{Alg}_k$,
-  (ii) the composition of two (composable) $k$-algebra homomorphisms is a
-    $k$-algebra homomorphism, and
-  (iii) $k$-algebra homomorphisms are associative.
-  \begin{enumerate}[(i)]
-    \item For each object $x\in\operatorname{ob}(\text{Alg}_k)$, let
-      $1_X \in \operatorname{hom}_{\text{Alg}_k}(X,X)$ be the
-      identity map that sends each element $x \in X$ to itself.
-      Clearly $1_X$ is a $k$-algebra homomorphism because $1_X$ is a linear map
-      of vector spaces which is compatible with the multiplication maps \[
-        1_X(\alpha \cdot \beta) = \alpha \cdot \beta
-        = 1_X(\alpha) \cdot 1_X(\beta)
-      \] and preserves the identity elements ($1_X(1) = 1.$)\\
-      Also if $f \in \operatorname{hom}_{\text{Alg}_k}(Z,X)$ is a $k$-algebra
-      homomorphism, \[
-        1_X \circ f(\alpha) = 1_X(f(\alpha)) = f(\alpha),
-      \] and if $g \in \operatorname{hom}_{\text{Alg}_k}(X,Y)$ is a $k$-algebra
-      homomorphism \[
-        g\circ 1_X(\alpha) = g(1_X(\alpha)) = g(\alpha).
-      \] So indeed $1_X \circ f = f$ and $g \circ 1_X = g$, and therefore $1_X$
-      is an identity morphism.
-    \item Let
-      $f \in \operatorname{hom}_{\text{Alg}_k}(Z,X)$ and
-      $g \in \operatorname{hom}_{\text{Alg}_k}(X,Y)$.\\
-      Then $g \circ f$ is compatible with the multiplication maps \[
-        g \circ f(\alpha \cdot \beta) = g(f(\alpha) \cdot f(\beta))
-        = g(f(\alpha)) \cdot g(f(\beta))
-        = g\circ f(\alpha) \cdot g\circ f(\beta),
-      \] and $g \circ f$ preserves the identity elements \[
-        g\circ f(1) = g(1) = 1.
-      \] Therefore $g \circ f \in \operatorname{hom}_{\text{Alg}_k}(Z,Y)$.
-    \item For each composable triple $f, g$, and $h$ \[
-    h \circ (g \circ f) = (h \circ g) \circ f
-    \] because associativity is inherited from ordinary composition of functions.
-  \end{enumerate}
-\end{problempart}
-
-\begin{problempart}{(b)}
-  It is sufficient to show that
-  (i) $C^0(X)$ is a vector space over $\mathbb{R}$,
-  (ii) multiplication is bilinear,
-  (iii) multiplication is associative, and
-  (iv) there is a multiplicative identity.
-  \begin{enumerate}[(i)]
-    \item $C^0(X)$ is a vector space with pointwise addition and ordinary scalar
-      multiplication. In general continuous functions are closed under addition.
-      Multiplying (or dividing) every element in an open set $U$ by a scalar $a$
-      yields an open set $aU$,
-      so if $f^{-1}(U)$ is open for every open set $U$,
-      then $(af)^{-1}(aU)$ is also open.
-      Therefore $C^0(X)$ is closed under scalar multiplication.\\
-      $C^0(X)$ inherits structure from $\mathbb{R}$ so that.
-      \begin{itemize}
-        \item Associativity and commutivity of addition follow from $\mathbb{R}$.
-        \item The zero function (which is proven to be in $C^0(X)$ below) satisfies $f + 0 = f$ for all $f$.
-        \item All elements are invertible with respect to addition: $f(x) + (-1)\cdot f(x) = 0$.
-        \item The scalar $1 \in \mathbb{R}$ behaves as an identity element for scalar multiplication: $1f = f$.
-        \item Everything distributes nicely: $a(b \cdot f) = (ab) \cdot f$, $a(f + g) = af + ag$, and $(a + b)f = af + bf$.
-      \end{itemize}
-      Lastly, it is important to check that continuous functions remain
-      continuous after addition and scalar multiplication.
-    \item Bilinearity follows from well-behaved distributivity on $\mathbb{R}.$
-      Let $f,g,h\in C^0(X)$ and $\alpha \in \mathbb{R}$, then
-    \begin{alignat*}{3}
-      &(f + g) \times h &&= (f \cdot h) + (g \cdot h) &&= (f \times h) + (g \times h)\\
-      &f \times (g + h) &&= (f \cdot g) + (f \cdot h) &&= (f \times g) + (f \times h)\\
-      &(\alpha \cdot f) \times g &&= \alpha \cdot (f \cdot g) &&= \alpha \cdot (f \times g) \\
-      &f \times (\alpha \cdot g) &&= \alpha \cdot (f \cdot g) &&= \alpha \cdot (f \times g).
-    \end{alignat*}
-    \item Associativity follows from associativity on $\mathbb{R}$. \[
-      (f \times g) \times h = (f \cdot g) \cdot h = f \cdot (g \cdot h) = f \times (g \times h).
-    \]
-    \item The multiplicative identity is the constant function $1$. Constant
-    functions are in $C^0(X)$ because any open set that contains the constant
-    has a preimage of $X$ (which is an open set) and any set that does not
-    contain the constant has a preimage of $\emptyset$ (which is also an open set.)
-    For each function $f\in C^0(X)$ and each point $x \in X$ \[
-      1(x) \times f(x) = 1 \cdot f(x) = f(x) = f(x) \cdot 1 = f(x) \times 1(x),
-    \] therefore $1 \times f = f = f \times 1$.
-  \end{enumerate}
-\end{problempart}
-\begin{problempart}{(c)}
-  Let $f$ be a continuous map $f \in \operatorname{hom}_{\textbf{Top}}(X, Y)$.\\
-  In order to prove that $F$ is a contravariant functor, it is sufficient to show that
-    (i) $F(f)$ is an $\mathbb{R}$-algebra homomorphism,
-    (ii) $F\colon\operatorname{hom}_{\textbf{Top}}(X,Y) \rightarrow \operatorname{hom}_{\textbf{Alg}_\mathbb{R}}(F(Y), F(X))$
-      sends identity morphisms to identity morphisms, and
-    (iii) $F(f) \circ F(g) = F(g\circ f)$ for composable morphisms.
-\end{problempart}
-\begin{enumerate}[(i)]
-  \item{
-    Let $g,h \in C^0(Y)$.
-    Then $F(f)\colon C^0(Y) \rightarrow C^0(X)$ is an $\mathbb{R}$-algebra
-    homomorphism because it is compatible with multiplication maps \[
-      F(f)(g \cdot h) = (g \cdot h)\circ f
-      = (g \circ f) \cdot (h\circ f)
-      = F(f)(g) \cdot F(f)(h)
-    \] and because it preserves the (multiplicative) identity element
-    (the constant map $1$) \[
-      F(f)(y\mapsto 1) = (y \mapsto 1) \circ f = (x \mapsto 1)
-    \]
-  }
-  \item{
-    Let $\operatorname{id}_X \in \operatorname{hom}_{\textbf{Top}}(X, X)$.
-    Then for all $g \in F(X) = C^0(X)$, \[
-      F(\operatorname{id}_X)(g) = g \circ \operatorname{id}_X
-      = g
-      = \operatorname{id}_{C^0(X)}(g).
-    \] Therefore $F(\operatorname{id}_X) = \operatorname{id}_{C^0(X)}$.
-  }
-  \item{
-    Let $g \in \operatorname{hom}_{\textbf{Top}}(Y, Z)$ and $h \in C^0(Z)$.
-    Then \[
-      (F(f) \circ F(g))(h) = F(f)(F(g)(h))
-      = F(f)(h\circ g)
-      = (h\circ g\circ f)
-      = F(g\circ f)(h),
-    \] so $F(f) \circ F(g) = F(g\circ f)$.
-  }
-\end{enumerate}
-\begin{problempart}{(d)}
-  It is sufficent to show that (i) there exists a functor $\textit{Forget}$ from
-  $\textbf{Alg}_\mathbb{R}$ to $\textbf{Set}$ (that maps algebras to their
-  underlying sets and algebra homomorphisms to the corresponding map of sets),
-  (ii) this functor is faithful, and (iii) this functor is not full.
-  \begin{enumerate}
-    \item{
-      $\mathit{Forget}$ naturally maps identity morphisms to identity morphisms
-      because the identity morphism on an $\mathbb{R}$-algebra is the same as
-      the identity morphism on the underlying set, namely $x \mapsto x$.
-      Composition is compatible because it is the same as the set theoretic
-      function composition.
-    }
-    \item{(?)
-      Let $A = \mathbb{R}$ with the ordinary multiplication $a \times b = ab$, and
-      let $B = \mathbb{R}$ with the multiplication $a \times b = ab/2$. Then
-      $A \not= B$ as $\mathbb{R}$-algebras, but $A = B$ as sets.
-    }
-    \item{
-      Let $\phi\colon C^0(X) \rightarrow C^0(X)$ be the function
-      $\phi(f) = (x\mapsto x + 1) \circ f$. Then the unity element (the constant
-      function $x \mapsto 1$)
-      is not preserved under $\phi$, so $\phi$ is not an $\mathbb{R}$-algebra
-      homomorphism. Therefore $\phi$ is not in the image of $\textit{Forget}$, and so $\textit{Forget}$ is
-      not full.
-    }
-  \end{enumerate}
-\end{problempart}
-\end{proof}
 
 \end{document}
