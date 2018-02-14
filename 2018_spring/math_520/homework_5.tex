@@ -11,7 +11,7 @@
 
 \begin{document}
 
-\title{Complex Analysis: Homework 3}
+\title{Complex Analysis: Homework 5}
 \author{Peter Kagey}
 
 \maketitle
@@ -94,17 +94,42 @@
 
 \begin{problem}{3} (page 120) \\
   Compute \[
-    \int_{|z|=2}\frac{dz}{z^2 + 1}.
-  \]
+    \int_{|z|=\rho}\frac{|dz|}{|z - a|^2}
+  \] under the condition that $|a| \not= \rho$.
 \end{problem}
 
 \begin{proof}
-  By partial fraction decomposition and Theorem 6, \begin{align*}
-    \int_{|z|=2}\frac{dz}{z^2 + 1} &= \frac{1}{2}\int_{|z|=2}\frac{dz}{z - i} -
-    \frac{1}{2}\int_{|z|=2}\frac{dz}{z + i}\\
-    &= \frac{1}{2}\cdot n(\gamma, i)\cdot 1 - \frac{1}{2}\cdot n(\gamma, -i)\cdot 1 \\
-    &= 0.
+  By the hint, we can rewrite the integral as \begin{align*}
+    \int_{|z|=\rho}\frac{|dz|}{|z - a|^2} &= -i\rho\int_{|z|=\rho}\frac{dz}{z|z - a|^2} \\
+    &= -i\rho\int_{|z|=\rho}\frac{dz}{z(z - a)(\overline{z-a})} \\
+    &= -i\rho\int_{|z|=\rho}\frac{dz}{z(z - a)(\bar{z}-\bar{a})} \\
+    &= -i\rho\int_{|z|=\rho}\frac{dz}{z(z - a)(\rho^2/z-\bar{a})} \\
+    &= -i\rho\int_{|z|=\rho}\frac{dz}{(z - a)(\rho^2-\bar{a}z)} \\
   \end{align*}
+  Now using partial fraction decomposition, \[
+    \frac{1}{(z - a)(\rho^2-\bar{a}z)} = \frac{A}{(z - a)} + \frac{B}{(\rho^2-\bar{a}z)}.
+  \]
+  By the system of equations \begin{align*}
+    -A\bar{a} + B &= 0 \\
+    A\rho^2 - aB &= 1 \\
+  \end{align*} yields $A = (\rho^2 - |a|^2)^{-1}$ and $B = \bar{a}(\rho^2 - |a|^2)^{-1}$. Therefore
+  \begin{align*}
+    \int_{|z|=\rho}\frac{|dz|}{|z - a|^2} &= -i\rho\int_{|z|=\rho} \frac{1}{\rho^2 - |a|^2}\cdot\frac{1}{(z - a)} + \frac{1}{\rho^2 - |a|^2}\cdot\frac{\bar{a}}{(\rho^2-\bar{a}z)} dz\\
+    &= -\frac{i\rho}{\rho^2 - |a|^2}\left(\int_{|z|=\rho} \frac{dz}{(z - a)} + \int_{|z|=\rho}\frac{\bar{a}}{(\rho^2-\bar{a}z)} dz\right)
+  \end{align*}
+  Finally there are two cases: \begin{enumerate}
+    \item $|a| < \rho$ and $\rho^2a/|a|^2 > \rho$. The first integral has a
+      singularity, so the second integral vanishes. Therefore \[
+        \int_{|z|=\rho}\frac{|dz|}{|z - a|^2} = \frac{2\pi\rho}{\rho^2 - |a|^2}.
+      \]
+    \item $|a| > \rho$ and $\rho^2a/|a|^2 < \rho$. The second integral has a
+      singularity, so the first integral vanishes. Therefore \[
+        \int_{|z|=\rho}\frac{|dz|}{|z - a|^2} = \frac{2\pi\rho}{\rho^2 - |a|^2}.
+      \].
+  \end{enumerate}
+
+  In either case, the integrals are equal.
+
 \end{proof}
 
 % -----------------------------------------------------
