@@ -1,0 +1,168 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Homework 6}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{2} (page 129f) \\
+  Show that a function which is analytic in the whole plane and has a
+  nonessential singularity at $\infty$ reduces to a polynomial.
+\end{problem}
+\begin{proof} \text{} \\
+  Let $f$ be a function which is analytic in the whole plane and has a
+  nonessential singularity at $\infty$.
+  % In particular, $f(1/z)$ also has a
+  % nonessential singularity at $0$. Because the singularity is nonessential,
+  % there exists some $m$ such that $z^m \cdot f(1/z)$ is analytic at 0.
+  \\~\\
+  \textbf{Case 1 (removable singularity)} Assume that $f$ has a removable
+    singularity at $\infty$. Then $\displaystyle\lim_{z\rightarrow\infty} f(z) \in \mathbb{C}$,
+    and since $f$ is analytic on the whole plane by Liouville's Theorem, $f$ is
+    constant.
+  \\~\\
+  \textbf{Case 2 (pole)} Assume $f$ has a pole at $\infty$, and let
+    $g(z) = f(1/z)$. In this case $\lim_{z\rightarrow\infty} f(z) = \infty$,
+    so $\lim_{z\rightarrow0} g(z) = \infty$. Then $h(z) = z^m\cdot g(z)$ is analytic
+    in the whole plane, so by Taylor's Theorem expanded about $0$, \[
+      z^m\cdot g(z) = h(0) + \frac{h'(0)}{1!}z + \hdots
+      + \frac{h^{(m-1)}(0)}{(m-1)!}z^{m-1}
+      + h_m(z)z^m.
+    \] Dividing by $z^m$ yields \[
+      g(z) = \frac{h(0)}{z^m} + \frac{h'(0)}{1!z^{m-1}} + \hdots
+      + \frac{h^{(m-1)}(0)}{(m-1)!z}
+      + h_m(z),
+    \] and so \[
+      f(z) = g(1/z) = h(0)z^m + \frac{h'(0)}{1!}z^{m-1} + \hdots
+      + \frac{h^{(m-1)}(0)}{(m-1)!}z
+      + h_m(1/z).
+    \]
+    So it is sufficient to show that $h_m$ reduces to a constant. But this
+    follows because \[
+      h_m(z) = g(z) - \left(\frac{h(0)}{z^m} + \frac{h'(0)}{1!z^{m-1}} + \hdots
+        + \frac{h^{(m-1)}(0)}{(m-1)!z}\right)
+    \] is bounded and analytic on the whole plane, so must be a constant by
+    Liouville's Theorem.
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4} (page 129f) \\
+  Show that any function which is meromorphic in the extended plane is rational.
+\end{problem}
+
+\begin{proof} \text{} \\
+  Let $f$ be a function which is meromorphic in the extended plane with poles
+    $\{ p_1, p_2, \hdots, p_n \} \subset \mathbb{C}$.
+  Then if $k_i$ is the order of $p_i$, let \[
+    g(z) = f(z) \cdot \prod_{i=1}^{n} (z - p_i)^{k_i}
+  \] which is analytic on $\mathbb{C}$. From the above question (Problem 2), we
+  know $g(z)$ is rational, because any singularities at $\infty$ are
+  nonessential. Therefore \[
+    f(z) = \frac{g(z)}{\prod_{i=1}^{n} (z - p_i)^{k_i}}
+  \] is a rational function.
+\end{proof}
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5} (page 129f) \\
+  Prove that an isolated singularity of $f(z)$ is removable as soon as either
+  $\operatorname{Re} f(z)$ or $\operatorname{Im} f(z)$ is bounded above or
+  below.\\
+  (Hint: Apply a fractional linear transformation.)
+\end{problem}
+
+\begin{proof} \text{} \\
+  In any of these four cases, the half-plane can be mapped into the unit disk.
+  For example, if $\operatorname{Re}(f(z)) > M$, then the transformation
+  $z \mapsto z - M$ followed by $z \mapsto (z-1)/(z+1)$ yields a bounded
+  function \[
+    g(z) = \frac{f(z) - M - 1}{f(z) - M + 1},
+  \] where $|g(z)| \leq 1$. Therefore $g$ has a removable singularity.
+  Extending $g$ and applying the inverse linear transformation results in an
+  analytic extension of $f$, showing that the singularity is removable.
+\end{proof}
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{6} (page 129f) \\
+  Show that an isolated singularity of $f(z)$ cannot be a pole of $\exp f(z)$.\\
+  (Hint: $f$ and $e^f$ cannot have a common pole (why?). Now apply Theorem 9.)
+\end{problem}
+
+\begin{proof} \text{} \\
+  Firstly $f$ and $e^f$ cannot have a common pole because if $f$ has a pole at
+  $z_0$, then $g(z) = f(1/z)$ has a zero at $z_0$, and so $e^{g(z_0)} = 1$, and
+  thus $e^f = 1$ at every pole of $f$.
+
+  In every neighborhood of a isolated singularity of $f$, $f(z)$ can be made
+  arbitrarily close to $\infty$ (on the Riemann Sphere), and so $\exp(f(z))$ can
+  be made arbitrarily close to any complex value $w = \alpha + \beta i$,
+  by choosing $z$ such that $f(z) = a + bi$ has $a$ near $\alpha$ and $b$ near
+  $\beta + 2\pi k$ for some (large) $k$.
+
+  Therefore by Theorem 9, the pole at $f(z)$ is an essential singularity of
+  $\exp f(z)$.
+\end{proof}
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{1} (page 133) \\
+  Determine explicitly the largest disk about the origin whose image under the
+  mapping $f(z) = z^2 + z$ is one to one.
+\end{problem}
+
+\begin{proof} \text{} \\
+  By corollary 2, because $f'(z) = 2z + 1$ vanishes at
+  $z = 1/2$, the disk must not contain the point $z = 1/2$. Thus, the disk can
+  have radius at most $1/2$.
+
+  Suppose that $w \not= z$ but $w^2 + w = z^2 + z$. Then $w^2 - z^2 = z - w$, so
+  $(w + z) = -1$. If $w$ and $z$ are in the disk of radius $1/2$, then
+  $w + z \not= -1$, so $f$ is indeed injective on the disk of radius $1/2$.
+\end{proof}
+% -----------------------------------------------------
+% Sixth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 133) \\
+  Apply the representation $f(z) = w_0 + \zeta(z)^n$ to $\cos z$ with $z_0 = 0$.
+  Determine $\zeta(z)$ explicitly.
+\end{problem}
+
+\begin{proof} \text{} \\
+  Firstly $\cos(0) = 1$, so we can write \[
+    \cos(z) - 1 = z^2\frac{\cos(z) - 1}{z^2}
+  \] so $g(z) = (\cos(z) - 1)/z^2$ and so by the double-angle formula \begin{align*}
+    h(z) &= \sqrt{g(z)}\\
+    &= \sqrt{\frac{\cos(z) - 1}{z^2}}\\
+    &= \sqrt{\frac{-2\sin^2(z/2)}{z^2}}\\
+    &= \frac{i\sqrt{2}\sin(z/2)}{z}.
+  \end{align*}
+  And therefore $\zeta(z) = zh(z) = i\sqrt{2}\sin(z/2)$.
+\end{proof}
+
+\end{document}
