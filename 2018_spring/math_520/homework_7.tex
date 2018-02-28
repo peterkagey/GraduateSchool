@@ -1,0 +1,199 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Homework 6}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} (page 136) \\
+  Show by use of (36), or directly, that $|f(z)| \leq 1$ for $|z| \leq 1$
+  implies \[
+    \frac{|f'(z)|}{1 - |f(z)|^2} \leq \frac{1}{1 - |z|^2}.
+  \]
+\end{problem}
+\begin{proof} \text{} \\
+  Starting from (36) with $M = 1$ and $R = 1$, we have \[
+    \left| \frac{f(z) - f(z_0)}{1 - \overline{f(z_0)}f(z)} \right| \leq
+    \left| \frac{z - z_0}{1 - \overline{z_0}z} \right|
+  \] so multiplying by the denominator of the left hand side and dividing by the
+  numerator of the right hand side yields \[
+  \left| \frac{f(z) - f(z_0)}{z - z_0} \right| \leq
+  \left| \frac{1 - \overline{f(z_0)}f(z)}{1 - \overline{z_0}z} \right|.
+  \]
+  In particular, this holds in the limit: \begin{align*}
+    \lim_{z \rightarrow z_0} \left| \frac{f(z) - f(z_0)}{z - z_0} \right| &\leq
+    \lim_{z \rightarrow z_0} \left| \frac{1 - \overline{f(z_0)}f(z)}{1 - \overline{z_0}z} \right| \\
+    |f'(z)| &\leq \left|\frac{1 - |f(z)|^2}{1 - |z|^2}\right|\\
+    &= \frac{1 - |f(z)|^2}{1 - |z|^2}
+  \end{align*}
+  where the final equality holds because $1 - |f(z)|^2 \geq 0$ and
+  $1 - |z|^2 \geq 0$.\\~\\
+  Thus dividing both sides by $1 - |f(z)|^2 \geq 0$ gives the desired inequality
+  \[
+    \frac{|f'(z)|}{1 - |f(z)|^2} \leq \frac{1}{1 - |z|^2}.
+  \]
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2} (page 136) \\
+  If $f(z)$ is analytic and $\operatorname{Im} f(z) \geq 0$ for
+  $\operatorname{Im} z > 0$, show that \[
+    \left|\frac{f(z)-f(z_0)}{f(z)-\overline{f(z_0)}}\right| \leq
+    \left|\frac{z-z_0}{z - \overline{z_0}}\right|
+  \] and \[
+    \frac{|f'(z)|}{\operatorname{Im} f(z)} \leq \frac{1}{y}
+  \]
+\end{problem}
+
+\begin{proof} \text{} \\
+  For the first inequality, let \[
+    \hat{f}(z) = \frac{f(z)-f(z_0)}{f(z)-\overline{f(z_0)}}
+    \hspace{0.3cm}\text{and}\hspace{0.3cm}
+    g(z) = \frac{z-z_0}{z - \overline{z_0}}
+  \] then $\hat{f}$ and $g$ are both $0$ at $z_0$, and are both analytic on the
+  upper half plane punctured at $\overline{f(z_0)}$ and $\overline{z_0}$
+  respectively. By the hypothesis, we know that $|\hat{f}(z)| \leq 1$ and
+  $|g(z)| \leq 1$.
+  For $z_0$ on the boundary of $\operatorname{Im} z > 0$
+  (which is the real axis), $g(z) = 1$, so by Theorem $12'$ the function \[
+    \left|\frac{\hat{f}(z)}{g(z)}\right| = |\hat{f}(z)| \leq 1
+  \] on the boundary, so this must be the maximum in the upper half plane. Therefore \[
+    |\hat{f}(z)| \leq |g(z)|
+  \].
+
+  The second inequality follows from the first. Multiplying
+  by the denominator on the left hand side and dividing by the numerator on the
+  right hand side \[
+    \left|\frac{f(z) - f(z_0)}{z - z_0}\right| \leq
+    \left|\frac{f(z)-\overline{f(z_0)}}{z - \overline{z_0}}\right|
+  \] and so in the limit (Noting that for
+  $w \in \mathbb{C},\ w-\overline{w} = 2\operatorname{Im} w$) \begin{align*}
+    \lim_{z \rightarrow z_0}\left|\frac{f(z) - f(z_0)}{z - z_0}\right| &\leq
+    \lim_{z \rightarrow z_0}\left|\frac{f(z)-\overline{f(z_0)}}{z - \overline{z_0}}\right|\\
+    |f'(z)| &\leq
+    \left|\frac{2\operatorname{Im}f(z)}{2\operatorname{Im}z}\right|.
+  \end{align*}
+  Thus dividing both sides by $|\operatorname{Im} f(z)|$ yields \begin{align*}
+    \frac{|f'(z)|}{|\operatorname{Im} f(z)|} &\leq \frac{1}{|\operatorname{Im} z|}\\
+    \frac{|f'(z)|}{\operatorname{Im} f(z)} &\leq \frac{1}{\operatorname{Im} z},
+  \end{align*} where the final inequality holds by the hypothesis that
+  $\operatorname{Im} f(z) \geq 0$ for $\operatorname{Im} z > 0$.
+\end{proof}
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 136) \\
+  In Ex. 1 and 2, prove that equality implies that $f(z)$ is a linear transformation.
+\end{problem}
+
+\begin{proof} \text{} \\
+  (?)
+\end{proof}
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{1} (page 154) \\
+  How many roots does the equation $z^7 - 2z^5 + 6z^3 - z + 1 = 0$ have in the
+  disk $|z| < 1$?
+\end{problem}
+
+\begin{proof} \text{} \\
+  Let $f(z) = 6z^3$, and let $g(z) = z^7 - 2z^5 + 6z^3 - z + 1$ be the function
+  described above. Then by the triangle inequality, \[
+    |f-g| = |z^7 - 2z^5 - z + 1| \leq |z|^7 + 2|z|^5 + |z| + 1,
+  \] so $|f-g| \leq 5$ on the boundary of the unit circle. Similarly, \[
+    |f| = 6|z|^3 = 6
+  \] on the boundary of the unit circle.
+  Since $|f-g| < |f|$ on this curve, by Rouch\'e's Theorem $g(z)$ has three roots
+  because $f(z) = 6z^3$ has three roots.
+
+\end{proof}
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2} (page 154) \\
+  How many roots of the equation $z^4 - 6z + 3 = 0$ have their modulus between
+  $1$ and $2$?
+\end{problem}
+
+\begin{proof} \text{} \\
+  It is sufficient to count the number of roots in the disk of radius 2 and
+  subtract the number of roots in the unit disk.\\
+  By Rouch\'e's Theorem with $f(z) = z^4$ and $g(z) = z^4 - 6z + 3$, on the circle
+  of radius 2, $|z| = 2$, \[
+    |z^4 - (z^4 - 6z + 3)| = |6z - 3| \leq 15 < 16 = 2^4 = |z|^4 = |z^4|
+  \] $|z^4 - (z^4 - 6z + 3)|$ has all four of its roots inside the circle of
+  radius 2.\\
+  By another application of Rouch\'e's Theorem, this time with
+  $f(z) = -6z+3$ and $g(z) = z^4 - 6z + 3$ on the unit circle, $|z| = 1$, \begin{align*}
+    |f-g| &= |-6z + 3 - (z^4 - 6z + 3)| = |-z^4| = |z|^4 = 1, \text{ and}\\
+    |f| &= |-6z + 3| \geq 6|z| - 3 = 3, \text{ so}\\
+    |f-g| &< |f| \text{ for } |z| = 1.
+  \end{align*} Since $f$ has one root inside the unit circle (at $z = 1/2$), $g$
+  also has one root inside the unit circle.
+  \\ Therefore $z^4 - 6z + 3$ has three roots with modulus between 1 and 2.
+\end{proof}
+% -----------------------------------------------------
+% Sixth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 154) \\
+  How many roots of the equation $z^4 + 8z^3 + 3z^2 + 8z + 3 = 0$ lie in the
+  right half plane? (Hint: Sketch the image of the imaginary axis and apply the
+  argument principle to a large half disk.)
+\end{problem}
+
+\begin{proof} \text{} \\
+  The plan is to apply the argument theorem to the curve with one segment along
+  the imaginary axis from $Ri$ to $-Ri$ and the other segment along $Re^{it}$
+  for $t \in [-\pi/2, \pi/2]$, and then making $R$ big enough to catch all
+  roots.\\
+  First consider the image of the imaginary axis: \[
+    f(it) = t^4 + -8it^3 - 3t^2 + 8it + 3 = (t^4 - 3t^2 + 3) + i(-8t^3 + 8t)
+  \] which has a strictly positive real part, because $t^4 - 3t^2 + 3$
+  has discriminant $-3$. Thus the image of the imaginary axis is entirely in the
+  right half plane, and in particular does not wind around the origin.\\
+  Thus we're concerned with how many times the semicircle winds around the
+  origin. The image of the semicircle \begin{align*}
+    f(Re^{it}) &=
+      R^4 e^{4it}
+      + 8R^3 e^{3it}
+      - 3R^2 e^{2it}
+      + 8R e^{it}
+      + 3 \\
+    &= R^4 e^{4it}\left(
+      1 + \frac{8}{R}e^{-it}
+      - \frac{3}{R^2}e^{-2it}
+      + \frac{8}{R^3}e^{-3it}
+      + \frac{3}{R^4}e^{-4it}
+    \right)
+  \end{align*} can be approximated by $R^4 e^{4it}$, which winds around the
+  origin twice on the interval $t \in [-\pi/2, \pi/2]$.\\
+  Therefore $f$ has two roots in the right half plane.
+\end{proof}
+
+\end{document}
