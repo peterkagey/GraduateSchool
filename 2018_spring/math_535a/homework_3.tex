@@ -4,7 +4,7 @@
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{bbm,enumerate,mathtools}
 \usepackage[hidelinks]{hyperref}
-
+\usepackage{tikz}
 \newenvironment{problem}[2][Problem]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
 \newenvironment{note}[1][Note.]{\begin{trivlist}
@@ -14,7 +14,7 @@
 
 \begin{document}
 
-\title{Differential Geometry: Homework 2}
+\title{Differential Geometry: Homework 3}
 \author{Peter Kagey}
 
 \maketitle
@@ -98,9 +98,39 @@
 \end{problem}
 
 \begin{proof}
-  Denote $f$ by $(x_1,\hdots,x_m) \mapsto (f_1,\hdots,f_n)$. We want to construct
-  $G: \mathbb{R}^n \rightarrow \mathbb{R}^n$ such that $G \circ f = \pi_\text{imm}$
-  and $dG$ is an isomorphism.
+  % Denote $f$ by $(x_1,\hdots,x_m) \mapsto (f_1,\hdots,f_n)$. We want to construct
+  % $G: \mathbb{R}^n \rightarrow \mathbb{R}^n$ such that $G \circ f = \pi_\text{imm}$
+  % and $dG$ is an isomorphism.
+  The intuition here is that $G^{-1}:\mathbb{R}^n\rightarrow\mathbb{R}^n$
+  (the inverse of the diffeomorphism $G$) looks
+  very similar to $f:U\rightarrow\mathbb{R}^n$.
+
+  Let $p\in U$, and $\tilde{U}$ a sufficiently small neighborhood of $p$ so that
+  $\tilde{V} = f(\tilde{U})$ is locally Euclidean. Let $\pi_\text{sub}:\mathbb{R}^n \rightarrow \mathbb{R}^m$ be the canonical
+  submersion that ``removes'' the last $n-m$ coordinates of a point in
+  $\mathbb{R}^n$.
+  Denote $f\colon \tilde{U}\rightarrow\tilde{V} \subset \mathbb{R}^n$
+  coordinatewise by $f(x) = (f_1(x),\hdots,f_n(x))$.
+  Then \[
+    G^{-1}(x) = (
+      \underbrace{f_1 \circ \pi_\text{sub}(x)}_{1},\hdots,
+      \underbrace{f_m \circ \pi_\text{sub}(x)}_{m},
+      \underbrace{x_{m+1} + f_{m+1} \circ \pi_\text{sub}(x)}_{m+1},\hdots,
+      \underbrace{x_n + f_n \circ \pi_\text{sub}(x)}_n),
+  \] that is, apply $f$ to the first $m$ coordinates and leave the other $n-m$
+  coordinates the same (perhaps after some permutation of coordinates).
+
+  This results in a derivative matrix that looks like (a permutation of) $df$ in
+  the first $m$ columns, $I$ in the $n-m \times n-m$ submatrix in the bottom
+  right corner, and $0$ elsewhere.
+
+  Because $f$ is injective, the matrix $df_p$ has full rank, so the rows can be
+  permuted in such a way that $e_{m+1}$ through $e_n$ are not in the span of
+  $df_p$.
+
+  $G^{-1}$ is constructed in such a way that $dG^{-1}$ has rank $n$. Thus by the
+  inverse function theorem, $G = (G^{-1})^{-1}$ is a diffeomorphism with the
+  property that $G \circ f = \pi_\text{imm}$.
 \end{proof}
 
 % -----------------------------------------------------
@@ -234,8 +264,13 @@
     Then $\psi^{-1} \circ \pi_\text{imm} \circ \varphi: \operatorname{Sym}(n) \hookrightarrow (\mathbb{R})$
     is an embedding which demonstrates that $\operatorname{Sym}(n)$ is a submanifold of $(\mathbb{R})$.
   \end{problempart}
-  \begin{problempart}{(b)}
-    (?)\footnote{\url{https://math.stackexchange.com/a/383458/121988}}
+  \begin{problempart}{(b)}\footnote{\url{https://math.stackexchange.com/a/383458/121988}}
+    It is sufficient to show that $\phi$ is a submersion for all points
+    $p\in\phi^{-1}(I)$. So letting $B$ be an arbitrary invertible matrix in
+    $M_n(\mathbb{R})$, and taking the derivative \[
+      \phi'_p(A) = \lim_{h \rightarrow 0} \frac{\phi(A + hB) - \phi(A)}{h}B^{-1}.
+    \]
+    It now must be shown that $\phi'(I)$ is a matrix of rank $m$.
   \end{problempart}
   \begin{problempart}{(c)}
     This follows from the corollary to the implicit function theorem. As shown in
