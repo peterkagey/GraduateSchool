@@ -1,0 +1,440 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\title{Differential Geometry: Homework 4}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  Let $M \subset \mathbb{R}^N$ be a submanifold of $\mathbb{R}^N$, and $p \in M$
+  a point. Verify that the two extrinsic definitions of tangent space to $M$ at
+  $p$ (the second one requiring us to further assume that $M$ is $f^{-1}(y)$ for
+  some smooth function $f\colon \mathbb{R}^N \rightarrow \mathbb{R}^{N-m}$ and
+  some regular value $y \in \mathbb{R}^{N-m}$) and the first intrinsic
+  definition of tangent space given in class are all naturally isomorphic.
+\end{problem}
+
+\begin{proof} \text{} \\
+  The proof will follow in three parts: starting with a curve
+  $\alpha\colon (-\epsilon,\epsilon) \rightarrow M \in \mathbb{R}^m$
+  centered at $p \in M$, we will call the derivative at 0
+  $\alpha'(0) = v \in T_p^{(1)}M$; we will then show that this
+  we will show that this exact vector satisfies the conditions of definition 2,
+  so $v \in T_p^{(2)}M$; we will then construct a equivalence class $[\alpha]$
+  and use this equivalence class to recover $v$.\\~\\
+  \textbf{(1) $\Longrightarrow$ (2)}
+    Define the map $\phi_{1\Rightarrow2}: T_p^{(1)}M \rightarrow T_p^{(2)}M$
+    as the identity map, which is an obvious isomorphism. It is only necessary
+    to check that an arbitrary vector $v \in T_p^{(1)}M \subset \mathbb{R}^m$
+    is indeed in $T_p^{(2)}M \subset \mathbb{R}^m$.\\
+    It is enough to check that $df_p(v) = df_p(\alpha'(0)) = 0$.
+    % ???
+  \\~\\
+  \textbf{(2) $\Longrightarrow$ (3)}
+    Because $v$ is, by construction, $\alpha'(0)$ for some curve $\alpha$, let
+    $\phi_{2\Rightarrow3}: T_p^{(2)}M \rightarrow T_p^{(3)}M$ be defined by the
+    map $\alpha'(0) \mapsto [\alpha]$.\\
+    Note that this is well-defined: if $v = \beta'(0)$ for some curve $\beta$
+    then (in particular) for the chart $(M, \phi = \operatorname{id})$, \[
+      (\phi \circ \alpha)'(0) = \alpha'(0) = v = \beta'(0) = (\phi \circ \beta)'(0),
+    \] so $\alpha \sim \beta$.
+  \\~\\
+  \textbf{(3) $\Longrightarrow$ (1)}
+    Given an equivalence class $[\alpha] \in T_p^{(3)}M$, we must now recover
+    $v \in T_p^{(1)}M$. Simply define
+    $\phi_{3\Rightarrow1}: T_p^{(3)}M \rightarrow T_p^{(1)}M$
+    using the identity chart $(M, \operatorname{id})$ and taking the derivative: \[
+      %\operatorname{id} is causing weird spacing.
+      \phi_{3\Rightarrow1}([\alpha]) = (\text{id} \circ \alpha)'(0) = \alpha'(0) = v.
+    \] This does not depend on choice of representative, because all
+    elements in the equivalence class agree on the derivative at $0$.
+\end{proof}
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2}
+  Let $M = \{\, (x,y,z) \in \mathbb{R}^3\ |\ z = \sqrt{x^2 + y^2} \,\}$.
+  \begin{enumerate}[(a)]
+    \item Show that $M - 0$ is a 2-dimensional submanifold of
+      $\mathbb{R}^3 - 0$
+    \item Let $\alpha\colon (-\epsilon, \epsilon) \rightarrow \mathbb{R}^3$ be a
+      smooth curve with image contained in $M$, such that $\alpha(0) = (0,0,0)$.
+      Show that $\alpha'(0) = (0, 0, 0)$.
+    \item Use part (b) to show that $M$ is no a submanifold of $\mathbb{R}^3$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+  \begin{enumerate}[(a)]
+    \item
+      Let $f\colon \mathbb{R}^2 - 0 \rightarrow \mathbb{R}^3 -  0$ be given by
+      $f(x,y) = (x, y, \sqrt{x^2 + y^2})$. Then $f$ is clearly an injection,
+      because the projection onto the first two coordinates $\pi_\text{sub}$
+      returns the original coordinates: $\pi_\text{sub} \circ f = \operatorname{id}$.
+      Also, $f$ is an injection because the Jacobian matrix \[
+        df =
+        \begin{bmatrix}
+          \frac{\partial}{\partial x}x & \frac{\partial}{\partial y}x\\ \\
+          \frac{\partial}{\partial x}y & \frac{\partial}{\partial y}y\\ \\
+          \frac{\partial}{\partial x}\sqrt{x^2 + y^2} & \frac{\partial}{\partial y}\sqrt{x^2 + y^2}
+        \end{bmatrix} = \begin{bmatrix}
+          1 & 0\\ \\
+          0 & 1\\ \\
+          \frac{x}{\sqrt{x^2 + y^2}} & \frac{y}{\sqrt{x^2 + y^2}}
+        \end{bmatrix}
+      \] is of rank $2$ for all points in the domain.\\
+      The domain $\mathbb{R}^2 - 0$ is a manifold because it is
+      an open subset of $\mathbb{R}^2$, and $f$ is an injective immersion,
+      therefore $\operatorname{im}(f) = M - 0$ is a
+      submanifold of $\mathbb{R}^3 - 0$.
+    \item % ???
+      Per the hint, denote $\alpha(t)$ as $\alpha(t) = (x(t),y(t),z(t))$, so
+      that $z\colon (-\epsilon,\epsilon) \rightarrow \mathbb{R}$.
+      Because $\alpha$ has image in $M$, $z(t) \geq 0$ for all $t$.
+      Thus $z(0) = 0$ is a local minimum, and $z'(0) = 0$.
+    \item
+      Because all curves with image in $M$ centered at $(0,0,0)$ have derivative
+      $\alpha'(0) = (0,0,0)$, by the first (extrinstic) defintion of a tangent
+      space, the tangent space at $(0,0,0)$ has dimension $0$, which is not the
+      dimension of the manifold $M - 0$.
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3}
+  Given a manifold $M$ and a point $p$, as defined in class, let $C^M_p$
+  denote the collection of all parametrized curves in $M$ passing through $p$ at
+  $0$: \[
+    C_p^M := \{\,
+      (I, \alpha)\ |\
+      I\text{ any interval containing 0, }
+      \alpha\colon I \rightarrow M \text{ smooth with } \alpha(0) = p\,
+    \}.
+  \]
+  As in class, we defined an equivalence relation $\sim$ on $C_p^M$ as follows:
+  pick any chart $(U, \varphi)$ in $M$'s atlas containing $p$, we say that
+  $(I, \alpha) \sim (J, \beta)$ if
+  $(\phi \circ \alpha)'(0) = (\phi \circ \beta)'(0)$.
+  \begin{enumerate}[(a)]
+    \item Verify that $\sim$ is moreover independent of choice of chart
+    $(U, \phi)$ in $M$’s maximal atlas containing $p$.
+
+    Once this is done, we can define the tangent space to $p$ at $M$ by $T_pM := C_p/\sim$.
+    \item
+      If $W$ is an open subset of $\mathbb{R}^m$, and $q \in W$ any point,
+      verify that there is an isomorphism of sets \[
+        C_q^W \xrightarrow{\sim} \mathbb{R}^m
+      \]
+      which sends an equivalence $[(I, \alpha)]$ to $\alpha'(0)$ for any chosen
+      representative $(I, \alpha)$ in the equivalence class (why is this
+      well-defined?)
+    \item
+      Prove that there exists a unique vector space structure on $T_pM$ such that
+      for each chart $(U, \phi)$ containing $p$, the map \[
+        \Phi\colon T_pM
+        \rightarrow C_{\phi(p)}^{\phi(U)}
+        \xrightarrow{\sim} \mathbb{R}^m
+      \] is a linear isomorphism.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item
+      Suppose that for two curves $\alpha$ and $\beta$,
+      $(\phi \circ \alpha)'(0) = (\phi \circ \beta)'(0)$. Then
+      $\psi \circ \alpha = \psi \circ \phi^{-1} \circ \phi \circ \alpha$ and
+      $\psi \circ \beta = \psi \circ \phi^{-1} \circ \phi \circ \beta$.
+      So by the chain rule in a sufficiently restricted neighborhood of $p$,
+      \begin{align*}
+        (\psi \circ \alpha)'(0)
+        &= (\psi \circ \phi^{-1} \circ \phi \circ \alpha)'(0) \\
+        &= (\psi \circ \phi^{-1})'(\phi \circ \alpha(0)) \cdot (\phi \circ \alpha)'(0) \\
+        &= (\psi \circ \phi^{-1})'(\phi(p)) \cdot (\phi \circ \alpha)'(0) \\
+        &= (\psi \circ \phi^{-1})'(\phi(p)) \cdot (\phi \circ \beta)'(0) \\
+        &= (\psi \circ \phi^{-1})'(\phi \circ \beta(0)) \cdot (\phi \circ \beta)'(0) \\
+        &= (\psi \circ \phi^{-1} \circ \phi \circ \beta)'(0) \\
+        &= (\psi \circ \beta)'(0)
+      \end{align*} Thus $\sim$ is independent of choice of chart.
+    \item
+      Let $f$ be this function that maps $[(I, \alpha)] \mapsto \alpha'(0)$.
+      This is well-defined because if $[(I, \alpha)] = [(J, \beta)]$, then
+      $\alpha'(0) = \beta'(0)$ by definition of the equivalence relation.\\
+      To show that $f$ is surjective, take some vector
+      $\vec{v} \in \mathbb{R}^m$, and then the curve $\alpha(t) = \vec{v}t + p$
+      for an interval $(-\epsilon, \epsilon)$ small enough that the image of
+      $\alpha$, $\operatorname{im} \subset W \subset \mathbb{R}^m$.\\
+      To see that $f$ is injective, notice that if
+      $f([(I, \alpha)]) = f([(J, \beta)])$, then $\alpha'(0) = \beta'(0)$, so
+      by definition of $\sim$, $[(I, \alpha)] = [(J, \beta)]$.
+    \item
+      Let $[\alpha], [\beta] \in T_pM$ be two equivalence classes of curves
+      centered at $p \in M$. Given some chart $(U, \phi)$ containing $p$, define
+      vector addition to be \[
+        [\alpha] + [\beta] = [\phi^{-1}((\phi \circ \alpha) + (\phi \circ \beta))]
+      \] using ordinary pointwise addition in $\mathbb{R}^m$, and define scalar
+      multiplication to be \[
+        c[\alpha(t)] = [\alpha(ct)].
+      \]\\
+      Notice that $C_{\phi(p)}^{\phi(M)}/\sim$ is a set of equivalence classes
+      of curves in $\mathbb{R}^m$, so if
+      $[\alpha], [\beta] \in C_{\phi(p)}^{\phi(M)}/\sim$ then a natural
+      defintion for addition is
+      $[\alpha] + [\beta] = [\alpha + \beta]$,
+      and a natural defintion for multiplication is
+      $c \cdot [\alpha] = [c \cdot \alpha]$.\\
+      Then the map $\Phi: C_p^M/\sim\ \rightarrow C_{\phi(p)}^{\phi(M)}/\sim$
+      which (given a chart $(U, \phi)$ around $p$) maps
+      $[\alpha] \mapsto [\phi \circ \alpha]$ is a linear isomorphism:
+      \begin{enumerate}[(i)]
+        \item Addition is linear: \begin{align*}
+          \Phi([\alpha] + [\beta])
+          &= \Phi([\phi^{-1}((\phi \circ \alpha) + (\phi \circ \beta))]) \\
+          &= [\phi \circ \phi^{-1}((\phi \circ \alpha) + (\phi \circ \beta))]\\
+          &= [(\phi \circ \alpha) + (\phi \circ \beta)] \\
+          &= [\phi \circ \alpha] + [\phi \circ \beta] \\
+          &= \Phi([\alpha]) + \Phi([\beta])
+        \end{align*}
+        \item Multiplication is linear: \begin{align}
+          c\cdot\Phi([\alpha]) &= c\cdot[\phi \circ \alpha] \\
+          &= [c \cdot (\phi \circ \alpha)] \\
+          &= [\phi \circ \alpha(ct)] \\
+          &= \Phi([\alpha(ct)]) \\
+          &= \Phi(c\cdot[\alpha])
+        \end{align} where step (3) is justified by the chain rule, as the
+        following derivatives are equal at $t=0$ \begin{align*}
+          \frac{d}{dt}(\phi \circ \alpha)(ct) &= c\cdot(\phi \circ \alpha)'(ct) \\
+          \frac{d}{dt}(c\cdot(\phi \circ \alpha)) &= c\cdot(\phi \circ \alpha)'(t).
+        \end{align*}
+        \item $\Phi$ is a bijection of sets.
+        Let $\Phi^{-1}$ map
+        $[\alpha] \mapsto [\phi^{-1} \circ \alpha]$.
+        Then \begin{align*}
+          \Phi^{-1} \circ \Phi([\alpha]) = \Phi^{-1}([\phi \circ \alpha]) = [\phi^{-1} \circ \phi \circ \alpha] &= [\alpha], \text{ and}\\
+          \Phi \circ \Phi^{-1}([\alpha]) = \Phi([\phi^{-1} \circ \alpha]) = [\phi \circ \phi^{-1} \circ \alpha] &= [\alpha],
+        \end{align*} so $\Phi^{-1}$ is a two-sided inverse.
+      \end{enumerate}
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4}
+  Give a detailed proof of the equivalence between the three definitions of
+  $T_pM$ given in class. Then, prove that the construction of the derivative \[
+    df_p\colon T_pM \rightarrow T_{f(p)}N
+  \] is the same for the three definitions.
+\end{problem}
+
+\begin{proof} \text{}\\
+  \textbf{(1) $\Longrightarrow$ (2)}
+  Let $\alpha: (-\epsilon, \epsilon) \rightarrow M$ be a curve centered at $p$,
+  so that $[\alpha] \in T_p^{(1)}M = C^p/\sim$.\\
+  Next define $g_{p,M}^{(12)}\colon T_p^{(1)}M \rightarrow T_p^{(2)}M$ to be
+  \[
+    g_{p,M}^{(12)}([\alpha]) = X_\alpha.
+  \] where $X_\alpha\colon C^\infty(p) \rightarrow \mathbb{R}$ is the (linear)
+  map that sends $h \mapsto (h \circ \alpha)'(0)$.\\
+  Now it must be shown that
+    (i) $g_{p,M}^{(12)}$ is well defined and
+    (ii) $X_\alpha$ satisfies the Leibniz rule.
+  \begin{enumerate}[(i)]
+  \item
+    Suppose that $[\alpha] = [\beta]$. Then for some chart $\phi$ around $p$,
+    \begin{align*}
+      X_\alpha(h) &= (h \circ \alpha)'(0) \\
+      &= (h \circ \phi \circ \phi^{-1} \alpha)'(0) \\
+      &= (h \circ \phi^{-1})'(\phi\circ\alpha(0)) \cdot (\phi \circ \alpha)'(0) && \text{chain rule}\\
+      &= (h \circ \phi^{-1})'(\phi\circ\beta(0)) \cdot (\phi \circ \beta)'(0) && \alpha(0) = \beta(0)\text{ and }\alpha \sim \beta\\
+      &= X_\beta(h) && \text{via the above equalities with }\beta\text{ in place of }\alpha.
+    \end{align*}
+  \item
+    By the product rule \begin{align*}
+      X_\alpha(h\cdot g) &= ((h\cdot g) \circ \alpha)'(0) \\
+      &= \frac{d}{dt}\left[h(\alpha(t))\cdot g(\alpha(t))\right]_{t=0}\\
+      &= (h \circ \alpha)'(0)\cdot g(\alpha(0)) + h(\alpha(0)) \cdot (g \circ \alpha)'(0)\\
+      &= X_\alpha(h)\cdot g(p) + h(p)\cdot X_\alpha(g).
+    \end{align*}
+  \end{enumerate}
+  % \\~\\
+  \textbf{(2) $\Longrightarrow$ (1)} Now we will (i) construct a map
+  $g_{p,M}^{(21)}\colon T_p^{(2)}M \rightarrow T_p^{(1)}M$ that maps
+  $X_\alpha \mapsto [\alpha]$ and (ii) show that this map is
+  compatible with an arbitrary derivation.\\
+  Choose some chart $\phi$ centered at $p$.
+  Let $\pi_k:\mathbb{R}^m\rightarrow\mathbb{R}$ be the projection map to the
+  $k$th coordinate. Then $\pi_k \circ \phi: M \rightarrow \mathbb{R}$ can be
+  viewed as the germ of a function at $p$. So let \[
+    \hat{\alpha}(t) = \phi^{-1}(X_\alpha(\pi_1 \circ \phi) \cdot t, \hdots, X_\alpha(\pi_m \circ \phi) \cdot t).
+  \] which is constructed so that $\hat{\alpha} \sim \alpha$ \begin{align*}
+    (\phi \circ \hat{\alpha})'(0) &= (\phi(\phi^{-1}(X_\alpha(\pi_1 \circ \phi) \cdot t, \hdots, X_\alpha(\pi_m \circ \phi) \cdot t)))'(0) \\
+    &= (X_\alpha(\pi_1 \circ \phi) \cdot t, \hdots, X_\alpha(\pi_m \circ \phi) \cdot t)'(0)\\
+    &= (X_\alpha(\pi_1 \circ \phi), \hdots, X_\alpha(\pi_m \circ \phi))\\
+    &= ((\pi_1 \circ \phi \circ \alpha)'(0), \hdots, (\pi_m \circ \phi \circ \alpha)'(0))\\
+    &= (\phi \circ \alpha)'(0).
+  \end{align*}
+  Therefore, let \[
+    g_{p,M}^{(21)}(X_\alpha) = [\hat{\alpha}(t)].
+  \] (This is a valid defintion for any arbitrary derivation, not just those in
+  the image of $g_{p,M}^{(12)}$.)
+%
+\\~\\
+  \textbf{(2) $\Longleftrightarrow$ (1) --- Derivative maps.}
+  % \setcounter{equation}{0}
+  We want to show that if $f\colon M \rightarrow N$, then \begin{align*}
+    df_p^{(1)}([\alpha]) = g_{p,N}^{(21)} \circ df_p^{(2)} \circ g_{p,M}^{(12)}([\alpha])& \text{ and}\\
+    df_p^{(2)}(X_\alpha) = g_{p,N}^{(12)} \circ df_p^{(1)} \circ g_{p,M}^{(21)}(X_\alpha)&.
+  \end{align*}
+  \begin{enumerate}[(i)]
+    \item The first identity:
+      \begin{align*}
+        g_{p,N}^{(21)} \circ df_p^{(2)} \circ g_{p,M}^{(12)}([\alpha])
+        &= g_{p,M}^{(21)} \circ df_p^{(2)}(X_\alpha) \\
+        &= g_{p,M}^{(21)}(X_\alpha \circ f^*) \\
+        &= [\phi^{-1}(X_\alpha \circ f^*(\pi_1 \circ \phi) \cdot t, \hdots, X_\alpha \circ f^*(\pi_m \circ \phi) \cdot t)] \\
+        &= [\phi^{-1}(X_\alpha(\pi_1 \circ \phi \circ f) \cdot t, \hdots, X_\alpha(\pi_m \circ \phi \circ f) \cdot t)] \\
+        &= [f \circ \alpha] \\
+        &= df_p^{(1)}[\alpha]
+      \end{align*} where the penultimate equality follows by the above argument
+      that $\hat{\alpha} \sim \alpha$, instead with $f$ pre-composed.
+    \item The second identity: \begin{align*}
+      g_{p,N}^{(12)} \circ df_p^{(1)} \circ g_{p,M}^{(21)}(X_\alpha)
+      &= g_{p,M}^{(12)} \circ df_p^{(1)}[\alpha] \\
+      &= g_{p,M}^{(12)}([f \circ \alpha]) \\
+      &= X_{f \circ \alpha} \\
+      &= X_\alpha \circ f^* \\
+      &= df_p^{(2)}(X_\alpha)
+    \end{align*} where $X_{f\circ\alpha} = X_\alpha \circ f^*$ because for all $g$,
+    \[
+      X_{f\circ\alpha}(g)
+      = (g \circ f \circ \alpha)'(0)
+      = X_\alpha(g \circ f)
+      = X_\alpha \circ f^*(g).
+    \]
+  \end{enumerate}
+  %
+  % \\~\\
+  \textbf{(2) $\Longleftrightarrow$ (3)}
+  Now given some germ $[f] \in  C^\infty(p)$, any representative can be written
+  (via Taylor's Theorem) as \[
+    f(x) = f(p) + \sum_{i} a_ix_i + \sum_{i,j}a_{ij}(x)x_ix_j
+  \] so $X(f) = X(f - f(p))$ where $x \mapsto f(x) - f(p)$ vanishes at $p$.
+  See also that $X$ annihilates the generators of $\mathcal{F}_p^2$ (and so it annihilates
+  $\mathcal{F}_p^2$): let $f = \sum_{i,j}g_{ij}\phi_i\phi_j$ where $\phi_i,\phi_j \in \mathcal{F}_p$
+  then by the Leibniz rule: \begin{align*}
+    X(g_{ij}\phi_i\phi_j) &= X(g_{ij})\cdot\phi_i(p)\phi_j(p)
+      + g_{ij}(p)X(\phi_i)\phi_j(p)
+      + g_{ij}(p)\phi_i(p)X(\phi_j) \\
+      &= X(g_{ij})\cdot0\cdot0
+        + g_{ij}(p)X(\phi_i)\cdot0
+        + g_{ij}(p)\cdot0\cdot X(\phi_j) \\
+      &= 0.
+  \end{align*}
+  As shown in the previous homework, $
+    \operatorname{Ann}(\mathcal{F}_p^2)
+    \cong (\mathcal{F}_p/\mathcal{F}_p^2)^*
+    = T_p^{(3)}M
+  $ via some isomorphism $g_{p,M}^{(23)} = \Phi$, therefore the map
+  $X_\alpha \mapsto \Phi(X_\alpha)$
+  will serve as an isomorphism from $T_p^{(2)}M$ to $T_p^{(3)}M$ with
+  $\Phi^{-1}$ as its inverse.
+  \\~\\
+  \textbf{(1) $\Longleftrightarrow$ (3)}
+  Once we have the above implications, it is easy enough to construct
+  $g_{p,M}^{(13)}$ and $g_{p,M}^{(31)}$ as the compositions of the existing
+  isomorphisms: \begin{align*}
+    g_{p,M}^{(13)} &= g_{p,M}^{(23)} \circ g_{p,M}^{(12)} \text{ and}\\
+    g_{p,M}^{(31)} &= g_{p,M}^{(21)} \circ g_{p,M}^{(32)}.
+  \end{align*} By the above work, we know (without explicitly checking) that
+  these isomorphism respect the derivative maps.
+\end{proof}
+
+% -----------------------------------------------------
+% Fifth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5}
+  Let $\Gamma$ be a group and $M$ a smooth manifold. A ($C^\infty$) action of
+  $\Gamma$ on $M$ is a group homorphism $\rho$ from $\Gamma$ to the group
+  $\operatorname{Diff}(M)$ of diffeomorphisms on $M$. If $\gamma \in \Gamma$ and $x \in M$,
+  we write $\gamma x = \rho(\gamma)(x)$ for the image of $x$ under the
+  diffeomorphism $\rho(\gamma)$.
+  \begin{enumerate}[(a)]
+    \item Prove that if $\Gamma$ acts freely and discontinously on $M$, then the
+    quotient $M/\Gamma$ naturally has the structure of a smooth manifold.
+    \item Let $\mathbb{Z}_2$ act on $S_n \subset \mathbb{R}^{n+1}$ by sending
+    $x \mapsto -x$. Using the standard manifold structure on $S^n$, prove that
+    $S^n/\mathbb{Z}_2$ has the structure of a manifold, which is diffeomorphic
+    to $\mathbb{R}P^n$, equipped with the smooth manifold structure defined on
+    last week's homework.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item
+      Suppose that $\Gamma$ acts freely and discontinuously on $M$. The
+      maximal atlas $\mathcal{A}_M$ on $M$ can be used to construct an atlas
+      $\mathcal{A}_{M/\Gamma}$ on $M/\Gamma$. Denote $\mathcal{A}_M$ by \[
+        \mathcal{A}_M =
+        \{(U_i,\, \phi_i\colon U_i \rightarrow \mathbb{R}^m)\}_{i \in I}.
+      \]
+      Because $\Gamma$ acts freely and discontinuously, around each point
+      $p \in M$, there exists an open set $U_p \subset M$ such that
+      $U_p \cap \gamma U_p = \emptyset$ for all
+      $\gamma \not= \operatorname{id} \in \Gamma$, and the collection of charts
+      $\{(U_p, \phi_p)\}_{p \in M} \subset \mathcal{A}_M$ is an atlas.
+
+      Let the surjective map $q\colon M \rightarrow M/\sim$ be given by $
+        x \mapsto [x] = \{\gamma x : \gamma\in\Gamma\},
+      $ and let \[
+        \mathcal{A}_{M/\Gamma} = \{(
+          V_p = q(U_p),
+          \psi_p\colon V_p\rightarrow\mathbb{R}^m)
+        \}_{p \in M}
+      \] where \[
+        \psi_p([x]) = \phi_p(\gamma x)
+        \text { for } \gamma\in\Gamma \text { such that } \gamma x \in U_p,
+      \] where $\gamma$ exists and is unique by construction.
+    \item
+      Denote $S^n$ by $\{ x \in \mathbb{R}^{n+1} : |x| = 1 \}$.
+      Then $S^n/\mathbb{Z}_2 = \{ \{ x, -x \} : x\in S^n\}$ which has atlas \[
+        \mathcal{A}_{S^n/\mathbb{Z}_2} = \{(U_k, \phi_k)\}_{k=1}^n
+      \] where $U_k = \{x_k \not= 0\}$, and \[
+        \phi_k([(x_1, \hdots, x_k, \hdots, x_{n+1})])
+        = \left(\frac{x_1}{x_k}, \hdots,
+        \frac{x_{k-1}}{x_k}, \frac{x_{k+1}}{x_k},
+        \hdots, \frac{x_{n+1}}{x_k}\right) \in \mathbb{R}^n
+      \] which is the same atlas as $\mathbb{R}P^n$, only with maps restricted
+      to $S^n \subset \mathbb{R}^{n+1}$.
+  \end{enumerate}
+\end{proof}
+\end{document}
