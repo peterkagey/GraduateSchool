@@ -1,0 +1,189 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Homework 8}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} (page 161) \\
+  Find the poles and residues of the following functions \begin{enumerate}[(a)]
+    \item $\displaystyle \frac{1}{z^2 + 5z + 6}$
+    \item $\displaystyle \frac{1}{(z^2 - 1)^2}$
+    \item $\displaystyle \frac{1}{\sin z}$
+    \item $\displaystyle \cot z$
+    \item $\displaystyle \frac{1}{\sin^2 z}$
+    \item $\displaystyle \frac{1}{z^m(1-z)^n}$ ($m,\ n$ positive integers).
+  \end{enumerate}
+\end{problem}
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item First note that the denominator factors as \[
+      x^4 + 5x^2 + 6 = (x^2 + 2)(x^2 + 3) = (x + i\sqrt{2})(x - i\sqrt{2})(x + i\sqrt{3})(x - i\sqrt{3})
+    \] Thus there are four poles: \[
+      -i\sqrt{2}, i\sqrt{2}, -i\sqrt{3}, \text{ and } i\sqrt{3}
+    \]
+    Next, looking at $B_1$ in the expansion
+      $f(z) = B_h(z-z_0)^{-h} + \hdots + B_1(z-z_0)^{-1} + \varphi(z)$
+    immediately yields \begin{enumerate}[(i)]
+      \item $\displaystyle
+        \operatorname{Res}_{z=-i\sqrt{2}}f(z)
+          = \frac{1}{(-i\sqrt{2} - i\sqrt{2})((-i\sqrt{2})^2 + 3)}
+          = \frac{-1}{2i\sqrt{2}}
+      $
+      \item $\displaystyle
+        \operatorname{Res}_{z=i\sqrt{2}}f(z)
+          = \frac{1}{(i\sqrt{2} + i\sqrt{2})((i\sqrt{2})^2 + 3)}
+          = \frac{1}{2i\sqrt{2}}
+      $
+      \item $\displaystyle
+        \operatorname{Res}_{z=-i\sqrt{3}}f(z)
+          = \frac{1}{(-i\sqrt{3} - i\sqrt{3})((-i\sqrt{3})^2 + 2)}
+          = \frac{1}{2i\sqrt{3}}
+      $
+      \item $\displaystyle
+        \operatorname{Res}_{z=i\sqrt{3}}f(z)
+          = \frac{1}{(i\sqrt{3} + i\sqrt{3})((i\sqrt{3})^2 + 2)}
+          = \frac{-1}{2i\sqrt{2}}
+      $
+    \end{enumerate}
+    \item First note that the denominator factors as \[
+      (z^2 - 1)^2 = (z + 1)^2(z-1)^2
+    \] so there are two poles of order $2$: $-1$ and $1$. Thus the resides are
+    \begin{enumerate}[(i)]
+      \item $\displaystyle
+        \operatorname{Res}_{z=-1}f(z)
+        = \frac{d}{dz}\left[\frac{1}{(z - 1)^2}\right]_{z = -1}
+        = \frac{1}{4}
+      $
+      \item $\displaystyle
+        \operatorname{Res}_{z=1}f(z)
+        = \frac{d}{dz}\left[\frac{1}{(z + 1)^2}\right]_{z = 1}
+        = -\frac{1}{4}
+      $
+    \end{enumerate}
+    \item First note that $\sin z$ has
+      zeros of order $1$ precisely at $z = 2\pi k$ for some $k \in \mathbb{N}$;
+      therefore $1/\sin(z)$ has poles of order $1$ when $z = 2\pi k$.
+      Thus the residue at each pole is \begin{align*}
+        \lim_{z \rightarrow 2\pi k} \frac{(z - 2\pi k)}{\sin z}
+        &= \lim_{z \rightarrow 2\pi k} \frac{(z - 2\pi k)}{(z - 2\pi k) - (z - 2\pi k)^3/3! + \hdots} \\
+        &= \lim_{z \rightarrow 2\pi k} \frac{1}{1 - (z - 2\pi k)^2/3! + \hdots} \\
+        &= 1
+      \end{align*}
+    \item Note that $\displaystyle \cot z = \frac{\cos z}{\sin z}$ has the same
+      poles as above, all of order 1: $z= 2\pi k$. Thus the residues at each pole are \begin{align*}
+        \lim_{z \rightarrow 2\pi k} (z - 2\pi k)(\cot z)
+        &= \lim_{z \rightarrow 2\pi k} (z - 2\pi k)\frac{1 - (z - 2\pi k)^2 + \hdots}{(z - 2\pi k) - (z - 2\pi k)^3/3! + \hdots} \\
+        &= \lim_{z \rightarrow 2\pi k} \frac{1 - (z - 2\pi k)^2 + \hdots}{1 - (z - 2\pi k)^2/3! + \hdots} \\
+        &= 1
+      \end{align*}
+    \item Now the poles are at $z = 2\pi k$, but they are of order 2. \[
+      \frac{d}{dz}\left[\frac{1}{\sin^2 z}\right]_{z = 2\pi k}
+    \]
+    \item Clearly this final function has a pole of order $m$ at $z=0$, and of
+      $n$ at $z=1$. Because a curve around an isolated singularity $z_0$ \[
+        \frac{1}{2\pi i} \int_\gamma f(z)\,dz = \operatorname{Res}_{z = z_0} f(z)
+      \] and \[
+        \frac{1}{(n - 1)!}\frac{d^{n-1}}{dz^{n-1}}\left[\frac{1}{z^m}\right]_{z = 1} = \frac{1}{2\pi i} \int_\gamma \frac{-z^{-m}}{(-1)^n(1-z)^n}\,dz
+      \] so \[
+        \operatorname{Res}_{z = 1} f(z)
+          = \frac{(-1)^n}{(n - 1)!}\frac{d^{n - 1}}{dz^{n - 1}}\left[\frac{1}{z^m}\right]_{z = 1}
+          = \frac{(-1)^n\cdot(-m)(-m + 1)\cdots(-m + n - 2)}{(n-1)!}
+      \]
+      The other residue falls similarly \[
+      \operatorname{Res}_{z = 0} f(z)
+        = \frac{1}{(m - 1)!}\frac{d^{m - 1}}{dz^{m - 1}}\left[\frac{1}{(1-z)^n}\right]_{z = 0}
+        = \frac{(-n)(-n + 1)\cdots(-n + m - 2)}{(m-1)!}.
+      \]
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 161) \\
+  Evaluate the following integrals by the method of residues: \begin{enumerate}
+    \item[(b)] $\displaystyle \int_0^\infty \frac{x^2 dx}{x^4 + 5x^2 + 6}$
+    \item[(g)] $\displaystyle \int_0^\infty \frac{x^{1/3}}{1+x^2}\,dx$
+    \item[(h)] $\displaystyle \int_0^\infty (1+x^2)^{-1}\log x\, dx$
+    \item[(i)] $\displaystyle \int_0^\infty \log (1 + x^2) \frac{dx}{x^{1 + \alpha}}\ (0 < \alpha < 2)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}
+    \item[(b)]
+      Because the integral is even, we can exploit that \[
+        \int_0^\infty \frac{x^2 dx}{x^4 + 5x^2 + 6}
+        = \frac{1}{2}\int_{-\infty}^\infty \frac{x^2 dx}{x^4 + 5x^2 + 6}
+      \]
+      First note that the denominator $x^4 + 5x^2 + 6 = (x^2 + 2)(x^2 + 3)$ has
+      no real roots. Now integrating the complex function over $\Gamma_R$, the
+      semicircle of radius $R$ in the upper half plane centered at the origin
+      gives \[
+        \int_0^\infty \frac{x^2 dx}{x^4 + 5x^2 + 6}
+          = \frac{1}{2}\left(
+            \lim_{R \rightarrow \infty} \int_{\Gamma_R} \frac{z^2 dz}{z^4 + 5z^2 + 6}
+            - \int_0^\pi \frac{(Re^{it})^2}{(Re^{it})^4 + 5(Re^{it})^2 + 6}\cdot ie^{it}\,dt
+          \right)
+      \] where the final integral vanishes in the limit and the integral over
+      $\Gamma$ is given by \begin{align*}
+        \int_0^\infty \frac{x^2 dx}{x^4 + 5x^2 + 6}
+        &= \frac{1}{2}\cdot2\pi i(\operatorname{Res}_{z=i\sqrt{2}}f(z) + \operatorname{Res}_{z=i\sqrt{3}}f(z))\\
+        &= \frac{1}{2}\cdot2\pi i\left(\frac{(i\sqrt{2})^2}{-2i\sqrt{2}} - \frac{i\sqrt{3})^2}{2i\sqrt{3}}\right)\\
+        &= \frac{\pi}{2}\left(\sqrt{3} - \sqrt{2}\right)
+      \end{align*} using the residues calculated by a similar method to Problem 1(a).
+    \item[(g)]
+      Here we want to avoid the branch cut at $\theta = 2\pi/3$, we will perform
+      the substitution $x = t^2$ transforming the integral into \[
+        2\int_0^\infty \frac{t^{5/3}}{1 + t^4} dt
+      \] and choosing the branch of $t^{2/3}$ whose argument lies between
+      $-\pi/3$ and $\pi$. By Ahlfors argument, \[
+        \int_{-\infty}^\infty \frac{t^{5/3}}{1 + t^4} dt = (1 - e^{2\pi i/3}) \int_0^\infty \frac{t^{5/3}}{1 + t^4} dt
+      \] On the first integral, we can use the techniq from part (b), and
+      take the residues from the poles in the upper half plane
+      (which are $z = e^{\pi i/4}$ and $z = e^{3\pi i/4}$).
+      These are simple enough to compute as \[
+        \frac{(e^{\pi i/4})^{5/3}}{(e^{\pi i/4} - e^{3\pi i/4})(e^{\pi i/4} - e^{5\pi i/4})(e^{\pi i/4} - e^{7\pi i/4})}
+        \text{ and }
+        \frac{(e^{3\pi i/4})^{5/3}}{(e^{3\pi i/4} - e^{\pi i/4})(e^{3\pi i/4} - e^{5\pi i/4})(e^{3\pi i/4} - e^{7\pi i/4})}.
+      \]
+      Therefore \[
+        \int_0^\infty \frac{t^{5/3}}{1 + t^4}\,dt = \frac{1}{1 - e^{2\pi i/3}}\left(
+          \sum_{y > 0} \operatorname{Res}_{z=z_0} f(z)
+        \right)
+      \] where the residues are the two long fractions above.
+    \item[(h)]
+      Here we will integrate over the boundary of the half annulus in the upper
+      half plane, with \begin{align}
+        \Gamma_1 &= [\epsilon, R]\\
+        \Gamma_2 &= \{Re^{it}: t \in [0, \pi]\}\\
+        \Gamma_3 &= [-\epsilon, R]\\
+        \Gamma_4 &= \{\epsilon e^{-it}: t \in [0, \pi]\}
+      \end{align}
+      and choosing the branch cut of $\log$ to be the negative imaginary axis,
+      so that $\log z = \log |x| + i\arg z$ where $-\pi/2 < \arg z < 3\pi/2$.
+      Now using the residue theorem, the integral around the boundary of the
+      half annulus vanishes.
+      Also, the integrals of the contours around the semicircles vanishes as
+      $\epsilon \rightarrow 0$ and $R \rightarrow \infty$, and the integral of
+      the negative real axis also vanishes. Thus the entire integral must vanish.
+  \end{enumerate}
+\end{proof}
+
+\end{document}
