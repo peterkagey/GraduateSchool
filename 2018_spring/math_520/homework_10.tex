@@ -1,0 +1,232 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Homework 9}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} (page 174) \\
+  Suppose $f$ is analytic in the whole plane, real on the real axis, and purely
+  imaginary on the imaginary axis. Show that $f$ is odd.
+\end{problem}
+\begin{proof} \text{} \\
+  By Theorem 24, because the imaginary part of $f$ vanishes on the real axis,
+  $f(z) = \overline{f(\bar{z})}$, thus in the Taylor series \[
+    \sum_{n = 0}^\infty a_n z^n
+    = \sum_{n = 0}^\infty \overline{a_n \bar{z}^n}
+    = \sum_{n = 0}^\infty \overline{a_n} z^n,
+  \] so each coefficient is real because $a_n = \bar{a}_n$.
+  Now let $y$ be real so that $yi$ is purely imaginary. Then the Taylor series
+  for $f(iy)$ can be split into its even and odd terms: \begin{align*}
+    f(iy) &= \sum_{n = 0}^\infty a_n i^n y^n \\
+          &= \sum_{n = 0}^\infty a_{2n} i^{2n} y^{2n}
+            + \sum_{n = 0}^\infty a_{2n+1} i^{2n+1} y^{2n+1} \\
+  \end{align*}
+  This even/odd split also splits the sums into real and imaginary parts \[
+    f(iy)= \sum_{n = 0}^\infty \underbrace{a_{2n} (-1)^n y^{2n}}_{\in \mathbb{R}}
+      + i\sum_{n = 0}^\infty \underbrace{a_{2n+1} (-1)^n y^{2n+1}}_{\in \mathbb{R}},
+  \] and by hypothesis, the image of $f(iy)$ is purely imaginary, so \[
+    \sum_{n = 0}^\infty \underbrace{a_{2n} (-1)^n y^{2n}}_{\in \mathbb{R}} = 0
+  \] and thus $f$ can be rewritten as \[
+    f(z) = \sum_{n = 0}^\infty a_{2n+1} z^{2n+1},
+  \] and so $f$ is odd by inspection.
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4} (page 174) \\
+  Use (66) to derive a formula for $f'(z)$ in terms of $u(z)$.
+\end{problem}
+
+\begin{proof} \text{} \\
+  (66) gives that \[
+    f(z) = \frac{1}{2\pi i} \int\displaylimits_{|\zeta| = R}
+      \frac{\zeta + z}{\zeta - z} u(\zeta) \frac{d\zeta}{\zeta}
+      + iC
+  \]
+  By differentiating under the integral \begin{align*}
+    f'(z) &= \frac{d}{dz} \left[
+      \frac{1}{2\pi i} \int\displaylimits_{|\zeta| = R}
+        \frac{\zeta + z}{\zeta - z} u(\zeta) \frac{d\zeta}{\zeta}
+        + iC
+    \right]\\
+    &=
+      \frac{1}{2\pi i} \int\displaylimits_{|\zeta| = R}
+        \frac{u(\zeta)}{\zeta} \cdot
+        \frac{\partial}{\partial z} \left[
+          \frac{\zeta + z}{\zeta - z}
+        \right]
+      d\zeta
+      + \frac{d}{dz}\left[iC\right] \\
+    &=
+      \frac{1}{2\pi i} \int\displaylimits_{|\zeta| = R}
+        \frac{u(\zeta)}{\zeta} \cdot
+        \frac{2\zeta}{(\zeta - z)^2}
+      d\zeta \\
+    &=
+      \frac{1}{\pi i} \int\displaylimits_{|\zeta| = R}
+        \frac{u(\zeta)}{(\zeta - z)^2}
+      d\zeta. \\
+    &= 2 u'(z)
+  \end{align*}
+\end{proof}
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5} (page 174) \\
+  Suppose $u(z)$ is harmonic and $0 \leq u(z) \leq Ky$ for $y > 0$. Prove that
+  $u = ky$ with $0 \leq k \leq K$.
+  % (Reflect over the real axis, complete to an analytic function $f(z) = u + iv$,
+  % and use Ex. 4 to show that $f'(z)$ is bounded.)
+\end{problem}
+
+\begin{proof} \text{} \\
+  By the previous problem, $u'(z)$ reduces to a constant by Liouville's theorem,
+  because it is bounded and analytic on $\mathbb{C}$.\\
+  Thus $f'(z) = 2u'(z) = k$ is also a constant, so $f(z) = kz$, and the real
+  part is $u(z) = ky$.\\Since $0 \leq u(z) = ky \leq Ky$, this implies that
+  $0 \leq k \leq K$.
+\end{proof}
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{1} (page 244) \\
+  If $E$ is a compact set in a region $\Omega$, prove that there exists a
+  constant $M$, depending only on $E$ and $\Omega$, such that every positive
+  harmonic function $u(z)$ in $\Omega$ satisfies $u(z_2) \leq Mu(z_1)$ for any
+  two points $z_1,\,z_2 \in E$.
+\end{problem}
+
+\begin{proof} \text{} \\
+  Harnack's inequality gives that \begin{align*}
+    \frac{\rho - r}{\rho + r} u(z_1) \leq u(z_2) \leq \frac{\rho + r}{\rho - r} u(z_1).
+  \end{align*}
+  where $|z_2 - z_1| = r < \rho$, and $u(z)$ is harmonic for $|z - z_1| < \rho$.
+  \\
+  Because $E \subset \Omega$ is compact, it admits a finite subcover of balls of
+  radius $s_p$, $B_{s_p}(p) \subset \Omega$.
+  (Say that there are $N$ such balls.)
+  Then by ``linking up'' the balls, for any two points, we can find a polygonal
+  chain through at most $N$ balls composed of line segments between $z_2$ and
+  $p_1$, $p_1$ and $p_2$, and so on
+  (where $p_k$ is a point at the ``center'' of the overlap of the balls) \[
+    z_2 \rightarrow p_1 \rightarrow p_2 \rightarrow \hdots \rightarrow p_{n - 1} \rightarrow z_1
+  \]
+  Then by the positivity of $u$, \[
+    \frac{u(z_2)}{u(p_1)}\cdot\frac{u(p_1)}{u(p_2)}\hdots\frac{u(p_{n-1})}{u(z_1)}
+    = \frac{u(z_2)}{u(z_1)}
+    \leq \left(\frac{\rho_1 + r_1}{\rho_1 - r_1}\right)\cdots
+      \left(\frac{\rho_n + r_n}{\rho_n - r_n}\right).
+  \]
+  Then just set $M$ to be the $sup$ of all such products, which is finite because
+  there are a finite number of balls.
+\end{proof}
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 248) \\
+  If $v$ is continuous together with its partial derivatives up to the second
+  order, prove that $v$ is subharmonic if and only if $\Delta v \geq 0$.
+  % Hint: For the sufficiency, prove first that
+  % $v + \varepsilon x^2, \varepsilon > 0$, is subharmonic. For the necessity,
+  % show that if $\Delta v < 0$ the mean value over a circle would be a
+  % decreasing function of the radius.
+\end{problem}
+
+\begin{proof} \text{} \\
+  $\mathbf{(\Longrightarrow)}$
+    Assume that $v$ is subharmonic. Now if $v$ is harmonic, then we're done, so
+    assume that $\Delta v < 0$, which means that
+    $\Delta (v + \varepsilon x^2) = \Delta v + 2\varepsilon$ and so
+    $v + \varepsilon x^2$ is subharmonic for $\varepsilon \leq -\Delta v/2$
+  \\~\\
+  $\mathbf{(\Longleftarrow)}$\\
+    By contrapositive, assume that $v$ is \textit{not}
+    subharmonic. That is, given some circle $\Omega' \subset \Omega$, on which
+    $u$ and $v$ (with $u$ harmonic), $u - v$ does \textit{not} satisfy the maximum
+    principle---that is, $|u - v|$ has a maximum in $\Omega$. \\
+    However, in order to have a maximum,
+    $\partial ^ { 2} / \partial x ^ { 2} ( v - u ) \leq 0$ and
+    $\partial ^ { 2} / \partial y ^ { 2} ( v - u ) \leq 0$, so
+    $\Delta v = \Delta ( v - u ) \leq 0$.
+\end{proof}
+% -----------------------------------------------------
+% Sixth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4} (page 248) \\
+  Prove that a subharmonic function remains subharmonic if the independent
+  variable is subjected to a conformal mapping.
+\end{problem}
+
+\begin{proof} \text{} \\
+  Let $u$ be a subharmonic function and $f$ a conformal mapping. Assume for the
+  sake of contradiction that $u \circ f$ is \textit{not} subharmonic---that is,
+  there exists some $z_0$ and some corresponding harmonic function $v$ such that
+  $g = u \circ f - v$ takes a maximum at $z_0$.
+  On same small disk centered at $z_0$, we can write \[
+    g(z) = u \circ f(z) - v \circ f^{-1} \circ f(z)
+  \] because $v$ is harmonic and $f$ and $f^{-1}$ are conformal,
+  $\hat{v} = v \circ f^{-1}$ is also harmonic.
+  So choosing some $w_0 \in f^{-1}(z_0)$, we can write \[
+    g(w_0) = u(z_0) - \hat{v}(z_0)
+  \] is a maximal value of $g$.
+  But this is a contradiction because both $u$ and $\hat{v}$ are harmonic.
+
+\end{proof}
+% -----------------------------------------------------
+% Seventh problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5} (page 248) \\
+  Formulate and prove a theorem to the effect that a uniform limit of
+  subharmonic functions is subharmonic.
+\end{problem}
+
+\begin{proof} \text{} \\
+  Suppose that $u_1, u_2, \hdots$ is a sequence of functions that are
+  subharmonic in $\Omega$ and converge uniformly to $u$ in the sense that for
+  any choice of $\varepsilon > 0$, there
+  exists some $N \in \mathbb{N}$ such that \[
+    |u_N(z) - u(z)| < \varepsilon \text{ for all } z \in \Omega.
+  \]\\
+  Theorem 8 gives that a function $f$ is subharmonic if and only if \[
+    f(z_{0}) \leq \frac{1}{2\pi} \int_{0}^{2\pi} f \left(z_{0} + re^{i\theta}\right) d\theta
+  \] for every disk $|z - z_0| \leq r$ in $\Omega$.
+  Thus \begin{align*}
+    u(z_0) &< \varepsilon + u_N(z_0)\\
+    &< \varepsilon + \frac{1}{2\pi} \int_{0}^{2\pi} u_N\left(z_{0} + re^{i\theta}\right) d\theta\\
+    &< \varepsilon + \frac{1}{2\pi} \int_{0}^{2\pi} u\left(z_{0} + re^{i\theta}\right) + \varepsilon\ d\theta\\
+    &< 2\varepsilon + \frac{1}{2\pi} \int_{0}^{2\pi} u\left(z_{0} + re^{i\theta}\right) d\theta
+  \end{align*}
+  This holds for arbitrarily small $\varepsilon$, so $u$ is subharmonic by Theorem 8.
+
+\end{proof}
+
+
+
+\end{document}
