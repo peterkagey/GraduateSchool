@@ -1,0 +1,121 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Homework 9}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} (page 166) \\
+  If $u$ is harmonic and bounded in $0 < |z| < \rho$, show that the origin is a
+  removable singularity in the sense that $u$ becomes harmonic in $|z| < \rho$
+  when $u(0)$ is properly defined.
+\end{problem}
+\begin{proof} \text{} \\
+  % https://math.stackexchange.com/q/459134/121988
+  By Theorem 20, \[
+    \frac{1}{2\pi}\int\displaylimits_{|z| = r} u\,d\theta = \alpha \log(r) + \beta
+  \] but since $u$ is bounded the arithmetic mean is bounded for any $r$---in
+  particular, the modulus is finite in the limit: \[
+    \lim_{r\rightarrow 0^+} \left| \frac{1}{2\pi}\int\displaylimits_{|z| = r} u\,d\theta \right|
+    = \lim_{r\rightarrow 0^+} \left| \alpha \log(r) + \beta \right|
+    < \infty.
+  \] Thus $\alpha = 0$, and $u(0) = \beta$.
+  \\
+  \\
+  In general, \[
+    \alpha = -\int\displaylimits_{|z| = r} r\,\frac{\partial u}{\partial r}\,d\theta
+  \] so this means that \[
+    \int\displaylimits_{|z| = r} r\,\frac{\partial u}{\partial r}\,d\theta = 0
+  \] and therefore $u$ is harmonic.
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{1} (page 171) \\
+  Assume that $U(\xi)$ is piecewise continuous and bounded for all real $\xi$.
+  Show that \[
+    P_U(z) = \frac{1}{\pi}\int_{-\infty}^\infty
+      \frac{y}{(x - \xi)^2 + y^2}U(\xi)\,d\xi
+  \] represents a harmonic function in the upper half plane with boundary values
+  $U(\xi)$ at points of continuity (Poisson's integral for the half plane).
+\end{problem}
+
+\begin{proof} \text{} \\
+  Start by defining a M\"obius transformation $T$ and its inverse $T^{-1}$,
+  where $T$ maps the interior of the unit disk to the upper half plane and the
+  boundary of the unit disk to the real axis. \begin{align*}
+    T(z) &= \frac{1}{2} \cdot \frac{1 - iz}{z - i} \\
+    T^{-1}(z) &= \frac{1 + 2iz}{2z + i}
+  \end{align*}
+
+  Then using equation (63) with $R = 1$ yields \[
+  P_U(z) =
+    \frac{1}{2\pi}\int_0^{2\pi}
+      \operatorname{Re}\frac{e^{i\theta} + z}{e^{i\theta} - z}\,U(\theta)
+    \,d\theta
+  \]
+  (?)
+\end{proof}
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3} (page 171) \\
+  In Exercise 1, assume that $U$ has a jump at $0$, for instance
+  $U(+0) = 0$, $U(-0) = 1$. Show that $\displaystyle P_U(z)-\frac{1}{\pi}\arg z$
+  tends to $0$ as $z \rightarrow 0$. Generalize to arbitrary jumps and to the
+  case of the circle.
+\end{problem}
+
+\begin{proof} \text{} \\
+  \[
+    P_U(z) - \frac{1}{\pi}\arg z = \frac{1}{\pi}\left(
+      \int_{-\infty}^\infty \frac{y}{(x - \xi)^2 + y^2}U(\xi)\,d\xi
+      - \arg z
+    \right)
+  \] tends to $0$ as $z \rightarrow 0$ if and only if \[
+    \lim_{z \rightarrow 0}
+    \int_{-\infty}^\infty \frac{y}{(x - \xi)^2 + y^2}U(\xi)\,d\xi - \arg z
+    = 0.
+  \]
+\end{proof}
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5} (page 171) \\
+  Show that the mean-value formula (62) remains valid for
+  $u=\log|1 + z|$,
+  $z_0 = 0$,
+  $r = 1$, and use this fact to compute \[
+    \int_0^\pi \log\, \sin \theta\, d\theta
+  \]
+\end{problem}
+
+\begin{proof} \text{} \\
+  The mean value formula states that \[
+    u(z_0) = \frac{1}{2\pi}\int_0^{2\pi} u(z_0 + re^{i\theta})\,d\theta
+  \] so here we want to show that this formula works for the case \[
+    \log|1 + 0| = \frac{1}{2\pi}\int_0^{2\pi} \log|e^{i\theta}|\,d\theta.
+  \]
+\end{proof}
+
+\end{document}
