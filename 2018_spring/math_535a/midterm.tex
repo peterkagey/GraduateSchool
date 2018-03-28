@@ -1,0 +1,453 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\title{Differential Geometry: Midterm}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+  \begin{enumerate}[(a)]
+    \item Prove that $V_k(\mathbb{R}^n)$ has the structure of a manifold and
+      calculate its dimension.
+    \item Note that $V_1(\mathbb{R}^3)$ is equal to the two sphere.
+      Prove that $V_2(\mathbb{R}^3)$ is diffeomorphic to the collection of unit
+      tangent vectors in $S^2$, that is the subset \[
+        UT(S^2) = \{
+          (x, v) \in \mathbb{R}^3 \times \mathbb{R}^3 \ |\
+          x \in S^2,\, v \in T_xS^2,\,\text{and } ||v|| = 1
+        \}
+      \]
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item Let $f$ be the map
+      $f\colon \operatorname{\mathit{Mat}}_{n\times k} \rightarrow \operatorname{\mathit{Sym}}(k)$
+      which sends $A \mapsto A^TA$.
+      If it can be shown that \begin{enumerate}[(i)]
+        \item $\operatorname{\mathit{Mat}}_{n\times k}$ is a manifold with
+          dimension $nk$,
+        \item $\operatorname{\mathit{Sym}}(k)$ is a manifold with dimension
+          $k(k+1)/2$, and
+        \item $f$ is a submersion for all
+          $p \in f^{-1}(I_k) = V_k(\mathbb{R}^n) \subset \operatorname{\mathit{Mat}}_{n\times k}$,
+      \end{enumerate}
+      then the corollary of the Implicit Function Theorem for submersions gives
+      that $V_k(\mathbb{R}^n)$ has the structure of a manifold of dimension
+      $nk - k(k+1)/2$.
+      %
+      \begin{enumerate}[(i)]
+        \item $\operatorname{\mathit{Mat}}_{n \times k}$
+        is a manifold of dimension $nk$ with atlas
+        $\{(\operatorname{\mathit{Mat}}_{n \times k}, \phi)\}$ containing one
+        chart, where $
+          \phi: \operatorname{\mathit{Mat}}_{n \times k}
+            \rightarrow \mathbb{R}^{nk}
+        $ is the map \[
+          \begin{bmatrix}
+            x_{11} & x_{12} & \dots  & x_{1k} \\
+            x_{21} & x_{22} & \dots  & x_{2k} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            x_{n1} & x_{n2} & \dots  & x_{nk}
+          \end{bmatrix}
+          \mapsto (x_{11}, x_{12}, \hdots, x_{1k}, x_{21}, x_{22},\hdots, x_{nk}).
+        \]
+        \item $\operatorname{\mathit{Sym}}(k)$ is a manifold of dimension
+          $k(k+1)/2$ with atlas $\{\operatorname{\mathit{Sym}}(k), \psi)\}$
+          where
+          $\psi\colon \operatorname{\mathit{Sym}}(k) \rightarrow \mathbb{R}^{k(k + 1)/2}$
+          sends \[
+            \begin{bmatrix}
+              a_{11} & a_{12} & \dots  & a_{1k} \\
+              a_{21} & a_{22} & \dots  & a_{2k} \\
+              \vdots & \vdots & \ddots & \vdots \\
+              a_{k1} & a_{k2} & \dots  & a_{kk}
+            \end{bmatrix}
+            \mapsto (a_{11}, a_{12}, \hdots, a_{1k}, a_{22}, a_{23},\hdots, a_{kk})
+          \] which is a smooth map with smooth inverse.
+          Thus $\operatorname{\mathit{Sym}}(k)$ is a manifold of dimension
+          $k(k+1)/2$.
+        \item $f$ is smooth because the map \[
+          \phi^{-1} \circ f \circ \psi\colon \mathbb{R}^{nk}
+            \xrightarrow{\phi^{-1}} \operatorname{\mathit{Mat}}_{n \times k}
+            \xrightarrow{f} \operatorname{\mathit{Sym}}(k)
+            \xrightarrow{\psi} \mathbb{R}^{k(k+1)/2}
+        \] is smooth in each component. In particular, matrix multiplication is
+        defined to be the sum of the product of entries, the product of
+        coordinates of $\mathbb{R}^M$ is smooth, and the sum of smooth
+        functions is smooth.
+      \end{enumerate}
+
+      $f$ is a submersion at all points $p \in f^{-1}(I_k)$ because the Jacobian matrix
+      has full rank. Notice that
+      $f \circ \phi^{-1}(x_{11}, x_{12}, \hdots, x_{nk})$ has entries $a_{ij}$
+      given by \[
+        a_{ij} = \sum_{m=1}^{n} x_{mi}x_{mj}
+      \] and so the entries of the Jacobian matrix are given by \[
+        \frac{\partial x}{\partial x_{ij}}
+          \underbrace{\left(\sum_{m=1}^{n} x_{m\ell}x_{mh}\right)}_{a_{\ell h}}
+        = \begin{cases}
+          2x_{ij} & j = \ell = h \\
+          x_{ih} & j = \ell \not= h \\
+          x_{i\ell} & j = h \not= \ell \\
+          0       & j \not= \ell \text{ and } j \not= h
+        \end{cases}
+      \]
+      In order to show that $f$ is a submersion, it is enough to show that
+      $f'_A$ is surjective onto $\operatorname{\mathit{Sym}}(k)$ for all
+      $A \in f^{-1}(I_k)$. Computing $f'_A$ yields:
+      \begin{align*}
+        f'_A(B)
+          &= \lim_{h \rightarrow 0} \frac{f(A + hB) - f(A)}{h} \\
+          &= \lim_{h \rightarrow 0} \frac{(A + hB)^T(A + hB) - A^TA}{h} \\
+          &= \lim_{h \rightarrow 0} \frac{(A^T + hB^T)(A + hB) - A^TA}{h} \\
+          &= \lim_{h \rightarrow 0} \frac{A^TA + hA^TB + hB^TA + h^2B^TB - A^TA}{h} \\
+          &= \lim_{h \rightarrow 0} A^TB + B^TA + hB^TB \\
+          &= A^TB + B^TA
+      \end{align*}
+      In order to show that $f$ is a submersion it is enough to show that all
+      symmetric matrices can be written as
+      $A^TB + B^TA$ where $A, B\in \operatorname{\mathit{Mat}}_{n \times k}$
+      with $A$ fixed. Note that if $a_{ij}$ and $b_{ij}$ are the entries of
+      $A$ and $B$ respectively, then the entries of $A^TB + B^TA$ can be written \[
+        c_{ij} = \sum_{m = 1}^n a_{mi}b_{mj} + b_{mi}a_{mj}.
+      \]
+      $A$ is full rank (because $A^TA = I_k$), so $A^TB + B^TA$ is full rank too
+      for some choice of $B$. Thus $B$ can be chosen so that $A^TB + B^TA$ is
+      any arbitrary symmetric matrix.
+      \\
+      Since every symmetric matrix can be represented as
+      $A^TB + B^TA$, then $f$ is a submersion for all $p \in f^{-1}(I_k)$,
+      and the Implicit Function Theorem (submersion version) implies that
+      $V_k(\mathbb{R}^n)$ is a manifold of dimension $nk - k(k+1)/2$.
+    \item Consider the identity map from $V_2(\mathbb{R}^3)$ to the
+      collection of unit tangent vectors of the unit sphere $S^2$
+      (called $UT(S^2)$ and defined above), which is smooth and has smooth
+      inverse \[
+        \underbrace{(\vec{v}_1, \vec{v}_2)}_{\in V_2(\mathbb{R}^3)} \mapsto
+        \underbrace{(\vec{v}_1, \vec{v}_2)}_{\in UT(S^2)}.
+      \]
+      It is plain enough to see that $||\vec{v}_1|| = ||\vec{v}_2|| = 1$,
+      because this is an explicit condition for both $V_2(\mathbb{R}^3)$ and
+      $UT(S^2)$. Thus it is enough to check that the ``orthogonality''
+      condition in $V_2(\mathbb{R}^3)$ is compatible with the ``tangent space''
+      condition for $UT(S^2)$; that is, that $f$ is a surjection.\\~\\
+      Using the second extrinsic defintion of tangent space for
+      $S^2 = f^{-1}(1)$ where $f(\vec{x}) = ||\vec{x}||$, we can compute
+      the tangent space $T_pS^2$ to be vectors satisfying $df_p(\vec{v}) = 0$,
+      where \begin{align*}
+        df_p(\vec{v}) &= v_1\left(\frac{\partial f}{\partial x}\right)_p
+         + v_2\left(\frac{\partial f}{\partial y}\right)_p
+         + v_3\left(\frac{\partial f}{\partial z}\right)_p \\
+        &= v_1\frac{p_1}{f(p)} + v_2\frac{p_2}{f(p)} + v_3\frac{p_3}{f(p)} \\
+        &= v_1p_1 + v_2p_2 + v_3p_3 \\
+        &= \vec{v} \cdot p \\
+        &= 0.
+      \end{align*}
+      Therefore the orthogonality condition is consistent with the tangent space
+      condition.
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2} \text{\\}
+  \begin{enumerate}[(a)]
+    \item In $\mathbb{R}^2$, consider the vector fields $X$ and $Y$ defined by
+    \begin{align*}
+      X &= e^{x^2 + y^2} \frac{\partial}{\partial x} + \sin(xy) \frac{\partial}{\partial y}\\
+      Y &= (x^2 + 3xy)\frac{\partial}{\partial x} + (x + y) \frac{\partial}{\partial y},
+    \end{align*} and compute the Lie bracket $[X, Y]$.
+    \item Let $\mathcal{D} = \ker(dz + (x\,dy - y\,dx)) \subset T\mathbb{R}^3$
+      be the two-dimensional distribution considered in class. Verify that
+      $\mathcal{D}$ is not integrable.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item
+    We can see how $[X, Y]$ behaves as a vector field by seeing where it maps
+    the germ $f \in C^\infty(p)$ (given some point $p \in M$).
+
+    We defined $[X, Y]$ by
+    \[
+      [X, Y]_p(f) = X_p(Y(f)) - Y_p(X(f)).
+    \]
+    So \begin{align*}
+      [X, Y]_p(f) &=
+      X\left(
+        (x^2 + 3xy)\frac{\partial f}{\partial x} + (x + y) \frac{\partial f}{\partial y}
+      \right)_{(x, y) = p}\\
+      &\hspace{0.7cm}-Y
+        \left(
+          e^{x^2 + y^2} \frac{\partial f}{\partial x} + \sin(xy) \frac{\partial f}{\partial y}
+        \right)_{(x, y) = p}\\ ~ \\
+      % %%%%%%%%%%%%%%%%%%%%
+      &= e^{x^2 + y^2} \frac{\partial}{\partial x}
+        \left(
+          (x^2 + 3xy)\frac{\partial f}{\partial x} + (x + y) \frac{\partial f}{\partial y}
+        \right)_{(x, y) = p}\\
+      &\hspace{0.7cm}+ \sin(xy) \frac{\partial}{\partial y}
+        \left(
+          (x^2 + 3xy)\frac{\partial f}{\partial x} + (x + y) \frac{\partial f}{\partial y}
+        \right)_{(x, y) = p}\\
+      &\hspace{0.7cm}- (x^2 + 3xy)\frac{\partial}{\partial x}
+        \left(
+          e^{x^2 + y^2} \frac{\partial f}{\partial x} + \sin(xy) \frac{\partial f}{\partial y}
+        \right)_{(x, y) = p}\\
+      &\hspace{0.7cm}- (x + y) \frac{\partial}{\partial y}
+        \left(
+          e^{x^2 + y^2} \frac{\partial f}{\partial x} + \sin(xy) \frac{\partial f}{\partial y}
+        \right)_{(x, y) = p}\\~\\
+      % %%%%%%%%%%%%%%%%%%%%%%%%%%
+      &= e^{x^2 + y^2}
+        \left(
+          (2x + 3y)\frac{\partial f}{\partial x}
+          + (x^2 + 3xy)\frac{\partial^2 f}{\partial x^2}
+          + \frac{\partial f}{\partial y}
+          + (x + y)\frac{\partial^2 f}{\partial x \partial y}
+        \right)_{(x, y) = p} \\
+      &\hspace{0.7cm}+ \sin(xy)
+        \left(
+          3y \frac{\partial f}{\partial x}
+          + (x^2 + 3xy)\frac{\partial^2 f}{\partial x \partial y}
+          + \frac{\partial f}{\partial y}
+          + (x + y) \frac{\partial^2 f}{\partial y^2}
+        \right)_{(x, y) = p}\\
+      &\hspace{0.7cm}- (x^2 + 3xy)
+        \left(
+          2xe^{x^2 + y^2}\frac{\partial f}{\partial x}
+          + e^{x^2 + y^2}\frac{\partial^2 f}{\partial x^2}
+          + y\cos(xy)\frac{\partial f}{\partial y}
+          + \sin(xy)\frac{\partial^2 f}{\partial y \partial x}
+        \right)_{(x, y) = p}\\
+      &\hspace{0.7cm}- (x + y)
+        \left(
+          2ye^{x^2 + y^2} \frac{\partial f}{\partial x}
+          + e^{x^2 + y^2} \frac{\partial^2 f}{\partial x \partial y}
+          + x\cos(xy)\frac{\partial f}{\partial y}
+          + \sin(xy) \frac{\partial^2 f}{\partial y^2}
+        \right)_{(x, y) = p}\\~\\
+      \end{align*}
+      %
+      \begin{align*}
+      &= e^{x^2 + y^2}
+        \left(
+          (2x + 3y)\frac{\partial f}{\partial x}
+          + \frac{\partial f}{\partial y}
+        \right)_{(x, y) = p} \\
+      &\hspace{0.7cm}+ \sin(xy)
+        \left(
+          3y \frac{\partial f}{\partial x}
+          + \frac{\partial f}{\partial y}
+        \right)_{(x, y) = p}\\
+      &\hspace{0.7cm}- (x^2 + 3xy)
+        \left(
+          2xe^{x^2 + y^2}\frac{\partial f}{\partial x}
+          + y\cos(xy)\frac{\partial f}{\partial y}
+        \right)_{(x, y) = p}\\
+      &\hspace{0.7cm}- (x + y)
+        \left(
+          2ye^{x^2 + y^2} \frac{\partial f}{\partial x}
+          + x\cos(xy)\frac{\partial f}{\partial y}
+        \right)_{(x, y) = p} \\~\\
+      % %%%%%%%%%%%%%%%%%%%
+      &= \left[\left((2x + 3y - 2x(x^2 + 3xy) - 2y(x + y))e^{x^2 + y^2} + 3y\sin(xy)\right)
+        \frac{\partial f}{\partial x}\right]_{(x,y) = p}\\
+      &\hspace{0.7cm}+ \left[\left(
+        e^{x^2 + y^2} + \sin(xy) - (x^2y + 3xy^2 + x^2 + xy)\cos(xy)
+      \right)\frac{\partial f}{\partial y}\right]_{(x,y) = p}\\
+    \end{align*}
+    Therefore \begin{align*}
+      [X, Y] &= \left((2x + 3y - 2x(x^2 + 3xy) - 2y(x + y))e^{x^2 + y^2} + 3y\sin(xy)\right)
+        \frac{\partial}{\partial x}\\
+      &\hspace{0.7cm}+ \left(
+        e^{x^2 + y^2} + \sin(xy) - (x^2y + 3xy^2 + x^2 + xy)\cos(xy)
+      \right)\frac{\partial}{\partial y}
+    \end{align*}
+    % Monday, week 10.
+    \item $\mathcal{D} = \ker(dz + (x\,dy - y\,dx))$ means that
+    $(dz + (x\,dy - y\,dx))_p \in T_p^*\mathbb{R}^3$. By Frobenius' Theorem we
+    can prove that $\mathcal{D}$ is not integrable by verifying that it is not
+    involutive. In other words, we just need to show there exists
+    $X, Y \in \mathcal{D}$ such that $[X, Y] \not\in \mathcal{D}$.
+
+    Let \begin{align*}
+      X &= x\frac{\partial}{\partial x} + y\frac{\partial}{\partial y} \\
+      Y &= \frac{\partial}{\partial z} - \frac{1}{x}\frac{\partial}{\partial y}
+    \end{align*}
+    So that \begin{align*}
+      (dz + (x dy - y dx))(X) &=
+        dz(x\frac{\partial}{\partial x} + y\frac{\partial}{\partial y})
+        + (x dy)(x\frac{\partial}{\partial x} + y\frac{\partial}{\partial y})
+        - (y dx)(x\frac{\partial}{\partial x} + y\frac{\partial}{\partial y}) \\
+        &= 0 + xy - yx \\
+        &= 0 \\~\\
+      (dz + (x dy - y dx))(X) &=
+        dz(\frac{\partial}{\partial z} - \frac{1}{x}\frac{\partial}{\partial y})
+        + (x dy)(\frac{\partial}{\partial z} - \frac{1}{x}\frac{\partial}{\partial y})
+        - (y dx)(\frac{\partial}{\partial z} - \frac{1}{x}\frac{\partial}{\partial y}) \\
+        &= 1 - \frac{x}{x} + 0 \\
+        &= 0.
+    \end{align*}
+    Thus $X, Y \in \mathcal{D}$.
+    Now to verify that $[X, Y] \not\in \mathcal{D}$: \begin{align*}
+      X\left(\frac{\partial}{\partial z} - \frac{1}{x}\frac{\partial}{\partial y}\right)
+      - Y\left(x\frac{\partial}{\partial x} + y\frac{\partial}{\partial y}\right)
+      &= x\frac{\partial}{\partial x} \left(\frac{\partial}{\partial z} - \frac{1}{x}\frac{\partial}{\partial y}\right) \\
+        &\hspace{0.7cm}+ y\frac{\partial}{\partial y} \left(\frac{\partial}{\partial z} - \frac{1}{x}\frac{\partial}{\partial y}\right)\\
+        &\hspace{0.7cm}- \frac{\partial}{\partial z}\left(x\frac{\partial}{\partial x} + y\frac{\partial}{\partial y}\right) \\
+        &\hspace{0.7cm}+ \frac{1}{x}\frac{\partial}{\partial y} \left(x\frac{\partial}{\partial x} + y\frac{\partial}{\partial y}\right)\\~\\
+      &= x\frac{\partial^2}{\partial x\partial z}
+          + \frac{x}{x^2}\frac{\partial}{\partial y}
+          - \frac{x}{x}\frac{\partial^2}{\partial x \partial y} \\
+        &\hspace{0.7cm}+ y\frac{\partial^2}{\partial y\partial z}
+          - \frac{y}{x}\frac{\partial^2}{\partial y^2}\\
+        &\hspace{0.7cm}-x\frac{\partial^2}{\partial z\partial x}
+          -y\frac{\partial^2}{\partial z\partial y}\\
+        &\hspace{0.7cm}+\frac{\partial^2}{\partial y\partial x}
+          +\frac{y}{x}\frac{\partial^2}{\partial y^2}
+          +\frac{1}{x}\frac{\partial}{\partial y} \\~\\
+        &= \frac{2}{x}\frac{\partial}{\partial y}.
+    \end{align*}
+
+    And \[
+      (dz + (xdy - ydx))([X, Y])
+      = (x\,dy)\left(\frac{2}{x}\frac{\partial}{\partial y}\right)
+      = x\frac{2}{x}
+      = 2
+      \not= 0,
+    \] so $[X, Y] \not\in \mathcal{D}$.
+    Therefore $\mathcal{D}$ cannot be integrable because it is not involutive.
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3}
+  Let $M^m \subset \mathbb{R}^N$ be a submanifold of $\mathbb{R}^n$. Given any
+  $z_0 \in \mathbb{R}^{N - p}$, prove that for any open neighborhood $U$ around
+  $z_0$, there exists a $z \in U$ such that the horizontal slice
+  $M \cap (\mathbb{R}^p \times \{ z\})$ is an $(m-N+p)$-dimensional submanifold
+  of $M$.
+\end{problem}
+
+\begin{proof} \text{}\\
+  Here's the construction, let
+  $f\colon M^m \subset \mathbb{R}^N \rightarrow \mathbb{R}^p$ be the projection
+  onto the last $N-p$ coordinates: \[
+    \underbrace{(x_1, x_2, \hdots, x_N)}_{\in M^m \subset \mathbb{R}^N}
+    \xmapsto{f}
+    (x_{p+1}, x_{p+2},\hdots, x_N).
+  \]
+  Because projection maps are smooth, (indeed, this projection is very nearly the
+  model submersion) $f$ is a $C^\infty$ map. As such, we can use the corollary of
+  Sard's theorem which states that the set of regular values of $f$ are dense in
+  $\mathbb{R}^{N-p}$. Thus, for any neighborhood $U$ around $z_0$
+  there exists $z \in U \subset \mathbb{R}^{N-p}$ such that $f^{-1}(z)$ is a
+  regular value.
+
+  By the corollary of the Implicit Function Theorem for submersion, $f^{-1}(z)$
+  can be given the structure of a manifold of dimension
+  $\dim(M) - \dim(\mathbb{R}^{N - p}) = m - N + p$
+  since $z$ is a regular value of $f$, meaning $f$ is submersive at every
+  point in $f^{-1}(z)$.
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4}
+  Let $(q, \xi) \in N = T^*M$, and let $(U, \phi)$ be a chart around $q$, over
+  which $N$ is trivial.
+
+  Let $\lambda\colon N \rightarrow T^*N$ be defined as the 1-form that sends
+  $(q, \xi) \mapsto \xi \circ d\pi_{(q, \xi)}$.
+
+  \begin{enumerate}[(a)]
+    \item Write an expression for $(\tilde{\phi}^{-1})^*(\lambda)$, and verify
+    that $\lambda$ is a smooth section.
+    \item Let $\alpha \in \Omega^1(M)$ be a 1-form on M.
+    Compute the pullback $\alpha^*(\lambda) \in \Omega^1(M)$ as a function of $\alpha$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{}\\
+  \begin{enumerate}[(a)]
+    \item Given $\tilde{\phi}^{-1}(q, \xi) = (q_1, \hdots, q_n, \xi_1, \hdots, \xi_n)$
+    % We have the diagram \[
+    %   \mathbb{R}^{2N} \xrightarrow{\tilde{\phi}^{-1}}
+    %   N = T^*M \xrightarrow{\pi}
+    %   M \xrightarrow{\phi}
+    %   \mathbb{R}^N
+    % \]
+    \begin{align}
+      (\tilde{\phi}^{-1})^*(\lambda)(q_1, \hdots, q_n, \xi_1, \hdots, \xi_n)
+      &= ((q_1, \hdots, q_n, \xi_1, \hdots, \xi_n), (\tilde{\phi}^{-1})^*(\xi \circ d\pi_{(q, \xi)}))\\
+      &= ((q_1, \hdots, q_n, \xi_1, \hdots, \xi_n), (\tilde{\phi}^{-1})^*[\xi \circ \pi - \xi(\pi(q, \xi))])\\
+      &= ((q_1, \hdots, q_n, \xi_1, \hdots, \xi_n), (\tilde{\phi}^{-1})^*[\xi \circ \pi - \xi(q)]) \\
+      &= ((q_1, \hdots, q_n, \xi_1, \hdots, \xi_n), (\tilde{\phi}^{-1})^*[\xi \circ \pi]) \\
+      &= ((q_1, \hdots, q_n, \xi_1, \hdots, \xi_n), [\xi \circ \pi \circ \tilde{\phi}^{-1}]) \\
+      &= ((q_1, \hdots, q_n, \xi_1, \hdots, \xi_n), d(\xi \circ \pi \circ \tilde{\phi}^{-1})_{(q_1, \hdots, q_n, \xi_1, \hdots, \xi_n)}).
+    \end{align}
+    Step (1) follows from the definition of $(\tilde{\phi}^{-1})^*$, step (2) uses the third
+    intrinsic defintion of the derivative map, step (3) calculates projection $\pi$,
+    (4) uses that $\xi \in T_q^*M$, so $\xi(q)$ vanishes, (5) applies $(\tilde{\phi}^{-1})$,
+    and (6) again uses the defintion of the derivative map.\\
+    \\
+    In order to verify that $\lambda\colon N \rightarrow T^*N$ is a smooth section,
+    it is enough to note that (i) the projection map composed with $\lambda$ is
+    the identity, and (ii) $\lambda$ is smooth. The former comment follows from the
+    above computation, and the latter follows by noting that $\xi \in T_p^*M$ is
+    smooth (by defintiion), the projection map $\pi$ is smooth, the chart map
+    $\tilde{\phi}^{-1}$ is smooth, the composition of
+    smooth maps is smooth, and the derivative map of a smooth map is smooth.
+    Thus $\lambda$ is a smooth section.
+    \item
+    Let $\alpha \in \Omega^1(M)$ be a 1-form on $M$.
+    The computation of $\alpha^*(\lambda)(q)$ follows similarly to the
+    one above:
+    \begin{align*}
+      \alpha^*(\lambda)(q)
+      &= (q, \alpha^*(\xi \circ d\pi_{\alpha(q)}))\\
+      &= (q, \alpha^*(\xi \circ [\pi - \pi(\alpha(q))])\\
+      &= (q, \alpha^*(\xi \circ [\pi - q])\\
+      &= (q, \alpha^*[\xi \circ \pi - \xi(q)])\\
+      &= (q, [(\xi \circ \pi - \xi \circ \pi \circ \alpha(q)) \circ \alpha])\\
+      &= (q, [\xi \circ \pi \circ \alpha - \xi \circ \pi \circ \alpha(q)])\\
+      &= (q, d(\xi \circ \pi \circ \alpha)_{q})\\
+      &\in T^*M.
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+
+\end{document}
