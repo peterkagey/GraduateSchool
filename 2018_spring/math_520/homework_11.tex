@@ -1,0 +1,206 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Homework 11}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{1} (page 251) \\
+  If $\Omega$ is the punctured disk $0 < |z| < 1$ and if $f$ is given by
+  $f(\zeta) = 0$ for $|\zeta| = 1$, $f(0) = 1$ show that all functions
+  $v \in \mathfrak{B}(f)$ are $\leq 0$ in $\Omega$.
+\end{problem}
+\begin{proof} \text{} \\
+\end{proof}
+\pagebreak
+
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{2} (page 178) \\
+  Show that the series \[
+    \zeta(z) = \sum\displaylimits_{n=1}^\infty n^{-z}
+  \] converges for $\operatorname{Re} z > 1$ and represent its derivative in
+  series form.
+\end{problem}
+\begin{proof} \text{} \\
+  Assume that $z = z + iy$ for $x > 1$. Then \begin{align}
+    |\zeta(z)|
+      &= \left|\sum_{n=1}^\infty \frac{1}{n^z}\right| \\
+      &\leq \sum_{n=1}^\infty \left|\frac{1}{n^z}\right| \\
+      &= \sum_{n=1}^\infty \left|\frac{1}{n^{z + iy}}\right| \\
+      &= \sum_{n=1}^\infty \frac{1}{|n^{x}||n^{iy}|} \\
+      &= \sum_{n=1}^\infty \frac{1}{n^{x}|e^{iy\log(n)}|} \\
+      &= \sum_{n=1}^\infty \frac{1}{n^{x}}
+  \end{align} which is known to converge by the integral test because $x > 1$. \\
+  The derivative of $\zeta(z)$ can be computed term by term \begin{align*}
+    \frac{d}{dz}\left[\zeta(z)\right]
+    &= \frac{d}{dz}\left[\sum\displaylimits_{n=1}^\infty n^{-z}\right] \\
+    &= \sum\displaylimits_{n=1}^\infty\frac{d}{dz}\left[n^{-z}\right] \\
+    &= \sum\displaylimits_{n=1}^\infty\frac{d}{dz}\left[e^{-z\log(n)}\right] \\
+    &= \sum\displaylimits_{n=1}^\infty -e^{-z\log(n)}\log(n) \\
+    &= \sum\displaylimits_{n=1}^\infty -n^{-z}\log(n)
+  \end{align*}
+\end{proof}
+\pagebreak
+
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{4} (page 178) \\
+  As a generalization of Theorem 2, prove that if the $f_n(z)$ have at most $m$
+  zeros in $\Omega$ then $f(z)$ is either identically zero or has at most $m$
+  zeros.
+\end{problem}
+\begin{proof} \text{} \\
+  Suppose for the sake of contradiction that $f(z)$ has $m + 1$ zeros. Then we
+  can form a
+\end{proof}
+\pagebreak
+
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{5} (page 184) \\
+  The Fibonacci numbers are defined by $c_0 = 0, c_1 = 1$, \[
+    c_{n} = c_{n - 1} + c_{n - 2}.
+  \]
+  Show that the $c_n$ are Taylor coefficients of a rational function, and
+  determine a closed expression for $c_n$.
+\end{problem}
+\begin{proof} \text{} \\
+  Let \begin{align*}
+    f(z) &= \sum_{n=0}^\infty c_nz^n \\
+    &= \sum_{n=1}^\infty c_nz^n \\
+    &= z + \sum_{n=2}^\infty c_nz^n \\
+    &= z + \sum_{n=2}^\infty (c_{n-1} + c_{n-2})z^n \\
+    &= z + \sum_{n=2}^\infty c_{n-1}z^n + \sum_{n=2}^\infty c_{n-2}z^n \\
+    &= z + \sum_{n=1}^\infty c_{n}z^{n+1} + \sum_{n=0}^\infty c_{n}z^{n+2} \\
+    &= z + z\sum_{n=1}^\infty c_{n}z^n + z^2\sum_{n=0}^\infty c_{n}z^n \\
+    &= z + zf(z) + z^2f(z).
+  \end{align*}
+  Then solving for $f(z)$ yields \[
+    f(z) = \frac{z}{1 - z - z^2},
+  \] thus $f$ is a rational function.
+  Now we must find a power series representation of $f$, and its coefficients
+  will give us the terms of the Fibonacci sequence. Since $f$ has roots
+  $\varphi = (1 + \sqrt{5})/2$ and $\psi = (1 - \sqrt{5})/2$, partial fraction
+  decomposition yields \begin{align*}
+    f(z)
+    &= -\frac{z}{(z + \varphi)(z + \psi)}  \\
+    &= \frac{A}{z + \varphi} + \frac{B}{z + \psi}
+  \end{align*} where $A$ and $B$ satisfy \[
+    -z = A(z + \psi) + B(z + \varphi)
+  \] and thus the system of equations \begin{align*}
+    A + B &= -1 \\
+    A\psi + B\varphi &= 0.
+  \end{align*} Solving for $A$ and  $B$ gives \begin{align*}
+    f(z) &= \frac{1}{\sqrt{5}}\left(\frac{-\varphi}{z + \varphi} + \frac{\psi}{z + \psi}\right) \\
+    &= \frac{1}{\sqrt{5}}\left(-\frac{1}{z/\varphi + 1} + \frac{1}{z/\psi + 1}\right).
+  \end{align*}
+  So the identity \[
+    \sum_{n=0}^\infty {z^n} = \frac{1}{1-z}
+  \] together with $-1/\psi = \varphi$ and $-1/\varphi = \psi$ gives \begin{align*}
+    f(z)
+      &= \sum_{n=0}^\infty \frac{-1}{\sqrt{5}}(-z/\varphi)^n + \sum_{n=0}^\infty \frac{1}{\sqrt{5}}(-z/\psi)^n \\
+      &= \sum_{n=0}^\infty \frac{1}{\sqrt{5}}\left((-z/\psi)^n - (-z/\varphi)^n \right) \\
+      &= \sum_{n=0}^\infty \frac{1}{\sqrt{5}}\left(\varphi^n z^n - \psi^nz^n \right) \\
+      &= \sum_{n=0}^\infty \frac{1}{\sqrt{5}}\left(\varphi^n - \psi^n \right)z^n \\
+  \end{align*}
+  Therefore \[
+    c_n = \frac{\phi^n - \psi^n}{\sqrt{5}}.
+  \]
+\end{proof}
+\pagebreak
+
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{4} (page 186) \\
+  Show that the Laurent development of $(e^z - 1)^{-1}$ at the origin is of the
+  form \[
+    \frac{1}{z} - \frac{1}{2} +
+    \sum\displaylimits_{k = 1}^\infty (-1)^{k-1}\frac{B_k}{(2k)!}z^{2k-1}.
+  \]
+  Calculate $B_1$, $B_2$, and $B_3$.
+\end{problem}
+\begin{proof} \text{} \\
+  (An idea from https://math.stackexchange.com/q/1006615/121988.)\\
+  We know that $f(z) = (e^z - 1)^{-1}$ has a pole at 0, so consider
+  $f(z) = 1/(zg(z))$ where \[
+    g(z) = \frac{e^{z} - 1}{z}
+         = \frac{1}{z}\left(-1 + \sum_{n=0}^\infty \frac{z^n}{n!}\right)
+         = \sum_{n=1}^\infty \frac{z^{n-1}}{n!}
+         = \sum_{n=0}^\infty \frac{z^n}{(n + 1)!}
+  \] which is analytic everywhere. When $z \not= 0$, $f(z) = h(z)/z$ where
+  $h(z) = 1/g(z)$.
+  (?)\\
+  Another idea: \[
+    f(z) = \frac{-1}{1 - e^z} = -\sum_{n=0}^\infty (e^z)^n = -\sum_{n=0}^\infty \left(\sum_{k=0}^\infty\frac{z^k}{k!}\right)^n
+  \]
+\end{proof}
+\pagebreak
+
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{5} (page 186) \\
+  Express the Taylor development of $\tan z$ and the Laurent development of
+  $\cot z$ in terms of the Bernoulli numbers.
+\end{problem}
+\begin{proof} \text{} \\
+\end{proof}
+\pagebreak
+
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{1} (page 190) \\
+  Comparing coefficients in the Laurent developments of $\cot\pi z$ and of its
+  expression as a sum of partial fractions, find the values of \[
+    \sum\displaylimits_{n = 1}^\infty \frac{1}{n^2},
+    \hspace{1cm}
+    \sum\displaylimits_{n = 1}^\infty \frac{1}{n^4}, \text{ and}
+    \hspace{1cm}
+    \sum\displaylimits_{n = 1}^\infty \frac{1}{n^6}
+  \] with a complete justifaction of the steps that are needed.
+\end{problem}
+\begin{proof} \text{} \\
+  By equation (10), we know that \[
+    \pi\cot\pi z = \lim_{m\rightarrow\infty}\sum_{n = -m}^{m} \frac { 1} { z - n } = \frac { 1} { z } + \sum _ { n = 1} ^ { \infty } \frac { 2z } { z ^ { 2} - n ^ { 2} }.
+  \]
+\end{proof}
+\pagebreak
+
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{2} (page 190) \\
+  Express \[
+    \sum\displaylimits_{-\infty}^\infty \frac{1}{z^3 - n^3}
+  \] in closed form.
+\end{problem}
+\begin{proof} \text{} \\
+\end{proof}
+\end{document}
