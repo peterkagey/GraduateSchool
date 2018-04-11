@@ -1,0 +1,178 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Homework 12}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{2} (page 193) \\
+  Prove that for $|z| < 1$ \[
+    (1 + z)(1 + z^2)(1 + z^4)(1 + z^8)\hdots = \frac{1}{1 - z}
+  \]
+\end{problem}
+\begin{proof} \text{} \\
+  By induction, notice that the partial products of $(1 + z^{2^k})$ have the
+  form \[
+    \prod_{n = 0}^N \left(1 + z^{2^n}\right) =
+    1 + z + z^2 + \hdots + z^{2^{N+1}-1}.
+  \]
+  The base case is clear, when $N = 0$, we have that the product is equal to
+  $1 + z$.
+  Then, the inductive step shows that \begin{align*}
+    \prod_{n = 0}^N \left(1 + z^{2^n}\right)
+    &= \left(1 + z^{2^N}\right)\prod_{n = 0}^{N - 1} \left(1 + z^{2^n}\right) \\
+    &= \left(1 + z^{2^N}\right)\left(1 + z + z^2 + \hdots + z^{2^N-1}\right) \\
+    &= \left(1 + z + z^2 + \hdots + z^{2^N-1}\right) + z^{2^N}\left(1 + z + z^2 + \hdots + z^{2^N-1}\right) \\
+    &= 1 + z + z^2 + \hdots + z^{2^N-1} + z^{2^N} + z^{2^N + 1} + \hdots + z^{2^{N + 1}-1} \\
+    &= \sum_{k = 0}^{2^{N+1}-1} z^k
+  \end{align*}
+  As we have seen before, the sum $1 + z + z^2 + z^3 + \hdots$ converges to
+  $(1-z)^{-1}$ for $|z| < 1$. Thus we get the original identity in the limit.
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{5} (page 193) \\
+  Suppose $|h| < 1$. Show that the function \[
+    \theta(z) = \prod_{n = 1}^\infty (1 + h^{2n-1}e^z)(1 + h^{2n-1}e^{-z})
+  \] is analytic in the whole plane and satisfies the functional
+  equation \[
+    \theta(z + 2 \log h) = \frac{\theta(z)}{he^z}.
+  \]
+\end{problem}
+\begin{proof} \text{} \\
+  Without doing anything clever \begin{align*}
+    \theta(z + 2\log h)
+    &= \prod_{n = 1}^\infty (1 + h^{2n-1}e^{z + 2\log h})(1 + h^{2n-1}e^{-(z + 2\log h)}) \\
+    &= \prod_{n = 1}^\infty (1 + h^{2n+1}e^z)(1 + h^{2n-3}e^{-z}) \\
+    &= \frac{1}{he^z}\prod_{n = 1}^\infty (1 + h^{2n+1}e^z)(e^{z}h + h^{2n-2}).
+  \end{align*}
+  Now it is sufficient to show that \[
+    \prod_{n = 1}^\infty (1 + h^{2n+1}e^z)(e^{z}h + h^{2n-2}) = \theta(z).
+  \]
+  Convergence in the whole plane follows from splitting the product \[
+    \theta(z)
+      = \prod_{n = 1}^\infty (1 + h^{2n-1}e^z) \cdot
+      \prod_{n = 1}^\infty(1 + h^{2n-1}e^{-z})
+  \] which, by Theorem 6, converges if \[
+    \sum_{n = 1}^\infty h^{2n-1}e^z < \infty
+    \text{ and }
+    \sum_{n = 1}^\infty h^{2n-1}e^{-z} < \infty
+  \] but since $|h^2| < |h| < 1$, these can be evaluated directly \begin{align*}
+    \sum_{n = 1}^\infty h^{2n-1}e^z
+    &= \frac{e^z}{h} \sum_{n = 1}^\infty (h^2)^n < \infty \text{ and}\\
+    \sum_{n = 1}^\infty h^{2n-1}e^{-z}
+    &= \frac{1}{he^z} \sum_{n = 1}^\infty (h^2)^n < \infty
+    \text{ for all } z \in \mathbb{C}.
+  \end{align*}
+  Since the convergent product of analytic functions is analytic, $\theta(z)$
+  is analytic in the whole plane.
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{1} (page 197) \\
+  Suppose that $a_n \rightarrow \infty$ and that the $A_n$ are arbitrary
+  complex numbers. Show that there exists an entire function $f(z)$ which
+  satisfies $f(a_n) = A_n$.
+\end{problem}
+\begin{proof} \text{} \\
+  We know by Theorem 7 that we can construct a function $g$ with simple zeros at
+  each $a_n$. Then let \[
+    f(z) = \sum_{n=1}^\infty \underbrace{\frac{g(z)}{g'(a_n)(z - a_n)}}_{\rightarrow 1 \text{ as } z \rightarrow a_n}e^{\gamma_n(z - a_n)}\cdot A_n.
+  \]
+  It is clear that $f(a_n) = A_n$ as long as $f$ converges.
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{3} (page 197) \\
+  What is the genus of $\cos \sqrt{z}$?
+\end{problem}
+\begin{proof} \text{} \\
+  % The definition of $\cos z$ is given by \[
+  %   \cos z = 1 - \frac{z^2}{2!} + \frac{z^4}{4!} - \frac{z^6}{6!} + \hdots
+  % \] so \begin{align*}
+  %   \cos{\sqrt{z}}
+  %   &= 1 - \frac{z}{2!} + \frac{z^2}{4!} - \frac{z^3}{6!} + \hdots \\
+  %   &= \sum_{n=0}^\infty \frac{(-1)^n}{(2n)!} z^n.
+  % \end{align*}
+  % As defined in Chapter 2.3, \[
+  %   \cos z = \frac{e^{iz} + e^{-iz}}{2}
+  % \] so \[
+  %   \cos \sqrt{z} = \frac{e^{i\sqrt{z}} + e^{-i\sqrt{z}}}{2}
+  % \]
+  The roots of $\cos z$ are all real: $\pi(1 + 2k)$ so the roots of
+  $\cos \sqrt{z}$ are $\pi^2(1 + 2k)^2$.
+  Thus the genus of $\cos \sqrt{z}$ is the least $h$ such that the following sum converges \[
+    \sum_{k=0}^\infty \frac{1}{|\pi^2(1 + 2k)^2|^{h+1}} + \sum_{k=1}^\infty \frac{1}{|\pi^2(1 - 2k)^2|^{h+1}}.
+  \]
+  Both sums converge when $h = 0$ by the limit comparison test with $1/k^2$, so
+  the genus of $\cos z$ is $0$.
+
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{5} (page 197) \\
+  Show that if $f(z)$ is of genus $0$ or $1$ with real zeros, and if $f(z)$ is
+  real for real $z$, then all zeros of $f'(z)$ are real.
+  (Hint: Consider $\operatorname{Im} f'(z)/f(z)$.)
+\end{problem}
+\begin{proof} \text{} \\
+  In the both the upper half plane and the lower half plane, $f$ is nonzero,
+  so $f'/f$ is analytic, and $\operatorname{Im}(f'/f)$ is harmonic on both
+  regions. By the maximum modulus principle, $|f'/f|$ must attain its minimum
+  only on its boundary---thus $|f'/f|$ must have zeros only on the real axis.
+  Therefore all zeros of $f'$ are real.
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Problem
+% -----------------------------------------------------
+\begin{problem}{3} (page 200) \\
+  What are the residues of $\Gamma(z)$ at the poles $z = -n$?
+\end{problem}
+\begin{proof} \text{} \\
+  Using $\Gamma(z) = \Gamma(z + 1)/z$, and induction with base case
+  $\Gamma(1) = 1$.
+  \[
+    \lim_{z\rightarrow 0} z\Gamma(z) = \lim_{z\rightarrow 0} \Gamma(z + 1) = \Gamma(1) = 1
+  \]
+  Then \begin{align*}
+    \lim_{z\rightarrow -n} z\Gamma(z) \\
+    &= \lim_{z\rightarrow -n} \Gamma(z + 1) \\
+    &= \lim_{z\rightarrow -n} \frac{\Gamma(z + 2)}{z+1} \\
+    &= \hdots \\
+    &= \lim_{z\rightarrow -n} \frac{\Gamma(z + -z-1)}{(z+1)(z+2)\hdots(z+n+2)} \\
+    &= (-1)^n\frac{\Gamma(0)}{(1-n)(2-n)\cdot\hdots \cdot 2 \cdot 1}
+  \end{align*}
+
+  Thus the residue is $(-1)^n/n!$.
+\end{proof}
+\pagebreak
+
+\end{document}
