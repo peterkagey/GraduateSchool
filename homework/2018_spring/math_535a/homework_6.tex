@@ -1,0 +1,283 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+
+\begin{document}
+
+\title{Differential Geometry: Homework 5}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+  \begin{enumerate}[(a)]
+    \item  Write in detail the construction of the canonical map
+      $V^* \otimes W \xrightarrow{\alpha} \hom(V, W)$,
+      and give a careful proof that it is an isomorphism if $V$ and $W$ are
+      finite dimensional.
+    \item Let $ev: V^* \otimes V \rightarrow \mathbb{R}$ be the linear map
+    induced by the bilinear map
+    $\overline{ev}\colon V^* \times V \rightarrow \mathbb{R}$,
+    $(\phi, v) \mapsto \phi(v)$ by the universal property of the tensor product.
+    Given a linear operator $T \in \hom(V, V)$ on a finite dimensional vector
+    space define \[
+      tr(T) := ev(\alpha^{-1}(T)).
+    \]
+
+    Show that this definition agrees with the usual definition of trace.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+
+  \begin{enumerate}[(a)]
+    \item Firstly there exists a bilinear map
+    $\eta\colon V^* \times W \rightarrow \hom_\mathbb{R}(V, W)$ given by \[
+      (v^*, \vec{w}) \mapsto
+        (\vec{v} \mapsto \underbrace{v^*(\vec{v})}_{\in \mathbb{R}}\vec{w}).
+    \] Because $\hom(V, W)$ is an $\mathbb{R}$-vector space, by the universal
+    property, there exists a unique linear map $\alpha = \bar{\eta}$ such that
+    the diagram \[
+      \begin{tikzpicture}[description/.style={fill=white,inner sep=2pt}]
+        \matrix (m) [matrix of math nodes, row sep=3em,
+        column sep=0.5em, text height=1.5ex, text depth=0.25ex] {
+          V^*\times W & & \hom(V, W) \\
+          & V^* \otimes W & \\
+        };
+        \path[-,font=\small]
+          (m-1-1) edge[->] node[auto] {$\eta$} (m-1-3)
+          (m-1-1) edge[->] node[left] {$\phi$} (m-2-2)
+          (m-2-2) edge[->] node[below] {$\hspace{0.5cm}\alpha = \bar{\eta}$} (m-1-3);
+      \end{tikzpicture}
+    \] commutes.
+    Because the universal property gives that $\alpha$ is a linear map, it is
+    sufficient to check that $\alpha$ has a two-sided inverse.
+    Let $\underline{v} = (v_1, \hdots, v_k)$ and
+    $\underline{w} = (w_1, \hdots, w_r)$ be bases for $V$ and $W$ respectively,
+    and let $\underline{v}^* = (v^*_1, \hdots, v^*_k)$ be the associated dual
+    basis for $V^*$. Then $\{v_i^* \otimes w_j\}_{(j, i)}^{(k, r)}$ is a basis
+    for $V^* \otimes W$, and $\{v_i^*(-)w_j\}_{(j, i)}^{(k, r)}$ is a basis for
+    $\hom(V, W)$.
+
+    Then $\alpha^{-1}$ is the map that sends
+    $v_i^*(-)w_j \mapsto v_i^* \otimes w_j$, extended by linearity, and thus
+    $\alpha$ is an isomorphism.
+    \item
+    Let $\psi: V^* \times V \rightarrow V^* \otimes V$ map
+    $(\phi, v) \mapsto \phi \otimes v$. Then by the universal property of
+    tensor products,
+    $\overline{ev} = ev \circ \psi$. That is, $ev$ maps
+    $\phi \otimes v \mapsto \phi(v)$.
+
+    Let $\underline{v} = (v_1, \hdots, v_n)$ be a basis for $V$ and
+    $\underline{v}^* = (v^*_1, \hdots, v^*_n)$ be the associated basis for $V^*$
+    as above.
+    Then \begin{align*}
+      T(\vec{v}) &= \sum_{j=1}^n v^*_j(\vec{v})T(v_j) \\
+      &= \sum_{j=1}^n v^*_j(\vec{v})\left(
+        \sum_{i=1}^n A_{ij}v_i
+      \right)\\
+      &= \sum_{i,j=1}^n A_{ij} v_j^*(\vec{v})v_i
+    \end{align*}
+    Applying $a^{-1}$ yields \[
+      a^{-1}(T) = \sum_{i,j=1}^n A_{ij} v_j^* \otimes v_i,
+    \] and further applying $ev$ gives \begin{align*}
+      ev(a^{-1}(T))
+        &= \sum_{i,j=1}^n A_{ij} v_j^*(v_i)\\
+        &= \sum_{i,j=1}^n A_{ij} \delta_{ij}\\
+        &= \sum_i^n A_{ii}\\
+        &= tr(A)
+    \end{align*} where $v_i^*(v_j) = \delta_{ij}$, the Kronecker delta, by
+    construction of the associated dual basis for $V^*$.
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2} \textbf{Exterior algebra 1.}\\
+  Suppose that $\dim V = 3$ and $\underline{v} = (v_1, v_2, v_3)$ is a
+  basis for $V$. Let $T\colon V \rightarrow V$ be the linear operator
+  defined by \begin{align*}
+    T(v_1) &= av_1 + dv_2 + gv_3\\
+    T(v_2) &= bv_1 + ev_2 + hv_3\\
+    T(v_3) &= cv_1 + fv_2 + iv_3.
+  \end{align*}
+  Derive a formula for $\det(T)$ in terms of $a,b,c,d,e,f,g,h,$ and $i$.
+\end{problem}
+
+\begin{proof} $ $\\
+  Let $\vec{w} = v_1 \wedge v_2 \wedge v_3$. Then \begin{align*}
+    T(\vec{w}) &= (av_1 + dv_2 + gv_3) \wedge (bv_1 + ev_2 + hv_3) \wedge (cv_1 + fv_2 + iv_3) \\
+      &= (av_1 \wedge (bv_1 + ev_2 + hv_3) + dv_2 \wedge (bv_1 + ev_2 + hv_3) + gv_3 \wedge (bv_1 + ev_2 + hv_3)) \\
+      &\hspace{1cm}\wedge (cv_1 + fv_2 + iv_3)\\
+      &= (ab \underbrace{v_1 \wedge v_1}_{=0} + aev_1 \wedge v_2 + ahv_1 \wedge v_3)\\
+      &\hspace{1cm}+ (dbv_2 \wedge v_1 + de\underbrace{v_2 \wedge v_2}_{=0} + dhv_2 \wedge v_3)\\
+      &\hspace{1cm}+ (gbv_3 \wedge v_1 + gev_3 \wedge v_2 + gh\underbrace{v_3 \wedge v_3}_{=0})) \\
+      &\hspace{1cm}\wedge (cv_1 + fv_2 + iv_3)\\
+      &= ((ae-db)v_1 \wedge v_2 + (ah-gb)v_1 \wedge v_3 + (dh-ge)v_2 \wedge v_3)
+        \wedge (cv_1 + fv_2 + iv_3) \\
+      &= (aei-dbi)v_1 \wedge v_2 \wedge v_3 + (fah-fgb)\underbrace{v_2 \wedge v_1}_{=-v_1\wedge v_2} \wedge v_3 + (cdh-cge)v_1 \wedge v_2 \wedge v_3)\\
+      &= (aei - dbi - fah + fgb + cdh - cge) v_1 \wedge v_2 \wedge v_3\\
+      &= (aei - dbi - fah + fgb + cdh - cge) \vec{w}
+  \end{align*}
+  Thus $\det(T) = (aei - dbi - fah + fgb + cdh - cge)$.
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3}\text{} \\
+  \begin{enumerate}[(a)]
+    \item Prove there is a canonical isomorphism $A^k(V) \cong \wedge^kV^* \cong (\wedge^kV)^*$.
+    \item Prove there is a canonical isomorphism $L^k(V) \cong (V^*)^{\otimes k} \cong (V^{\otimes k})^*$
+    \item Prove that under these inclusions, the natural map $A^k(V) \hookrightarrow L^k(V)$ is
+      sent to the (dual of) the projection map $V^{\otimes k} \rightarrow \wedge^kV$
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item Let $f \in A^k(V)$ be multilinear map from $k$ copies of $V$ to $\mathbb{R}$,
+    and let \[
+      \psi\colon \underbrace{V \times \hdots \times V}_{k} \rightarrow \wedge^kV
+      \text{ send }
+      (v_1, \hdots, v_k) \mapsto v_1 \wedge \hdots \wedge v_k.
+    \] Then by the
+    universal property of $\wedge^kV$, there exists a unique linear map
+    $\bar{f}\colon \wedge^kV \rightarrow \mathbb{R}$ such that
+    $\bar{f} \circ \psi = f$. Thus the isomorphism
+    $\phi: A^k(V) \rightarrow \wedge^kV^*$ is the map that sends
+    $f \mapsto \bar{f}$ via the universal property. We can recover $f$ by
+    composing with $\psi$; that is, $\phi^{-1}$ maps
+    $\bar{f} \mapsto \underbrace{\bar{f} \circ \psi}_{=f}$.
+    \item Similarly, suppose $\eta \in L^k(V)$ is a map from $k$ copies of $V$ to
+    $\mathbb{R}$, and let \[
+      \varphi: \underbrace{V \times \hdots \times V}_k \rightarrow V^{\otimes k}
+      \text{ send }
+      (v_1, \hdots, v_k) \mapsto v_1 \otimes \hdots \otimes v_k.
+    \] Then by the universal property of tensor products, there exists a map
+    $\bar{\eta}: V^{\otimes k} \rightarrow \mathbb{R}$ such that
+    $\bar{\eta} \circ \varphi = \eta$. Thus the isomorphism
+    $\Phi: L^k(V)\rightarrow V^{\otimes k}$ is the map that sends
+    $\eta \mapsto \bar\eta$ via the universal property. We similarly recover
+    $\eta$ by composing with $\varphi$; that is $\Phi^{-1}$ maps
+    $\bar\eta \mapsto \underbrace{\bar\eta\circ\varphi}_{=\eta}$.
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4}
+  Give a careful construction of the exterior differentiation operator
+  $d\colon \Omega^k(M) \rightarrow \Omega^{k+1}(M)$ using local coordinates;
+  show that this definition is independent of local coordinates and is
+  well-defined.
+\end{problem}
+
+\begin{proof} \text{}\\
+  To start, let's determine where $d$ sends a point in $\Omega^k(M)$.
+  If $\{f_I\colon M \rightarrow \mathbb{R}\}_I$ is a collection of
+  smooth functions and $\omega = \sum_I f_Idx_I$ in local coordinates,
+  then \[
+    d\omega = \sum_I df_I \wedge dx_I = \sum_I \left[\left(\sum_i \frac{\partial f_I}{\partial x_i} dx_i \right) \wedge dx_I\right]
+  \] where
+  $dx_I = dx_{i_1} \wedge\hdots\wedge dx_{i_k} = d(x_{i_1} \circ \varphi) \wedge\hdots\wedge d(x_{i_k} \circ \varphi)$.
+  \\~\\
+  Suppose that we use a different chart $(U', \psi)$ so that \[
+    \omega = \sum_I \tilde{f}_Id\tilde{x}_I
+  \] in local coordinates with respect to $\psi$. Then \[
+    d\omega
+    = \sum_I d\tilde{f}_I \wedge d\tilde{x}_I
+    = \sum_I \left[\left(\sum_i \frac{\partial \tilde{f}_I}{\partial \tilde{x}_i} d\tilde{x}_i \right) \wedge d\tilde{x}_I\right].
+  \]
+  So we can pull back to $M$ via $\psi^{-1}$ and push forward via $\phi$.
+  % Is it true that given $f\colon M \rightarrow \mathbb{R}$ and some
+  % $(U, \phi)$ around $p$ with \[
+  %   p \xmapsto{\phi} (\underbrace{\pi_1 \circ \phi(p)}_{x_1}, \underbrace{\pi_2 \circ \phi(p)}_{x_2}, \hdots, \underbrace{\pi_m \circ \phi(p)}_{x_m})
+  % \] that $df_p = dx_1 + dx_2 + \hdots + dx_m$
+\end{proof}
+
+% -----------------------------------------------------
+% Fifth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{5}
+  Let $M$ be a manifold. Prove that $d$ satisfies the formula \[
+    d(\alpha\wedge\beta) = d(\alpha)\wedge\beta + (-1)^k\alpha\wedge d(\beta)
+  \] where $\alpha \in \Omega^k(M)$ and $\beta \in \Omega^\ell(M)$.
+\end{problem}
+
+\begin{proof} \text{} \\
+  We can write $\alpha$ and $\beta$ in local coordinates as \begin{align*}
+    \alpha &= \sum_I f_I dx_I \\
+    \beta &= \sum_J g_J dx_J
+  \end{align*} so by linearity \begin{align*}
+    d(\alpha \wedge \beta)
+      &= d\left(\sum_I f_I dx_I \wedge \sum_J g_J dx_J\right) \\
+      &= d\left(\sum_{I,J} f_I g_J dx_I \wedge dx_J\right) \\
+      &= \sum_{I,J} d(f_I g_J dx_I \wedge dx_J)
+  \end{align*}
+  And continuing by definition of $d$ and the product rule:
+  \begin{align*}
+      &= \sum_{I,J} \sum_i \frac{\partial f_I g_J}{\partial x_i}dx_i \wedge dx_I \wedge dx_J \\
+      &= \sum_{I,J} \sum_i \left(\frac{\partial f_I}{\partial x_i}g_J + \frac{\partial g_J}{\partial x_i}f_I\right)dx_i \wedge dx_I \wedge dx_J \\
+      &= \sum_{I,J} \left(
+        \sum_i \frac{\partial f_I}{\partial x_i}g_J dx_i \wedge dx_I \wedge dx_J +
+        \sum_i \frac{\partial g_J}{\partial x_i}f_Idx_i \wedge dx_I \wedge dx_J
+      \right) \\
+      &= \sum_{I,J} \left(
+        \underbrace{\sum_i \frac{\partial f_I}{\partial x_i} dx_i \wedge dx_I}_{d(\alpha)} \wedge \underbrace{g_Jdx_J}_{\beta} +
+        \sum_i \frac{\partial g_J}{\partial x_i}dx_i \wedge \underbrace{f_Idx_I}_\alpha \wedge dx_J
+      \right) \\
+  \end{align*}
+  Then by performing $k$ transpositions to move $dx_i$ to be between $dx_I$ and $dx_J$,
+  we can see that \[
+    dx_i \wedge dx_I \wedge dx_J = (-1)^kdx_I \wedge dx_i \wedge dx_J
+  \]
+  And so splitting up the above sum, we get \begin{align*}
+    &= \sum_{I,J} \left(
+      \underbrace{\sum_i \frac{\partial f_I}{\partial x_i} dx_i \wedge dx_I}_{d(\alpha)} \wedge \underbrace{g_Jdx_J}_{\beta} +
+      (-1)^k\underbrace{f_Idx_I}_\alpha \wedge \underbrace{\sum_i \frac{\partial g_J}{\partial x_i} dx_i \wedge dx_J}_{d(\beta)}
+    \right)\\
+    &= d(\alpha\wedge\beta) = d(\alpha)\wedge\beta + (-1)^k\alpha\wedge d(\beta)
+  \end{align*}
+
+\end{proof}
+
+% -----------------------------------------------------
+% Sixth
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{6}
+  Prove that $d$ commutes with pullback; that is, $d \circ f^* = f^* \circ d$
+  for any smooth $f\colon M \rightarrow N$.
+\end{problem}
+
+\begin{proof} \text{} \\
+\end{proof}
+\end{document}
