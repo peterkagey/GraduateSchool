@@ -16,7 +16,7 @@
 
 \begin{document}
 
-\title{Differential Geometry: Homework 5}
+\title{Differential Geometry: Homework 6}
 \author{Peter Kagey}
 
 \maketitle
@@ -30,7 +30,7 @@
       $V^* \otimes W \xrightarrow{\alpha} \hom(V, W)$,
       and give a careful proof that it is an isomorphism if $V$ and $W$ are
       finite dimensional.
-    \item Let $ev: V^* \otimes V \rightarrow \mathbb{R}$ be the linear map
+    \item Let $ev\colon V^* \otimes V \rightarrow \mathbb{R}$ be the linear map
     induced by the bilinear map
     $\overline{ev}\colon V^* \times V \rightarrow \mathbb{R}$,
     $(\phi, v) \mapsto \phi(v)$ by the universal property of the tensor product.
@@ -44,7 +44,6 @@
 \end{problem}
 
 \begin{proof} \text{} \\
-
   \begin{enumerate}[(a)]
     \item Firstly there exists a bilinear map
     $\eta\colon V^* \times W \rightarrow \hom_\mathbb{R}(V, W)$ given by \[
@@ -78,7 +77,7 @@
     $v_i^*(-)w_j \mapsto v_i^* \otimes w_j$, extended by linearity, and thus
     $\alpha$ is an isomorphism.
     \item
-    Let $\psi: V^* \times V \rightarrow V^* \otimes V$ map
+    Let $\psi\colon V^* \times V \rightarrow V^* \otimes V$ map
     $(\phi, v) \mapsto \phi \otimes v$. Then by the universal property of
     tensor products,
     $\overline{ev} = ev \circ \psi$. That is, $ev$ maps
@@ -146,42 +145,77 @@
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{3}\text{} \\
+\begin{problem}{3} \textbf{Exterior algebra 2.}
   \begin{enumerate}[(a)]
-    \item Prove there is a canonical isomorphism $A^k(V) \cong \wedge^kV^* \cong (\wedge^kV)^*$.
-    \item Prove there is a canonical isomorphism $L^k(V) \cong (V^*)^{\otimes k} \cong (V^{\otimes k})^*$
-    \item Prove that under these inclusions, the natural map $A^k(V) \hookrightarrow L^k(V)$ is
-      sent to the (dual of) the projection map $V^{\otimes k} \rightarrow \wedge^kV$
+    \item \begin{enumerate}[(i)]
+      \item Prove there is a canonical isomorphism $A^k(V) \cong \wedge^kV^* \cong (\wedge^kV)^*$.
+      \item Prove there is a canonical isomorphism $L^k(V) \cong (V^*)^{\otimes k} \cong (V^{\otimes k})^*$
+      \item Prove that under these isomorphisms, the natural map
+        $A^k(V) \hookrightarrow L^k(V)$ is sent to the (dual of) the projection
+        map $V^{\otimes k} \rightarrow \wedge^kV$.
+    \end{enumerate}
+    \item If $V$ is finite-dimensional and $V$ admits a linear symplectic form,
+      prove that $n = \dim V$ is necessarily even, say $n = 2m$.
+    \item Prove that $\omega \in \Lambda^2V^*$ is non-degenerate if and only if
+    $\omega^m \not= 0 \in \Lambda^nV^*$ (where $n = 2m$).
   \end{enumerate}
 \end{problem}
 
 \begin{proof} \text{} \\
   \begin{enumerate}[(a)]
-    \item Let $f \in A^k(V)$ be multilinear map from $k$ copies of $V$ to $\mathbb{R}$,
-    and let \[
-      \psi\colon \underbrace{V \times \hdots \times V}_{k} \rightarrow \wedge^kV
-      \text{ send }
-      (v_1, \hdots, v_k) \mapsto v_1 \wedge \hdots \wedge v_k.
-    \] Then by the
-    universal property of $\wedge^kV$, there exists a unique linear map
-    $\bar{f}\colon \wedge^kV \rightarrow \mathbb{R}$ such that
-    $\bar{f} \circ \psi = f$. Thus the isomorphism
-    $\phi: A^k(V) \rightarrow \wedge^kV^*$ is the map that sends
-    $f \mapsto \bar{f}$ via the universal property. We can recover $f$ by
-    composing with $\psi$; that is, $\phi^{-1}$ maps
-    $\bar{f} \mapsto \underbrace{\bar{f} \circ \psi}_{=f}$.
-    \item Similarly, suppose $\eta \in L^k(V)$ is a map from $k$ copies of $V$ to
-    $\mathbb{R}$, and let \[
-      \varphi: \underbrace{V \times \hdots \times V}_k \rightarrow V^{\otimes k}
-      \text{ send }
-      (v_1, \hdots, v_k) \mapsto v_1 \otimes \hdots \otimes v_k.
-    \] Then by the universal property of tensor products, there exists a map
-    $\bar{\eta}: V^{\otimes k} \rightarrow \mathbb{R}$ such that
-    $\bar{\eta} \circ \varphi = \eta$. Thus the isomorphism
-    $\Phi: L^k(V)\rightarrow V^{\otimes k}$ is the map that sends
-    $\eta \mapsto \bar\eta$ via the universal property. We similarly recover
-    $\eta$ by composing with $\varphi$; that is $\Phi^{-1}$ maps
-    $\bar\eta \mapsto \underbrace{\bar\eta\circ\varphi}_{=\eta}$.
+    \item \begin{enumerate}[(i)]
+      \item Let $f \in A^k(V)$ be multilinear map from $k$ copies of $V$ to $\mathbb{R}$,
+      and let \[
+        \psi\colon \underbrace{V \times \hdots \times V}_{k} \rightarrow \wedge^kV
+        \text{ send }
+        (v_1, \hdots, v_k) \mapsto v_1 \wedge \hdots \wedge v_k.
+      \] Then by the
+      universal property of $\wedge^kV$, there exists a unique linear map
+      $\bar{f}\colon \wedge^kV \rightarrow \mathbb{R}$ such that
+      $\bar{f} \circ \psi = f$. Thus the isomorphism
+      $\phi\colon A^k(V) \rightarrow \wedge^kV^*$ is the map that sends
+      $f \mapsto \bar{f}$ via the universal property. We can recover $f$ by
+      composing with $\psi$; that is, $\phi^{-1}$ maps
+      $\bar{f} \mapsto \underbrace{\bar{f} \circ \psi}_{=f}$.
+      \item Similarly, suppose $\eta \in L^k(V)$ is a map from $k$ copies of $V$ to
+      $\mathbb{R}$, and let \[
+        \varphi\colon \underbrace{V \times \hdots \times V}_k \rightarrow V^{\otimes k}
+        \text{ send }
+        (v_1, \hdots, v_k) \mapsto v_1 \otimes \hdots \otimes v_k.
+      \] Then by the universal property of tensor products, there exists a map
+      $\bar{\eta}: V^{\otimes k} \rightarrow \mathbb{R}$ such that
+      $\bar{\eta} \circ \varphi = \eta$. Thus the isomorphism
+      $\Phi: L^k(V)\rightarrow V^{\otimes k}$ is the map that sends
+      $\eta \mapsto \bar\eta$ via the universal property. We similarly recover
+      $\eta$ by composing with $\varphi$; that is $\Phi^{-1}$ maps
+      $\bar\eta \mapsto \underbrace{\bar\eta\circ\varphi}_{=\eta}$.
+      \item Call the above isomorphisms
+      $\phi\colon A^k(V) \xrightarrow{\cong} (\Lambda^kV)^*$ and
+      $\psi\colon L^k(V) \xrightarrow{\cong} (V^{\otimes k})^*$ respectively,
+      and let $i\colon A^k(V) \rightarrow L^k(V)$ be the inclusion map.
+    \end{enumerate}
+    \item Consider $\omega(v_0, -) \in \hom_\mathbb{R}(V, \mathbb{R})$. Because
+      $\omega$ is alternating multilinear, for all $u$,
+      $\omega(v_0, u) - \omega(u, v_0) = 0$ and
+      therefore must be of the form \[
+        \omega((v_{0,1}, \hdots, v_{0,n}), (u_{1}, \hdots, u_{n})) = \sum_{i, j} \alpha_{ij}v_{0, i}u_j
+      \] where $\alpha_{ij} = -\alpha_{ji}$ to satisfy the alternating condition.
+      This is equivalent to a skew-symmetric matrix, which is singular whenever
+      the matrix has odd dimension by Jacobi's Theorem.
+      Thus if $\omega(v_0, -)$ (i.e. does not have an underlying singular
+      matrix) then $\dim V$ must be even.
+    \item
+    % \begin{enumerate}
+    %   \item[$(\Longrightarrow)$] Assume that $\omega \in \Lambda^2V^*$ is
+    %     non-degenerate.
+    %   \item[$(\Longleftarrow)$] Assume that $\omega^m \not= \Lambda^{n} V^*$.
+    % \end{enumerate}
+    I don't know how to prove any of this, but I think the ``nice form with
+    respect to some basis'' means that
+    $\omega = \omega' + \sum_{(i, j) \in P} \alpha_{ij} v_{i}^* \wedge v_{j}^*$
+    where $v_i$ are basis elements and $P$ is a partition of
+    $\{ 1, 2, \hdots, n\}$ into $m$ equal pieces. Then by the binomial theorem, there will be some squarefree (hence nonzero)
+    term.
   \end{enumerate}
 \end{proof}
 
@@ -198,22 +232,59 @@
 \end{problem}
 
 \begin{proof} \text{}\\
-  To start, let's determine where $d$ sends a point in $\Omega^k(M)$.
-  If $\{f_I\colon M \rightarrow \mathbb{R}\}_I$ is a collection of
-  smooth functions and $\omega = \sum_I f_Idx_I$ in local coordinates,
-  then \[
-    d\omega = \sum_I df_I \wedge dx_I = \sum_I \left[\left(\sum_i \frac{\partial f_I}{\partial x_i} dx_i \right) \wedge dx_I\right]
-  \] where
-  $dx_I = dx_{i_1} \wedge\hdots\wedge dx_{i_k} = d(x_{i_1} \circ \varphi) \wedge\hdots\wedge d(x_{i_k} \circ \varphi)$.
-  \\~\\
-  Suppose that we use a different chart $(U', \psi)$ so that \[
-    \omega = \sum_I \tilde{f}_Id\tilde{x}_I
-  \] in local coordinates with respect to $\psi$. Then \[
-    d\omega
-    = \sum_I d\tilde{f}_I \wedge d\tilde{x}_I
-    = \sum_I \left[\left(\sum_i \frac{\partial \tilde{f}_I}{\partial \tilde{x}_i} d\tilde{x}_i \right) \wedge d\tilde{x}_I\right].
+  We know how to compute
+  $d\colon \Omega^k(\mathbb{R}^m) \rightarrow \Omega^k(\mathbb{R}^{m+1})$,
+  so the idea is to push forward to local coordinates, apply $d$ there, and
+  pull back to the manifold.
+  \\
+  Let $\omega \in \Omega^k(M)$ be a $k$-form, and consider a chart
+  $(U \subset M, \phi)$ around $p$. Then restrict to $U$ so that \[
+    \omega_{\text{loc}, U} = (\phi^{-1})^*\omega = \sum_I f_I dx_I \in \Omega^k(\mathbb{R}^n)
   \]
-  So we can pull back to $M$ via $\psi^{-1}$ and push forward via $\phi$.
+  is the corresponding (local) $k$-form. Then applying $d$, yields
+  \[
+    d\omega_{\text{loc}, U}
+    = d((\phi^{-1})^*\omega)
+  \]
+  and pulling back to the manifold gives \[
+    d\omega = \phi^*d((\phi^{-1})^*\omega).
+  \]
+  Now choosing another chart $(V, \psi)$ around $p$, we want to show \[
+    \phi^*(d((\phi^{-1})^*\omega)) = d\omega = \psi^*d((\psi^{-1})^*\omega).
+  \]
+  So we'll write $d(x_I \circ \phi)$ as shorthand for
+  $d(x_{i_1} \circ \phi) \wedge \hdots \wedge d(x_{i_k} \circ \phi)$
+  and $\omega$ in local coordinates (with respect to $\phi$) as \[
+    \omega = \sum_I f_I dx_I
+  \] so applying $(\phi^{-1})^*$ on the left gives \[
+    (\phi^{-1})^*\omega = \sum_I (f_I \circ \phi^{-1}) d(x_I \circ \phi^{-1})
+  \] then applying $d$ gives \[
+    d((\phi^{-1})^*\omega) = \sum_I\sum_i \frac{\partial(f_I \circ \phi^{-1})}{\partial x_i}dx_i \wedge d(x_I \circ \phi^{-1}).
+  \] Finally pulling back to the mainfold, \begin{align*}
+    \phi^*d((\phi^{-1})^*\omega)
+    &= \sum_I\sum_i \left(
+      \frac{\partial(f_I \circ \phi^{-1})}{\partial x_i} \circ \phi
+    \right)d(x_i \circ \phi) \wedge d(x_I \circ \phi^{-1} \circ \phi)\\
+    &= \sum_I\sum_i \left(
+      \frac{\partial(f_I \circ \phi^{-1})}{\partial x_i} \circ \phi
+    \right)d(x_i \circ \phi) \wedge dx_I.
+  \end{align*}
+  % To start, let's determine where $d$ sends a point in $\Omega^k(M)$.
+  % If $\{g_I\colon M \rightarrow \mathbb{R}\}_I$ is a collection of
+  % smooth functions and $\omega = \sum_I g_Idx_I$ in local coordinates,
+  % then \[
+  %   d\omega = \sum_I dg_I \wedge dx_I = \sum_I \left[\left(\sum_i \frac{\partial g_I}{\partial x_i} dx_i \right) \wedge dx_I\right]
+  % \] where
+  % $dx_I = dx_{i_1} \wedge\hdots\wedge dx_{i_k} = d(x_{i_1} \circ \varphi) \wedge\hdots\wedge d(x_{i_k} \circ \varphi)$.
+  % \\~\\
+  % Suppose that we use a different chart $(U', \psi)$ so that \[
+  %   \omega = \sum_I \tilde{f}_Id\tilde{x}_I
+  % \] in local coordinates with respect to $\psi$. Then \[
+  %   d\omega
+  %   = \sum_I d\tilde{f}_I \wedge d\tilde{x}_I
+  %   = \sum_I \left[\left(\sum_i \frac{\partial \tilde{f}_I}{\partial \tilde{x}_i} d\tilde{x}_i \right) \wedge d\tilde{x}_I\right].
+  % \]
+  % So we can pull back to $M$ via $\psi^{-1}$ and push forward via $\phi$.
   % Is it true that given $f\colon M \rightarrow \mathbb{R}$ and some
   % $(U, \phi)$ around $p$ with \[
   %   p \xmapsto{\phi} (\underbrace{\pi_1 \circ \phi(p)}_{x_1}, \underbrace{\pi_2 \circ \phi(p)}_{x_2}, \hdots, \underbrace{\pi_m \circ \phi(p)}_{x_m})
@@ -233,25 +304,25 @@
 
 \begin{proof} \text{} \\
   We can write $\alpha$ and $\beta$ in local coordinates as \begin{align*}
-    \alpha &= \sum_I f_I dx_I \\
+    \alpha &= \sum_I g_I dx_I \\
     \beta &= \sum_J g_J dx_J
   \end{align*} so by linearity \begin{align*}
     d(\alpha \wedge \beta)
-      &= d\left(\sum_I f_I dx_I \wedge \sum_J g_J dx_J\right) \\
-      &= d\left(\sum_{I,J} f_I g_J dx_I \wedge dx_J\right) \\
-      &= \sum_{I,J} d(f_I g_J dx_I \wedge dx_J)
+      &= d\left(\sum_I g_I dx_I \wedge \sum_J g_J dx_J\right) \\
+      &= d\left(\sum_{I,J} g_I g_J dx_I \wedge dx_J\right) \\
+      &= \sum_{I,J} d(g_I g_J dx_I \wedge dx_J)
   \end{align*}
   And continuing by definition of $d$ and the product rule:
   \begin{align*}
-      &= \sum_{I,J} \sum_i \frac{\partial f_I g_J}{\partial x_i}dx_i \wedge dx_I \wedge dx_J \\
-      &= \sum_{I,J} \sum_i \left(\frac{\partial f_I}{\partial x_i}g_J + \frac{\partial g_J}{\partial x_i}f_I\right)dx_i \wedge dx_I \wedge dx_J \\
+      &= \sum_{I,J} \sum_i \frac{\partial g_I g_J}{\partial x_i}dx_i \wedge dx_I \wedge dx_J \\
+      &= \sum_{I,J} \sum_i \left(\frac{\partial g_I}{\partial x_i}g_J + \frac{\partial g_J}{\partial x_i}g_I\right)dx_i \wedge dx_I \wedge dx_J \\
       &= \sum_{I,J} \left(
-        \sum_i \frac{\partial f_I}{\partial x_i}g_J dx_i \wedge dx_I \wedge dx_J +
-        \sum_i \frac{\partial g_J}{\partial x_i}f_Idx_i \wedge dx_I \wedge dx_J
+        \sum_i \frac{\partial g_I}{\partial x_i}g_J dx_i \wedge dx_I \wedge dx_J +
+        \sum_i \frac{\partial g_J}{\partial x_i}g_Idx_i \wedge dx_I \wedge dx_J
       \right) \\
       &= \sum_{I,J} \left(
-        \underbrace{\sum_i \frac{\partial f_I}{\partial x_i} dx_i \wedge dx_I}_{d(\alpha)} \wedge \underbrace{g_Jdx_J}_{\beta} +
-        \sum_i \frac{\partial g_J}{\partial x_i}dx_i \wedge \underbrace{f_Idx_I}_\alpha \wedge dx_J
+        \underbrace{\sum_i \frac{\partial g_I}{\partial x_i} dx_i \wedge dx_I}_{d(\alpha)} \wedge \underbrace{g_Jdx_J}_{\beta} +
+        \sum_i \frac{\partial g_J}{\partial x_i}dx_i \wedge \underbrace{g_Idx_I}_\alpha \wedge dx_J
       \right) \\
   \end{align*}
   Then by performing $k$ transpositions to move $dx_i$ to be between $dx_I$ and $dx_J$,
@@ -260,12 +331,11 @@
   \]
   And so splitting up the above sum, we get \begin{align*}
     &= \sum_{I,J} \left(
-      \underbrace{\sum_i \frac{\partial f_I}{\partial x_i} dx_i \wedge dx_I}_{d(\alpha)} \wedge \underbrace{g_Jdx_J}_{\beta} +
-      (-1)^k\underbrace{f_Idx_I}_\alpha \wedge \underbrace{\sum_i \frac{\partial g_J}{\partial x_i} dx_i \wedge dx_J}_{d(\beta)}
+      \underbrace{\sum_i \frac{\partial g_I}{\partial x_i} dx_i \wedge dx_I}_{d(\alpha)} \wedge \underbrace{g_Jdx_J}_{\beta} +
+      (-1)^k\underbrace{g_Idx_I}_\alpha \wedge \underbrace{\sum_i \frac{\partial g_J}{\partial x_i} dx_i \wedge dx_J}_{d(\beta)}
     \right)\\
     &= d(\alpha\wedge\beta) = d(\alpha)\wedge\beta + (-1)^k\alpha\wedge d(\beta)
   \end{align*}
-
 \end{proof}
 
 % -----------------------------------------------------
@@ -279,5 +349,20 @@
 \end{problem}
 
 \begin{proof} \text{} \\
+  Let's try chasing definitions. Suppose we have a form $\omega \in \Omega^k(M)$
+  where $\omega = \sum_I g_I dx_I$ in local coordinates. Then \begin{align*}
+    d(f^*(\omega))
+      &= d\left(f^*\left(\sum_I g_I dx_I\right)\right) \\
+      &= d\left(\sum_I (g_I \circ f) d(x_I \circ f)\right) \\
+      &= \left(\sum_I d((g_I \circ f) d(x_I \circ f))\right) \\
+      &= \sum_I\sum_i \frac{\partial(g_I \circ f)}{\partial x_i} dx_i \wedge d(x_I \circ f),
+  \end{align*}
+  and \begin{align*}
+    f^*(d\omega)
+      &= f^*\circ d\left(\sum_I g_I dx_I\right) \\
+      &= f^*\left(\sum_I dg_I \wedge dx_I\right) \\
+      &= f^*\left(\sum_I \left(\sum_i \frac{\partial g_I}{\partial x_i}dx_i\right) \wedge dx_I\right) \\
+      &= \sum_I \sum_i \left(\frac{\partial g_I}{\partial x_i} \circ f\right)d(x_i \circ f) \wedge d(x_I \circ f).
+  \end{align*}
 \end{proof}
 \end{document}
