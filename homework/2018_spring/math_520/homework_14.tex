@@ -26,6 +26,54 @@
   on the unit circle.
 \end{problem}
 \begin{proof} \text{} \\
+  By Arzela's theorem, it is enough to show that for $\Omega_< = \{z : |z| < 1\}$
+  and $\Omega_> = \{ z : |z| > 1 \}$,
+  (i) $\mathfrak{F}$ is
+  equicontinuous on every compact set $E \subset \Omega$, and (ii) for any
+  $z \in \Omega$ and $f \in \mathfrak{F}$, $f(z)$ lies in some compact subset
+  of $\mathbb{C}$; and that at least one of these hypothesis fails when $\Omega$
+  contains a point $z$ such that $|z| = 1$.
+  \\~\\
+  \textbf{Equicontinuity of $\mathfrak{F}$ on $\Omega_<$.}\\
+  Suppose that $E$ is a compact subset of $\Omega_<$.
+  There exists some closed ball $\overline{B_r}(0)$ of radius $r < 1$ centered at
+  zero around $E$. Then given some $\varepsilon > 0$, we can construct a
+  $\delta$ such that $|z^n - z_0^n| < \epsilon$ whenever $|z - z_0| < \delta$.
+  Notice that \begin{align*}
+    |z^n - z_0^n| &= \left|(z - z_0)\sum_{k=0}^{n-1}z^k z_0^{n-1-k}\right| \\
+    &\leq |z - z_0|\left|\sum_{k=0}^{n-1}r^{n-1}\right| \\
+    &= |z - z_0|\cdot \underbrace{nr^{n-1}}_{\rightarrow 0}\\
+    &\leq |z - z_0|\cdot \max_n \left(nr^{n-1}\right)
+  \end{align*} where $\max_n \left(nr^{n-1}\right) < \infty$. Thus taking \[
+    \delta < \frac{\varepsilon}{\displaystyle \max_n \left(nr^{n-1}\right)}
+  \] is sufficient.
+  \\~\\
+  \textbf{Boundedness of $\mathfrak{F}$ on $\Omega_<$.}\\
+  It is easy enough to see that $f(z) \in \overline{B_r}(0)$ for all
+  $f \in \mathfrak{F}$: \[
+    |f(z)| = |z^n| = |z|^n \leq r^n \leq r.
+  \]\\
+  \textbf{Theorem 17 on $\Omega_>$.}\\
+  Theorem 17 says that $\mathfrak{F}$ is normal in the classical sense if and
+  only if \[
+    \rho(f_n) = \frac{2n|z|^{n-1}}{1 + |z|^{2n}}
+  \] is locally bounded.
+  Suppose that $z \in E$, a compact subset of $\Omega_>$, which is to say that
+  there exists some $r$ such that $|z| > r$ for all $z \in E$. Then we have
+  the bound \begin{align*}
+    \rho(f_n) &= \frac{2n|z|^{n-1}}{1 + |z|^{2n}} \\
+    &< \frac{2n|z|^{n-1}}{|z|^{2n}} \\
+    &= \frac{2n}{|z|^{n+1}} \\
+    &\leq \frac{2n}{r^{n+1}} \\
+    &\leq \max_n\frac{2n}{r^{n+1}} < \infty
+  \end{align*} which is bounded since $r > 1$.
+  \\~\\
+  \textbf{Theorem 17 on $|z| = 1$.}\\
+  This follows from the above argument. When $|z| = 1$, we have \[
+    \rho(f_n) = \frac{2n}{1 + 1} = n,
+  \] which is unbounded. Thus by the ``only if'' of Theorem 17, $\mathfrak{F}$
+  is not normal on on any compact set that intersects the boundary of the unit
+  disk.
 \end{proof}
 \pagebreak
 
@@ -34,11 +82,59 @@
 % -----------------------------------------------------
 % https://matthewhr.files.wordpress.com/2012/09/selected-solutions-to-ahlfors.pdf
 \begin{problem}{3} (page 227) \\
-  If $f(z)$ is analytic in the whole plane, show that the family formed by all
-  functions $f(kz)$ with constant $k$ is normal in the annulus $r_1 < |z| < r_2$
+  If $f(z)$ is analytic in the whole plane, show that the family $\mathfrak{F}$
+  formed by all
+  functions $f(kz)$ with constant $k \in \mathbb{R}$ is normal in the annulus $r_1 < |z| < r_2$
   if and only if $f$ is a polynomial.
 \end{problem}
 \begin{proof} \text{} \\
+  Because $f$ is entire, we can write \[
+    f(z) = \sum_{j=0}^\infty a_j z^j \text{ and }
+    f(kz) = \sum_{j=0}^\infty a_j k^j z^j.
+  \]
+  $(\mathbf{\Longrightarrow})$\\
+  % Assume that $\mathfrak{F}$ is a normal family.
+  By contrapositive, assume that $f$ is \textit{not} a polynomial, which is to
+  say that $f(z) = a_0 + a_1z + \hdots$ with infinitely many nonzero coefficients.
+  By Theorem 17 it is enough to check that \[
+    \rho(f_k)
+      = \frac{2|f_k'(z)|}{1 + |f(kz)|^2}
+      = \frac{
+          \displaystyle2\left|\sum_{j=1}^\infty ja_jk^jz^{j-1}\right|
+        }{
+          \displaystyle1 + \left|\sum_{j=0}^\infty a_j(kz)^j\right|^2
+        }
+  \] is \textit{not} locally bounded, which is to say, it can be made
+  arbitrarily large on some compact set.
+  \\~\\
+  $(\mathbf{\Longleftarrow})$\\
+  Assume that $f$ is a polynomial, $f(z) = a_0 + a_1z + \hdots + a_nz^n$.
+  By Theorem 17 it is enough to check that \[
+  \rho(f_k)
+    = \frac{2|f_k'(z)|}{1 + |f(kz)|^2}
+  \] is locally bounded---which means that it is sufficient to check that
+  $\rho(f)$ is \textit{totally} bounded.
+  In particular, look at the function $g(z) = f(1/z)$ \[
+    \rho(g)
+    = \frac{
+      \displaystyle2\left|\sum_{j=1}^n \frac{ja_j}{z^{j-1}}\right|
+    }{
+      \displaystyle1 + \left|\sum_{j=0}^n \frac{a_j}{z^j}\right|^2
+    }
+  \]
+  Then multiplying the numerator and denominator by $|z|^{2n}$ yields \[
+    \rho(g)
+    = \frac{
+      \displaystyle2\left|\sum_{j=1}^n ja_jz^{n-j+1}\right|
+    }{
+      \displaystyle |z|^{2n} + \left|\sum_{j=0}^n a_j z^{n-j}\right|^2
+    }
+  \] which is continuous in a delta ball around $0$. So $|g(z)| \leq M$ for
+  $z < \delta$, and $|f(z)| \leq M$ for $z > 1/\delta$. Since $f$ is bounded
+  for bounded $z$ (in particular, $|z| \leq 1/\delta$), $f$ is totally bounded,
+  and so if $f$ is a polynomial, then $\mathfrak{F} = \{f(kz)\}_{k \in \mathbb{C}}$ is a normal
+  family.
+
 \end{proof}
 \pagebreak
 
@@ -49,10 +145,39 @@
 % https://matthewhr.files.wordpress.com/2012/09/selected-solutions-to-ahlfors.pdf
 \begin{problem}{1} (page 232) \\
   If $z_0$ is real and $\Omega$ is symmetric with respect to the real axis,
-  prove by the uniqueness that $f$ satisfies with the symmetry relation
-  $f(\bar{z}) = \overline{f(z)}$
+  prove that $f$ satisfies with the symmetry relation
+  $f(\bar{z}) = \overline{f(z)}$ using the uniqueness condition in Theorem 1.
 \end{problem}
 \begin{proof} \text{} \\
+  First notice that the map $g(z) = \overline{f(\bar{z})}$ is holomorphic:
+  write $f(z) = u(x, y) + iv(x, y)$ so that $g(z) = u(x, -y) - iv(x, -y)$. Since
+  $g$ is continuous (being the sum/composition of continuous functions), it only
+  remains to check that the Cauchy-Riemann Equations are satisfied:
+  \begin{align}
+    \frac{\partial}{\partial x}\left[u(x, -y)\right] &= \frac{\partial u}{\partial x}(x, -y) \\
+    \frac{\partial}{\partial y}\left[u(x, -y)\right] &= -\frac{\partial u}{\partial y}(x, -y)\\
+    \frac{\partial}{\partial x}\left[-v(x, -y)\right] &= -\frac{\partial v}{\partial x}(x, -y)\\
+    \frac{\partial}{\partial y}\left[-v(x, -y)\right] &= \frac{\partial v}{\partial y}(x, -y),
+  \end{align} where the equality of (1) and (4) along with (2) and (3) follows by
+  the Cauchy-Riemann Equations on $f$. Thus $g$ is holomorphic.
+  \\~\\
+  Now it just needs to be shown that $g$ is conformal. Notice that the above
+  equations together with the knowledge that $f$ is conformal show that the
+  derivative of $g$ never vanishes. Since $g$ is the composition of a
+  bijection on $\Omega$, followed by $f$, followed by a bijection on
+  $\mathbb{D}$, $g$ is also a one-to-one surjection onto the disk.
+  \\~\\
+  Next, notice that $g$ maps $z_0$ to zero:
+    $g(z_0) = \overline{f(\bar{z_0})} = \overline{f(z_0)} = \overline{0} = 0$.
+  Also the derivative at $g'(z_0)$ is positive because $z_0$ has imaginary part
+  of zero: \[
+    g'(z_0) = g'(x_0 + 0i) = \frac{\partial u}{\partial x}(x_0, 0) = f'(z_0) > 0
+  \]
+  Therefore Theorem 17 guarantees that $g$ is identically $f$, and the symmetry
+  relation follows. \begin{align*}
+    f(z) &= \overline{f(\bar{z})}\\
+    \overline{f(z)} &= f(\bar{z}).
+  \end{align*}
 \end{proof}
 \pagebreak
 
@@ -64,6 +189,28 @@
   the point $z_0$?
 \end{problem}
 \begin{proof} \text{} \\
+  Suppose $\Omega$ is symmetric with respect to the point $z_0$, that is
+    (i) $f(z_0) = 0$ and
+    (ii) if $z_1 \in \Omega$, then $z_0 - (z_1 - z_0) = 2z_0 - z_1 \in \Omega$.
+  Denote this point by $\widetilde{z_1}$.
+  \\~\\
+  Define $g\colon \Omega \rightarrow \mathbb{D}$ by $g(z) = -f(\tilde{z})$.
+  Notice now that \begin{enumerate}
+    \item $g(z_0) = -f(\widetilde{z_0}) = -f(z_0 - (z_0 - z_0)) = -f(z_0) = -0 = 0$
+    \item The map $g$ is conformal because it is the composition of conformal maps.
+    \item The derivative $g'$ is positive at $z_0$ \[
+      g'(z_0)
+        = \frac{d}{dz}\left[-f(\hat{z})\right]_{z = z_0}
+        = -f'(\hat{z_0})\frac{d}{dz}\left[2z_0 - z\right]_{z = z_0}
+        = f'(\hat{z_0})
+        = f'(z_0)
+        > 0.
+    \]
+    Because $f$ was the unique function with these properties, $g(z) = f(z)$, so
+    \[
+      f(\widetilde{z_1}) = -f(z_1).
+    \]
+  \end{enumerate}
 \end{proof}
 
 \end{document}
