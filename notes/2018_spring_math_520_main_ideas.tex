@@ -1,0 +1,30 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Main ideas}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{enumerate}
+  \item \textbf{Schwarz Lemma}\\
+    Assume that $f\colon \mathbb{D} \rightarrow \mathbb{D}$ is a holomorphic map
+    such that $f(0) = 0$.\\~\\
+    Then $|f(z)| \leq |z|$ for all $z \in \mathbb{D}$ and $|f'(0)| \leq 1$. Also, if
+    $|f(z)| = |z|$ for some $z \not= 0$ or if $|f'(0)| = 1$, then $f$ is a rotation.
+\end{enumerate}
+
+\end{document}

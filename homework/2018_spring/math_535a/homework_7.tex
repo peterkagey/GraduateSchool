@@ -1,0 +1,398 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Differential Geometry: Homework 7}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+  Prove that the real projective space $\mathbb{RP}^n$ is orientable if and only
+  if $n$ is odd.
+\end{problem}
+
+\begin{proof} \text{} \\
+  By the hint, I'll start by showing that the antipodal map $f$ on
+  $S^n = \{(x_1, \hdots, x_{n+1}) : \sum x_i^2 = 1 \}\subset \mathbb{R}^{n+1}$ is orientation preserving if and only if $n$ is
+  odd. In particular this map is \[
+    (x_1, x_2, \hdots, x_{n+1}) \xmapsto{f} (-x_1, -x_2, \hdots, -x_{n+1})
+  \]
+  Let $[\omega] = [dx_1 \wedge dx_2 \wedge \hdots \wedge dx_{n+1}]$ be the standard
+  orientation on $\mathbb{R}^{n+1}$, then \begin{align*}
+    f_*([\omega])
+      &= [f^*\omega] \\
+      &= [d(-x_1) \wedge \hdots \wedge d(-x_{n+1})] \\
+      &= [(-1)^{n+1} d(x_1) \wedge \hdots \wedge d(x_{n+1})] \\
+      &= [(-1)^{n+1} \omega].
+  \end{align*} Thus the antipodal map is orientation preserving exactly when
+  $(-1)^{n+1} = 1$, that is, when $n$ is odd.
+  \\~\\
+  Recall that in Homework 4, problem 5b, we showed that $\mathbb{RP}^n \cong S^n/\mathbb{Z}_2$
+  where $\mathbb{Z}_2$ acted on $S^n$ by the above map, $x \mapsto -x$.
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} \text{} \\
+  Let $S^2$ denote the unit sphere in $\mathbb{R}^3$,
+  $\{(r_1, r_2, r_3)\ |\ r_1^2 + r_2^2 + r_3^2 = 1\}$ with atlas
+  $\mathcal{A} = \{(U_i^\pm, \pi_i^\pm)\}_{i=1,2,3}$ where \[
+    U_i^+ = \{r_i > 0\} \cap S^2, \text{ and } U_i^- = \{r_i < 0\} \cap S^2,
+  \] and $\pi_i^\pm$ is the projection away from the $i$th coordinate.
+  \begin{enumerate}[(a)]
+    \item Is $\mathcal{A}$ a Euclidean oriented atlas?
+    \item Let \[
+      \sigma = \frac{
+        r_1dr_2 \wedge dr_3 - r_2dr_1 \wedge dr_3 + r_3 dr_1\wedge dr_2
+      }{
+        (r_1^2 + r_2^2 + r_3^2)^{3/2}
+      }
+    \] be a two-form on $\mathbb{R}^3\setminus \{ 0 \}$. Prove that $\sigma$
+    restricted to $S^2$ is closed.
+    \item Prove that $\sigma$ restricted to $S^2$ is not exact.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item We will whether or not given any $(U_\alpha, \phi_\alpha)$
+      and $(U_\beta, \phi_\beta)$, the determinant of $d$ of the transition
+      function
+      $\det(d(\phi_\beta \circ \phi_\alpha^{-1})_{\phi_\alpha(p)}) > 0$ for all
+      $p \in U_\alpha \cap U_\beta$.
+      % First notice that $U_i^+ \cap U_i^- = \emptyset$
+      Notice that in particular, the inverse map of
+      $\pi_1^-\colon U_1^- \rightarrow \mathbb{R}^2$ is \begin{align*}
+        (x, y) &\xmapsto{(\pi_1^-)^{-1}} (-\sqrt{1-x^2-y^2}, x, y).
+      \end{align*}
+      So consider $\pi_2^+ \circ (\pi_1^-)^{-1}$ \[
+        (x, y) \xmapsto{(\pi_1^-)^{-1}} (-\sqrt{1-x^2-y^2}, x, y) \xmapsto{\pi_2^+} (-\sqrt{1-x^2-y^2}, y),
+      \] which has Jacobian matrix \[
+        \det\begin{bmatrix}
+          \frac{\displaystyle\partial(-\sqrt{1-x^2-y^2})}{\displaystyle\partial x} & \frac{\displaystyle\partial(-\sqrt{1-x^2-y^2})}{\displaystyle\partial y} \\[10pt]
+          \frac{\displaystyle\partial y}{\displaystyle\partial x} & \frac{\displaystyle\partial y}{\displaystyle\partial y}
+        \end{bmatrix} =
+        \det\begin{bmatrix}
+          \frac{\displaystyle-x}{\displaystyle\sqrt{1-x^2-y^2}} & \frac{\displaystyle-y}{\displaystyle\sqrt{1-x^2-y^2}} \\[10pt]
+          0 & 1
+        \end{bmatrix} = \frac{\displaystyle-x}{\displaystyle\sqrt{1-x^2-y^2}}.
+      \] Since this is evaluated at $\pi_1^-(p)$ where $p \in U_1^- \cap U_2^+$,
+      (the second coordinate of $p$ and consequently the first coordinate of
+      $\pi_1^-(p)$) the determinant is negative. Thus $\mathcal{A}$ is not orientation preserving.
+    \item In order to show that $\sigma$ is closed, we need to show that
+    $d\sigma = 0$. Since $\sigma$ is restricted to $S^2$, no division by zero will occur.
+    \begin{align*}
+      d\sigma &= d\left(\frac{r_1dr_2 \wedge dr_3}{(r_1^2 + r_2^2 + r_3^2)^{3/2}}\right)
+      - d\left(\frac{r_2dr_1 \wedge dr_3}{(r_1^2 + r_2^2 + r_3^2)^{3/2}}\right)
+      + d\left(\frac{r_3 dr_1\wedge dr_2}{(r_1^2 + r_2^2 + r_3^2)^{3/2}}\right)\\
+      &= \frac{\partial}{\partial r_1}\left(\frac{r_1}{(r_1^2 + r_2^2 + r_3^2)^{3/2}}\right)dx_1 \wedge dr_2 \wedge dr_3\\
+        &\hspace{0.9cm}- \frac{\partial}{\partial r_2}\left(\frac{r_2}{(r_1^2 + r_2^2 + r_3^2)^{3/2}}\right)dr_2 \wedge dr_1 \wedge dr_3\\
+        &\hspace{0.9cm}+ \frac{\partial}{\partial r_3}\left(\frac{r_3}{(r_1^2 + r_2^2 + r_3^2)^{3/2}}\right) dr_3 \wedge dr_1\wedge dr_2\\
+      &= \frac{-2r_1^2 + r_2^2 + r_3^2}{(r_1^2 + r_2^2 + r_3^2)^{5/2}}\ dx_1 \wedge dr_2 \wedge dr_3\\
+        &\hspace{0.9cm}+ \frac{r_1^2 - 2r_2^2 + r_3^2}{(r_1^2 + r_2^2 + r_3^2)^{5/2}}\ dr_1 \wedge dr_2 \wedge dr_3\\
+        &\hspace{0.9cm}+ \frac{r_1^2 + r_2^2 - 2r_3^2}{(r_1^2 + r_2^2 + r_3^2)^{5/2}}\ dr_1 \wedge dr_2\wedge dr_3\\
+      &= 0\ dr_1 \wedge dr_2\wedge dr_3
+    \end{align*}
+    \item The idea here is that because the equator of $S^2$ is a set of measure
+    zero, we can approximate the integral over $U_1^+$ and $U_2^-$ (and thus
+    $S^2$) by (the limit of) compact sets $V_r^+$ and $V_r^-$, given by \[
+      V_r^\pm = \{ (\pi^\pm_1)^{-1}(x, y)\ |\ x^2 + y^2 \leq r \}.
+    \]
+    This is to say, we can compute the integral over $S^2$ by
+    \[
+      \int_{S^2} \sigma = \lim_{r \rightarrow 1} \int_{V_r^+} \sigma + \int_{V_r^-} \sigma.
+    \]
+    To make integration easier, let's break up $\sigma$ into pieces \[
+      \sigma = f_1 dr_2 \wedge dr_3 + f_2 dr_1 \wedge dr_3 + f_3 dr_1 \wedge dr_2.
+    \] so \[
+      \int_{V_r^+} \sigma
+      = \int_{\pi_1^+(V_r^+)} ((\pi_1^+)^{-1})^*\sigma
+      = \int_{\pi_1^+(V_r^+)} ((\pi_1^+)^{-1})^*(f_1 dr_2 \wedge dr_3 + f_2 dr_1 \wedge dr_3 + f_3 dr_1 \wedge dr_2)
+    \]
+    Now some intermediate computations of $((\pi_1^+)^{-1})^* dr_i$ (note that
+    $r_i\colon \mathbb{R}^3 \rightarrow \mathbb{R}$ is the projection map to
+    the $i$-th coordinate): \begin{align*}
+      ((\pi_1^+)^{-1})^* dr_1 &= d(r_1 \circ (\pi_1^+)^{-1}) = d(\sqrt{1 - x^2 - y^2}) = -\frac{x}{\sqrt{1 - x^2 - y^2}}dx -\frac{y}{\sqrt{1 - x^2 - y^2}}dy \\
+      ((\pi_1^+)^{-1})^* dr_2 &= d(r_2 \circ (\pi_1^+)^{-1}) = dx\\
+      ((\pi_1^+)^{-1})^* dr_3 &= d(r_3 \circ (\pi_1^+)^{-1}) = dy\\
+    \end{align*} so by exploiting some cancellation, \begin{align*}
+      ((\pi_1^+)^{-1})^* dr_1 \wedge dr_2 &= -\frac{y}{\sqrt{1 - x^2 - y^2}}dy \wedge dx\\
+      ((\pi_1^+)^{-1})^* dr_1 \wedge dr_3 &= -\frac{x}{\sqrt{1 - x^2 - y^2}}dx \wedge dy \\
+      ((\pi_1^+)^{-1})^* dr_2 \wedge dr_3 &= dx \wedge dy
+    \end{align*}
+    Similarly intermediate computations of
+    $((\pi_1^+)^{-1})^* f_i = f_i \circ (\pi_1^+)^{-1}$: \begin{align*}
+      (x, y) &\xmapsto{(\pi_1^+)^{-1}} (\sqrt{1 - x^2 - y^2}, x, y) \xmapsto{f_1} \frac{\sqrt{1 - x^2 - y^2}}{((\sqrt{1 - x^2 - y^2})^2 + x^2 + y^2)^{3/2}} = \sqrt{1 - x^2 - y^2}\\
+      (x, y) &\xmapsto{(\pi_1^+)^{-1}} (\sqrt{1 - x^2 - y^2}, x, y) \xmapsto{f_2} \frac{-x}{((\sqrt{1 - x^2 - y^2})^2 + x^2 + y^2)^{3/2}} = -x \\
+      (x, y) &\xmapsto{(\pi_1^+)^{-1}} (\sqrt{1 - x^2 - y^2}, x, y) \xmapsto{f_3} \frac{y}{((\sqrt{1 - x^2 - y^2})^2 + x^2 + y^2)^{3/2}} = y \\
+    \end{align*}
+    Using these computations shows that \begin{align*}
+      \int_{V_r^+} \sigma
+      &= \int_{\pi_1^+(V_r^+)} \underbrace{\sqrt{1 - x^2 - y^2}\, dx\, dy}_{
+          ((\pi_1^+)^{-1})^* (f_1 dr_2 \wedge dr_3)
+        }
+        + \underbrace{\frac{x^2}{\sqrt{1 - x^2 - y^2}}\,dx\, dy}_{
+            ((\pi_1^+)^{-1})^* (f_2 dr_1 \wedge dr_3)
+          }
+        + \underbrace{\frac{y^2}{\sqrt{1 - x^2 - y^2}}\, dx\, dy}_{
+            ((\pi_1^+)^{-1})^* (f_3 dr_1 \wedge dr_2)
+          }\\
+      &= \int_{\pi_1^+(V_r^+)} \frac{1}{\sqrt{1 - x^2 - y^2}}\,dx\,dy \\
+      &= \int_0^{2\pi}\int_0^r \frac{s}{\sqrt{1 - s^2}}\,ds\,d\theta
+      = \int_0^{2\pi}\left[-\sqrt{1 - s^2}\right]_0^r\,d\theta
+      = 2\pi (1-\sqrt{1 - r^2})
+    \end{align*}
+    The integral on $V_r^-$ follows very similarly, only the resulting integral
+    has the opposite sign. These integrals do \textit{not} cancel each other,
+    because the orientation is opposite.\\
+    Therefore $\sigma$ restricted to $S^2$ is \textit{not} exact because the
+    integral does not vanish: \[
+      \int_{S^2} \sigma = 4\pi \neq 0.
+    \]
+  \end{enumerate}
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} \text{} \\
+  Suppose that $M = M_1 \coprod M_2$. Prove that \[
+    H_{dR}^k(M) = H_{dR}^k(M_1) \oplus H_{dR}^k(M_2)
+  \]
+\end{problem}
+
+\begin{proof} \text{} \\
+  The cheapest way to see this is to appeal to the Mayer-Vietoris sequence:
+  \begin{alignat*}{5}
+    \hdots
+      &\rightarrow \Omega^{k-1}(M_1 \cap M_2)
+      &\rightarrow H^k(M)
+      &\xrightarrow{\phi} H^k(M_1) \oplus H^k(M_2)
+      &&\rightarrow \Omega^k(M_1 \cap M_2)
+    &\rightarrow \hdots \\
+    \hdots
+      &\rightarrow \Omega^{k-1}(\emptyset)
+      &\rightarrow H^k(M)
+      &\xrightarrow{\phi} H^k(M_1) \oplus H^k(M_2)
+      &&\rightarrow \Omega^k(\emptyset)
+    &\rightarrow \hdots \\
+    \hdots
+      &\rightarrow 0
+      &\rightarrow H^k(M)
+      &\xrightarrow{\phi} H^k(M_1) \oplus H^k(M_2)
+      &&\rightarrow 0
+    &\rightarrow \hdots
+  \end{alignat*}
+  Because the sequence is exact, \[
+  0 \rightarrow H^k(M)
+    \xrightarrow{\phi} H^k(M_1) \oplus H^k(M_2)
+  \] implies that $\phi$ is injective and \[
+    H^k(M) \xrightarrow{\phi} H^k(M_1) \oplus H^k(M_2) \rightarrow 0
+  \] imples that $\phi$ is surjective. Thus $\phi$ is an isomorphism, and \[
+    H_{dR}^k(M) = H_{dR}^k(M_1) \oplus H_{dR}^k(M_2).
+  \]
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4} \text{} \\
+  Use the Mayer-Vietoris sequence to prove that \[
+    H_{dR}^k(S^2) = \begin{cases}
+      \mathbb{R} & k = 0,2 \\
+      0 & \text{otherwise}
+    \end{cases},
+  \] and then prove by induction that \[
+    H_{dR}^k(S^n) = \begin{cases}
+      \mathbb{R} & k = 0,n \\
+      0 & \text{otherwise}
+    \end{cases}.
+  \]
+\end{problem}
+
+\begin{proof} \text{} \\
+  % For starters, Sheel showed that $H^0(M) = \mathbb{R}$ if $M$ is connected, so
+  \textbf{Base case.}\\
+  \textbf{Inductive step.}\\
+    The inducitve step requires three ingredients:
+    \begin{enumerate}[(i)]
+      \item The Mayer-Vietoris sequence is exact: \[
+        H^{k-1}(\mathbb{R}) \oplus H^{k-1}(\mathbb{R})
+        \rightarrow H^{k-1}(S^{n-1} \times (-\varepsilon, \varepsilon))
+        \rightarrow H^k(S^n)
+        \rightarrow H^k(\mathbb{R}) \oplus H^k(\mathbb{R}).
+      \]
+      \item By a lemma of Poincar\'e, the $k$-th de Rham cohomology group of
+      Euclidean space is trivial \[
+        H^k(\mathbb{R}) = 0 \text{ for } k \neq 0
+      \]
+      \item The product of the $n$-sphere with an interval is homotopic to the $n$-sphere \[
+        S^{n-1} \times (-\varepsilon, \varepsilon) \simeq S^{n-1}
+      \]
+    \end{enumerate}
+    \begin{enumerate}
+      \item[Case 1.] ($k = 0$)\\
+        Since $S^n$ is connected, this follows from Tuesday's Lemma that
+        $H^0(M) = \mathbb{R}$ for any connected manifold $M$.
+      \item[Case 2.] ($k = n \neq 1$)\\
+        This follows by induction. We know that $H^{n-1}(S^{n-1}) = \mathbb{R}$,
+        so we have the exact sequence \begin{alignat*}{3}
+          \underbrace{H^{n-1}(\mathbb{R}) \oplus H^{n-1}(\mathbb{R})}_{0 \times 0 \text{ by (ii)}}
+          &\rightarrow \underbrace{H^{n-1}(S^{n-1} \times (-\varepsilon, \varepsilon))}_{= H^{n-1}(S^{n-1}) \text{ by (iii)}}
+          &\xrightarrow{\delta} H^n(S^n)
+          &\rightarrow \underbrace{H^n(\mathbb{R}) \oplus H^n(\mathbb{R})}_{0 \times 0 \text{ by (ii)}}
+          \\
+          0 &\rightarrow \mathbb{R} &\xrightarrow{\delta} H^n(S^n) &\rightarrow 0.
+        \end{alignat*} which means that $\delta$ must be both injective and
+        surjective, and thus $H^n(S^n) = \mathbb{R}$.
+      \item[Case 2$'$.] ($k = n = 1$)\\
+        We're allowed to assume this input, as it was shown in class that
+        $H^1(S^1) = \mathbb{R}$.
+      \item[Case 3.] ($k \not\in \{ 0, 1, n \}$)
+      \begin{alignat*}{2}
+        \underbrace{H^{k-1}(S^{n-1} \times (-\varepsilon, \varepsilon))}_{= H^{k-1}(S^{n-1}) = 0}
+        &\rightarrow H^k(S^n)
+        &&\rightarrow \underbrace{H^k(\mathbb{R}) \oplus H^k(\mathbb{R})}_{0 \times 0 \text{ by (ii)}}
+        \\
+        0 &\rightarrow H^k(S^n) &&\rightarrow 0.
+      \end{alignat*} Therefore $H^k(S^n) = 0$
+      \item[Case 3$'$.] ($0 \neq k \neq n = 1$)\\
+        Similar to Case 2$'$, we are allowed to assume that when $n = 1$,
+        $H^k(S^1) = 0$ when $k \not\in \{ 0, 1 \}$.
+    \end{enumerate}
+    Therefore the relationship holds by induction: \[
+      H_{dR}^k(S^n) = \begin{cases}
+        \mathbb{R} & k = 0,n \\
+        0 & \text{otherwise}
+      \end{cases}.
+    \]
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{5} \text{} \\
+  Give a careful computation of the de Rham cohomology (and hence, the Euler
+  characteristic) of a genus $g$ surface $\Sigma_g$.
+\end{problem}
+
+\begin{proof} \text{} \\
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Sixth problem
+% -----------------------------------------------------
+\begin{problem}{6} \text{} \\
+  \begin{enumerate}[(a)]
+    \item Let $S^1 = \mathbb{R}/\mathbb{Z}$, and fix an orientation on $S^1$. For every
+    $k \in \mathbb{Z}$ there is a map $F_k\colon S^1 \rightarrow S^1$ by
+    $[z] \mapsto [kz]$. Compute the degree of $F_k$.
+    \item Compute the degree of the reflection map $f\colon S^n \rightarrow S^n$ \[
+      (x_1, \hdots, x_{n+1}) \mapsto (-x_1, \hdots, x_{n+1}).
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item $F_k$ can be thought of as the map that winds the circle around
+      itself $k$ times.
+      Let's first construct an oriented atlas for $S^1$ \begin{align*}
+        \mathcal{A} &= \{(U_\varepsilon, \phi), (V_\varepsilon, \psi)\}\\
+        U_\varepsilon &= \{ [x] : \varepsilon < x < 1 - \varepsilon \} \text{ and } \phi([x]) = x - \lfloor x \rfloor \\
+        V_\varepsilon &= \{ [x] : -2\varepsilon < x < 2\varepsilon \} \text{ and } \psi([x]) = \phi([x - 1/2]).
+      \end{align*}
+      This atlas is oriented because the transition map \[
+        \psi \circ \phi^{-1}\colon
+          \underbrace{(\varepsilon, 2\varepsilon) \cup (1-2\varepsilon, 1 - \varepsilon)}_{\phi(U \cap V)}
+          \rightarrow
+          \underbrace{\left(\frac{1}{2}-2\varepsilon, \frac{1}{2} - \varepsilon\right) \cup \left(\frac{1}{2} + \varepsilon, \frac{1}{2} + 2\varepsilon\right)}_{\phi(U \cap V)}
+      \] given by \[
+        x \xmapsto{\phi{-1}} [x] \xmapsto{\psi} \begin{cases}
+          x + \frac{1}{2} & \phi(x) \in (\varepsilon, 2\varepsilon)\\
+          x - \frac{1}{2} & \phi(x) \in (1 - 2\varepsilon, 1 - \varepsilon)
+        \end{cases}
+      \] has derivative $1$ at every point.
+      \\~\\
+      Now, the cohomological definition can be used to compute $\deg(F_k)$ \[
+        \deg(F_k) = \frac{\displaystyle\int_{S^1} F_k^*\omega}{\displaystyle\int_{S^1} \omega}.
+      \] Although the map
+      $t\colon \mathbb{R}/\mathbb{Z} \rightarrow \mathbb{R}$
+      given by $[x] \xmapsto{t} x$ is not a single-valued function, $dt$ is
+      well defined because $t$ is injective on any sufficiently small
+      neighborhood of the codomain.
+      Then by computing \[
+        \int_{S^1}dt
+          = \lim_{\varepsilon \rightarrow 0} \int_{V_\varepsilon}dt
+          = \lim_{\varepsilon \rightarrow 0} \int_\varepsilon^{1 - \varepsilon} (\phi^{-1})^*dt
+          = \lim_{\varepsilon \rightarrow 0} \int_\varepsilon^{1 - \varepsilon} d(t \circ \phi^{-1})
+          = \lim_{\varepsilon \rightarrow 0} \int_\varepsilon^{1 - \varepsilon} dx
+          = \lim_{\varepsilon \rightarrow 0} 1 - 2\varepsilon
+          = 1.
+      \] Similarly \[
+        \int_{S^1}F_K^*dt
+          = \lim_{\varepsilon \rightarrow 0} \int_\varepsilon^{1 - \varepsilon} d(t \circ F_K^*dt \circ \phi^{-1})
+          = \lim_{\varepsilon \rightarrow 0} \int_\varepsilon^{1 - \varepsilon} d(kx)
+          = \lim_{\varepsilon \rightarrow 0} k(1 - 2\varepsilon)
+          = k.
+      \]
+      Thus $\deg(F_k) = k$.
+    \item Since $f$ is a diffeomorphism, $y = (1, 0, \hdots, 0)$ is a regular
+    value, and its preimage has only one point, call it $p$, \[
+      f^{-1}(y) = \{(-1, 0, \hdots, 0)\}.
+    \]
+    Using the geometric defintion of degree, \[
+      \deg(f) = \sum_{q \in f^{-1}(y)} \deg_q(f) = \deg_p(f).
+    \]
+    Therefore the degree of $f$ is $1$ if $df_p$ is orientation preserving,
+    otherwise the degree of $f$ is $-1$. But a manual computation shows that
+    $df_p$ is orientation reversing,
+    \[
+      df_p
+      = \begin{bmatrix}
+        \dfrac{\partial f_i}{\partial x_j}(p)
+      \end{bmatrix}
+      = \begin{bmatrix}
+        -1 & 0 & \hdots & 0\\
+        0  & 1 & \hdots & 0\\
+        \vdots  & \vdots & \ddots & \vdots\\
+        0  & 0 & \hdots & 1
+      \end{bmatrix},
+    \] which has determinant of $-1$. Therefore $\deg(f) = -1.$
+  \end{enumerate}
+\end{proof}
+\pagebreak
+
+% -----------------------------------------------------
+% Seventh problem
+% -----------------------------------------------------
+\begin{problem}{7} \text{} \\
+\end{problem}
+
+\begin{proof} \text{} \\
+\end{proof}
+
+\end{document}
