@@ -45,7 +45,9 @@
   $(-1)^{n+1} = 1$, that is, when $n$ is odd.
   \\~\\
   Recall that in Homework 4, problem 5b, we showed that $\mathbb{RP}^n \cong S^n/\mathbb{Z}_2$
-  where $\mathbb{Z}_2$ acted on $S^n$ by the above map, $x \mapsto -x$.
+  where $\mathbb{Z}_2$ acted on $S^n$ by the above map, $x \mapsto -x$. Thus
+  when the map is orientation preserving, the resulting space is oriented; when
+  the map is orientation preserving, the resulting space cannot be orientable.
 \end{proof}
 \pagebreak
 
@@ -258,10 +260,10 @@
       \item[Case 2.] ($k = n \neq 1$)\\
         This follows by induction. We know that $H^{n-1}(S^{n-1}) = \mathbb{R}$,
         so we have the exact sequence \begin{alignat*}{3}
-          \underbrace{H^{n-1}(\mathbb{R}) \oplus H^{n-1}(\mathbb{R})}_{0 \times 0 \text{ by (ii)}}
+          \underbrace{H^{n-1}(\mathbb{R}^n) \oplus H^{n-1}(\mathbb{R}^n)}_{0 \times 0 \text{ by (ii)}}
           &\rightarrow \underbrace{H^{n-1}(S^{n-1} \times (-\varepsilon, \varepsilon))}_{= H^{n-1}(S^{n-1}) \text{ by (iii)}}
           &\xrightarrow{\delta} H^n(S^n)
-          &\rightarrow \underbrace{H^n(\mathbb{R}) \oplus H^n(\mathbb{R})}_{0 \times 0 \text{ by (ii)}}
+          &\rightarrow \underbrace{H^n(\mathbb{R}^n) \oplus H^n(\mathbb{R}^n)}_{0 \times 0 \text{ by (ii)}}
           \\
           0 &\rightarrow \mathbb{R} &\xrightarrow{\delta} H^n(S^n) &\rightarrow 0.
         \end{alignat*} which means that $\delta$ must be both injective and
@@ -273,7 +275,7 @@
       \begin{alignat*}{2}
         \underbrace{H^{k-1}(S^{n-1} \times (-\varepsilon, \varepsilon))}_{= H^{k-1}(S^{n-1}) = 0}
         &\rightarrow H^k(S^n)
-        &&\rightarrow \underbrace{H^k(\mathbb{R}) \oplus H^k(\mathbb{R})}_{0 \times 0 \text{ by (ii)}}
+        &&\rightarrow \underbrace{H^k(\mathbb{R}^n) \oplus H^k(\mathbb{R}^n)}_{0 \times 0 \text{ by (ii)}}
         \\
         0 &\rightarrow H^k(S^n) &&\rightarrow 0.
       \end{alignat*} Therefore $H^k(S^n) = 0$
@@ -299,6 +301,63 @@
 \end{problem}
 
 \begin{proof} \text{} \\
+  Let $\widehat{\Sigma}_g$ be the punctured genus $g$ surface.
+  We will procede by induction on the genus of the surface.
+  \\~\\
+  \textbf{Base case.}\\
+  Consider the punctured torus $\widehat{\Sigma}_1$, which is homotopic to the ``figure 8''.\\
+  Because the punctured torus is connected, $H^0(\widehat{\Sigma}_1) = \mathbb{R}$.
+  Because we can decompose the figure 8 into two copies of $S^1$ that intersect at a point.
+  So using the Mayer-Vietoris sequence \begin{alignat*}{3}
+    H^0(\mathbb{R}^0) &\rightarrow H^1(\widehat{\Sigma}_1) &&\rightarrow H^1(S^1) \oplus H^1(S^1) &&\rightarrow H^1(\mathbb{R}^0) \\
+    0 &\rightarrow H^1(\widehat{\Sigma}_1) &&\rightarrow \mathbb{R}^2 &&\rightarrow 0
+  \end{alignat*} shows that $H^1(\widehat{\Sigma}_1) = \mathbb{R}^2$.
+  Similary, the Mayer-Vietoris sequence \begin{alignat*}{2}
+    H^1(\mathbb{R}^0) &\rightarrow H^2(\widehat{\Sigma}_1) &&\rightarrow H^2(S^1) \oplus H^2(S^1) \\
+    0 &\rightarrow H^2(\widehat{\Sigma}_1) &&\rightarrow 0
+  \end{alignat*} shows that $H^2(\widehat{\Sigma}_1) = 0$.
+  \\~\\
+  \textbf{Note on the cohomology of $\widehat{\Sigma}_g$ versus $\Sigma_g$.}\\
+    First notice that we can ``patch'' the puncture on $\widehat{\Sigma}_g$
+    with a surface homotopic to $\mathbb{R}^2$ and with overlap homotopic to $S^1$.
+    Doing so gives the Mayer-Vietoris sequence
+    \begin{alignat*}{10}
+      0
+       &\rightarrow H^0(\Sigma_g) &&\rightarrow H^0(\widehat{\Sigma}_g) \oplus H^0(\mathbb{R}^2) &&\rightarrow H^0(S^1)
+      &&\rightarrow H^1(\Sigma_g) &&\rightarrow H^1(\widehat{\Sigma}_g) \oplus H^1(\mathbb{R}^2) &&\rightarrow H^1(S^1)
+      &&\rightarrow H^2(\Sigma_g) &&\rightarrow 0
+      \\
+      0
+       &\rightarrow \mathbb{R} &&\rightarrow \mathbb{R}^2 &&\rightarrow \mathbb{R}
+      &&\rightarrow H^1(\Sigma_g) &&\rightarrow H^1(\widehat{\Sigma}_g) \oplus 0 &&\rightarrow \mathbb{R}
+      &&\rightarrow \mathbb{R} &&\rightarrow 0
+    \end{alignat*}
+    By repeated use of the rank-nullity theorem, \[
+      1 + 2 - 1 + \dim(H^1(\Sigma_{g})) - \dim(H^1(\widehat{\Sigma}_{g})) + 1 - 1 = 0
+    \] so $\dim(H^1(\Sigma_{g+1})) = \dim(H^1(\widehat{\Sigma}_{g}))$.
+    \\~\\
+    \textbf{Induction step.}\\
+    The induction hypothesis is that $H^1(\Sigma_g) = H^1(\widehat{\Sigma}_g) = \mathbb{R}^{2g}$.
+    % Now that we have shown that $H^1(\widehat{\Sigma}_g) = \mathbb{R}^{2g}$,
+    % we can use the Mayer-Vietoris sequence to show that
+    % $H^1(\Sigma_g) = \mathbb{R}^{2g}$.\\
+    Here we will decompose the genus $\Sigma_{g+1}$ surface into a punctured
+    genus $g$ surface and a puctured torus, with intersection homotopic to $S^1$.
+    \begin{alignat*}{10}
+      0
+       &\rightarrow H^0(\Sigma_{g+1}) &&\rightarrow H^0(\widehat{\Sigma}_g) \oplus H^0(\widehat{\Sigma}_1) &&\rightarrow H^0(S^1)
+      &&\rightarrow H^1(\Sigma_{g+1}) &&\rightarrow H^1(\widehat{\Sigma}_g) \oplus H^1(\widehat{\Sigma}_1) &&\rightarrow H^1(S^1)
+      &&\rightarrow H^2(\Sigma_{g+1}) &&\rightarrow 0
+      \\
+      0
+       &\rightarrow \mathbb{R} &&\rightarrow \mathbb{R}^2 &&\rightarrow \mathbb{R}
+      &&\rightarrow H^1(\Sigma_{g+1}) &&\rightarrow \mathbb{R}^{2g} \oplus \mathbb{R}^2 &&\rightarrow \mathbb{R}
+      &&\rightarrow \mathbb{R} &&\rightarrow 0
+    \end{alignat*}
+    By repeated use of the rank-nullity theorem, \[
+      1 + 2 - 1 + \dim(H^1(\Sigma_{g+1})) - (2g + 2) + 1 - 1 = 0
+    \] so $\dim(H^1(\Sigma_{g+1})) = 2g + 2$,
+    and $H^1(\Sigma_{g+1}) = \mathbb{R}^{2g+2}$.
 \end{proof}
 \pagebreak
 
@@ -342,7 +401,7 @@
       \] Although the map
       $t\colon \mathbb{R}/\mathbb{Z} \rightarrow \mathbb{R}$
       given by $[x] \xmapsto{t} x$ is not a single-valued function, $dt$ is
-      well defined because $t$ is injective on any sufficiently small
+      well-defined because $t$ is injective on any sufficiently small
       neighborhood of the codomain.
       Then by computing \[
         \int_{S^1}dt
@@ -390,9 +449,44 @@
 % Seventh problem
 % -----------------------------------------------------
 \begin{problem}{7} \text{} \\
+  Let $M^n \subset \mathbb{R}^{n+1}$ be a compact oriented $n$-dimensional
+  submanifold of $\mathbb{R}^{n+1}$ without boundary. For each point
+  $x \in \mathbb{R}^{n+1}\setminus M^n$, define
+  $\sigma_x\colon M^n \rightarrow S^n$ as the map \[
+    p \mapsto \frac{p-x}{||p - x||}.
+  \]
+  \begin{enumerate}[(a)]
+    \item Prove that if $x$ and $y$ are in the same component of
+      $\mathbb{R}^n+1 \setminus M^n$, then $\sigma_x$ is smoothly homotopic to
+      $\sigma_y$.
+    \item Prove that $x$ is in the bounded component if and only if
+      $\deg(\sigma_x) = \pm1$
+    \item Prove that $x$ is in the unbounded component if and only if $\sigma_x$
+      is homotopic to the constant function.
+  \end{enumerate}
 \end{problem}
 
 \begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item If $x$ and $y$ are in the same component of
+      $\mathbb{R}^n+1 \setminus M^n$, then by connectivity, there is some smooth
+      curve $\gamma\colon [0, 1] \rightarrow \mathbb{R}^n+1 \setminus M^n$
+      such that $\gamma(0) = x$ and $\gamma(1) = y$.
+      Then the map $\sigma_{\gamma(t)}\colon M^n \times [0, 1]_t \rightarrow S^n$
+      will serve as our homotopy.
+    \item We will use the geometric defintion of homology and choose some
+      regular value of $\sigma_x$, call it $y$. Then \[
+        \sum_{p \in f^{-1}(y)} \deg_p(f)
+      \]. Since the manifold is oriented, all of the ``folds'' of the manifold
+      cancel each other out, so $\deg(f) = \pm 1$.
+    \item Because degree is preserved under homotopy, we can choose our point
+      $y$ arbitrarily far away from the manifold. In particular, we can make the
+      image of $\sigma_y$ bounded in an arbitrarily small neighborhood of $S^n$
+      by choosing $y$ sufficiently far away, and thus place the image of
+      $\sigma_y$ within a chart on $S_n$. Then we can use the fact that
+      $\mathbb{R}^n$ is null-homotopic to see that $\sigma_y$ is homotopic to a
+      constant function.
+  \end{enumerate}
 \end{proof}
 
 \end{document}
