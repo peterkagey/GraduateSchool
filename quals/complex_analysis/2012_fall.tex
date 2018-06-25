@@ -1,0 +1,155 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate, tikz}
+\usepackage{multicol}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Fall 2012: Complex Analysis Graduate Exam}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  Evaluate the integral \[
+    \int_0^\infty \frac{dx}{1 + x^n}\,dx
+  \] being careful to justify your methods.
+\end{problem}
+
+\begin{proof} $ $\\
+  First notice that the integrand $f(z) = (1 + x^n)^{-1}$ has poles at \begin{align*}
+    1 + x^n &= 0 \\
+    x^n     &= e^{\pi i + 2\pi i k} \\
+    z_k     &= e^{(2k + 1)\pi i/n} \text{ where } 0 \leq k < n.
+  \end{align*}
+  The idea is to draw a contour around the first pole $z_0 = e^{\pi i/n}$ along an $n$-th root
+  of unity, and then compute the integral via the Residue Theorem.
+  In particular, we will use the contour given by:
+  \begin{multicols}{2}
+  \begin{tikzpicture}[scale=0.8]
+    % \draw[very thin,color=gray] (-0.9,-0.9) grid (5.9,5.9);
+    \draw[thick, ->] (0,0)--(6,0);
+    \draw[thick, ->] (0,0)--(0,5);
+    \draw[ultra thick, ->, draw=red, domain=0:5] plot ({\x}, {0});
+    \draw node at (2.5, -0.3) {$\gamma_{1}$};
+    \draw[ultra thick, ->, draw=orange, domain=0:60] plot ({5*cos(\x)}, {5*sin(\x)});
+    \draw node at (5, 2.2) {$\gamma_{2}$};
+    \draw[ultra thick, <-, draw=blue, domain=0:5] plot ({\x*cos(60)}, {\x*sin(60)});
+    \draw node at (1, 2.7) {$\gamma_{3}$};
+    \fill ({2.5*cos(30)}, {2.5 * sin(30)}) circle (0.1);
+    \draw node at (2.6, 1.2) {$z_0$};
+  \end{tikzpicture}\\
+  \begin{align}
+    \gamma_{1} &= \{t + 0i\ |\ x \in [0, R] \} \\
+    \gamma_{2} &= \{R e^{it}\ |\ t \in [0,2\pi/n] \} \\
+    \gamma_{3} &= \{t e^{2\pi i/n}\ |\ t \in [0, R]\}
+  \end{align}
+  \end{multicols}
+  \[
+    \int_{\gamma_1} f(z)\,dz +
+    \int_{\gamma_2} f(z)\,dz +
+    \int_{\gamma_3} f(z)\,dz =
+    2\pi i \operatorname{Res}_{z_0}(f).
+  \]
+  In the limit, the integral over $\gamma_2$ vanishes.
+  \begin{align*}
+    \left|\int_{\gamma_2}f(z)\,dz\right|
+    &= \left|
+      \int_0^{2\pi/n}\frac{dt}{1 + {(Re^{it})^n}}iRe^{it}
+    \right|\\
+    &\leq \int_0^{2\pi/n}\left|
+      \frac{iRe^{it}}{1 + R^ne^{tni}}
+    \right|\, dt \\
+    &\leq \int_0^{2\pi/n}\left|
+      \frac{iRe^{it}}{R^ne^{tni}}
+    \right|\, dt \\
+    &= \frac{1}{R^{n - 1}}\int_0^{2\pi/n}\,dt \\
+    &= \frac{2\pi}{nR^{n - 1}}
+  \end{align*} which vanishes as $R \rightarrow \infty$.
+  This means that our equation simplifies in the limit to \[
+    \int_{\gamma_1} f(z)\,dz +
+    \int_{\gamma_3} f(z)\,dz =
+    2\pi i \operatorname{Res}_{z_0}(f).
+  \]
+  Also the integral over $\gamma_3$ is a multiple of the integral over
+  $\gamma_1$,
+  \begin{align*}
+    \int_R^0\frac{1}{1 + (te^{2\pi i/n})^n}e^{2\pi i/n}\,dt &=
+    -e^{2\pi i/n}\int_0^R\frac{dt}{1 + t^n}\\
+    &= -e^{2\pi i/n}\int_{\gamma_1} f(z)\,dz,
+  \end{align*}
+  so the equation further simplifies to \[
+  \int_{\gamma_1} f(z)\,dz -
+  e^{2\pi i/n} \int_{\gamma_1} f(z)\,dz =
+  2\pi i \operatorname{Res}_{z_0}(f).
+  \]
+  So by the Residue Theorem, the integral evaluates to \[
+    \int_{\gamma_1} f(z)\,dz = \frac{2\pi i \operatorname{Res}_{z_0}(f)}{1 - e^{2\pi i/n}},
+  \] and it is enough to compute the residue: \[
+    \operatorname{Res}_{z_0}(f)
+    = \lim_{z \rightarrow z_0} (z - z_0) f(z)
+    = \lim_{z \rightarrow z_0} \frac{1}{\displaystyle\left(
+      \frac{1 + z^n}{z - z_0}
+    \right)}
+    = \frac{1}{\displaystyle\frac{d}{dz}\left[
+      1 + z^n
+    \right]_{z = z_0}}
+    = \frac{1}{n z_0^{n-1}}
+  \]
+  Therefore \begin{align*}
+    \int_0^\infty\frac{dx}{1 + x^n}
+    &= \frac{2\pi i}{nz_0^{n-1}(1 - e^{2\pi i/n})} \\
+    % &= \frac{2\pi i/n}{z_0^{n-1}(1 - e^{2\pi i/n})} \\
+    &= \frac{2\pi i/n}{e^{\pi i(n-1)/n}(1 - e^{2\pi i/n})} \\
+    &= \frac{2\pi i/n}{\underbrace{e^{\pi i}}_{=-1} e^{-\pi i/n}(1 - e^{2\pi i/n})} \\
+    &= \frac{2\pi i/n}{-e^{-\pi i/n} + e^{\pi i/n}} \\
+    &= \frac{\pi}{n}\cdot\displaystyle\left(
+      \frac{e^{\pi i/n}-e^{-\pi i/n}}{2i}
+    \right)^{-1} \\
+    &= \frac{\pi}{n \sin(\pi/n)}
+  \end{align*}
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+\end{document}
