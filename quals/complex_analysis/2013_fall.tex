@@ -1,0 +1,178 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate, tikz}
+\usepackage{multicol}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Fall 2013: Complex Analysis Graduate Exam}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  Compute \[
+    \int_0^\infty \frac{\log^2 x}{1 + x^2}\,dx.
+  \]
+\end{problem}
+
+\begin{proof}
+  For ease of notation, name the integrand $f$; that is, \[
+    f(z) = \frac{\log^2 z}{1 + z^2}.
+  \]
+  % Then $f$ has isolated singularities when $x^4 = e^{\pi i + 2\pi i k}$
+  We will compute the integral by using the Residue Theorem together with (the
+  limit of) a contour carefully designed to avoid the singularity at the
+  origin, and including one of the simple poles of $f$:
+  \begin{multicols}{2}
+  \begin{tikzpicture}[scale=0.8]
+    % \draw[very thin,color=gray] (-0.9,-0.9) grid (5.9,5.9);
+    \draw[thick, <->] (-6,0)--(6,0);
+    \draw[thick, ->] (0,0)--(0,6);
+    \fill (0,2) circle (0.1);
+    \draw node at (0.4, 2) {$z_0$};
+    \draw[ultra thick, ->, draw=red, domain=1:5] plot ({\x}, {0});
+    \draw node at (2.5, -0.3) {$\gamma_{1}$};
+    \draw[ultra thick, ->, draw=orange, domain=0:180] plot ({5*cos(\x)}, {5*sin(\x)});
+    \draw node at (5, 2.2) {$\gamma_{2}$};
+    \draw[ultra thick, <-, draw=blue, domain=1:5] plot ({-\x}, 0);
+    \draw node at (-2.5, -0.3) {$\gamma_{3}$};
+    \draw[ultra thick, ->, draw=green, domain=180:0] plot ({cos(\x)}, {sin(\x)});
+    \draw node at (1, 1) {$\gamma_{4}$};
+  \end{tikzpicture}\\
+  \begin{align}
+    \gamma_{1} &= \{t + 0i\ |\ x \in [\varepsilon, R] \} \\
+    \gamma_{2} &= \{R e^{it}\ |\ t \in [0,\pi] \} \\
+    \gamma_{3} &= \{0 + ti\ |\ t \in [-R, -\varepsilon]\} \\
+    \gamma_{4} &= \{\varepsilon e^{-it}\ |\ t \in [-\pi, 0]\}.
+  \end{align}
+  \end{multicols}
+  For small $\epsilon$ and large $R$, this contour encloses a
+  single simple pole of $f$, namely $z_0 = i$.
+  \[
+    \int_{\gamma_1} f(z)\,dz +
+    \int_{\gamma_2} f(z)\,dz +
+    \int_{\gamma_3} f(z)\,dz +
+    \int_{\gamma_4} f(z)\,dz =
+    2\pi i \operatorname{Res}_i(f).
+  \]
+\end{proof}
+In the limit, the integrals over each arcs ($\gamma_2$ and $\gamma_4$) vanishes.
+\begin{align*}
+  \left|\int_{\gamma_2}f(z)\,dz\right|
+  &= \left|
+    \int_0^{\pi}\frac{\log^2(Re^{it})}{1 + R^2e^{2it}}iRe^{it}\,dt
+  \right|\\
+  &\leq \int_0^{\pi}\left|
+    \frac{\log^2(Re^{it})}{1 + R^2e^{2it}}iRe^{it}
+  \right|\,dt \\
+  &\leq \int_0^{\pi}\left|
+    \frac{\log^2(Re^{it})}{R}
+  \right|\,dt \\
+  &\leq \int_0^{\pi}\left|
+    \frac{\log^2(R) + 2it\log(R) - t}{R}
+  \right|\,dt
+\end{align*} which vanishes by the $ML$ inequality as $R \rightarrow \infty$.
+Similarly, \begin{align*}
+  \left|\int_{\gamma_2}f(z)\,dz\right|
+  &= \left|
+    \int_0^{\pi}\frac{\log^2(\varepsilon e^{it})}{1 + \varepsilon ^2e^{2it}}i\varepsilon e^{it}\,dt
+  \right|\\
+  &\leq \int_0^{\pi}\left|
+    \frac{\log^2(\varepsilon e^{it})}{1 + \varepsilon ^2e^{2it}}i\varepsilon e^{it}
+  \right|\,dt \\
+  &\leq \int_0^{\pi}\left|
+    \frac{\log^2(\varepsilon e^{it})}{1}i\varepsilon e^{it}
+  \right|\,dt \\
+  &\leq \int_0^{\pi}\left|
+    \varepsilon\log^2(\varepsilon e^{it})
+  \right|\,dt \\
+  &\leq \int_0^{\pi}\left|
+    \varepsilon(\log^2(\varepsilon) + 2it\log(\varepsilon) + t)
+  \right|\,dt,
+\end{align*} which also vanishes as $\varepsilon \rightarrow 0$ by the ML
+inequality, as can be seen by two applications of L'H\^opital's rule:
+\begin{align*}
+  \lim_{\varepsilon \rightarrow 0} \varepsilon\log^2(\varepsilon)
+  &= \lim_{\varepsilon \rightarrow 0} \frac{\log^2(\varepsilon)}{\varepsilon^{-1}} \\
+  &= \lim_{\varepsilon \rightarrow 0} \frac{2\log(\varepsilon)\varepsilon^{-1}}{-\varepsilon^{-2}}\\
+  &= \lim_{\varepsilon \rightarrow 0} \frac{2\log(\varepsilon)}{-\varepsilon^{-1}} \\
+  &= \lim_{\varepsilon \rightarrow 0} \frac{2\varepsilon^{-1}}{\varepsilon^{-2}} \\
+  &= \lim_{\varepsilon \rightarrow 0} 2\varepsilon \\
+  &= 0.
+\end{align*}
+This means that our equation simplifies in the limit to \[
+  \int_{\gamma_1} f(z)\,dz +
+  \int_{\gamma_3} f(z)\,dz =
+  2\pi i \operatorname{Res}_i(f).
+\] And the left-hand side further simplifies to \begin{align*}
+  \int_\varepsilon^R\frac{\log^2 z}{1 + z^2}\,dz
+  + (-1)\int_R^\varepsilon\frac{\log^2(-z)}{1 + (-z)^2}\,dz &=
+  \int_\varepsilon^R\frac{\log^2 z + \log^2(-z)}{1 + z^2}\,dz \\
+  &= \int_\varepsilon^R\frac{\log^2 z + (\log(z) + \log(-1))^2}{1 + z^2}\,dz \\
+  &= 2\int_{\gamma_1} f(z)\,dz + \int_\varepsilon^R\frac{2\pi i\log(z)}{1 + z^2}\,dz + \int_\varepsilon^R\frac{-\pi^2}{1 + z^2}\,dz
+\end{align*}
+So by the Residue Theorem, the integral evaluates to \[
+  \int_0^\infty\frac{\log^2 z}{1 + z^2}\,dz
+  = \pi i \operatorname{Res}_i(f)
+    - \underbrace{\pi i\int_0^\infty\frac{\log(z)}{1 + z^2}\,dz}_\text{purely imaginary}
+    - \frac{1}{2}\int_0^\infty\frac{-\pi^2}{1 + z^2}\,dz,
+\] and by only considering the real part, it is enough to compute the residue and the last integral: \[
+  \operatorname{Res}_i(f)
+  = \frac{\log^2(i)}{2i}
+  = \frac{(\pi i/2)^2}{2i}
+  = \frac{i\pi^2}{8},
+\] and \[
+  -\pi^2\int_\varepsilon^R\frac{1}{1 + z^2}\,dz = -\frac{\pi^3}{2}
+\]
+Therefore \begin{align*}
+  \int_0^\infty\frac{\log^2 z}{1 + z^2}\,dz
+  &= \pi i \left(\frac{i\pi^2}{8}\right)
+    - \frac{1}{2}\left(-\frac{\pi^3}{2}\right) \\
+  &= -\frac{\pi^3}{8} + \frac{\pi^3}{4} \\
+  &= \frac{\pi^3}{8}.
+\end{align*}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+\end{document}
