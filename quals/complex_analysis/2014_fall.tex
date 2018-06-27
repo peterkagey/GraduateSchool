@@ -1,0 +1,110 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate, tikz}
+\usepackage{multicol}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Fall 2014: Complex Analysis Graduate Exam}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  Let $a > 1$. Compute \[
+    \int_0^\pi \frac{d\theta}{a + \cos\theta}
+  \] being careful to justify your methods.
+\end{problem}
+
+\begin{proof}
+  First, call this integral $S$, and begin with the standard trigonometic substitution, \[
+    \cos(\theta) = \frac{1}{2}(e^{i\theta} + e^{-i\theta}),
+  \] yielding \[
+    S = \int_0^\pi \frac{d\theta}{a + \frac{1}{2}(e^{i\theta} + e^{-i\theta})}.
+  \]
+  By exploiting the evenness of $a + \cos(\theta)$, this integral is equal to \[
+    S = \frac{1}{2}\int_{-\pi}^\pi \frac{d\theta}{a + \frac{1}{2}(e^{i\theta} + e^{-i\theta})}.
+  \]
+  Then by substituting $z = e^{i\theta}$ where the contour is the unit circle
+  centered at the origin gives \[
+    S = \frac{1}{2}\int_{|z| = 1} \frac{1}{a + \frac{1}{2}\left(z + \frac{1}{z}\right)}\frac{dz}{iz}
+  \] where $dz/(iz)$ is the formal substitution for $d\theta$ because \begin{align*}
+    e^{i\theta} &= z \\
+    i\theta &= \log z \\
+    d\theta &= -i\frac{dz}{z}.
+  \end{align*}
+  Some simplification of the integral results in \[
+    S = -i\int_{|z| = 1} \frac{dz}{2az + \left(z^2 + 1\right)}.
+  \]
+  By the quadratic formula, this integrand has poles at \begin{align*}
+    \frac{-2a \pm \sqrt{4a^2-4}}{2} &= -a \pm \sqrt{a^2 - 1} \\
+    \alpha &= -a - \sqrt{a^2 - 1}\\
+    \beta &= -a + \sqrt{a^2 - 1}
+  \end{align*} which are real because $a > 1$ by hypothesis. In particular,
+  $\alpha = -a - \sqrt{a^2 - 1}$ is less than $a$, so clearly outside the contour.
+  Also, \begin{alignat*}{2}
+    a^2 &> a^2 - 1      &&> a^2 - 2a + 1 \\
+    a &> \sqrt{a^2 - 1} &&> a - 1 \\
+    0 &> -a + \sqrt{a^2 - 1} &&> -1 \\
+  \end{alignat*} so $\beta = -a + \sqrt{a^2 - 1}$ is inside the contour.
+
+  Next, naming the integrand $f$, the residue theorem gives \[
+    S = -i\int_{|z| = 1} \frac{dz}{2az + \left(z^2 + 1\right)} = -i(2\pi i \operatorname{Res}_\beta(f)) = 2\pi \operatorname{Res}_\beta(f).
+  \]
+
+  Now, the residue is straightforward to compute: \[
+    \operatorname{Res}_\beta(f)
+    = \lim_{z \rightarrow \beta} (z - \beta)\frac{1}{(z - \beta)(z - \alpha)}
+    = \frac{1}{\beta - \alpha}
+    = \frac{1}{2\sqrt{a^2 - 1}}.
+  \]
+
+  Therefore \[
+    \int_0^\pi \frac{d\theta}{a + \cos\theta} = \frac{\pi}{\sqrt{a^2 - 1}}.
+  \]
+\end{proof}
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{2}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{3}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\pagebreak
+
+\begin{problem}{4}
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+\end{document}
