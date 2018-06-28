@@ -51,12 +51,12 @@
     \alpha &= -a - \sqrt{a^2 - 1}\\
     \beta &= -a + \sqrt{a^2 - 1}
   \end{align*} which are real because $a > 1$ by hypothesis. In particular,
-  $\alpha = -a - \sqrt{a^2 - 1}$ is less than $a$, so clearly outside the contour.
-  Also, \begin{alignat*}{2}
+  $\alpha = -a - \sqrt{a^2 - 1} < -a$, so clearly outside the contour.
+  On the other hand, \begin{alignat*}{2}
     a^2 &> a^2 - 1      &&> a^2 - 2a + 1 \\
     a &> \sqrt{a^2 - 1} &&> a - 1 \\
-    0 &> -a + \sqrt{a^2 - 1} &&> -1 \\
-  \end{alignat*} so $\beta = -a + \sqrt{a^2 - 1}$ is inside the contour.
+    0 &> \underbrace{-a + \sqrt{a^2 - 1}}_\beta &&> -1 \\
+  \end{alignat*} so $\beta$ is inside the contour.
 
   Next, naming the integrand $f$, the residue theorem gives \[
     S = -i\int_{|z| = 1} \frac{dz}{2az + \left(z^2 + 1\right)} = -i(2\pi i \operatorname{Res}_\beta(f)) = 2\pi \operatorname{Res}_\beta(f).
