@@ -63,68 +63,68 @@
     \int_{\gamma_4} f(z)\,dz =
     2\pi i \operatorname{Res}_{z_0}(f).
   \]
+  In the limit, both arcs ($\gamma_2$ and $\gamma_4$) vanish.
+  \begin{align*}
+    \left|\int_{\gamma_2}f(z)\,dz\right|
+    &= \left|
+      \int_0^{\pi/2}\frac{(Re^{it})^{1/3}}{1 + {(Re^{it})^4}}iRe^{it}\,dt
+    \right|\\
+    &\leq \int_0^{\pi/2}\left|
+      \frac{(Re^{it})^{1/3}}{1 + {(Re^{it})^4}}iRe^{it}\,dt
+    \right| \\
+    &= \int_0^{\pi/2}\left|
+      iR^{4/3}\frac{e^{4it/3}}{1 + {R^4e^{4it}}}\,dt
+    \right| \\
+    &\leq \int_0^{\pi/2}\left|
+      iR^{4/3}\frac{e^{4it/3}}{{R^4e^{4it}}}\,dt
+    \right| = \frac{\pi}{2}R^{-8/3}
+  \end{align*} which vanishes as $R \rightarrow \infty$.
+  Similarly, \begin{align*}
+    \left|\int_{\gamma_4}f(z)\,dz\right|
+    &= \left|
+      \int_0^{\pi/2}\frac{(\varepsilon e^{it})^{1/3}}{1 + {(\varepsilon e^{it})^4}}i\varepsilon e^{it}\,dt
+    \right|\\
+    &\leq \int_0^{\pi/2}\left|
+      \frac{(\varepsilon e^{it})^{1/3}}{1 + {(\varepsilon e^{it})^4}}i\varepsilon e^{it}\,dt
+    \right| \\
+    &= \int_0^{\pi/2}\left|
+      i\varepsilon ^{4/3}\frac{e^{4it/3}}{1 + {\varepsilon ^4e^{4it}}}\,dt
+    \right| \\
+    &\leq \int_0^{\pi/2}\left|
+      i\varepsilon ^{4/3}\frac{e^{4it/3}}{1}\,dt
+    \right| = \frac{\pi}{2}\varepsilon ^{4/3}
+  \end{align*} which also vanishes as $\varepsilon \rightarrow 0$.
+  This means that our equation simplifies in the limit to \[
+    \int_{\gamma_1} f(z)\,dz +
+    \int_{\gamma_3} f(z)\,dz =
+    2\pi i \operatorname{Res}_{z_0}(f).
+  \] And the right hand side further simplifies to \begin{align*}
+    \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz +
+    \int_R^\varepsilon\frac{(iz)^{1/3}}{1 + {(iz)^4}}i\,dz &=
+    \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz -
+    i^{4/3}\int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz\\
+    &= (1 - i^{4/3}) \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz.
+  \end{align*}
+  So by the Residue Theorem, the integral evaluates to \[
+    \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz
+    = \frac{2\pi i\operatorname{Res}_{z_0}(f)}{1 - i^{4/3}}
+    = \frac{2\pi i}{1 - e^{2\pi i/3}}\operatorname{Res}_{z_0}(f),
+  \] and it is enough to compute the residue: \[
+    \operatorname{Res}_{z_0}(f)
+    = \frac{z_0^{1/3}}{(z_0^2 + i)(z_0 + z_0)}
+    = \frac{e^{\pi i/12}}{(2e^{\pi i/2})(2e^{\pi i/4})}
+    = \frac{1}{4} e^{-2\pi i/3}.
+  \]
+  Therefore \begin{align*}
+    \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz
+    &= \frac{2\pi i}{1 - e^{2\pi i/3}}\cdot\frac{1}{4} e^{-2\pi i/3}\\
+    &= \frac{2\pi i}{1 - (-1/2 + \sqrt{3}i/2)}\cdot\frac{1}{4} e^{-2\pi i/3}\\
+    &= \frac{4\pi i}{3 - \sqrt{3}i} \cdot\frac{1}{4}\left(-\frac{1}{2} - \frac{\sqrt{3}}{2}i\right)\\
+    &= \frac{\pi}{3 - \sqrt{3}i} \cdot i\left(-\frac{1}{2} - \frac{\sqrt{3}}{2}i\right)\\
+    &= \frac{\pi}{2} \left(\frac{\sqrt3-i}{3 - \sqrt{3}i}\right)\\
+    &= \frac{\pi}{2\sqrt3}.
+  \end{align*}
 \end{proof}
-In the limit, both arcs ($\gamma_2$ and $\gamma_4$) vanish.
-\begin{align*}
-  \left|\int_{\gamma_2}f(z)\,dz\right|
-  &= \left|
-    \int_0^{\pi/2}\frac{(Re^{it})^{1/3}}{1 + {(Re^{it})^4}}iRe^{it}\,dt
-  \right|\\
-  &\leq \int_0^{\pi/2}\left|
-    \frac{(Re^{it})^{1/3}}{1 + {(Re^{it})^4}}iRe^{it}\,dt
-  \right| \\
-  &= \int_0^{\pi/2}\left|
-    iR^{4/3}\frac{e^{4it/3}}{1 + {R^4e^{4it}}}\,dt
-  \right| \\
-  &\leq \int_0^{\pi/2}\left|
-    iR^{4/3}\frac{e^{4it/3}}{{R^4e^{4it}}}\,dt
-  \right| = \frac{\pi}{2}R^{-8/3}
-\end{align*} which vanishes as $R \rightarrow \infty$.
-Similarly, \begin{align*}
-  \left|\int_{\gamma_4}f(z)\,dz\right|
-  &= \left|
-    \int_0^{\pi/2}\frac{(\varepsilon e^{it})^{1/3}}{1 + {(\varepsilon e^{it})^4}}i\varepsilon e^{it}\,dt
-  \right|\\
-  &\leq \int_0^{\pi/2}\left|
-    \frac{(\varepsilon e^{it})^{1/3}}{1 + {(\varepsilon e^{it})^4}}i\varepsilon e^{it}\,dt
-  \right| \\
-  &= \int_0^{\pi/2}\left|
-    i\varepsilon ^{4/3}\frac{e^{4it/3}}{1 + {\varepsilon ^4e^{4it}}}\,dt
-  \right| \\
-  &\leq \int_0^{\pi/2}\left|
-    i\varepsilon ^{4/3}\frac{e^{4it/3}}{1}\,dt
-  \right| = \frac{\pi}{2}\varepsilon ^{4/3}
-\end{align*} which also vanishes as $\varepsilon \rightarrow 0$.
-This means that our equation simplifies in the limit to \[
-  \int_{\gamma_1} f(z)\,dz +
-  \int_{\gamma_3} f(z)\,dz =
-  2\pi i \operatorname{Res}_{z_0}(f).
-\] And the right hand side further simplifies to \begin{align*}
-  \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz +
-  \int_R^\varepsilon\frac{(iz)^{1/3}}{1 + {(iz)^4}}i\,dz &=
-  \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz -
-  i^{4/3}\int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz\\
-  &= (1 - i^{4/3}) \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz.
-\end{align*}
-So by the Residue Theorem, the integral evaluates to \[
-  \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz
-  = \frac{2\pi i\operatorname{Res}_{z_0}(f)}{1 - i^{4/3}}
-  = \frac{2\pi i}{1 - e^{2\pi i/3}}\operatorname{Res}_{z_0}(f),
-\] and it is enough to compute the residue: \[
-  \operatorname{Res}_{z_0}(f)
-  = \frac{z_0^{1/3}}{(z_0^2 + i)(z_0 + z_0)}
-  = \frac{e^{\pi i/12}}{(2e^{\pi i/2})(2e^{\pi i/4})}
-  = \frac{1}{4} e^{-2\pi i/3}.
-\]
-Therefore \begin{align*}
-  \int_\varepsilon^R\frac{z^{1/3}}{1 + {z^4}}\,dz
-  &= \frac{2\pi i}{1 - e^{2\pi i/3}}\cdot\frac{1}{4} e^{-2\pi i/3}\\
-  &= \frac{2\pi i}{1 - (-1/2 + \sqrt{3}i/2)}\cdot\frac{1}{4} e^{-2\pi i/3}\\
-  &= \frac{4\pi i}{3 - \sqrt{3}i} \cdot\frac{1}{4}\left(-\frac{1}{2} - \frac{\sqrt{3}}{2}i\right)\\
-  &= \frac{\pi}{3 - \sqrt{3}i} \cdot i\left(-\frac{1}{2} - \frac{\sqrt{3}}{2}i\right)\\
-  &= \frac{\pi}{2} \left(\frac{\sqrt3-i}{3 - \sqrt{3}i}\right)\\
-  &= \frac{\pi}{2\sqrt3}.
-\end{align*}
 % -----------------------------------------------------
 % Second problem
 % -----------------------------------------------------
