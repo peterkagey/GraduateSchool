@@ -80,9 +80,49 @@
 \pagebreak
 
 \begin{problem}{2}
+  Find the number of zeros, counting multiplicity, of $z^8 - z^3 + 10$ inside
+  the first quadrant
+  $\{ z \in \mathbb{C}: \operatorname{Re}z > 0,\ \operatorname{Im}z > 0 \}$.
 \end{problem}
 
 \begin{proof}
+  For convenience name the aforementioned function: $f(z) = z^8 - z^3 + 10$.
+  We'll repeatedly compare this function against $g(z) = z^8 + 10$.
+  \\
+  Notice that anywhere on the circle $|z| = 2$, we have the inequality \[
+    |f-g| = |-z^3| = 8 < |z^8| - |z^3| - |10| = 256-8-10 < |f|,
+  \] which follows by the triangle inequality.
+  By Rouch\'e's Theorem, since $g$ has all eight of its roots inside this
+  circle, $f$ also has all eight of its roots inside this circle.
+  So when counting the roots of $f$ inside the first quadrant, it is sufficient
+  to count the roots of $f$ inside the quarter circle of radius $2$ in the first
+  quadrant.
+  Now, we will establish that $|f-g| < |f|$ on the boundary of this region.
+  \\~\\
+  \textbf{Case 1: The arc.}\\
+  We have already established that $|f-g| < |f|$ when $|z| = 2$, and this
+  remains true when we restrict to the first quadrant.
+  \\~\\
+  \textbf{Case 2: The real part.}\\
+  We need to show that $|-x^3| < |10 + x^8 - x^3|$ for $x \in [0, 2]$, and
+  because the right hand side is positive, this is equivalent to showing that
+  $10 + x^8 - 2x^3 > 0$.
+  This follows because \begin{enumerate}[(a)]
+    \item $10 - 2x^3 > 0$ and $x^8 > 0$ for $x \in [0, \sqrt[3]5)$, and
+    \item $x^8 - 2x^3 > 0$ and $10 > 0$ for $x \in [\sqrt[3]5, 2]$.
+  \end{enumerate}
+  \textbf{Case 3: The purely imaginary part.}
+  We need to show that $|-i^3x^3| < |10 + i^8x^8 - i^3x^3|$ for $x \in [0, 2]$:
+  \begin{align*}
+    |f-g| = |-i^3x^3| = x^3 < \underbrace{|10 + x^8| - |i^3x^3|}_{10 + x^8 - x^3} \leq |f|,
+  \end{align*} and this follows by exactly the same argument as the second case.
+  \\~\\
+  Thus, by Rouch\'e's theorem, $f$ and $g$ have the same number of zeros in the
+  quarter circle (equivalently, the first quadrant). Since $g$ has roots at
+  $10^{1/8}e^{\pi i/8}\xi^k_8$ (where $\xi_8$ is an eigth root of unity), $g$
+  has exactly two roots in each quadrant.
+  \\~\\
+  Therefore $f$ has two roots in the first quadrant.
 \end{proof}
 
 % -----------------------------------------------------
@@ -91,6 +131,10 @@
 \pagebreak
 
 \begin{problem}{3}
+  Assume that $f$ and $g$ are holomorphic in a punctured neighborhood of
+  $z_0 \in \mathbb C$. Prove that if $f$ has an essential singularity at $z_0$
+  and $g$ has a pole at $z_0$, then $f(z)g(z)$ has an essential singularity at
+  $z_0$.
 \end{problem}
 
 \begin{proof}
@@ -101,7 +145,14 @@
 % -----------------------------------------------------
 \pagebreak
 
-\begin{problem}{4}
+\begin{problem}{4}$ $\\
+  \begin{enumerate}[(i)]
+    \item Suppose that $f$ is holomorphic on $\mathbb C$, and assume that the
+      imaginary part of $f$ is bounded. Prove that $f$ is constant.
+    \item Suppose that $f$ and $g$ are holomorphic on $\mathbb C$ and that
+    $|f(z)| \leq |g(z)|$ for all $z \in \mathbb C$. Prove that there exists
+    $\lambda \in \mathbb C$ such that $f = \lambda g$.
+  \end{enumerate}
 \end{problem}
 
 \begin{proof}
