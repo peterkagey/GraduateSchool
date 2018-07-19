@@ -125,9 +125,48 @@
 \pagebreak
 
 \begin{problem}{2}
+  Find the Laurent series expansion for \[
+    \frac{1}{z(z+1)}
+  \] valid in $\{ 1 < |z - 1| < 2\}$.
 \end{problem}
 
 \begin{proof}
+  It is easiest to find the expansion centered at $0$, so we will instead
+  substitute $z - 1 = w$ and find the Laurent series expansion of \[
+    \hat f(w) = \frac{1}{(w + 1)(w + 2)}
+  \] valid when $1 < |w| < 2$.
+  \\
+  Notice that by partial fraction decomposition, \[
+    \frac{1}{(w + 1)(w + 2)} = \frac{A}{w + 1} + \frac{B}{w + 2}
+  \] where $A$ and $B$ satisfy the system of equations \begin{align*}
+      A + B = 0 \\
+      2A + B = 1
+  \end{align*} and so $A = 1$ and $B = -1$.
+  \\
+  Now we can add the Laurent series expansion of the two summands to give the
+  Laurent series of $\hat f$.
+  \\~\\
+  \textbf{Laurent series of $(w+1)^{-1}$ for $|w| > 1$.}\\
+  Notice that \[
+    \frac{1}{w + 1} = \frac{1}{w}\cdot\frac{1}{1 - (-\frac{1}{w})}
+    = \frac{1}{w}\sum_{n=0}^\infty\left(\frac{-1}{w}\right)^n
+    = -\sum_{n=1}^\infty (-1)^{-n}w^{-n}
+  \] for $|1/w| < 1$ (or equivalently $|w| > 1$).
+  \\~\\
+  \textbf{Laurent series of $-(w+2)^{-1}$ for $|w| < 2$.}\\
+  Similarly \[
+    \frac{1}{w + 2} = \frac{1}{2}\cdot\frac{1}{1 - (-\frac{w}{2})}
+    = \frac{1}{2}\sum_{n=0}^\infty\left(\frac{-w}{2}\right)^n
+    = -\sum_{n=0}^\infty \left(-\frac{1}{2}\right)^{n+1}w^n
+  \] for $|w/2| < 1$ (or equivalently $|w| < 2$).
+  \\~\\
+  Thus the Laurent series of $\hat f$ is \[
+    \hat f(w) = -\sum_{n=1}^\infty (-1)^{-n}w^{-n}
+    -\sum_{n=0}^\infty \left(-\frac{1}{2}\right)^{n+1}w^n,
+  \] in $\{ 1 < |w| < 2\}$, so the Laurent series of $f$ is \[
+    f(z) = -\sum_{n=1}^\infty (-1)^{-n}(z - 1)^{-n}
+    -\sum_{n=0}^\infty \left(-\frac{1}{2}\right)^{n+1}(z - 1)^n
+  \] in $\{ 1 < |z - 1| < 2\}$.
 \end{proof}
 
 % -----------------------------------------------------
@@ -136,9 +175,25 @@
 \pagebreak
 
 \begin{problem}{3}
+  Suppose that $f$ is an entire function and that there is a bounded sequence of
+  distinct real numbers $a_1, a_2, a_3, \hdots$ such that $f(a_k)$ is real for
+  each $k$. Show that $f(x)$ is real for all real $x$.
 \end{problem}
 
 \begin{proof}
+  Because the sequence of real numbers is bounded, there must be a (real)
+  accumulation point by the Bolzano-Weierstrass Theorem; call it $z_0$.
+  \\~\\
+  Now, since $f$ is entire, we can do a Taylor Series expansion about $z_0$.
+  All derivatives are real, because we can always find real $z$ arbitrarily
+  close to $z_0$ and both the numerator and denominator in the definition of the
+  derivative are real, \[
+    \lim_{z \rightarrow z_0} \frac{f(z) - f(z_0)}{z - z_0},
+  \] so the derivative itself is real.
+  \\
+  This same idea works for higher order derivatives, so the Taylor expansion
+  about $z_0$ has all real coefficients. Therefore, $f(x)$ is real-valued for
+  all real $x$.
 \end{proof}
 
 % -----------------------------------------------------
@@ -147,6 +202,10 @@
 \pagebreak
 
 \begin{problem}{4}
+  Suppose \[
+    f_n(z) = \sum_{k=0}^n\frac{1}{k!z^k},\ z \neq 0
+  \] and let $\varepsilon > 0$. Show that for large enough $n$ all the zeros of
+  $f_n$ are in the disk $D(0, \varepsilon)$ with center 0 and radius $\varepsilon$
 \end{problem}
 
 \begin{proof}
