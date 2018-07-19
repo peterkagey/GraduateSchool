@@ -16,15 +16,47 @@
 
 \maketitle
 
-% -----------------------------------------------------
-% First problem
-% -----------------------------------------------------
 \begin{enumerate}
+  \item \textbf{Cauchy-Riemann Equations}\\
+    Let $f(z) = u(x, y) + iv(x, y)$ then $f$ is holomorphic if and only if $
+      u_x = v_y \text{ and } u_y = -v_x.
+    $\\
+    \textit{Note:} To remember which sign is which, check with
+    $(x + iy)^2 = (x^2 - y^2) + i(2xy)$
+  \item \textbf{Cauchy's Integral Theorem}\\
+    Let $f$ be a holomorphic on a simply connected open set $\Omega$, then the
+    integral along any closed curve $\gamma \in \Omega$ vanishes: \[
+      \oint_\gamma f\,dz = 0.
+    \]
+  \item \textbf{Cauchy's Integral Formula}\\
+    Let $f$ be a holomorphic on a simply connected open set $\Omega$, and let
+    $\gamma \in \Omega$ be a simple closed curve around $z_0$. Then $f(z_0)$ is
+    uniquely determined by the values on the boundary of the curve \[
+      f(z_0) = \frac{1}{2\pi i}\oint_\gamma \frac{f(\xi)}{\xi - z_0}\,d\xi,
+    \] and by differentiating under the integral \[
+      f^{(n)}(z_0) = \frac{n!}{2\pi i}\oint_\gamma \frac{f(z)}{(z - z_0)^{n+1}}\,dz.
+    \]
+  \item \textbf{Defintion: Residue}
+    The residue of $f$ at $z_0$ is the coefficient of $(z - z_0)^{-1}$ in the
+    Taylor expansion of $f$ about $z_0$.
+  \item \textbf{Residue Theorem}\\
+    Let $\Omega$ be a ``nice'' region, and $f$ is holomorphic on
+    $\Omega \setminus \{z_0\}$. Then \[
+      \frac{1}{2\pi i}\oint_\gamma f(z) dz = \operatorname{Res}_{z_0}(f).
+    \] where $\gamma$ is a nice curve in $\Omega$.
+
   \item \textbf{Schwarz Lemma}\\
     Assume that $f\colon \mathbb{D} \rightarrow \mathbb{D}$ is a holomorphic map
     such that $f(0) = 0$.\\~\\
     Then $|f(z)| \leq |z|$ for all $z \in \mathbb{D}$ and $|f'(0)| \leq 1$. Also, if
     $|f(z)| = |z|$ for some $z \not= 0$ or if $|f'(0)| = 1$, then $f$ is a rotation.
+
+  \item \textbf{Rouch\'e's Theorem}\\
+    Let $\gamma$ be a curve in $\Omega$ homologous to $0$ with winding number
+    at most $1$. Then if $f$ and $g$ are analytic and satisfy the inequality
+    $|f - g| < |f|$ for all points on $\gamma$, $f$ and $g$ enclose the same
+    number of zeroes.
+
 \end{enumerate}
 
 \end{document}
