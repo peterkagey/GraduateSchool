@@ -5,6 +5,9 @@
 \usepackage{bbm, enumerate, tikz}
 \usepackage{multicol}
 
+\newcommand{\notimplies}{%
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+
 \newenvironment{problem}[2][Problem]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
 \newenvironment{note}[1][Note.]{\begin{trivlist}
@@ -201,7 +204,7 @@ Therefore \begin{align*}
 \pagebreak
 
 \begin{problem}{3}
-  Supposer that $f$ is holomorphic in a neighborhood $U$ of $a \in \mathbb C$.
+  Suppose that $f$ is holomorphic in a neighborhood $U$ of $a \in \mathbb C$.
   Conside the following two statements.
   \begin{enumerate}[(i)]
     \item There exist two sequences $\{z_k\}_{k=1}^\infty$ and
@@ -211,7 +214,17 @@ Therefore \begin{align*}
   \end{enumerate}
 \end{problem}
 
-\begin{proof}
+\begin{proof} $ $\\
+  \textbf{Case 1: (i)$\notimplies$(ii).}\\
+  Let $a = 0$ and $f(z) = 1/z^2$. Clearly $f$ is holomorphic in
+  $\mathbb C \setminus \{0\}$.
+  \\
+  Next, let $z_k = 1/k$ and $w_k = -1/k$, so that $f(z_k) = f(w_k) = k^2$ for
+  all $k$.
+  Lastly, see that $f'(z) = -2z^{-3}$ is not defined at $0$, so (ii) does not
+  follow.
+  \\~\\
+  \textbf{Case 2: (ii)$\implies$(i).}
 \end{proof}
 
 % -----------------------------------------------------

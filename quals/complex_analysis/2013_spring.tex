@@ -168,11 +168,31 @@
   $\operatorname{Re} z > 0$ and such that $f(z + 1) = zf(z)$ in its domain with
   $f(1) = 1$.
 
-  Show that $f$ has the first order poles at $0, -1, -2, \hdots$, and find the 
+  Show that $f$ has the first order poles at $0, -1, -2, \hdots$, and find the
   residues of $f$ at these points.
 \end{problem}
 
 \begin{proof}
+  Notice first that inductively, we can write \[
+    f(z)
+    = \frac{f(z + 1)}{z}
+    = \frac{\left(\frac{f(z + 2)}{z + 1}\right)}{z}
+    = \frac{f(z + 2)}{z(z+1)}
+    = \hdots
+    = \frac{f(z + k + 1)}{z(z + 1)\cdots(z+k)}.
+  \]
+  Now, for each $k \in \mathbb N$, checking the limit \begin{align*}
+    \lim_{z \rightarrow -k} (z + k)f(z)
+    &= \lim_{z \rightarrow -k} (z + k)\frac{f(z + k + 1)}{z(z + 1)\cdots(z+k)} \\
+    &= \lim_{z \rightarrow -k} \frac{f(z + k + 1)}{z(z + 1)\cdots(z+k-1)} \\
+    &= \frac{f(1)}{(-k)(-k + 1)\cdots(-1)} \\
+    &= \frac{(-1)^k}{k!}.
+  \end{align*}
+  Since this limit exists and is finite for all $k \in \mathbb N$, $f$ has first
+  order poles at $-k$ for all $k$, and the residue of each pole is the value
+  computed above: \[
+    \operatorname{Res}_{-k}(f) = \frac{(-1)^k}{k!}.
+  \]
 \end{proof}
 
 \end{document}

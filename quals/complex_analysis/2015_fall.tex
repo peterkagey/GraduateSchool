@@ -109,7 +109,18 @@ $f$ has $9 - 3 = 6$ zeros inside the annulus $1 < |z| < 2$.
   \end{enumerate}
 \end{problem}
 
-\begin{proof}
+\begin{proof} $ $
+  \begin{enumerate}[(a)]
+    \item
+    \item Suppose that $f$ did have an analytic continuation on
+      $B_{1 + \varepsilon}(0)$. Then by continuity, \[
+        f(1) = \lim_{z \rightarrow 1} f(z) = \lim_{n \rightarrow \infty} f(1 - 1/n^2) = 0,
+      \] because $f$ has zeros at $a_n$.
+      However, $f$ has poles at $n^2/(n^2 - 1)$, so taking the limit from the
+      right along the real axis cannot equal zero because there are arbitrarily
+      large values to the right of $1$. This is a contradition, so $f$ cannot
+      have an analytic continuation on $B_{1+\varepsilon}(0)$.
+  \end{enumerate}
 \end{proof}
 
 \end{document}

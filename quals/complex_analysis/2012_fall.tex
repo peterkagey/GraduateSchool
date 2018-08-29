@@ -209,6 +209,17 @@
 \end{problem}
 
 \begin{proof}
+  % It would be nice to use Rouch\'e's Theorem directly, but we can't since $f_n$
+  % is not analytic on $D(0, \varepsilon)$. So instead we will consider the
+  % polynomials $\hat f_n(z) = f_n(1/z)$ and show that for sufficiently large $n$,
+  % these have zero roots inside of $1/\varepsilon$.
+  % \\~\\
+  The plan here is to show that the function $\hat f_n(x) = f_n(1/x)$ has no
+  zeros inside the disk of radius $R = 1/\varepsilon$ for any large $R$ and
+  sufficiently large $n$.
+
+  Since $\hat f_n(z)$ is just a partial sum of the Taylor series of $e^z$, which
+  converges
 \end{proof}
 
 \end{document}
