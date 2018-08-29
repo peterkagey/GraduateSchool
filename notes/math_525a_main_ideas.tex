@@ -1,0 +1,200 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Complex Analysis: Main ideas}
+\author{Peter Kagey}
+
+\maketitle
+
+\textbf{Measures}
+\begin{enumerate}
+  \item \textbf{Definition: $\sigma$-ring}\\
+    A $\sigma$-ring is a collection of sets that are closed under countable
+    unions and finite differences.
+  \item \textbf{Definition: $\sigma$-field}\\
+    A $\sigma$-algebra or $\sigma$-field is a collection of sets that are closed under countable
+    unions and complements.
+  \item \textbf{Definition: Set measures}\\
+    A measure on a set $X$ equipped with a $\sigma$-algebra $\mathcal{M}$ is a
+    function $\mu\colon \mathcal{M} \rightarrow [0, \infty]$ such that \begin{enumerate}
+      \item $\mu(\emptyset) = 0$, and
+      \item $\mu\left(\bigcup_{j=1}^\infty E_j\right) = \sum_{j=1}^\infty \mu(E_j)$
+        given that $\{E_j\}_1^\infty$ is a sequence of disjoint sets.
+    \end{enumerate}
+  \item \textbf{Definition: Outer measure}\\
+    An outer measure on a set $X$ is a function $\mu^*\colon \mathcal{P}(X) \rightarrow [0, \infty]$ such that \begin{enumerate}
+      \item $\mu^*(\emptyset) = 0$,
+      \item $\mu^*(A) \leq \mu^*(B)$ if $A \subset B$, and
+      \item $\mu^*\mathopen{}\left(\bigcup_{j=1}^\infty A_j\mathclose{}\right) \leq \sum_{j=1}^\infty \mu^*(A_j)$.
+    \end{enumerate}
+  \item \textbf{Definition: Premeasure}\\
+    A premeasure on a set $X$ equipped with an algebra $\mathcal{A}$ is a
+    function $\mu_0\colon \mathcal{A} \rightarrow [0, \infty]$ such that \begin{enumerate}
+      \item $\mu_0(\emptyset) = 0$, and
+      \item $\mu_0\left(\bigcup_{j=1}^\infty A_j\right) = \sum_{j=1}^\infty \mu_0(A_j)$
+        given that $\{A_j\}_1^\infty$ is a sequence of disjoint sets with its
+        union in $\mathcal A$.
+    \end{enumerate}
+  \item \textbf{Definition: Construction of measures on $\mathbb{R}^n$}\\
+
+  \item \textbf{Definition: Signed measure}\\
+    A signed measure on $(X, \mathcal M)$ is a function
+    $\nu\colon \mathcal M \rightarrow (-\infty, \infty]$ or
+    $\nu\colon \mathcal M \rightarrow [-\infty, \infty)$ such that \begin{enumerate}
+      \item $\nu(\emptyset) = 0$,
+      \item $\nu\mathopen{}\left(\bigcup_{j=1}^\infty A_j\mathclose{}\right) = \sum_{j=1}^\infty \mu(A_j)$
+      when $\{E_j\}_{j=1}^\infty$ is a sequence of disjoint sets.
+    \end{enumerate}
+
+  \item \textbf{Definition: Complex measure}\\
+    A complex measure on $(X, \mathcal M)$ is a function
+    $\nu\colon \mathcal M \rightarrow \mathbb C$ such that \begin{enumerate}
+      \item $\nu(\emptyset) = 0$,
+      \item If $\{E_j\}_{j=1}^\infty$ is a sequence of disjoint sets, then
+      $\nu\mathopen{}\left(\bigcup_{j=1}^\infty A_j\mathclose{}\right) = \sum_{j=1}^\infty \mu(A_j)$,
+      where the sum converges absolutely.
+    \end{enumerate}
+
+  \item \textbf{Definition: Mutually singular measures}\\
+    Two signed measures $\mu$ and $\nu$ are called mutually singular
+    (denoted $\mu \perp \nu$) on $(X, \mathcal M)$ if there exists a partition
+    of $X$ into $E, F \in \mathcal M$ such that $E$ and $F$ are null for $\mu$
+    and $\nu$ respectively.
+
+  \item \textbf{Definition: Variation of signed measures}\\
+    For any signed measure $\nu$, the Jordan Decomposition theorem guarantees
+    unique, positive, mutually singular measures $\nu^+ \perp \nu^-$ such that
+    $\nu = \nu^+ - \nu^-$, called the positive and negative variations of $\nu$.
+  \item \textbf{Definition: Positive set}\\
+    Suppose $\nu$ is a signed measure on $(X, \mathcal M)$.
+    A set $E \in \mathcal M$ is called positive if for any subset of $E$ in $\mathcal M$
+    has nonnegative measure.
+  \item \textbf{Hahn decomposition theorem}\\
+    Suppose $\nu$ is a signed measure on $(X, \mathcal M)$. There exists a
+    positive set $P$ and a negative set $N$ such that $P \cup N = X$ and
+    $P \cap N = \emptyset$. This is unique up to null sets.
+  \item \textbf{Definition: Absolute continuity}\\
+    Suppose $\nu$ is a signed measure and $\mu$ is a positive measure on
+    $(X, \mathcal M)$. Then $\nu$ is absolutely continuous with respect to $\mu$
+    (denoted $\nu \ll \mu$) if $\mu(E) = 0 \Rightarrow \nu(E) = 0$ for all
+    $E \in \mathcal M$. This is the ``opposite'' of mutual singularity.
+  \item \textbf{Definition: Product measures}\\
+  \item \textbf{Definition: Regular measures}\\
+    A Borel measure $\nu$ on $\mathbb R^n$ is called regular if \begin{enumerate}
+      \item $\nu(K) < \infty$ for every compact $K$;
+      \item $\nu(E) = \inf\{\nu(U)\ |\ U \text{ open, } E \subset U\}$ for every
+      $E \in \mathcal B_{\mathbb R^n}$.
+    \end{enumerate}
+  \item \textbf{Definition: Measurable functions}\\
+    A function $f\colon X \rightarrow Y$ is called measurable if
+    $f^{-1}(E) \in \mathcal M_X$ for any choice of $E \in \mathcal N_Y$.
+
+\end{enumerate}
+
+\textbf{Integration}.
+\begin{enumerate}
+  \item \textbf{Definition: $L^+$}\\
+    The space of all measurable functions from $X$ to $[0, \infty]$ is denoted
+    by $L^+$.
+  \item \textbf{Definition: $L^1$}\\
+    The space of all functions $f$ from $X$ to $\mathbb C$ such that
+    $\int |f| < \infty$ is denoted by $L^1$.
+  \item \textbf{Lebesgue's dominated convergence theorem}\\
+    Let $\{ f_n \}$ be a sequence in $L^1$ such that \begin{enumerate}
+      \item $f_n \rightarrow f$ almost everywhere, and
+      \item there exists a nonnegative $g \in L^1$ such that $|f_n| \leq g$
+      almost everywhere for all $n$.
+    \end{enumerate}
+    Then $f \in L^1$ and $\int f = \lim_{n \rightarrow \infty} \int f_n$.
+  \item \textbf{Levi's monotone convergence theorem}\\
+    Let $\{ f_n \}$ be an increasing sequence of positive measurable functions.
+    Then \[
+      \lim_{n \rightarrow \infty} \int f_n = \int f.
+    \]
+  \item \textbf{Radon-Nikodym theorem}\\
+    Let $\nu$ be a $\sigma$-finite signed measure and $\mu$ a $\sigma$-finite
+    positive measure on $(X, \mathcal M)$. There exist $\sigma$-finite signed
+    measures $\lambda$, $\rho$on $(X, \mathcal M)$ such that \[
+      \lambda \perp \mu, \
+      p \ll \mu, \
+      \text{and} \
+      \nu = \lambda + \rho.
+    \]
+
+  \item \textbf{Fubini's theorem}\\
+    If $f \in L^1(\mu\times\nu)$, then
+    \begin{enumerate}
+      \item $f_x\in L^1(\nu)$ for almost every $x \in X$,
+      \item $f^y\in L^1(\mu)$ for almost every $y \in Y$,
+      \item $g(x) = \int f_x\, d\nu \in L^1(\mu)$,
+      \item $h(y) = \int f^y\, d\mu \in L^1(\nu)$, and
+      \item $\displaystyle
+        \int f d(\mu\times\nu) =
+        \int\left[\int f(x,y)d\nu(y)\right]d\mu(x) =
+        \int\left[\int f(x,y)d\mu(x)\right]d\nu(y).
+      $
+    \end{enumerate}
+  \item \textbf{Tonelli's theorem}\\
+    If $f \in L^+(X\times Y)$, then the functions $g(x) = \int f_x\,d\nu$ and
+    $h(y) = \int f^y\,d\mu$ are in $L^+(X)$ and $L^+(Y)$ respectively, and \[
+      \int f d(\mu\times\nu) =
+      \int\left[\int f(x,y)d\nu(y)\right]d\mu(x) =
+      \int\left[\int f(x,y)d\mu(x)\right]d\nu(y).
+    \]
+
+  \item \textbf{Convolution}\\
+
+  \item \textbf{The n-dimensional Lebesgue integral}\\
+
+  \item \textbf{Polar coordinates}\\
+\end{enumerate}
+
+\textbf{Convergence}.
+\begin{enumerate}
+  \item \textbf{Defintion: Almost everywhere convergence}\\
+    Convergence almost everywhere means that \[
+      \mu\left(\left\{x : \lim_{n\rightarrow{\infty}} |f_n(x) - f(x)|  > 0\right\}\right) = 0.
+    \]
+  \item \textbf{Defintion: Uniform Convergence}\\
+    Uniform convergence means that for each $\varepsilon > 0$,
+    there exists $N \in \mathbb N$ such that for all $n > N$, \[
+      \{ x : |f_n(x) - f(x)| > \epsilon \} = \emptyset.
+    \]
+  \item \textbf{Defintion: Almost Uniform Convergence}\\
+    Almost uniform convergences means that for each $\varepsilon > 0$, $\delta > 0$,
+    there exists $E_\delta$ with $\mu(E_\delta) < \delta$ and
+    $N \in \mathbb N$ such that for all $n > N$, \[
+      \{x : |f_n(x) - f(x)| > \varepsilon\} \subset E_\delta.
+    \]
+  \item \textbf{Defintion: Convergence in measure}\\
+    Convergence in measure means that for each $\varepsilon > 0$, $\delta > 0$,
+    there exists $N \in \mathbb N$ such that for all $n > N$, \[
+      \mu(\{x : |f_n(x) - f(x)| > \varepsilon\}) \leq \delta.
+    \]
+  \item \textbf{Defintion: Convergence in $L^1$}\\
+    We say that $f_n \rightarrow f$ in $L^1$ if $\int |f_n - f| \rightarrow 0$.
+
+  \item \textbf{Egoroff's Theorem}\\
+    Suppose that $X$ has finite measure and
+    $\{ f_k\colon X\rightarrow\mathbb C \}_{k \in \mathbb N}$ are
+    measurable functions that converge almost everywhere to $f$. Then we can
+    find an exceptional set $E$ with arbitrary small measure, such that
+    $\mu(E) < \epsilon$ and $f_n \rightarrow f$ uniformly on $E^c$.
+  \item \textbf{Lusin's Theorem}\\
+    If $f\colon[a,b]\rightarrow \mathbb C$ is Lebesgue measurable and
+    $\varepsilon > 0$, there is a compact set $E \subset [a, b]$ such that
+    $\mu(E^c) < \epsilon$ and $f|_E$ is continuous.
+\end{enumerate}
+
+
+\end{document}
