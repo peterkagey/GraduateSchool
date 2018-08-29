@@ -1,0 +1,156 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Combinatorics: Homework 1}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{5} \text{} \\
+  Show that \[
+    \sum_{n_1,\hdots,n_k\geq0} \min(n_1,\hdots,n_k)x_1^{n_1}\cdots x_k^{n_k}
+    = \frac{x_1\cdots x_k}{(1 - x_1)\cdots(1-x_k)(1 - x_1 \cdots x_k)}
+  \]
+\end{problem}
+
+\begin{solution} \text{} \\
+  First, we can rewrite the summand as \[
+  \min(n_1,\hdots,n_k)x_1^{n_1}\cdots x_k^{n_k}
+  = \sum_{j = 1}^{\min(n_1,\hdots,n_k)} (x_1^{n_1-j}\cdots x_k^{n_k-j})(x_1 \cdots x_k)^j.
+  \] And we can rewrite the original sum as \begin{align*}
+    \sum_{n_1,\hdots,n_k\geq0} \min(n_1,\hdots,n_k)x_1^{n_1}\cdots x_k^{n_k}
+    &= \sum_{M=0}^\infty\sum_{\min(n_i)=M}\sum_{j = 1}^{\min(n_i)} (x_1^{n_1-j}\cdots x_k^{n_k-j})(x_1 \cdots x_k)^j.
+  \end{align*}
+  Now renaming $m_i := n_i - j$ gives \begin{align*}
+    \sum_{\substack{\min(m_i) \geq 0 \\ j \geq 1}} (x_1^{m_1}\cdots x_k^{m_k})(x_1\cdots x_k)^j
+    &=
+    \left(\sum_{\min(m_i) \geq 0}x_1^{m_1}\cdots x_k^{m_k}\right)
+    \left(\sum_{j \geq 1}(x_1\cdots x_k)^j\right) \\
+    &= \left(
+      \left(\sum_{m_1 \geq 0}x_1^{m_1}\right)
+      \cdots
+      \left(\sum_{m_k \geq 0}x_k^{m_k}\right)
+    \right)
+    \left(\sum_{j \geq 1}(x_1\cdots x_k)^j\right) \\
+    &= \left(
+      \left(\frac{1}{1 - x_1}\right)
+      \cdots
+      \left(\frac{1}{1 - x_k}\right)
+    \right)
+    \left(\frac{x_1\cdots x_k}{1 - x_1\cdots x_k}\right)
+  \end{align*}
+  as desired.
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{9 (a)} \text{} \\
+  Let $f(m,n)$ be the number of paths from $(0,0)$ to
+  $(m,n) \in \mathbb N \times \mathbb N$, where each step is of the form
+  $(1, 0)$, $(0, 1)$, or $(1, 1)$.
+  Show that \[
+    \sum_{m \geq 0}\sum_{n \geq 0} f(m,n)x^m y^n = (1 - x - y - xy)^{-1}
+  \]
+\end{problem}
+
+\begin{solution} \text{} \\
+  The stupid way to do this is to enumerate all walks by number of steps.
+  Each step can be a step in the $(1, 0)$ direction (call this $x$), a step
+  in the $(0, 1)$ direction (call this $y$), or a step in the $(1, 1)$
+  direction (call this $xy$).
+  \\~\\
+  Then the number of $k$-step walks is given by $(x + y + xy)^k$. Summing
+  over any number of steps yields \[
+    \sum_{k=0}^\infty (x + y + xy)^k = \frac{1}{1 - (x + y + xy)}.
+  \]
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{12} \text{} \\
+  Choose $n$ points on the circumference of a circle in ``general position''.
+  Draw all $\binom n 2$ chords connecting two of the points. How many regions
+  does this divide the interior of the circle into?
+\end{problem}
+
+\begin{solution} \text{} \\
+  I'll use Grant Sanderson's very elegant, but perhaps-too-clever solution
+  (which can be found in his 3Blue1Brown video), in which he uses Euler's
+  formula, $F - E + V = 2$, to count the number of faces.
+  \\~\\
+  First, the number of vertices can be partitioned into the number of vertices
+  on the boundary of the circle, plus the number of vertices strictly in the
+  interior. By hypothesis, there are $n$ points on the boundary. To count the
+  interior vertices, notice that every interior vertex is defined by the two
+  chords that intersect to form it, and given any four distinct points on the
+  boundary, there is exactly one way to choose two chords that intersect.
+  Thus there are $n + \binom n 4$ vertices.
+  \\~\\
+  Next there are $\binom n 2$ chords, but each vertex takes in two pairs of
+  intersecting lines and splits them into four lines. Thus, subtracting the
+  interior vertices from the chords yields $\binom n 2 + 2\binom n 4$ edges.
+  Plus, the arcs around the circle form an additional $n$ edges.
+  \\~\\
+  Solving for $F$ yields \[
+    F = 2 + E - V
+    = 2 + \underbrace{\binom n 2 + 2\binom n 4 + n}_E \underbrace{- n - \binom n 4}_{-V}
+    = 2 + \binom n 2 + \binom n 4
+  \]
+  But this also counts the region \textit{outside} of the circle, so the
+  interior of the circle has one fewer face, just \[
+    1 + \binom n 2 + \binom n 4.
+  \]
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{26} \text{} \\
+  Let $\bar{c}(m,n)$ denote the number of compositions of $n$ with largest part
+  at most $m$. Show that \[
+    \sum_{n \geq 0}\bar c(m,n)x^n = \frac{1-x}{1-2x+x^{m+1}}
+  \]
+\end{problem}
+
+\begin{solution} \text{} \\
+  The idea here is that we will label our $x$s. In particular, \[
+    (x_1 + x_2^2 + \hdots + x_m^m)^k
+  \] encodes all sums with $k$ summands and terms in $[m]$.
+  Thus we can sum up all sums with any number of summands \[
+    \sum_{k=0}^\infty (x_1 + x_2^2 + \hdots + x_m^m)^k =
+    \frac{1}{1 - (x + x^2 + \hdots + x^m)}.
+  \]
+  By dropping our labels (i.e. setting $x_i = x$ for all $x_i$) and multiplying
+  the numerator and denominator by $1-x$, we get our result.
+  In particular, when you multiply the denominator, there is cancellation in
+  all but three terms
+  \begin{alignat*}{2}
+    (1 - x^1 - x^2 - \hdots - x^m)(1 - x) &&= 1 - &x^1 - x^2 - \hdots - x^m \\
+                                          &&    - &x^1 + x^2 + \hdots + x^m + x^{m+1} \\
+                                          &&= 1 - &2x + x^{m+1}.
+  \end{alignat*}
+  Thus \[
+    \sum_{n \geq 0}\bar c(m,n)x^n = \frac{1-x}{1-2x+x^{m+1}}.
+  \]
+\end{solution}
+
+\end{document}
