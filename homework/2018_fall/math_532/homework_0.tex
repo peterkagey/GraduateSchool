@@ -1,0 +1,251 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Combinatorics: Homework 0}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{2 (a)} \text{} \\
+  How many subsets of the set $[10]$ contain at least one odd integer?
+\end{problem}
+
+\begin{solution} \text{} \\
+  There are $2^5$ subsets of $[10]$ that do \textit{not} contain any odd
+  integers, namely all subsets of $\{2,4,6,8,10\}$.
+  So all of the other $2^10 - 2^5$ subsets of $[10]$ contain at least one odd
+  integer.
+\end{solution}
+
+% --- 1 (b) --------
+\begin{problem}{2 (b)} \text{} \\
+  In how many ways can seven people be seated in a circle if two arrangements
+  are considered the same whenever each person has the same neighbors
+  (not necessarily on the same side)?
+\end{problem}
+
+\begin{solution} \text{} \\
+  Fix the first person as the ``head of the table''. Now we can arrange all of
+  the other people in $6!$ ways. However, two seatings are equivalent if they
+  are mirror images of the other, so there are $6!/2$ possible seatings.
+\end{solution}
+
+% --- 1 (c) --------
+\begin{problem}{2 (c)} \text{} \\
+  How many permutations of $w\colon [6] \rightarrow [6]$ satisfy $w(1) \neq 2$?
+\end{problem}
+
+\begin{solution} \text{} \\
+  There are $5!$ permutations where $w(1) = 2$, so subtracting these from the
+  full number of permutations yields $6! - 5!$.
+\end{solution}
+
+% --- 1 (d) --------
+\begin{problem}{2 (d)} \text{} \\
+  How many permutations of $[6]$ have exactly two cycles?
+\end{problem}
+
+\begin{solution} \text{} \\
+  If we write the permutations in cycle notation, the partitions must have one
+  of three cycle structures: $(a_1)(a_2\ a_3\ a_4\ a_5\ a_6)$,
+  $(a_1\ a_2)(a_3\ a_4\ a_5\ a_6)$, or $(a_1\ a_2\ a_3)(a_4\ a_5\ a_6)$.
+
+  There are $\binom{6}{1}$, $\binom{6}{2}$, and $\frac{1}{2}\binom{6}{3}$ ways
+  of choosing the cycle strutures respectively. (The last is halved because
+  choosing $\{a_1, a_2, a_3\}$ gives the same permutation as choosing $\{a_4, a_5, a_6\}$.)
+
+  Then within each cycle structure, there is $0!4!$, $1!3!$ and $2!^2$ ways of
+  choosing the order of each cycle, by an argument similar to part (b).
+
+  Thus the number of such permutations is \[
+    4!\binom{6}{1} + 3!\binom{6}{2} + \frac{2!^2}{2}\binom{6}{3}.
+  \]
+\end{solution}
+
+% --- 1 (e) --------
+\begin{problem}{2 (e)} \text{} \\
+  How many partitions of $[6]$ have exactly three blocks?
+\end{problem}
+
+\begin{solution} \text{} \\
+  We have three increasing compositions of $6$: $1 + 1 + 4$, $1 + 2 + 3$, and
+  $2 + 2 + 2$.
+  For the first, we just need to choose four elements, and leave the remaining
+  two in singleton sets. There are $\binom{6}{4}$ ways of doing this.
+
+  For the second, we can first choose the elements that go in the $3$-element set,
+  and from the remaining $3$ elements choose the element that goes in the $2$-element set.
+  There are $\binom{6}{3}\binom{3}{2}$ ways of doing this.
+
+  For the third composition, we can use a similar strategy as the second composition,
+  but because the order of choosing the sets can overcount, we must divide by $3!$,
+  which counts the number of ways to order the three $2$-element sets.
+
+  Thus the number of partitions with three blocks is \[
+    \binom{6}{4}
+    + \binom{6}{3}\binom{3}{2}
+    + \frac{1}{3!}\binom{6}{2}\binom{4}{2}.
+  \]
+\end{solution}
+
+% --- 1 (f) --------
+\begin{problem}{2 (f)} \text{} \\
+  There are four men and six women. Each man marries one of the women.
+  In how many ways can this be done?
+\end{problem}
+
+\begin{solution} \text{} \\
+  The first man could (in principle) marry any of the six women. And since
+  we're assuming that these couples are not polygomous, the next many could
+  marry any of the remaining five, and so on with the final two.\\
+  Thus there are \[
+    6\cdot5\cdot4\cdot3
+  \] such potential pairings.
+\end{solution}
+
+% --- 1 (g) --------
+\begin{problem}{2 (g)} \text{} \\
+  Ten people split up into five groups of two each. In how many ways can this
+  be done?
+\end{problem}
+
+\begin{solution} \text{} \\
+  We can choose the people from the first group in $10 \cdot 9$ ways. But choosing
+  person A and then person B is the same as choosing person B and then person A,
+  so we divide by two.
+  If the groups are labeled $1, 2, 3, 4, 5$, then there are $10!/2^5$ ways to
+  choose the groups. But since the groups aren't labeled, we divide by the $5!$
+  different orderings of the groups, resulting in a total of \[
+    \frac{10!}{5!2^5}
+  \] different pairings.
+\end{solution}
+
+% --- 1 (h) --------
+\begin{problem}{2 (h)} \text{} \\
+  How many compositions of $19$ use only the parts $2$ and $3$?
+\end{problem}
+
+\begin{solution} \text{} \\
+  We must have an odd number of $3$s appear in the composition, in particular,
+  there can be one $3$, three $3$s or five $3$s, which means that there must be
+  eight, five, and two $2$s respectively. Therefore the number of compositions
+  is \[
+    \binom{1 + 8}{1} + \binom{3 + 5}{3} + \binom{5 + 2}{5}.
+  \]
+\end{solution}
+
+% --- 1 (i) --------
+\begin{problem}{2 (i)} \text{} \\
+  In how many different ways can the letters of the word \textbf{MISSISSIPPI}
+  be arranged if the four \textbf{S}s cannot appear consecutively?
+\end{problem}
+
+\begin{solution} \text{} \\
+  The 11-letter word \textbf{MISSISSIPPI} contains 1 \textbf{M}, 2 \textbf{P},
+  4 \textbf{I}s, and 4 \textbf{S}s. Thus (if we ignore the constraint), there
+  are $\binom{11}{1}\binom{10}{2}\binom{8}{4}$ distinct anagrams.
+  \\
+  If all of the \textbf{S}s are to be placed together, we can treat
+  \textbf{SSSS} as its own individual letter, meaning that there are
+  $\binom{8}{1}\binom{7}{2}\binom{5}{4}$ anagrams with the \textbf{S}s together.
+  \\
+  This means that the number of anagrams where the \textbf{S}s cannot appear
+  consecutively is \[
+    \binom{11}{1}\binom{10}{2}\binom{8}{4} - \binom{8}{1}\binom{7}{2}\binom{5}{4}
+  \]
+\end{solution}
+
+% --- 1 (j) --------
+\begin{problem}{2 (j)} \text{} \\
+  How many sequences $(a_1, a_2, \hdots, a_{12})$ are there consisting of four
+  $0$s and eight $1$s if no consecutive terms are both $0$s?
+\end{problem}
+
+\begin{solution} \text{} \\
+  Since the $0$s cannot be placed together, we can place the $0$s in any of the
+  nine positions illustrated: \[
+    \underbrace{} 1 \underbrace{} 1 \underbrace{} 1 \underbrace{} 1
+    \underbrace{} 1 \underbrace{} 1 \underbrace{} 1 \underbrace{} 1
+    \underbrace{}.
+  \]
+  Thus there are $\binom{9}{4}$ possible sequences.
+\end{solution}
+
+% --- 1 (k) --------
+\begin{problem}{2 (k)} \text{} \\
+  A box is filled with three blue socks, three red socks, and four green
+  socks. Eight socks are pulled out, one at a time. In how many ways can this
+  be done? (Socks of the same color are indistinguishable.)
+\end{problem}
+
+\begin{solution} \text{} \\
+  We must draw either two, three, or four green socks.
+  If we draw just two, then there are \[
+    \underbrace{\binom{8}{2}}_\text{green}
+    \binom{6}{3}
+  \] ways to draw.
+  If we draw three, then there are \[
+    \underbrace{\binom{8}{3}}_\text{green}
+    \underbrace{\binom{5}{3}}_\text{red} +
+    \underbrace{\binom{8}{3}}_\text{green}
+    \underbrace{\binom{5}{3}}_\text{blue}
+  \] ways to choose.
+  If we draw all four, then there are \[
+    \underbrace{\binom{8}{4}}_\text{green}
+    \underbrace{\binom{4}{3}}_\text{red} +
+    \underbrace{\binom{8}{4}}_\text{green}
+    \underbrace{\binom{4}{3}}_\text{blue} +
+    \underbrace{\binom{8}{4}}_\text{green}
+    \binom{4}{2}
+  \]
+\end{solution}
+
+% --- 1 (l) --------
+\begin{problem}{2 (l)} \text{} \\
+  How many functions $f\colon [5]\rightarrow[5]$ are at most two-to-one?
+\end{problem}
+
+\begin{solution} \text{} \\
+  Again, we must do some case work. We must either have a one-to-one function;
+  a function that misses exactly one element, and hits one element twice;
+  or a function that misses exactly two elements, and hits two elements twice.
+  \begin{enumerate}
+    \item In the first case, this is just a permutation: there are $5!$ such functions.
+    \item In the second case, there are $5$ ways to choose the missed element and $4$
+      ways to choose the doubled element in the codomain. Then there are
+      $\binom{5}{2}$ ways choose the two elements in the domain that will be mapped
+      to the doubled element. This leaves $3!$ ways to map the three elements in the
+      domain onto the remaining three elements of the codomain. \[
+        5\cdot4\cdot\binom{5}{2}\cdot3!
+      \]
+    \item First choose two elements in the domain and the element in the
+    codomain that they map to. There are $\binom{5}{2}\cdot5$ ways of doing this.
+    Next repeat the process; there are $\binom{3}{2}\cdot4$ ways of doing this
+    again. Switching the orders that we choose the groups does not affect the
+    function, so this double counts. Lastly, we have one element left in the
+    domain, and three choices for where it goes. \[
+      \frac{1}{2}\cdot\binom{5}{2}\cdot5\cdot\binom{3}{2}\cdot4\cdot3
+    \]
+  \end{enumerate}
+  Thus the number of total maps is \[
+    5! + 5!\binom52 + \frac{5!}{4}\binom52\binom32.
+  \]
+\end{solution}
+\end{document}
