@@ -1,0 +1,220 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate, tikz}
+\usepackage{multicol}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Problem 5 solutions.}
+% \author{Peter Kagey}
+\date{}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  Evaluate the integral \[
+    \int(3x^2 - 1)\ln(x)\, dx.
+  \]
+\end{problem}
+
+\begin{solution} $ $\\
+  We'll use integration by parts. Let \begin{align*}
+    u = \ln(x)  &\hspace{0.5cm} du = \frac{1}{x}\,dx \\
+    v = x^3 - x &\hspace{0.5cm} dv = 3x^2 - 1 \,dx.
+  \end{align*}
+  Then \begin{align*}
+    \int(3x^2 - 1)\ln(x)\, dx
+    &= (x^3 - x)\ln(x) - \int \frac{x^3 - x}{x}\, dx \\
+    &= (x^3 - x)\ln(x) - \int x^2 - 1\, dx \\
+    &= (x^3 - x)\ln(x) - \frac{x^3}{3} - x + c
+  \end{align*}
+\end{solution}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2}
+  Evaluate the integral \[
+    \int_1^2 \frac{1}{4+x^2}\,dx
+  \]
+\end{problem}
+
+\begin{solution} $ $\\
+  We'll use the identity \[
+    \frac{d}{dx}\arctan(x) = \frac{1}{1+x^2}.
+  \]
+
+  Begin by dividing the denominator by $4$, \[
+    \int_1^2 \frac{1}{4+x^2}\,dx = \frac{1}{4} \int_1^2 \frac{1}{1+x^2/4}\,dx
+  \]
+  Then substituting $u = x/2$ and $du = dx/2$ gives \[
+    \int_1^2 \frac{1}{4+x^2}\,dx
+    = \frac{2}{4}\int_{u=1/2}^1 \frac{1}{1+u^2}\,du
+    = \left[\frac{1}{2}\arctan(u)\right]_{1/2}^1
+    = \frac{\pi}{8} - \frac{\arctan(\frac{1}{2})}{2}
+  \]
+\end{solution}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\pagebreak
+\begin{problem}{3}
+  Evaluate the integral \[
+    \int \arcsin(x)\,dx
+  \]
+\end{problem}
+
+\begin{solution} $ $\\
+  We'll use integration by parts. Let \begin{align*}
+    u = \arcsin(x)  &\hspace{0.5cm} du = \frac{1}{\sqrt{1 - x^2}}\,dx \\
+    v = x &\hspace{0.5cm} dv = dx.
+  \end{align*}
+  Then \begin{align*}
+    \int \arcsin(x)\,dx = x\arcsin(x) - \int \frac{x}{\sqrt{1 - x^2}}\,dx
+  \end{align*}
+  Substituting $u = 1 - x^2$ and $du = -2x\,dx$ gives \[
+    \int \frac{x}{\sqrt{1 - x^2}}\,dx
+    = -\frac{1}{2}\int \frac{du}{\sqrt{u}}
+    = -\sqrt{u} + c
+    = -\sqrt{1 - x^2} + c
+  \]
+  Thus the original integral becomes \[
+    \int \arcsin(x)\,dx = x\arcsin(x) + \sqrt{1 - x^2} + c
+  \]
+\end{solution}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4}
+  Evaluate the integral \[
+    \int \sin(\sqrt{y})\,dy
+  \]
+\end{problem}
+
+\begin{solution} $ $\\
+  This is a tricky substitution. Let \begin{align*}
+    u = \sqrt{y} \text{\ \ and\ \ } du = \frac{1}{2\sqrt{y}}\,dy.
+  \end{align*}
+  Now solving for $dy$ gives \[
+    2\underbrace{\sqrt{y}}_udu = dy = 2u\,du.
+  \]
+  Plugging this in gives \begin{align*}
+    \int \sin(\sqrt{y})\,dy &= 2\int u\sin(u)\, du.
+  \end{align*}
+  And now using integration by parts with \begin{align*}
+    w = u  &\hspace{0.5cm} dw = du \\
+    v = -\cos(u) &\hspace{0.5cm} dv = \sin(u) \,du
+  \end{align*}
+  gives \begin{align*}
+    2\int u\sin(u)\, du &= 2\left(-u\cos(u) + \int\cos(u)\, du\right) \\
+    &= 2\sin(u) -2u\cos(u) + c\\
+    &= 2\sin(\sqrt{y}) -2\sqrt{y}\cos(\sqrt{y}) + c
+  \end{align*}
+\end{solution}
+
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\pagebreak
+\begin{problem}{5}
+  Evaluate the integral \[
+    \int e^{2x}\sin(x)\,dx.
+  \]
+\end{problem}
+
+\begin{solution} $ $\\
+  Here we do repeated integration by parts.
+  First let \begin{align*}
+    u = e^{2x}  &\hspace{0.5cm} du = 2e^{2x}\,dx \\
+    v = -\cos(x) &\hspace{0.5cm} dv = \sin(x) \,dx.
+  \end{align*} Then \[
+    \int e^{2x}\sin(x)\,dx = -\cos(x)e^{2x} + 2\int \cos(x)e^{2x}\,dx.
+  \]
+  Next use \begin{align*}
+    u = e^{2x}  &\hspace{0.5cm} du = 2e^{2x}\,dx \\
+    v = \sin(x) &\hspace{0.5cm} dv = \cos(x) \,dx.
+  \end{align*}
+  This gives \begin{align*}
+    \int e^{2x}\sin(x)\,dx
+    &= -\cos(x)e^{2x} + 2\left(\sin(x)e^{2x} - 2\int \sin(x)e^{2x}\,dx\right)\\
+    &= -\cos(x)e^{2x} + 2\sin(x)e^{2x} - 4\int e^{2x}\sin(x)\,dx.
+  \end{align*}
+  Solving for our original integral gives \[
+    \int e^{2x}\sin(x)\,dx = \frac{1}{5}\left(2\sin(x)e^{2x}-\cos(x)e^{2x}\right).
+  \]
+
+\end{solution}
+
+% -----------------------------------------------------
+% Sixth problem
+% -----------------------------------------------------
+\begin{problem}{6}
+  Evaluate the integral \[
+    \int_0^5 2x + \sqrt{25 - x^2}\,dx.
+  \]
+\end{problem}
+
+\begin{solution} $ $\\
+  This is best solved geometrically. The fuction $\sqrt{25 - x^2}$ describes the
+  semicircle above the $x$-axis of radius $5$, so integrating from $0$ to $5$
+  gives the area of quarter circle of radius $5$, $25\pi/4$.\\
+  The other integral is quick: \[
+    \int_0^5 2x\,dx = [x^2]_0^5 = 25.
+  \]
+  Thus \[
+    \int_0^5 2x + \sqrt{25 - x^2}\,dx = \frac{25\pi}{4} + 25.
+  \]
+
+\end{solution}
+
+% -----------------------------------------------------
+% Seventh problem
+% -----------------------------------------------------
+\pagebreak
+\begin{problem}{7}
+  Evaluate the integral \[
+    \int_0^1 \frac{x^3}{\sqrt{2 + x^2}}\,dx.
+  \]
+\end{problem}
+
+\begin{solution} $ $\\
+  This requires a substitution similar in spirit to problem 5.4.
+  Let $u = 2 + x^2$ and $du = 2x\,dx$. Then $x^2 = u - 2$, so we can rewrite the
+  integral as \begin{align*}
+    \frac{1}{2}\int_{u=2}^3 \frac{u - 2}{\sqrt{u}}\,du
+    &= \frac{1}{2}\int_2^3 \sqrt{u} - \frac{2}{\sqrt{u}}\,du \\
+    &= \frac{1}{2}\left[\frac{2}{3}u^{3/2} - 4u^{1/2}\right]_2^3 \\
+    &= \sqrt{3} - 2\sqrt{3} - \frac{2}{3}\sqrt{2} + 2\sqrt{2} \\
+    &=  \frac{4}{3}\sqrt{2} - \sqrt{3}
+  \end{align*}
+\end{solution}
+
+% -----------------------------------------------------
+% Eighth problem
+% -----------------------------------------------------
+\begin{problem}{8}
+  Evaluate the integral \[
+    \int_{-1}^1 x^3e^{x^2 + 1}\, dx.
+  \]
+\end{problem}
+
+\begin{solution} $ $\\
+  We can use the same trick as before. Let $u = x^2 + 1$ and $du = 2x\, dx$.
+  This means that $x^2 = u - 1$. So \[
+    \frac{1}{2}\int_{u=2}^2 (u - 1)e^u\, du = 0.
+  \] based on the bounds of integration.\\
+  (It is enough to check that the original integrand is odd.)
+\end{solution}
+
+\end{document}
