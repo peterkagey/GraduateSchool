@@ -15,7 +15,7 @@
 
 \begin{document}
 
-\title{Combinatorics: Homework 1}
+\title{Topology: Homework 1}
 \author{Peter Kagey}
 
 \maketitle
@@ -23,7 +23,7 @@
 % -----------------------------------------------------
 % First problem
 % -----------------------------------------------------
-\begin{problem}{5} \text{} \\
+\begin{problem}{1} \text{} \\
   Let the maps $f_0, f_1\colon X \rightarrow Y$ be homotopic by a homotopy
   $H\colon X \times [0,1] \rightarrow Y$, and let $\gamma$ be the path from
   $y_0 = f_0(x_0)$ to $z_0 = f_1(x_0)$ defined by $\gamma(t) = H(x_0, t)$.
@@ -70,26 +70,26 @@
         \end{cases}
       \]
     \end{multicols}
-  Here's an explanation of why the formula is continuous: the three piecewise
-  defined parts are compositions of continuous functions and so are continuous.
-  So by the pasting lemma, it is enough to check that \begin{enumerate}[(i)]
-    \item when $s=0$, $H(0, t) = \gamma(0) = y_0$;
-    \item when $s = \frac{1}{2}t$, the first function evaluates to $\gamma(t)$ and the second to $H(\alpha(0),t) = H(x_0,t)$;
-    \item when $s = 1 - \frac{1}{4}t$, the second function evalues to $H(\alpha(1),t) = H(x_0,t)$ and the third to $\gamma(t)$; and
-    \item when $s=1$, $H(1, t) = \gamma(0) = y_0$.
+    Here's an explanation of why the formula is continuous: the three piecewise
+    defined parts are compositions of continuous functions and so are continuous.
+    So by the pasting lemma, it is enough to check that \begin{enumerate}[(i)]
+      \item when $s=0$, $H(0, t) = \gamma(0) = y_0$;
+      \item when $s = \frac{1}{2}t$, the first function evaluates to $\gamma(t)$ and the second to $H(\alpha(0),t) = H(x_0,t)$;
+      \item when $s = 1 - \frac{1}{4}t$, the second function evalues to $H(\alpha(1),t) = H(x_0,t)$ and the third to $\gamma(t)$; and
+      \item when $s=1$, $H(1, t) = \gamma(0) = y_0$.
+    \end{enumerate}
+    \item To check the property that $f_{0*} = T_\gamma \circ f_{1*}$, it is
+    enough to show that the image of $[\alpha] \in \pi_1(X, x_0)$ under both
+    functions are equal. The maps are, respectively, \[
+      [\alpha] \xmapsto{f_{0*}} [f_0 \circ \alpha]
+      \hspace{1.2cm}\text{and}\hspace{1.2cm}
+      [\alpha] \xmapsto{T_\gamma \circ f_{1*}} [\gamma * (f_1 \circ \alpha) * \bar\gamma].
+    \]
+    But the paths $f_0 \circ \alpha$ and $\gamma * (f_1 \circ \alpha) * \bar\gamma$
+    have already been shown to be homotopic by the homotopy $G$ described in part
+    (a). Thus $[f_0 \circ \alpha] = [\gamma * (f_1 \circ \alpha) * \bar\gamma]$
+    and $f_{0*} = T_\gamma \circ f_{1*}$.
   \end{enumerate}
-  \item To check the property that $f_{0*} = T_\gamma \circ f_{1*}$, it is
-  enough to show that the image of $[\alpha] \in \pi_1(X, x_0)$ under both
-  functions are equal. The maps are, respectively, \[
-    [\alpha] \xmapsto{f_{0*}} [f_0 \circ \alpha]
-    \hspace{1.2cm}\text{and}\hspace{1.2cm}
-    [\alpha] \xmapsto{T_\gamma \circ f_{1*}} [\gamma * (f_1 \circ \alpha) * \bar\gamma].
-  \]
-  But the paths $f_0 \circ \alpha$ and $\gamma * (f_1 \circ \alpha) * \bar\gamma$
-  have already been shown to be homotopic by the homotopy $G$ described in part
-  (a). Thus $[f_0 \circ \alpha] = [\gamma * (f_1 \circ \alpha) * \bar\gamma]$
-  and $f_{0*} = T_\gamma \circ f_{1*}$.
-\end{enumerate}
 \end{proof}
 \pagebreak
 % -----------------------------------------------------
@@ -111,8 +111,8 @@
     Show that the map $h\colon[0,1]\rightarrow\Omega_{x_0y_0}X$ defined by
     $h(t) = h_t$ is a path in  $\Omega_{x_0y_0}X$ going from $h(0) = \alpha$ to
     $ h(1) = \beta$.
-    \item Conversely, let $h\colon[0,1]\rightarrow\Omega_{x_0y_0}$ be a path going
-    from $h(0)=\alpha$ to $h(1)=\beta$ in $\Omega_{x_0y_0}$. Define
+    \item Conversely, let $h\colon[0,1]\rightarrow\Omega_{x_0y_0}X$ be a path going
+    from $h(0)=\alpha$ to $h(1)=\beta$ in $\Omega_{x_0y_0}X$. Define
     $H\colon[0,1]\times[0,1]\rightarrow X$ by the property that $H(s,t)=h_t(s)$
     where $h_t = h(t)$.
     \\
@@ -121,6 +121,37 @@
 \end{problem}
 
 \begin{solution} \text{} \\
+  \begin{enumerate}[a.]
+    \item For this first part, there's no need to appeal to the metric space.
+      By hypothesis $H\colon [0, 1] \times [0, 1] \rightarrow X$ is a homotopy
+      from $\alpha$ to $\beta$, and thus a continuous function.
+      The function $h_t\colon [0, 1] \rightarrow X$ is a restriction of $H$, and
+      thus is continuous too---in particular, it is a continuous map from
+      $[0, 1]$ to $X$,
+      where $h_t(0) = H(0, t) = x_0$ and $h_t(1) = H(1, t) = x_1$.
+      Therefore $h_t$ is a path from $x_0$ to $y_0$ for all $t \in [0, 1]$.
+    \item In this next part, we will use the uniform continuity hint.
+      In order to show that $H(s, t) = h_t(s)$ defines a homotopy, we must show
+      that \begin{enumerate}[(i)]
+        \item $H(0, t) = x_0$, $H(1, t) = y_0$,
+        \item $H(s, 0) = \alpha(s)$, $H(s, 1) = \beta(s)$, and
+        \item $H$ is continuous.
+      \end{enumerate}
+      The first two conditions come by hypothesis: $h(t) \in \Omega_{x_0y_0}X$,
+      and $h$ is a path from $\alpha$ to $\beta$. Thus it only remains to check
+      that $H$ is continuous.
+
+      Because $[0, 1]$ is compact, by the Heine-Cantor theorem,
+      $h$ is uniformly continuous. So in particular, for each $\delta/2 > 0$, we
+      can find $\varepsilon > 0$ such that for all $|t - t'| < \varepsilon$,
+      $d_1(h_t, h_{t'}) < \delta/2$. Similarly, for each $h_t$ and $\delta/2 > 0$
+      we can find $\varepsilon' > 0$ such that $d_0(h_t(s) - h_t(s')) < \delta/2$.
+
+      Thus, by the triangle inequality, there is a ball of radius
+      $\min(\varepsilon, \varepsilon')$ centered at $(s, t)$ such that for all
+      $(s', t')$ in the ball, $d_0(H(s, t), H(s', t')) < \delta$. Therefore $H$
+      is continuous.
+  \end{enumerate}
 \end{solution}
 \pagebreak
 % -----------------------------------------------------
@@ -136,6 +167,30 @@
   $f \circ g \simeq \operatorname{Id}_Y$.
 \end{problem}
 
-\begin{solution} \text{} \\
+\begin{solution} \text{}
+  Firstly, we have that $k \simeq h$: \[
+    k
+    \simeq \underbrace{h \circ f}_{\operatorname{Id}_X} \circ\, k
+    = h \circ \underbrace{f \circ k}_{\operatorname{Id}_Y}
+    \simeq h.
+  \]
+  Thus, let $g = h$. By hypothesis, $h \circ f \simeq \operatorname{Id}_X$, so it is
+  enough to construct a homotopy between $f \circ h$ and $\operatorname{Id}_Y$.
+  We will do this by combining the homotopy $H_1$ from $h$ to $k$ and the
+  homotopy $H_2$ from $f \circ k$ to $\operatorname{Id}_Y$.
+
+  In particular, \[
+    H(y, t) = \begin{cases}
+      f(H_1(y, 2t)) & t \in [0, 1/2] \\
+      H_2(y, 2t - 1)) & t \in [1/2, 1] \\
+    \end{cases}
+  \]
+  To check continuity, \begin{enumerate}[(i)]
+    \item $H(y, 0) = f(H_1(y, 0)) = f(h(y))$
+    \item $H(y, 1/2) = f(H_1(y, 1)) = f(k(y)) = H_2(y, 0)$
+    \item $H(y, 1) = f(H_2(y, 1)) = \operatorname{Id}_Y(y)$.
+  \end{enumerate}
+  Thus $H$ is a homotopy between between $f \circ h$ and $\operatorname{Id}_Y$,
+  so $f \circ h \simeq \operatorname{Id}_Y$, and $f$ is a homotopy equivalence.
 \end{solution}
 \end{document}

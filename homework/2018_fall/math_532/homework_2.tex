@@ -1,0 +1,251 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Combinatorics: Homework 2}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{21} $[2]$ \\
+  Fix $n \in \mathbb P$. In how many was can one choose a composition $\alpha$
+  of $n$, and then choose a composition of each part of $\alpha$?
+\end{problem}
+
+\begin{solution} \text{} \\
+  There are $a(n) = 3^{n-1}$ ways. I will prove this by constructing an explicit
+  bijection between $(n-1)$-letter words over a three letter alphabet and the
+  number of ways of choosing a partition of $n$ and then for each part, choosing
+  a further partition.
+  \\~\\
+  We will illustrate this bijection for the case $n = 4$, $\alpha = (1, 3)$, and
+  $\alpha' = ((1), (2, 1))$.\\
+  First, write $n$ $1$s (with $n-1$ gaps between them): \[
+      1 \underbrace{} 1 \underbrace{} 1 \underbrace{} 1.
+  \]
+  Label each gap with a $1$ as in the usual bijection for $\alpha$: \[
+      1 \underbrace{}_1 1 \underbrace{} 1 \underbrace{} 1.
+  \]
+  For the next iteration of compositions, label each gap with a $2$ in the
+  usual way: \[
+    1 \underbrace{}_1 1 \underbrace{} 1 \underbrace{}_2 1.
+  \]
+  Label all the remaining gaps with $0$s: \[
+    1 \underbrace{}_1 1 \underbrace{}_0 1 \underbrace{}_2 1.
+  \]
+  Thus the string $102_3$ is in bijection with the (sub)composition
+  $\alpha' = ((1), (2, 1))$.
+  \\~\\
+  This bijection has some nice properties.
+  \begin{enumerate}
+    \item If we ``flatten'' the sub-composition,
+      then this corresponds to the composition made by changing all of the $2$s to
+      $1$s. For example, $f((1), (2, 1)) = 102_3$ which corresponds to the
+      composition $4 = 1 + 2 + 1$. And $f^{-1}(101_3) = ((1), (2), (1))$ which also
+      corresponds to the composition $1 + 2 + 1$.
+    \item If we're interested in sub-subcompositions, then we can naturally
+    extend this bijection to prove $n \mapsto 4^{n - 1}$, and so on with
+    sub-sub-subcompositions, etc.
+  \end{enumerate}
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{29} $[2]$ \\
+  Fix $k, n \in \mathbb P$. Show that \[
+    \sum a_1\hdots a_k = \binom{n + k - 1}{2k - 1},
+  \] where the sum ranges over all compositions $(a_1, \hdots, a_k)$ of $n$
+  into $k$ parts.
+\end{problem}
+
+\begin{solution} \text{} \\
+  Denote the sum as \[
+    f(n, k) = \sum_{a_1 + \hdots + a_k = n} a_1\hdots a_k.
+  \]
+  We'll let $F_k$ be a generating function where \[
+    F_k(x) = \sum_n f(n,k) x^n,
+  \] and we'll show that \[
+    F_k(x) = \sum_n \binom{n + k - 1}{2k - 1} x^n.
+  \]
+  We can write \begin{align*}
+    F_k(x)
+    &= \sum_n \sum_{a_1 + \hdots + a_k = n} a_1\hdots a_k x^n \\
+    &= \sum_{a_1, \hdots, a_k > 0} a_1\hdots a_k x^{a_1 + \hdots + a_k}\\
+    &= \left(\sum_{a_1 > 0} a_1 x^{a_1}\right)\cdots\left(\sum_{a_k > 0} a_k x^{a_k}\right).
+  \end{align*}
+  And each of these sums simplifies nicely \begin{align*}
+    \sum_{j = 1}^\infty j x^{j}
+    &= x\sum_{j = 1}^\infty j x^{j - 1} \\
+    &= x\sum_{j = 1}^\infty \frac{d}{dx}\left[x^j\right] \\
+    &= x\frac{d}{dx}\left[\sum_{j = 1}^\infty x^j\right] \\
+    &= x\frac{d}{dx}\left[\frac{1}{1-x}\right] \\
+    &= \frac{x}{(1-x)^2}
+  \end{align*}
+  Therefore \begin{align*}
+    F_k(x)
+    &= \left(\frac{x}{(1-x)^2}\right)^k \\
+    &= x^k\frac{1}{(1-x)^{2k}}.
+  \end{align*}
+  Using the multinomial coefficient trick from class yields \[
+    x^k\frac{1}{(1-x)^{2k}}
+    = x^k \sum_{n-k = 1}^\infty x^{n-k}\left(\!\!{{2k}\choose{n - k}}\!\!\right)
+    = \sum_{n-k = 1}^\infty {{n - k + 2k - 1}\choose{n - k}}x^n
+    = \sum_{n-k = 1}^\infty {{n + k - 1}\choose{2k - 1}}x^n
+  \]
+  as desired.
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{33 (a)} $[2-]$ \\
+  Let $k,n \in \mathbb P$. Find the number of sequences
+  $\emptyset = S_0, S_1, \hdots, S_k$ of subsets of $[n]$ if for all
+  $1 \leq i \leq k$ we have either \begin{enumerate}[(i)]
+    \item $S_{i - 1} \subset S_i$ and $|S_i - S_{i - 1}| = 1$, or
+    \item $S_i \subset S_{i-1}$ and $|S_{i - 1} - S_i| = 1$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} \text{} \\
+  Each set $S_i$ differs from the set before it, $S_{i - 1}$ by one element.
+  Thus for $i > 0$, we can construct $S_{i + 1} = S_i \vartriangle {j}$ for
+  $j \in [n]$ using the symmetric difference.
+  At each step, there are $n$ choices for the singleton set, so there are $k^n$ such
+  sequences.
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{38} $[2]$ \\
+  Show that the number of permutations $w \in \mathfrak S_n$ fixed by the
+  fundamental transformation $\mathfrak S_n \xrightarrow{\wedge} \mathfrak S_n$
+  is the Fibonacci number $F_{n + 1}$.
+\end{problem}
+
+\begin{solution} \text{} \\
+  I wrote a program to enumerate the first few cases, and it yielded \begin{align*}
+    \omega_{1,1} &= (1) \\
+    &\\
+    \omega_{2,1} &= (1) (2) \\
+    \omega_{2,2} &= (2 1) \\
+    &\\
+    \omega_{3,1} &= (1) (2) (3) \\
+    \omega_{3,2} &= (2 1) (3) \\
+    \omega_{3,3} &= (1) (3 2) \\
+    &\\
+    \omega_{4,1} &= (1) (2) (3) (4) \\
+    \omega_{4,2} &= (2 1) (3) (4) \\
+    \omega_{4,3} &= (1) (3 2) (4) \\
+    \omega_{4,4} &= (1) (2) (4 3) \\
+    \omega_{4,5} &= (2 1) (4 3)
+  \end{align*}
+  Let $X_n$ be the set of permutations of $[n]$ that are fixed by the
+  fundamental transformation. Then, the first few cases suggest that for
+  $n \geq 3$, all members of $X_n$ are either
+  \[
+    \pi(k) = \begin{cases}
+      \omega_{n-1}(k) & k \in [n - 1] \\
+      n         & k = n
+    \end{cases}
+  \] or \[
+    \pi(k) = \begin{cases}
+      \omega_{n - 2}(k) & k \in [n - 2] \\
+      n                 & k = n - 1 \\
+      n - 1             & k = n
+    \end{cases},
+  \]
+  for some fixed $\omega_{n-1} \in X_{n-1}$ or $\omega_{n-2} \in X_{n-2}$ which
+  depends on $\pi$.
+  (In other words, append $n$ to a permutation from the previous generation, or
+  $n(n-1)$ to a permutation from two generations ago.)
+  \\~\\
+  Now it is sufficient to show that the permutations fixed by the fundamental
+  transformation must
+    (i) consist only of $1$-cycles and $2$-cycles, and
+    (ii) also represent a fixed permutation if the last cycle is removed.
+  For the sake of contradiction, suppose we have a $k$-cycle
+  $k$-cycle through positions $n, n+1, \cdots, n+k-1$. Then in order for this to
+  be written in canonical notation, the biggest element in the cycle must be
+  written first, so $\omega(n) = n + k - 1$.
+  However, this means that the last element in our cycle must be $n$ because $n$
+  maps to $n + k - 1$.
+  Thus $\omega(n) = n + k - 1$ and $\omega(n + k - 1) = n$, so we have a
+  $2$-cycle. This is a contradiction, so the longest cycle must be a $2$-cycle.
+  \\~\\
+  Consider writing the permutation in cycle notation. The last cycle does not
+  affect the positions of the initial permutation, so the permutation with the
+  last cycle removed must be a fixed permutation if the original permutation
+  is too.
+  \\~\\
+  Therefore we can enumerate the permutations inductively by appending a one cycle
+  or a two cycle to the end, and there is only one (canonical) way to write each.
+  Thus \begin{align*}
+    f(1) = 1,
+    f(2) = 2,
+    f(n + 2) = f(n + 1) + f(n).
+  \end{align*}
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{44 (a)} $[2]$ \\
+  Using generating functions, show that the total number of cycles of all even
+  permutations of $[n]$ and the total number of cycles of all odd permutations
+  of $[n]$ differ by
+  $(-1)^n(n-2)!$.
+\end{problem}
+
+\begin{solution} \text{} \\
+  An even permutation of $[n]$ is a permutation with an even number of even
+  cycles, or equivalently, a permutation where the number of cycles has the same
+  parity as the parity of $[n]$.
+  Thus we can write the number total number of even permutations of $[n]$ minus
+  the total number of odd functions of $[n]$ as \[
+     a_n
+     = (-1)^n\sum_k (-1)^k k\,c(n, k)
+  \] where $c(n, k)$ is the signless Sterling number of the first kind, which
+  counts the number of permutations of $[n]$ with exactly $k$ cycles.
+  By Proposition 1.3.7, we know that \[
+    \sum_k^n (-1)^k \,c(n, k) t^k = (t)(t - 1)\cdots(t - n + 1) = (t)_n.
+  \] and taking the derivative yields something that looks like our above
+  function \[
+    \frac{d}{dt}\left[\sum_k^n (-1)^k \,c(n, k) t^k\right]
+    = \sum_k^n (-1)^k k\,c(n, k) t^{k-1}
+  \] So \begin{align*}
+    \sum_k^n (-1)^k k\,c(n, k) t^k
+    &= t\frac{d}{dt}[t(t-1) \hdots (t-n+1)] \\
+    &= t\left((t)_{n - 1} + (t-n+1)\frac{d}{dt}\left[(t)_{n - 1}\right]\right) \\
+    &= t\left(
+      \sum_k^{n-1} (-1)^k \,c(n-1, k) t^k +
+      (t-n+1)a_{n-1}
+    \right)
+  \end{align*}
+  Thus setting $t = 1$ (which we can do because this is a finite sum) yields \[
+    a_n = (1)(1 - 1)\hdots(2-n) + (2-n)a_{n-1} = (2-n)a_{n - 1}.
+  \]
+  Since the base case $a_{1} = 1$ is clear, inductively, we have \[
+    a_n = (-1)^n(n - 2)!.
+  \]
+\end{solution}
+
+\end{document}
