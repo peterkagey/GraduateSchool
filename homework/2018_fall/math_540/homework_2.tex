@@ -1,0 +1,187 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,enumitem,mathtools,multicol}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Topology: Homework 2}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+  Let \begin{alignat*}{4}
+    p      \colon&&\mathbb R &\rightarrow S^1 \text{ by }& x      &\mapsto (\cos x, \sin x) \\
+    \alpha \colon&& [0, 1]   &\rightarrow S^1 \text{ by }& t      &\mapsto p(2\pi t),
+  \end{alignat*}
+  let $f$ be some map with the property that $f(-x, -y) = -f(x, y)$
+      % f      \colon&& S^1      &\rightarrow S^1 \text{ by }& (x, y) &\mapsto (-x, -y) \\
+  And let $\widetilde\beta\colon [0, 1] \rightarrow \mathbb R$ be a lift of the
+  path $\beta = f \circ \alpha$.
+  \begin{enumerate}[label=\textbf{\alph*.}]
+    \item Show that there exists an integer $n_0 \in \mathbb Z$ such that
+    $\widetilde\beta(\frac{1}{2}) = \widetilde\beta(0) + 2n_0\pi + \pi$.
+      \begin{proof} \text{} \\
+        We know that $p \circ \widetilde\beta = f \circ \alpha$, which is to
+        say, \[
+          (\cos(\widetilde\beta(t)), \sin(\widetilde\beta(t))) = f(\cos(2\pi t), \sin(2\pi t)).
+        \]
+        And let's further decompose $f$ as $f(x, y) = (f_x(x,y), f_y(x,y))$.
+        \\
+        Thus, when $t = 0$, $\cos(\widetilde\beta(0)) = f_x(1, 0)$.
+        % , so
+        % $\widetilde\beta(0) = 2n\pi + \pi$ for some $n \in \mathbb Z$.\\
+        Similarly, when $t = \frac{1}{2}$,
+        $\cos(\widetilde\beta(\frac{1}{2})) = f_x(-1, 0) = -f_x(1, 0)$.
+        Therefore \[
+          \cos(\widetilde\beta(0)) +
+          \cos(\widetilde\beta(\textstyle\frac{1}{2})) = 0
+        \] so $\widetilde\beta(0)$ and $\widetilde\beta(\frac{1}{2})$ differ by
+        $\pi$ up to some multiple of $2\pi$:
+        \[
+          \widetilde\beta(\textstyle{\frac{1}{2}})
+          = \widetilde\beta(0) + 2n_0\pi + \pi.
+        \]
+      \end{proof}
+    \item Show that, for the integer $n_0$ of part \textbf{a},
+    $\widetilde\beta(t) = \widetilde\beta(t - \frac{1}{2}) + 2n_0\pi + \pi$ for
+    every $t \in \left[\frac{1}{2}, 1\right]$.
+      \begin{proof} \text{} \\
+        Writing things explicitly gives \begin{align*}
+          (\cos(\widetilde\beta(t)), \sin(\widetilde\beta(t)))
+          &= f(\cos(2\pi t), \sin(2\pi t)) \\
+          \textstyle(\cos(\widetilde\beta(t - \frac{1}{2})), \sin(\widetilde\beta(t - \frac{1}{2})))
+          &= f(\textstyle(\cos(2\pi (t - \frac{1}{2})), \sin(2\pi (t - \frac{1}{2})))) \\
+          &= f(\textstyle(\cos(2\pi t - \pi), \sin(2\pi t - \pi))) \\
+          &= f(\textstyle(-\cos(2\pi t), -\sin(2\pi t))) \\
+          &= -f(\textstyle(\cos(2\pi t), \sin(2\pi t)))
+        \end{align*}
+        So similarly to part \textbf{a}, \[
+          \cos(\widetilde\beta(t)) + \textstyle(\cos(\widetilde\beta(t - \frac{1}{2}))
+          = f_x(\cos(2\pi t), \sin(2\pi t)) - f_x(\cos(2\pi t), \sin(2\pi t))
+          = 0
+        \]
+        the arguments $\widetilde\beta(t)$ and $\widetilde\beta(t - \frac{1}{2})$
+        must differ by $\pi$ up to a multiple of $2\pi$. By continuity, this
+        multiple of $2\pi$ must be the same as in part \textbf{a}.
+        Thus
+        \[
+          \widetilde\beta(t) = \widetilde\beta(t - \textstyle\frac{1}{2}) + 2n_0\pi + \pi.
+        \]
+        Thus \begin{align*}
+          \widetilde\beta(1)                 &= \textstyle\widetilde\beta(\frac12) + 2n_0\pi + \pi,\\
+          \textstyle\widetilde\beta(\frac12) &= \widetilde\beta(0) + 2n_0\pi + \pi, \text{ and so} \\
+          \textstyle\widetilde\beta(1)       &= \widetilde\beta(0) + 4n_0\pi + 2\pi,
+        \end{align*}
+        and because $4n_0 + 2 \neq 0$ for all $n_0 \in \mathbb Z$,
+        $\widetilde\beta(1) \neq \widetilde\beta(0)$.
+      \end{proof}
+    \item Show that, if $x_0 = (1, 0)$ and $y_0 = f(1, 0)$, the induced
+    homomorphism $f_*\colon\pi_1(S^1;x_0)\rightarrow\pi_1(S^1;y_0)$ is
+    non-trivial.
+      \begin{proof} \text{} \\
+        Consider the generating element $[\alpha] \in \pi(S^1; x_0)$, which maps
+        to $[f \circ \alpha] = [p \circ \widetilde\beta]$ under $f_*$.
+        Since part \textbf{b} shows that
+        $\widetilde\beta(1) \neq \widetilde\beta(0)$, we know that
+        $p \circ \widetilde\beta$ must describe a non-trivial loop around $S^1$,
+        and thus the homomorphism is non-trivial.
+      \end{proof}
+    \item Consider the $2$-dimensional sphere $S^2$ and identify the unit circle
+    $S^1$ to its equator. \begin{enumerate}[label=(\roman*)]
+      \item Show that for every map $F\colon S^2 \rightarrow S^1$, the
+      restriction $f\colon S^1 \rightarrow S^1$ which sends
+      $(x, y) \mapsto F(x, y, 0)$ is homotopic to a constant map.
+        \begin{proof} \text{} \\
+          This is similar to ...
+        \end{proof}
+      \item Show that there is no map $F \colon S^2 \rightarrow S^1$ such that
+      $F(-x,-y,-z) = -F(x,y,z)$ for every $(x, y, z) \in S^2$.
+        \begin{proof}
+          This follows from parts \textbf{c} and \textbf{d} (i).
+          Suppose that there were such a map. Then its restriction to the
+          equator would satisfy the conditions for $f$ above, and thus by
+          part \textbf{c}, it would not be nullhomotopic. However, part
+          \textbf{d} (i) showed that such a map \textit{must} be nullhomotopic,
+          a contradiction. Thus no map may exist.
+        \end{proof}
+    \end{enumerate}
+    \item Let $f\colon S^2 \rightarrow \mathbb R^2$ be continuous. Show that
+    there exists at least one pair of antipodal points that have the same image
+    under $g$.
+      \begin{proof}
+        As per the hint, consider the map $F\colon S^2 \rightarrow S^1$ by \[
+          F(x, y, z) = \frac{g(x, y, z) - g(-x, -y, -z)}{||g(x, y, z) - g(-x, -y, -z)||}.
+        \] This function meets the criteria in part \textbf{d} (ii), namely \[
+          -F(x,y,z)
+          = \frac{g(-x, -y, -z) - g(x, y, z)}{||g(x, y, z) - g(-x, -y, -z)||}
+          = \frac{g(-x, -y, -z) - g(x, y, z)}{||g(-x, -y, -z) - g(x, y, z)||}
+          = F(-x, -y, -z).
+        \]
+        Therefore no such continuous function exists on all of $S^2$, and
+        so there exists some $(x, y, z)$ such that
+        $||g(-x, -y, -z) - g(x, y, z)|| = 0$, and thus there exists some
+        $(x, y, z)$ such that $g(-x, -y, -z) = g(x, y, z)$.
+      \end{proof}
+    \item Let $A$ and $B$ be two bounded domains in the $xy$-plane
+    $\mathbb R^2 \times \{ 0 \} \subset \mathbb R^3$.
+    \begin{enumerate}[label=(\roman*)]
+      \item For each unit vector $\vec u \in S^2 \subset \mathbb R^3$, let
+      $P_{\vec{u}}$ be the plane in $\mathbb R^3$ passing through the point
+      $(0, 0, 1)$ and orthogonal to $\vec u$, and let $H_{\vec{u}}$ be the
+      half-space delimited by $P_{\vec{u}}$ such that $\vec u$ points toward
+      the interior of $H_{\vec{u}}$.
+      \\
+      Show that there exists $\vec u \in S^2$ such that
+      $\operatorname{area}(A \cap H_{\vec u}) = \frac{1}{2}\operatorname{area}(A)$
+      and
+      $\operatorname{area}(B \cap H_{\vec u}) = \frac{1}{2}\operatorname{area}(B)$.
+        \begin{proof}
+          As suggested by the hint, let $g\colon S^2 \rightarrow \mathbb R^2$ be
+          defined by \[
+            g(\vec u) = (
+              \operatorname{area}(A \cap H_{\vec u}),
+              \operatorname{area}(B \cap H_{\vec u})
+            ).
+          \]
+          Notice that $P_{- \vec u} = P^c_{\vec u}$, so \[
+            g(-\vec u) = (
+              \operatorname{area}(A) - \operatorname{area}(A \cap H_{\vec u}),
+              \operatorname{area}(B) - \operatorname{area}(B \cap H_{\vec u})
+            )
+          \] and moreover, $g(\vec u) = g(-\vec u)$ precisely when \begin{align*}
+            \operatorname{area}(A \cap H_{\vec u}) &= \frac{1}{2} \operatorname{area}(A) \\
+            \operatorname{area}(B \cap H_{\vec u}) &= \frac{1}{2} \operatorname{area}(B).
+          \end{align*}
+          It takes some measure-theoretic argument to show that $g$ is
+          continuous, but taking that for granted, part \textbf{e} proves that
+          there exists a pair of antipodal points that have
+          the same image under $g$. Thus the desired vector $\vec u$ is the
+          one that satisfies the antipodal equality property.
+        \end{proof}
+      \item Show that there exists a line in $\mathbb R^2$ that divides each of
+      $A$ and $B$ into halves of equal area.
+        \begin{proof}
+          Simply choose any vector $\vec u$ that satisfies part \textbf{f} (i),
+          and take the line which is the intersection of $P_{\vec u}$ and the
+          $xy$-plane.
+        \end{proof}
+    \end{enumerate}
+  \end{enumerate}
+\end{problem}
+
+\end{document}
