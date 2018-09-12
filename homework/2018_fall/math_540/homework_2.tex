@@ -107,7 +107,26 @@
       restriction $f\colon S^1 \rightarrow S^1$ which sends
       $(x, y) \mapsto F(x, y, 0)$ is homotopic to a constant map.
         \begin{proof} \text{} \\
-          This is similar to ...
+          I'll use Gin Park's trick and construct an explicit homotopy to the
+          constant map $x \mapsto F(0, 0, 1) \in S^1$.
+          Namely, let $H\colon S^1 \times [0, 1] \rightarrow S^1$ be
+          given by
+          \[
+            H((x, y), t) =  F\!\left(x\sqrt{1 - t^2}, y\sqrt{1 - t^2}, \sqrt{t}\right).
+          \]
+          Clearly $H$ is continuous by composition, and \begin{align*}
+          H((x, y), 0) &= F(x, y, 0) = f(x, y)\text{ and }\\
+          H((x, y), 1) &= F(0, 0, 1),
+          \end{align*}
+          so it is enough to check
+          that $(x\sqrt{1 - t^2}, y\sqrt{1 - t^2}, \sqrt{t}) \in S^2$. But this
+          follows easily since the norm squared is $1$: \begin{align*}
+            (x\sqrt{1 - t^2})^2 + (x\sqrt{1 - t^2})^2 + (\sqrt{t})^2
+            &= x^2(1 - t^2) + y^2(1 - t^2) + t^2 \\
+            &= \underbrace{(x^2 + y^2)}_{=1}(1 - t^2) + t^2 \\
+            &= (1 - t^2) + t^2 \\
+            &= 1.
+          \end{align*}
         \end{proof}
       \item Show that there is no map $F \colon S^2 \rightarrow S^1$ such that
       $F(-x,-y,-z) = -F(x,y,z)$ for every $(x, y, z) \in S^2$.
@@ -179,6 +198,9 @@
           Simply choose any vector $\vec u$ that satisfies part \textbf{f} (i),
           and take the line which is the intersection of $P_{\vec u}$ and the
           $xy$-plane.
+          If $\vec u= (0, 0, -1)$, then $P_{\vec u}$ does not intersect the
+          $xy$-plane. In this case, the areas of $A$ and $B$ are zero, so the
+          any line will divide $A$ and $B$ into halves of equal area.
         \end{proof}
     \end{enumerate}
   \end{enumerate}
