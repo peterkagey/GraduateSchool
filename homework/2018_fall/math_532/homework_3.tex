@@ -1,0 +1,215 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Combinatorics: Homework 3}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} $ $ \\
+  Let $0 \leq k \leq 2$. Show that $n \geq 3$, the number of permutations
+  $w \in S_n$ whose number of inversions is congruent to $k$ modulo $3$ is
+  independent of $k$. For instance, when $n = 3$, there are two permutations
+  with $0$ or $3$ inversions, two with $1$ inversion, and two with $2$
+  inversions.
+\end{problem}
+
+\begin{solution} \text{} \\
+  We're going to prove this inductively. The problem statement establishes the
+  base case: the claim is true for $n=3$.
+  \\~\\
+  Suppose the claim is true for $3, 4, \hdots, n$, and I will show it is true
+  for $n + 1$. I will illustrate with the case $n=3$.
+  Write the $n!$ permutations as words in lexicographic order, and then for each
+  permutation, increment each element by $1$ and prepend $1$. This yields the
+  first $n!$ permutations of the $n + 1$ case in lexicographic order.
+  \begin{align*}
+    \operatorname{inv}(1234) = 0 \\
+    \operatorname{inv}(1243) = 1 \\
+    \operatorname{inv}(1324) = 1 \\
+    \operatorname{inv}(1342) = 2 \\
+    \operatorname{inv}(1423) = 2 \\
+    \operatorname{inv}(1432) = 3
+  \end{align*}
+  Because $1$ is smaller than all of the incremented elements, this does not
+  introduce any new inversions, and so the first $n!$ permutations of $[n + 1]$
+  inherit the desired property from the $n$ case.
+  \\~\\
+  When we list the next $n!$ permutations (again in lexicographic order), the
+  relative position of the last $n$ elements remains unchanged. Since every
+  permutation starts with $2$, this introduces exactly one new inversion.
+  \begin{align*}
+    \operatorname{inv}(2134) = 0 + 1 \\
+    \operatorname{inv}(2143) = 1 + 1 \\
+    \operatorname{inv}(2314) = 1 + 1 \\
+    \operatorname{inv}(2341) = 2 + 1 \\
+    \operatorname{inv}(2413) = 2 + 1 \\
+    \operatorname{inv}(2431) = 3 + 1
+  \end{align*}
+  Since we add the \textit{same} number to each inversion count, this preserves
+  the desired property.
+  An identical arguement works for the $n!$ permutations that start with $3$,
+  the $n!$ permutations that start with $4$, etc.
+  Therefore the number of permutations $w \in S_n$ whose number is congruent to $k$
+  modulo $3$ is independent of $k$.
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} $ $ \\
+  For any non-identity element $w \in S_n$, let $m_1(w)$ be the smallest element
+  of the descent set $D(w)$. Set $m_1(\operatorname{id}) = 0$. Find the expected value
+  $E_1(n)$ of $m_1(w)$ over all $w \in S_n$, chosen uniformly. Express your
+  answer as a simple sum.
+\end{problem}
+
+\begin{solution} \text{} \\
+  We will first count the number of permutations such that the smallest element
+  of the descent set is $k$. In particular, we'll choose the first $k + 1$ terms
+  of the sequence. The largest of these terms is $w_k$, which leaves $k$
+  remaining elements as choices for $w_{k + 1}$. Permuting the remaining
+  $n - k - 1$ elements will give every possible sequence that satisfies
+  \begin{enumerate}
+    \item $w_1 < w_2 < \hdots < w_{k - 1} < w_k$ and
+    \item $w_k > w_{k + 1}$.
+  \end{enumerate}
+  Thus
+  \[
+    a_k(n) = \binom{n}{k + 1}\cdot{k}\cdot(n - k - 1)!.
+  \]
+  Then summing over all choices of $k$, and multiplying each term by $k$ yields \[
+    a(n) = \sum_{k = 1}^{n - 1} k^2\binom{n}{k + 1}(n - k - 1)!,
+  \] where the number of terms grows linearly.
+  \\~\\
+  The sequence begins \[
+    0, 1, 7, 37, 201, 1231, 8653, 69273, 623521, 6235291, \hdots.
+  \]
+  Then the expected value is simply given by \[
+    E_1(n) = \frac{a(n)}{n!}.
+  \]
+  I conjecture that \[
+    a(n+1) = (n+1)a(n) + n^2 \text{ for } n \geq 1
+  \] and that \[
+    \lim_{n \rightarrow \infty} \frac{a(n)}{n!} = e - 1.
+  \]
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} (Exercise 53a) $[2]$ \\
+  The \textit{Eulerian Catalan number} is defined by
+  $EC_n = A(2n + 1, n + 1)/(n + 1)$. The first few Eulerian Catalan numbers,
+  beginning with $EC_0 = 1$, are $1, 2, 22, 604, 31238$. Show that
+  $EC_n = 2A(2n, n+1)$ (and thus $EC_n \in \mathbb Z$).
+\end{problem}
+
+\begin{solution} \text{} \\
+  $A(2n + 1, n + 1)$ is the number of permutations of
+  $w \in \mathfrak S_{2n + 1}$ with exactly $n$ descents.
+
+  We want to show \[
+    2(n + 1)A(2n, n + 1) = A(2n + 1, n + 1).
+  \]
+
+  The Eulerian numbers $A(2n, n + 1)$ and $A(2n + 1, n + 1)$ count the number of
+  permutations $w \in \mathfrak S_{2n}$ and $w \in \mathfrak S_{2n + 1}$
+  respectively with exactly $n$ descents.
+
+  Notice that map
+  $f\colon \mathfrak S_{2n} \rightarrow \mathfrak S_{2n}$ where the permutation
+  (written as a word) is reversed has the number of descents given by \[
+    \operatorname{des}(f(w)) = 2n - 1 - \operatorname{des}(w).
+  \]
+
+  So in particular, $f$ defines a bijection between
+  permutations of $w \in \mathfrak S_{2n}$ with exactly $n$ descents and
+  permutations of $w \in \mathfrak S_{2n}$ with exactly $n - 1$ descents.
+
+  Thus it is enough to define a method of taking a permutation
+  $w \in \mathfrak S_{2n}$ with $n$ or $n - 1$ descents, and producing from
+  it $n + 1$ permutations $w_1, \hdots, w_{n + 1} \in \mathfrak S_{2n + 1}$
+  with $n$ descents.
+
+  Given some permutation in $\mathfrak S_{2n}$ with $n$ descents
+  (written as a word), we can insert $2n + 1$ after any descent position, or at
+  the end of the word. For example, in the following permutation $(n = 4)$:
+  \[
+    2\quad\quad6\underbrace{}1\quad\quad8\underbrace{}4\quad\quad7\underbrace{}6\underbrace{}5\underbrace{}.
+  \]
+  Conversely, given some permutation in $\mathfrak S_{2n}$ with $n - 1$ descents
+  (written as a word), we can insert $2n + 1$ before any of the $n + 1$
+  non-descent positions.
+  For example, in the following permutation $(n = 4)$:
+  \[
+    \underbrace{}5\underbrace{}6\underbrace{}7\quad\quad4\underbrace{}8\quad\quad1\underbrace{}6\quad\quad2.
+  \]
+  Since this procedure preserves the order of the elements in $[2n]$, all of the
+  resulting elements in $\mathfrak S_{2n + 1}$ are distinct. Furthermore,
+  since permutations with $n$ descents can only have ``parent'' permutations
+  with $n-1$ or $n$ descents, this procedure enumerates all of the permutations
+  counted by $A(2n + 1, n + 1)$.
+
+  Therefore \[
+    2A(2n, n + 1) = \frac{A(2n + 1, n + 1)}{(n + 1)} = EC_n,
+  \]
+\end{solution} and $EC_n \in \mathbb Z$.
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4} (Exercise 54) $[2]$ \\
+  How many $n$-element multisets on $[2m]$ are there satisfying
+  \begin{enumerate}[(i)]
+    \item $1, 2, \hdots, m$ appear at most once each, and
+    \item $m+1, m+2, \hdots, 2m$ appear an even number of times each?
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} \text{} \\
+  This problem has a very clean solution using generating functions. To choose
+  the elements
+  satisfying the first condition, we can choose any subset of $[m]$, and to
+  choose the elements satisfying the second condition, we can choose any
+  multiset from ${m+1, m+2, \hdots, 2m}$ and ``double'' it.
+  \\~\\
+  Call our counting function $g(n, m)$, and our generating function for $m$
+  $f_m(x)$.
+  Thus \[
+    f_m(x)
+    = \sum_{n=0}^\infty g(n, m)x^n
+    = \sum_{k=0}^m\sum_{j=0}^\infty \binom{m}{k}\left(\!\!\binom{m}{j}\!\!\right)x^kx^{2j}
+  \]
+  Because $m$ and $j$ are independent in the sum on the right, this can be split
+  into \begin{align*}
+    \sum_{k=0}^m\sum_{j=0}^\infty \binom{m}{k}\left(\!\!\binom{m}{j}\!\!\right)x^kx^{2j}
+    &= \left(\sum_{k=0}^m\binom{m}{k}x^k\right)
+       \left(\sum_{j=0}^\infty\left(\!\!\binom{m}{j}\!\!\right)x^{2j}\right) \\
+    &= (1 + x)^m\left(\frac{1}{1 - x^2}\right)^m \\
+    &= \frac{(1 + x)^m}{(1 - x)^m(1 + x)^m} \\
+    &= \frac{1}{(1 - x)^m} \\
+    &= \sum_{n=0}^\infty \left(\!\!\binom{m}{n}\!\!\right)x^n.
+  \end{align*}
+  Thus \[
+    g(n, m) = \left(\!\!\binom{m}{n}\!\!\right).
+  \]
+\end{solution}
+\end{document}
