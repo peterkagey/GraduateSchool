@@ -198,6 +198,29 @@
     \]
 
     (I ran out of time.)
+    \item Let elements of $\pi_n(X, x_0)$ be equivalence classes of
+      (continuous) maps $\alpha\colon [0,1]^n \rightarrow X$ such
+      that \begin{align*}
+        \alpha(0, t_2, t_3, \hdots, t_n) = \alpha(1, t_2, t_3, \hdots, t_n)
+        &= \alpha(t_1, 0, t_3, \hdots, t_n) = \alpha(t_1, 1, t_3, \hdots, t_n) \\
+        &= \hdots \\
+        &= \alpha(t_1, t_2, \hdots, t_{n-1}, 0) = \alpha(t_1, t_2, \hdots, t_{n-1}, 1)  \\
+        &= x_0 \\
+      \end{align*} where two maps $\alpha_0$ and $\alpha_1$ are equivalent if there exists a
+      continuous map $H\colon ([0, 1]^n) \times [0, 1] \rightarrow X$
+      between them such that \begin{align*}
+        H(t_1, t_2, \hdots, t_n, 0) &= \alpha_0(t_1, t_2, \hdots, t_n), \\
+        H(t_1, t_2, \hdots, t_n, 1) &= \alpha_1(t_1, t_2, \hdots, t_n), \\
+        H(0, t_2, t_3, \hdots, t_n, r) &= x_0 \\
+        H(1, t_2, t_3, \hdots, t_n, r) &= x_0 \\
+        H(t_1, 0, t_3, \hdots, t_n, r) &= x_0 \\
+        H(t_1, 1, t_3, \hdots, t_n, r) &= x_0 \\
+        \hdots \\
+        H(t_1, t_2, \hdots, t_{n-1}, 0, r) &= x_0 \\
+        H(t_1, t_2, \hdots, t_{n-1}, 1, r) &= x_0.
+      \end{align*}
+    \item Here we use a similar procedure to part b, but a higher-dimensional analog.
+
   \end{enumerate}
 \end{solution}
 \end{document}
