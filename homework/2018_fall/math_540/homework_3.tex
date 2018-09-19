@@ -1,0 +1,203 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,multicol}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Topology: Homework 3}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+  In the free group $F_2 = \langle a, b; \rangle$, consider the elements \begin{align*}
+      A &= b^2 a^{-1} b^{-3} a b^{-1} a b^{-2} \\
+      B &= b^2 a^{-1} b a^{-1} b a b^{2} \\
+      C &= b^{-2} a^{-1} b^2 a^3 b \\
+      D &= b^{-2} a^{-1} b^{2} a b^{-2} a^3
+  \end{align*}
+  \begin{enumerate}[(a)]
+    \item Compute $(AB)C$ and $A(BC)$ in the given order, and verify that
+      $(AB)C = A(BC)$.
+    \item Compute $(AB)D$ and $A(BD)$ in the given order, and verify that
+      $(AB)D = A(BD)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item First computing $AB$ gives \begin{align*}
+      AB &= b^2 a^{-1} b^{-3} a b^{-1} a \underbrace{b^{-2} \cdot b^2}_{\operatorname{id}_B} a^{-1} b a^{-1} b a b^{2} \\
+         &= b^2 a^{-1} b^{-3} a b^{-1} \underbrace{a a^{-1}}_{\operatorname{id}_A} b a^{-1} b a b^{2} \\
+         &= b^2 a^{-1} b^{-3} a \underbrace{b^{-1} b}_{\operatorname{id}_B} a^{-1} b a b^{2} \\
+         &= b^2 a^{-1} b^{-3} \underbrace{a a^{-1}}_{\operatorname{id}_A} b a b^{2} \\
+         &= b^2 a^{-1} \underbrace{b^{-3} b}_{b^{-2}} a b^{2} \\
+         &= b^2 a^{-1} b^{-2} a b^{2}.
+    \end{align*}
+    Then computing $(AB)C$ gives \begin{align*}
+      (AB)C &= b^2 a^{-1} b^{-2} a \underbrace{b^{2} \cdot b^{-2}}_{\operatorname{id}_B} a^{-1} b^2 a^3 b \\
+         &= b^2 a^{-1} b^{-2} \underbrace{a a^{-1}}_{\operatorname{id}_A} b^2 a^3 b \\
+         &= b^2 a^{-1} \underbrace{b^{-2} b^2}_{\operatorname{id}_B} a^3 b \\
+         &= b^2 \underbrace{a^{-1} a^3}_{a^2} b \\
+         &= b^2 a^2 b.
+    \end{align*}
+    Similarly, computing $BC$ gives \begin{align*}
+      BC &= b^2 a^{-1} b a^{-1} b a \underbrace{b^{2} \cdot b^{-2}}_{\operatorname{id}_B} a^{-1} b^2 a^3 b \\
+         &= b^2 a^{-1} b a^{-1} b \underbrace{a a^{-1}}_{\operatorname{id}_A} b^2 a^3 b \\
+         &= b^2 a^{-1} b a^{-1} \underbrace{b b^{2}}_{b^3} a^3 b \\
+         &= b^2 a^{-1} b a^{-1} b^3 a^3 b.
+    \end{align*}
+    Then computing $A(BC)$ gives \begin{align*}
+      A(BC) &= b^2 a^{-1} b^{-3} a b^{-1} a \underbrace{b^{-2} \cdot b^{2}}_{\operatorname{id}_B} a^{-1} b a^{-1} b^3 a^3 b \\
+         &= b^2 a^{-1} b^{-3} a b^{-1} \underbrace{a \cdot a^{-1}}_{\operatorname{id}_A} b a^{-1} b^3 a^3 b \\
+         &= b^2 a^{-1} b^{-3} a \underbrace{b^{-1} \cdot b}_{\operatorname{id}_B} a^{-1} b^3 a^3 b \\
+         &= b^2 a^{-1} b^{-3} \underbrace{a \cdot a^{-1}}_{\operatorname{id}_A} b^3 a^3 b \\
+         &= b^2 a^{-1} \underbrace{b^{-3} \cdot b^{3}}_{\operatorname{id}_B} a^3 b \\
+         &= b^2 \underbrace{a^{-1} \cdot a^3}_{a^2} b \\
+         &= b^2 a^2 b.
+    \end{align*}
+    Therefore \[
+      (AB)C = b^2a^2b = A(BC).
+    \]
+    \item We already computed $AB = b^2 a^{-1} b^{-2} a b^{2}$, so computing
+    $(AB)D$ \begin{align*}
+      (AB)D &= b^2 a^{-1} b^{-2} a \underbrace{b^{2} \cdot b^{-2}}_{\operatorname{id}_B} a^{-1} b^2 a b^{-2} a^3 \\
+         &= b^2 a^{-1} b^{-2} \underbrace{a a^{-1}}_{\operatorname{id}_A} b^2 a b^{-2} a^3 \\
+         &= b^2 a^{-1} \underbrace{b^{-2} b^2}_{\operatorname{id}_B} a b^{-2} a^3 \\
+         &= b^2 \underbrace{a^{-1} a}_{\operatorname{id}_A} b^{-2} a^3 \\
+         &= \underbrace{b^2 b^{-2}}_{\operatorname{id}_B} a^3 \\
+         &= a^3.
+    \end{align*}
+    Similarly, computing $BD$ gives \begin{align*}
+      BD &= b^2 a^{-1} b a^{-1} b a \underbrace{b^{2} \cdot b^{-2}}_{\operatorname{id}_B} a^{-1} b^2 a b^{-2} a^3 \\
+         &= b^2 a^{-1} b a^{-1} b \underbrace{a a^{-1}}_{\operatorname{id}_A} b^2 a b^{-2} a^3 \\
+         &= b^2 a^{-1} b a^{-1} \underbrace{b b^{2}}_{b^3} a b^{-2} a^3 \\
+         &= b^2 a^{-1} b a^{-1} b^3 a b^{-2} a^3.
+    \end{align*}
+    Then computing $A(BC)$ gives \begin{align*}
+      A(BC) &= b^2 a^{-1} b^{-3} a b^{-1} a \underbrace{b^{-2} \cdot b^{2}}_{\operatorname{id}_B} a^{-1} b a^{-1} b^3 a b^{-2} a^3 \\
+         &= b^2 a^{-1} b^{-3} a b^{-1} \underbrace{a \cdot a^{-1}}_{\operatorname{id}_A} b a^{-1} b^3 a b^{-2} a^3 \\
+         &= b^2 a^{-1} b^{-3} a \underbrace{b^{-1} \cdot b}_{\operatorname{id}_B} a^{-1} b^3 a b^{-2} a^3 \\
+         &= b^2 a^{-1} b^{-3} \underbrace{a \cdot a^{-1}}_{\operatorname{id}_A} b^3 a b^{-2} a^3 \\
+         &= b^2 a^{-1} \underbrace{b^{-3} \cdot b^{3}}_{\operatorname{id}_B} a b^{-2} a^3 \\
+         &= b^2 \underbrace{a^{-1} \cdot a}_{\operatorname{id}_A} b^{-2} a^3 \\
+         &= \underbrace{b^2 \cdot b^{-2}}_{\operatorname{id}_B} a^3 \\
+         &= a^3.
+    \end{align*}
+    Therefore \[
+      (AB)D = a^3 = A(BD).
+    \]
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} \text{} \\
+  Consider the group $G = \langle a, b; a^2b^{-3} = 1 \rangle$ = $F(a, b)/\langle a^2b^{-3} \rangle$. Let
+  $\tau \in \mathfrak S_3$ be the transposition $\tau = (1\ 2)$ and let $\rho$
+  be the cyclic permutation $\rho = (1\ 2\ 3)$.
+  \begin{enumerate}[a.]
+    \item Show that there is a unique group homomorphism
+    $\phi\colon G \rightarrow \mathfrak S_3$ sending $a$ to $\tau$ and $b$ to
+    $\rho$. Conclude that $G$ is not abelian.
+    \item Show that there is a surjective homomorphism
+    $\psi\colon G \rightarrow \mathbb Z$. Conclude that $G$ is infinite.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[a.]
+    \item First, $\langle a^2b^{-3} \rangle \subset \ker(\phi)$ because \[
+      \phi(a^2b^{-3})
+      = \phi(a^2)\phi(b^{-3})
+      = \underbrace{(1\ 2)(1\ 2)}_{\operatorname{id}_{\mathfrak S_3}}
+      \underbrace{(1\ 2\ 3)(1\ 2\ 3)(1\ 2\ 3)}_{\operatorname{id}_{\mathfrak S_3}}
+      = \operatorname{id}_{\mathfrak S_3}
+    \]
+    This map is the unique homomorphism that sends $\tau \mapsto (1\ 2)$ and
+    $\rho \mapsto (1\ 2\ 3)$, because it prescribes where to send all elements
+    of $\langle a, b \rangle$, and so the quotient map inherits this uniqueness.
+    \item We will use the map defined by, $\psi(a) = 3$ and $\psi(b) = 2$.
+    Since \[
+      \psi(a^2b^{-3}) = \psi(a^2)\psi(b^{-3}) = 2(3) + -3(2) = 0
+    \] we have that $\langle a^2b^{-3} \rangle \subset \ker(\psi)$, and so
+    $\psi$ defines a homomorphism.
+    Thus it only remains to check that $\psi$ is surjective:
+    any even number $2n \in \mathbb Z$ can be written as $\psi([a^n])$, and
+    similarly any odd number $2n + 1 \in \mathbb Z$ can be written as
+    $\psi([a^{n-1}b])$.
+    Thus $G$ is infinite.
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} \text{} \\
+  Let $X$ be a metric space with metric $d_0$, and pick a base point
+  $x_0 \in X$. Let $\Omega_{x_0}X$ denote the space of paths
+  $\alpha\colon [0, 1] \rightarrow X$ with $\alpha(0) = \alpha(1) = x_0$.
+  \begin{enumerate}[a.]
+    \item Define $x_2(X; x_0) = \pi_1(\Omega_{x_0}X; c_{x_0})$.
+    Interpret $\pi_2(X; x_0)$ as a set of maps. What is the geometric
+    interpretation of the group law in this context.
+    $[0, 1] \times [0, 1] \rightarrow X$ modulo a certain equivalence relation.
+    \item Show that $\pi_2(X; x_0)$ is an abelian group.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} \text{}
+  \begin{enumerate}[a.]
+    \item Let elements of $\pi_2(X, x_0)$ be equivalence classes of
+    (continuous) maps $\alpha\colon [0,1] \times [0, 1] \rightarrow X$ such
+    that \[
+      \alpha(0, t) = \alpha(1, t) = x_0 = \alpha(s, 0) = \alpha(s, 1)
+    \] where two maps $\alpha_0$ and $\alpha_1$ are equivalent if there exists a
+    continuous map $H\colon ([0, 1] \times [0, 1]) \times [0, 1] \rightarrow X$
+    between them such that \begin{align*}
+      H(s, t, 0) &= \alpha_0(s, t), \\
+      H(s, t, 1) &= \alpha_1(s, t), \\
+      H(0, t, r) &= H(1, t, r) = x_0, \text{ and} \\
+      H(s, 0, r) &= H(s, 1, r) = x_0.
+    \end{align*}
+    The geometric interpretation of the group law is a path that starts and ends
+    as the constant path at $x_0$, and is a continuous collection of loops
+    in between.
+    \item We'll define the homotopy between $\alpha * \beta$ and
+    $\beta * \alpha$ by
+      $H\colon ([0, 1] \times [0, 1]) \times [0, 1] \rightarrow X$
+    as three maps $H_1$, $H_2$, and $H_3$: \[
+      H(s, t, r) = \begin{cases}
+        H_1(s, t, 3r)     & r \in [0, 1/3] \\
+        H_2(s, t, 3r - 1) & r \in [1/3, 2/3] \\
+        H_3(s, t, 3r - 2) & r \in [2/3, 1] \\
+      \end{cases}.
+    \]
+    Define \[
+      H_1(s, t, r) = \begin{cases}
+        x_0 & s \in [0, 1/2], t \in [0, r/2] \\
+        \alpha(2s, ?) & s \in [0, 1/2], t \in [r/2, 1] \\
+        \beta(2s - 1, ?) & s \in [1/2, 1], t \in [0, r/2] \\
+        x_0 & s \in [1/2, 1], t \in [r/2, 1]
+      \end{cases}.
+    \]
+
+    (I ran out of time.)
+  \end{enumerate}
+\end{solution}
+\end{document}
