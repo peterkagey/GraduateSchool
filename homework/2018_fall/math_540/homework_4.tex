@@ -1,0 +1,176 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,multicol}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Topology: Homework 4}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+  Let $x_0, x_1, \hdots, x_p$ be $p$ distinct points in $\mathbb R^n$.
+  Compute the fundamental group \[
+    \pi_1(\mathbb R^n - \{ x_1, x_2, \hdots, x_p\}; x_0).
+  \]
+\end{problem}
+
+\begin{proof} \text{} \\
+  If $p = 1$, then we know that $\mathbb R^n - \{ x_1 \}$ has a deformation
+  retract to a circle, so its fundamental group is isomorphic to the free group
+  on one letter: \[
+    \pi_1(\mathbb R^n - \{ x_1 \}; x_0) \cong \mathbb Z \cong \mathbb F_1(x_1).
+  \]
+  Now our inductive hypothesis is that if we remove $p$ points, then the
+  fundamental group is isomorphic to the free group on $p$ letters: \[
+    \pi_1(\mathbb R^n - \{ x_1, x_2, \hdots, x_p\}; x_0) \cong
+    \mathbb F_p(x_1, x_2, \hdots, x_p).
+  \]
+  The idea is that when we remove one more point, the resulting set can be
+  partitioned into two overlapping sets with one part homeomorphic to
+  $\mathbb R^n - \{ x_1, x_2, \hdots, x_p \},$
+  the other part homeomorphic to
+  $\mathbb R^n - \{ x_1 \}$,
+  and overlap homeomorphic to $\mathbb R^n$.
+  Thus, because $\pi_1(\mathbb R^n; x'_0)$ is trivial and the free product of
+  the free group on $n$ letters with the free group on $m$ letters results in
+  the free group on $n + m$ letters
+  \begin{align*}
+    \pi_1(\mathbb R^n - \{ x_1, x_2, \hdots, x_p, x_{p + 1}\}; x_0) &\cong
+    \pi_1(\mathbb R^n - \{ x_1, x_2, \hdots, x_p, x_{p + 1}\}; x_0)
+    *_{\pi_1(\mathbb R^n)}
+    \pi_1(\mathbb R^n - \{ x_1 \}; x_0) \\
+    &\cong \mathbb F_p(x_1, x_2, \hdots, x_p) *_1 \mathbb F_1(x_{p+1}) \\
+    &\cong \mathbb F_{p+1}(x_1, x_2, \hdots, x_p, x_{p + 1}).
+  \end{align*}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} \text{} \\
+  Let $X_1$ and $X_2$ be two surfaces whose boundaries are homeomorphic to the
+  circle. Choose an arbitrary homeomorphism
+  $\phi\colon \partial X_1 \rightarrow \partial X_2$, and let $X$ be the surface
+  obtained by gluing $X_1$ to $X_2$ using $\phi$. Give a presentation for the
+  fundamental group of $X$.
+\end{problem}
+
+\begin{proof} \text{} \\
+  The surface $X_1$ ``clearly'' has a deformation retract to a figure-eight, so
+  its fundamental group is isomorphic to the free group on two letters $\mathbb F_2 = \langle a, b\rangle$.
+  Since $X_2$ is star-shaped, its fundamental group is trivial.
+  If we call a clockwise loop around the left ``$a$'' and a clockwise
+  loop around the right ``$b$'', then a (positively oriented) loop around the
+  boundary of $X_2$ would be $a^2b^2$, and the image is homeomorphic to $S^1$, so
+  $\pi_1(\phi(\partial X_1) \cap X_2); x_0) = \langle a^2b^2 \rangle$.
+  \\~\\
+  Then by van Kampen's theorem, \begin{align*}
+    \pi_1(X, [(x_0, \phi(x_0)])
+    &\cong \pi_1(X_1, x_0) *_{\pi_1(\phi(\partial X_1) \cap X_2); x_0)} \pi_1(X_2, \phi^{-1}(x_0)) \\
+    &\cong  \mathbb F_2(a, b) *_{\mathbb Z} \mathbf{1}.
+  \end{align*}
+  Where the homomorphisms are \begin{alignat*}{2}
+    i_1\colon \mathbb Z &\rightarrow \mathbb F_2(a, b) &&\text{ by } 1 \mapsto a^2b^2 \text{ and } \\
+    i_2\colon \mathbb Z &\rightarrow \mathbf 1         &&\text{ by } x \mapsto e.
+  \end{alignat*}
+  Then the group presentation for the fundamental group of $X$ is given by \[
+    \pi_1(X, [(x_0, \phi(x_0)]) \cong \langle a, b; a^2b^2 = 1 \rangle.
+  \]
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} \text{} \\
+  Let $X_n \subset \mathbb R^2$ be the circle of radius $\frac{1}{n}$ centered
+  at the point $(\frac{1}{n}, 0)$, and let $X = \bigcup_{n=1}^\infty X_n$, with
+  the subspace topology induced from the standard topology on $\mathbb R^2$.
+  \begin{enumerate}[a.]
+    \item Show that the map $r_n\colon X \rightarrow X_n$ defined by \[
+      r_n(x) = \begin{cases}
+        x      & x     \in X_n \\
+        (0, 0) & x \not\in X_n
+      \end{cases}
+    \] is continuous.
+    \item Let $\varepsilon = (\varepsilon_n){n\in\mathbb N}$ be a sequence
+    valued in $\{ \pm 1 \}$. Consider the map
+    $\gamma_\varepsilon\colon [0, 1] \rightarrow X$ defined in such a way that
+    the loop turns once around the circle $X_n$ for $s \in \left[\frac{1}{n+1}, \frac{1}{n}\right]$,
+    clockwise or counterclockwise depending on whether $\varepsilon_n = 1$ or
+    $\varepsilon_n = -1$.
+    \item Show that every distinct sequence results in a distinct loop.
+    \item Conclude that $\pi_1(X; x_0)$ is not countable.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} \text{}
+  \begin{enumerate}[a.]
+    \item Suppose that we have an open set in $S \subset X_n$.
+    \begin{enumerate}[\text{Case} 1.]
+      \item If this open set contains $(0, 0)$,
+      then $r_n^{-1}(S) = X - (X_n - S)$. \\
+      Since $S$ is open in $X_n$, $X_n - S$ is closed in $X_n$ and thus in $X$,
+      Therefore its complement, $r_n^{-1}(S)$, is open in $X$.
+      \item If this open set does not contain $(0, 0)$, then we can find some
+      $\varepsilon > 0$ such that the (open) set of all points within $\varepsilon$ of
+      $S$ (namely, $\displaystyle U = \bigcup_{s \in S} B_\varepsilon(s) \subset \mathbb R^2$) does
+      not contain any points of $S_k$ for $k \neq n$.
+      Thus $r_n^{-1}(S) \subset (U \cap X) = (U \cap X_n)$, and so $r_n^{-1}(S)$
+      is open in $X$ by defintion of the subspace topology.
+    \end{enumerate}
+    \item Since $\gamma_\varepsilon$ is piecewise defined as two functions which
+      are the composition of continuous functions, all that must be checked is
+      (i) $\gamma_\varepsilon(\frac{1}{n}) = \gamma_\varepsilon(\frac{1}{n + 1})$ and
+      (ii) $\gamma_\varepsilon(s) \rightarrow (0, 0)$ as $s \rightarrow 0$.
+      \begin{enumerate}[(i)]
+        \item By evaluating the function at $\frac{1}{n}$, it is clear that \[
+          \gamma_\varepsilon\!\left(\frac{1}{n}\right)
+          = (0, 0)
+          = \gamma_\varepsilon\!\left(\frac{1}{n + 1}\right)
+          \text{ for all } n \in \mathbb N,
+        \] so the ``handoffs'' are continuous by the pasting lemma.
+        \item Also, $\gamma_\varepsilon(s) \rightarrow (0, 0)$ as $s \rightarrow 0$
+        because as $s \rightarrow 0$, $n \rightarrow \infty$, and since
+        sine and cosine are bounded (in absolute value) above by $1$, the $x$ and $y$ coordinates
+        are bounded (in absolute value) above by $2s$ and $s$ respectively. Therefore
+        by the squeeze theorem, $\gamma_\varepsilon(s) \rightarrow (0, 0)$ as
+        $s \rightarrow 0$.
+      \end{enumerate}
+    \item Since the map $r_n$ is continuous, $r_n \circ \gamma_\varepsilon$ is
+      homotopic to a loop in $X_n$, and in particular is clockwise if and only if
+      $\varepsilon_n = 1$. In particular, because $X_n$ is homeomorphic to $S^1$,
+      this path is not homeomorphic to this path traversed the other way.
+      Therefore if $\varepsilon \neq \varepsilon'$, then
+      $\gamma_\varepsilon \not\cong \gamma_{\varepsilon'}$.
+    \item There is a clear bijection between sequences
+    $\{ a_n = \pm 1 \}_{n \in \mathbb N}$ and elements of the power set
+    $2^\mathbb{N}$: namely take $\{ a_n = 1 : n \in \mathbb N \}$. To go from
+    a sequence $S \in 2^\mathbb N$, simply define \[
+      a_n = \begin{cases}
+        1 & n \in S \\
+        -1 & n \not\in S
+      \end{cases}.
+    \] Since $2^\mathbb N$ is uncountable, $\pi_1(X, x_0)$ must have an
+    uncountable number of elements. This is incompatible with having a
+    countable set of generators: because elements in the free group can be
+    realized as finite strings, a free group with a countable number of
+    generators must itself be countable.
+  \end{enumerate}
+\end{solution}
+\end{document}
