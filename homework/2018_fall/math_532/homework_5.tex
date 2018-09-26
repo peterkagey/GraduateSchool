@@ -1,0 +1,122 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Combinatorics: Homework 5}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{47 (a)} $[2]$ \\
+  Let $D$ be the operator $\frac{d}{dx}$. Show that \[
+    (xD)^n = \sum_{k=0}^n S(n, k) x^kD^k.
+  \]
+  (Hint: $(xD)^nf = (xD)^{n-1}(xf')$.)
+\end{problem}
+
+\begin{solution} \text{} \\
+  It seems the most natural way to prove this is by induction. For the case
+  $n = 1$, we have \begin{align*}
+    (xD)^1 = \sum_{k=0}^1 S(1, k) x^kD^k
+           = \underbrace{S(1, 0)}_{=0} x^0 + \underbrace{S(1, 1)}_{=1} x^1D^1
+           = xD
+  \end{align*}
+  Thus \begin{align*}
+    (xD)^{n}
+    &= xD((xD)^{n-1}) \\
+    &= xD\!\!\left(\sum_{k=0}^{n-1} S(n - 1, k) x^kD^k\right) \\
+    &= \sum_{k=0}^{n-1} S(n - 1, k) xD(x^kD^k) \\
+    &= \sum_{k=0}^{n-1} S(n - 1, k) (kx^kD^k + x^{k+1}D^{k+1}) \\
+    &= \sum_{k=0}^{n-1} kS(n - 1, k) x^kD^k + \sum_{k=1}^{n} S(n - 1, k - 1)x^{k}D^{k}.
+  \end{align*}
+  Next, substituting the identity \begin{align*}
+    S(n, k) &= S(n - 1, k - 1) + kS(n - 1, k) \\
+    S(n - 1, k - 1) &= S(n, k) - kS(n - 1, k)
+  \end{align*} yields
+  \begin{align*}
+    (xD)^{n}
+    &= \sum_{k=0}^{n-1} kS(n - 1, k) x^kD^k + \sum_{k=1}^{n} (S(n, k) - kS(n - 1, k))x^{k}D^{k} \\
+    &= \sum_{k=0}^{n-1} kS(n - 1, k) x^kD^k + \sum_{k=1}^{n} S(n, k)x^{k}D^{k} - \sum_{k=1}^{n} kS(n - 1, k)x^{k}D^{k} \\
+    &= \underbrace{0 \cdot S(n - 1, 0) x^0D^0}_{0}
+      + \sum_{k=1}^{n} S(n, k)x^{k}D^{k}
+      - n\underbrace{S(n - 1, n)}_{0}x^{n}D^{n} \\
+    &= \sum_{k=1}^{n} S(n, k)x^{k}D^{k}
+    = \sum_{k=1}^{n} S(n, k)x^{k}D^{k} + \underbrace{S(n, 0)}_{0}
+    = \sum_{k=0}^{n} S(n, k)x^{k}D^{k}.
+  \end{align*}
+  So the identity holds.
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{133b} $[2+]$ \\
+  Let $A_n(x)$ be the Eulerian polynomial. Give a combinatorial proof that \[
+    \frac{A_n(x)}{x} = \sum_{k=0}^{n-1} (n-k)! S(n, n-k)(x - 1)^k.
+  \]
+  (Note: $(n-k)!S(n, n-k)$ is the number of ordered partitions of an $n$-set
+  into $n-k$ blocks.)
+\end{problem}
+
+\begin{solution} \text{} \\
+  By defintion \[
+    \frac{A_n(x)}{x} = \sum_{k=1}^n A(n, k) x^{k - 1} = \frac{A_n(x)}{x} = \sum_{k=0}^{n-1} A(n, k+1) x^k
+  \] where $A(n, k)$ is the number of permutations in $\mathfrak S_n$ with
+  $k - 1$ descents. So when $x \in \mathbb P$, $A_n(x)/x$ is the number of
+  $x$-descent-colorings of all of the permutations.
+  \\~\\
+  I will describe a bijection from permutations with $k$ descents where each
+  descent has an $x$-coloring to ordered set partitions into $n - j$ blocks
+  where each element greater than the smallest number in the block
+  ($j$ of them total)
+  has an $(x-1)$-coloring.
+  \\~\\ The bijection is best described with an example. In the example,
+  let $n = 9$, $k = 4$, and $x = 3$, and suppose we have the permutation \[
+    \tau = 7\ |_2\ 3\ 5\ |_1\ 1\ 6\ 9\ |_3\ 8\ |_1\ 2\ 4
+  \] written as a word, where each descent is labeled ``$|_a$'' with $a \in [x]$.
+  \\~\\
+  Then we can turn this into an ordered set partition by placing additional
+  ``bars'' between pairs $a_i < a_{i + 1}$ as follows \[
+    7\ |_2\ 3\ |\ 5\ |_1\ 1\ |\ 6\ |\ 9\ |_3\ 8\ |_1\ 2\ |\ 4
+  \] then split the word along the bars, unless the bar is labeled ``$|_a$''
+  with $a \in [x-1]$ \begin{align*}
+    \{7\ |_2\ 3\},
+    \{5\ |_1\ 1\},
+    \{6\},
+    \{9\},
+    \{8\ |_1\ 2\},
+    \{4\}\\
+    (\{7, 3\},
+    \{5, 1\},
+    \{6\},
+    \{9\},
+    \{8, 2\},
+    \{4\}, (2, 1, 1))
+  \end{align*}
+  Which results in an ordered set partition with labels in $[x - 1]$.
+  It's easy enough to go back: just concatenate the elements of the set into a
+  word and place ``$|_x$'' between any unmarked descent.
+  \\~\\
+  This function is surjective because the algorithm works ``backward'',
+  and it's bijective because the ``backward'' algorithm works as an inverse.
+  \\~\\
+  Since this idea works for any $x \in \mathbb P$, and since both sides are
+  polynomials of degree at most $n-1$, the two polynomials must be equal.
+\end{solution}
+\end{document}
