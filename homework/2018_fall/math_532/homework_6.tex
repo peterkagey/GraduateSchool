@@ -1,0 +1,326 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Combinatorics: Homework 6}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{14 (a)} $[2+]$ \\
+  Let $A_k(n)$ denote the number of $k$-element antichains in the boolean algebra
+  $B_n$. Show that \begin{enumerate}[(i)]
+    \item $A_1(n) = 2^n$
+    \item $A_2(n) = \displaystyle \frac{1}{2}(4^n - 2\cdot3^n + 2^n)$
+    \item $A_3(n) = \displaystyle \frac{1}{6}(8^n - 6\cdot6^n + 6\cdot5^n + 3\cdot4^n - 6\cdot3^n + 2\cdot2^n)$
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} \text{}
+  \begin{enumerate}[(i)]
+    \item Clearly any singleton set $\{ A \}$ where $A \in 2^{[n]}$ is a $1$-element antichain, so \[
+      A_1(n) = \#(2^{[n]}) = 2^n.
+    \]
+    \item It is easiest to count ordered pairs $(A, B)$ such that
+    $A \not\subset B$ and $B \not\subset A$, and then divide by two
+    to count the $2$-element sets. By the Principle of Inclusion-Exclusion,
+    we can start by counting all ordered pairs without restriction.
+    For each $i \in [n]$, we can have \begin{enumerate}[(1)]
+      \item $i \in A$ and $i \in B$,
+      \item $i \in A$ and $i \not\in B$,
+      \item $i \not\in A$ and $i \in B$, or
+      \item $i \not\in A$ and $i \not\in B$.
+    \end{enumerate}
+    Thus there are $4^n$ choices of sets without restriction.
+    \\~\\
+    However, we must remove the case where $A \subset B$ (respectively
+    $B \subset A$) which means that for each $i \in [n]$ we can have
+    \begin{enumerate}[(1)]
+      \item $i \in A \cap B$
+      \item $i \in A^c \cap B$ (respectively $i \in A \cap B^c$), or
+      \item $i \in A^c \cap B^c$.
+    \end{enumerate}
+    Thus there are $2\cdot3^n$ possibilities.
+    However, this double-counts the case where $A \subset B$ and $B \subset A$, namely $A = B$, so we need to add these $2^n$ pairs back.
+    Thus \[
+      A_2(n) = \frac12(4^n - 2\cdot3^n + 2^n).
+    \]
+    \item Again by the Principle of Inclusion-Exclusion, we will count ordered
+    triples $(A_1, A_2, A_3)$, that meet the criteria and then divide them by
+    the number of permutations.
+    There are nine cases, which correspond to subsets of ordered pairs.
+    (All indices are distict):
+    % \begin{enumerate}[(1)]
+    %   \item Any triple,  $\emptyset$
+    %   \item $A_i \subset A_j$, $\{(i, j)\}$
+    %   \item $A_i \subset A_j$ and $A_i \subset A_k$, $\{(i, j), (i, k)\}$
+    %   \item $A_i \subset A_j$ and $A_k \subset A_j$, $\{(i, j), (k, j)\}$
+    %   \item $A_i = A_j$ $\{(i, j), (j, i)\}$
+    %   \item $A_i \subset A_j \subset A_k$ $\{(i, j), (j, k), (i, k)\}$
+    %   \item $A_i = A_j \subset A_k$ $\{(i, j), (j, i), (i, k), (j, k)\}$
+    %   \item $A_i \subset A_j = A_k$ $\{ (i, j), (i, k), (j, k), (k, j)\}$
+    %   \item $A_i = A_j = A_k$ $\{(i, j), (i, k), (j, i), (j, k), (k, i), (k, j)\}$
+    % \end{enumerate}
+    % Next we will count how many of each case
+    \begin{alignat}{2}
+      &\#\{(A_1, A_2, A_3) : A_i \in B_n\}                                   &&= 8^n \\
+      &\#\{(A_1, A_2, A_3) : A_i \in B_n, A_i \subset A_j\}                  &&= 6\cdot6^n \\
+      &\#\{(A_1, A_2, A_3) : A_i \in B_n, A_i \subset A_j, A_i \subset A_k\} &&= 3\cdot5^n \\
+      &\#\{(A_1, A_2, A_3) : A_i \in B_n, A_i \subset A_j, A_k \subset A_j\} &&= 3\cdot5^n \\
+      &\#\{(A_1, A_2, A_3) : A_i \in B_n, A_i = A_j\}                        &&= 3\cdot4^n \\
+      &\#\{(A_1, A_2, A_3) : A_i \in B_n, A_i \subset A_j \subset A_k\}      &&= 6\cdot5^n \\
+      &\#\{(A_1, A_2, A_3) : A_i \in B_n, A_i = A_j \subset A_k\}            &&= 3\cdot3^n \\
+      &\#\{(A_1, A_2, A_3) : A_i \in B_n, A_i \subset A_j = A_k\}            &&= 3\cdot3^n \\
+      &\#\{(A_1, A_2, A_3) : A_i \in B_n, A_i = A_j = A_k\}                  &&= 2^n
+  \end{alignat}
+  \begin{enumerate}[(1)]
+    \item Start with one copy of each of the $8^n$ triples. \[
+      1\cdot8^n + ...
+    \]
+    \item For each of the six pairs $(i, j)$
+    such that $A_i \subset A_j$,
+    (1) adds it once,
+    so subtract these off.
+    \[
+      8^n + -1\cdot6\cdot6^n + ...
+    \]
+    \item For each of the three pairs $(i, \{j, k\})$
+    such that $A_i \subset A_j$ and $A_i \subset A_k$,
+    (1) adds it once and
+    (2) removes it twice,
+    so we need to add it back once. \[
+      8^n - 6\cdot6^n + 1\cdot3\cdot5^n + ...
+    \]
+    \item For each of the three pairs $(\{i, k\}, j)$
+    such that $A_i \subset A_j$ and $A_k \subset A_j$,
+    (1) adds it once and
+    (2) removes it twice,
+    so we need to add it back once. \[
+      8^n - 6\cdot6^n + 3\cdot5^n + 1\cdot3\cdot5^n + ...
+    \]
+    \item For each of the three unordered pairs $\{i, j\}$
+    such that $A_i = A_j$,
+    (1) adds it once,
+    (2) removes it twice, and the relation is not a subset of (3) or (4),
+    so we need to add it back once \[
+      8^n - 6\cdot6^n + 6\cdot5^n + 1\cdot3\cdot4^n + ...
+    \]
+    \item For each of the six ordered triples $(i, j, k)$
+    such that $A_i \subset A_j \subset A_k$,
+    (1) adds it once,
+    (2) removes it three times, and
+    (3) and (4) both add it back once,
+    so it doesn't affect the sum: \[
+      8^n - 6\cdot6^n + 6\cdot5^n + 3\cdot4^n + 0\cdot6\cdot5^n + ...
+    \]
+    \item For each of the three pairs $(\{i, j\}, k)$
+    such that $A_i = A_j \subset A_k$,
+    (1) adds it once,
+    (2) removes it four times,
+    (3) adds it twice,
+    (4) adds it once, and
+    (5) adds it once,
+    so we need to subtract if off once: \[
+      8^n - 6\cdot6^n + 6\cdot5^n + 3\cdot4^n + -1\cdot3\cdot3^n + ...
+    \]
+    \item For each of the three pairs $(i, \{j, k\})$
+    such that $A_i \subset A_j = A_k$,
+    (1) adds it once,
+    (2) removes it four times,
+    (3) adds it once,
+    (4) adds it twice, and
+    (5) adds it once,
+    so we need to subtract it off once: \[
+      8^n - 6\cdot6^n + 6\cdot5^n + 3\cdot4^n -3\cdot3^n + -1\cdot3\cdot3^n...
+    \]
+    \item Lastly, for the single unordered triple $\{ i, j, k \}$
+    such that $A_i = A_j = A_k$,
+    (1) adds it once,
+    (2) removes it six times,
+    (3) and (4) each add it three times,
+    (5) adds it three times,
+    (6) does not affect the sum,
+    (7) and (8) each subtract it once,
+    resulting in it needing to be added back in twice: \[
+      8^n - 6\cdot6^n + 6\cdot5^n + 3\cdot4^n - 6\cdot3^n + 2\cdot2^n
+    \]
+    \end{enumerate}
+    This gives us our desired sum.
+  \end{enumerate}
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{14 (b)} $[2+]$ \\
+  Show that for fixed $k \in \mathbb P$ there exist integers
+  $a_{k,2},a_{k,3},\hdots,a_{k,2^k}$ such that \[
+    A_k(n) = \frac{1}{k!} \sum_{i = 2}^{2^k} a_{k,i}i^n.
+  \]
+  Show in particular that \begin{enumerate}[(i)]
+    \item $a_{k,2^k} = 1$,
+    \item $a_{k,i} = 0$ if $3\cdot2^{k-2} < i < 2^k$, and
+    \item $a_{k,3\cdot2^{k-2}} = k(k-1)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} \text{} \\
+  This can be proven by a similar argument to above: counting ordered
+  $k$-tuples by the Principle of Inclusion-Exclusion, where we add and subtract
+  all possible sets of set inclusions. \[
+    \{(A_1, A_2, \hdots, A_k) : A_i \subset A_j \text{ for all } (i, j) \in S \subset [k] \times [k] \} \subset B_n^k
+  \]
+  For some given set of set inclusions, this constrains the element-wise truth
+  table of possible values. That is, for all $i \in [n]$, we can write a list
+  of possible ways to put $i$ in each set, as illustrated in part
+  \textbf{a (ii)}. Since each list cooresponds to a subset of $[k]$, there are
+  at most $2^k$ ways to place $i$ in each subset. Since there are $n$ $i$s, this
+  means that there are at most $2^{kn}$ such sets. Since we can choose to put
+  $i$ in every set or in no set, there are at least $2^n$ such sets.
+  \\
+  \begin{enumerate}[(i)]
+    \item We begin with all possible sets, so there are $2^k$ possible choices for
+    each of the $n$ positions, thus the ``no relation'' $k$-tuple that we start from
+    has $1\cdot 2^{nk}$ elements.
+    \item Since the above part takes care of the ``no relation'' tuples, we must
+    have at least one restriction, namely $A_i \subset A_j$. This means that
+    for each $m \in [n]$ we can have
+    \begin{itemize}
+      \item $m \in A_i$ and $m \in A_j$,
+      \item $m \not\in A_i$ and $m \in A_j$, or
+      \item $m \not\in A_i$ and $m \not\in A_j$.
+    \end{itemize}
+    And once these choices are made, there are no restrictions on choosing
+    whether $m$ is in the other $k - 2$ sets. Thus, with the minimal positive number
+    of relations (one) there are at least $3 \cdot 2^{k - 2}$ choices, so
+    there is no relation corresponding to $\ell$ choices where
+    $3 \cdot 2^{k - 2} < \ell < 2^k$.
+    \item Similarly, the coefficient is given by the number of (ordered) ways to
+    choose two positions in the $k$-tuple for the relation $A_i \subset A_j$.
+    Namely, \[
+      \#\{(i, j) | i \neq j, i \in [k], j \in [k] \} = k(k-1).
+    \]
+    Since we subtract these off, the coefficient is $-k(k-1)$, as desired.
+  \end{enumerate}
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{25 (a)} $[2]$ \\
+  Let $f_i(m, n)$ be the number of $m \times n$ matrices $0$s and $1$s with
+  at least one $1$ in every row and column, and with a total of $i$ $1$s. Use
+  the Principle of Inclusion-Exclusion to show that \[
+    \sum_i f_i(m, n) t^i
+    = \sum_{k=0}^n (-1)^k \binom nk ((1 + t)^{n - k} - 1)^m.
+  \]
+\end{problem}
+
+\begin{proof} \text{} \\
+  First, I will count a related function: let $g_i(m, n)$ be the number of
+  $m \times n$ matrices $0$s and $1$s with at least one $1$ in every row, and
+  with a total of $i$ $1$s.
+  \\
+  Then by the Principle of Inclusion-Exclusion, we can start with all matrices
+  that have $i$ ones, and remove those that have no $1$s in the $k$th row,
+  add back those that have no $1$s in the $k_1$th and $k_2$th row, etc \[
+    g_i(m, n) = \sum_{j=0}^m (-1)^j\binom mj
+    \underbrace{\binom {n(m-j)}{i}}_{
+      \substack{
+        \text{Ways to place $i$ $1$s in} \\
+        n \times m-j \text{ submatrix}
+      }
+    }
+  \]
+  From here, we can do an analougous process for $f_i(m, n)$, only with columns
+  instead of rows \begin{align*}
+    f_i(m, n)
+    &= \sum_{k=0}^n (-1)^k\binom nk g_i(m, n - k) \\
+    &= \sum_{k=0}^n (-1)^k\binom nk \left(
+      \sum_{j=0}^m (-1)^j\binom mj \binom {(n - k)(m-j)}{i}
+    \right)
+  \end{align*} so the generating function \[
+    \sum_i f_i(m, n) t^i = \sum_i \left(\sum_{k=0}^n (-1)^k\binom nk \left(
+      \sum_{j=0}^m (-1)^j\binom mj \binom {(n - k)(m-j)}{i}
+    \right)\right) t^i.
+  \]
+
+  By rearranging the sums, it is enough to show that for some arbitrary
+  $n, k \in \mathbb P$, \begin{align*}
+  \sum_i \sum_{j=0}^m (-1)^j\binom mj \binom {(n - k)(m-j)}{i} t^i
+    &= ((1 + t)^{n - k} - 1)^m \\
+    &= \sum_{j=0}^m \binom mj ((1 + t)^{n - k})^{m-j} (-1)^j \\
+    &= \sum_{j=0}^m (-1)^j\binom mj \left(\sum_{i}\binom{(n - k)(m - j)}{i} t^i\right) \\
+    &= \sum_i\sum_{j=0}^m (-1)^j\binom mj \binom{(n - k)(m - j)}{i} t^i.
+  \end{align*}
+  Therefore the desired identitity holds.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{25 (b)} $[2]$ \\
+  Show that \[
+    \sum_{m, n \geq 0} \sum_{i \geq 0} f_i(m,n)t^i\frac{x^m y^n}{m!n!}
+    = e^{-x-y}\sum_{i \geq 0} \sum_{j \geq 0}(1 + t)^{ij}\frac{x^i y^j}{i!j!}.
+  \]
+\end{problem}
+
+\begin{proof} \text{} \\
+  I'll use Apoorva Shah's technique and substitute the sum from part
+  \textbf{a.}:\[
+    \sum_{m, n \geq 0} \sum_{i \geq 0} f_i(m,n)t^i\frac{x^m y^n}{m!n!}
+    = \sum_{m, n \geq 0} \left(
+      \sum_{0\leq k \leq n} (-1)^k \binom nk ((1 + t)^{n - k} - 1)^m
+    \right)\frac{x^m y^n}{m!n!}.
+  \]
+  First, expanding the binomial $((1 + t)^{n - k} - 1)^m$ yields \[
+  \sum_{m, n \geq 0} \left(
+    \sum_{0\leq k \leq n} (-1)^k \binom nk
+    \left(
+    \sum_{0\leq j\leq m} \binom{m}{j}(-1)^j((1 + t)^{n - k})^{m - j}
+    \right)
+  \right)\frac{x^m y^n}{m!n!}.
+  \]
+  Letting $n = p + k$, and $m = q + j$ and summing over $p$ and $q$ yields \[
+  \sum_{p, q \geq 0} \left(
+    \sum_{0\leq k} (-1)^k \binom{p + k}{k}
+    \left(
+    \sum_{0\leq j} \binom{q + j}{j}(-1)^j((1 + t)^{p + k - k})^{q + j - j}
+    \right)
+  \right)\frac{x^{q + j} y^{p + k}}{(q + j)!(p + k)!},
+  \] which by simplifying, rearranging, and expanding the binomial coefficients gives \[
+  \sum_{p, q, k, j \geq 0} \left(
+    (-1)^k(-1)^j \frac{(p + k)!}{p!k!}
+    \frac{(q + j)!}{q!j!}(1 + t)^{pq})
+  \right)\frac{x^{q + j} y^{p + k}}{(q + j)!(p + k)!}.
+  \] Since the indicies are independent, this can be split as \[
+    \left(
+      \sum_k (-1)^k\frac{y^k}{k!}
+    \right)
+    \left(
+      \sum_j (-1)^j\frac{x^j}{j!}
+    \right)
+    \left(
+      \sum_{p, q \geq 0} (1 + t)^{pq}\frac{x^qy^p}{q!p!}
+    \right).
+  \] Since the first two factors evaluate to $e^{-y}$ and $e^{-x}$ respectively,
+  by renaming the indices $p$ and $q$ to $i$ and $j$ gives the desired identity.
+\end{proof}
+\end{document}
