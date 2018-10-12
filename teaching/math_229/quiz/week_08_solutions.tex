@@ -1,0 +1,84 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Week 7 Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+  \begin{enumerate}
+		\item (\textit{5 points})
+		Given the function \[
+			f(x, y, z) = \frac{x}{3y^2 + yz}
+		\] compute $f_{yx} (1, 2, 3)$ in whichever order you want.
+    \\~\\
+    \textbf{Solution.}
+    \\
+		It is easiest to compute the derivative with respect to $x$ first,
+		and then compute the derivativ with respect to $y$: \begin{align*}
+		f_xy(x, y, z) &= \frac{\partial}{\partial y}\left[
+			\frac{\partial f}{\partial x}
+		\right] \\
+		&= \frac{\partial}{\partial y}\left[
+			\frac{1}{3y^2 + yz}
+		\right] \\
+		&= \frac{-6y - z}{(3y^2 + yz)^2}
+		\end{align*}
+		So evaluating at $(1, 2, 3)$ gives \[
+			\frac{-6(2) - 3}{(3(4) + 6)^2} = \frac{-15}{18^2}.
+		\]
+		\\~\\
+		\item (\textit{5 points})
+		Use the \textbf{chain rule} to determine
+		$\displaystyle \frac{\partial T}{\partial \theta}$ and
+		$\displaystyle \frac{\partial^2 T}{\partial \theta \partial r}$
+		when $r = 2$ and $\theta = \pi/3$
+		given that \begin{align*}
+			T &= xe^y, \\
+			x &= r\cos\theta, \text{ and}\\
+			y &= r\sin\theta.
+		\end{align*}
+    \textbf{Solution.}
+		\\
+		By the chain rule, \begin{align*}
+			\frac{\partial T}{\partial \theta}
+			&= \frac{\partial T}{\partial x}\cdot\frac{\partial x}{\partial \theta}
+			+ \frac{\partial T}{\partial y}\cdot\frac{\partial y}{\partial \theta}\\
+			&= e^y(-r \sin\theta) + xe^y(r\cos\theta) \\
+			&= e^{r \sin\theta}(-r \sin\theta) + (r\cos\theta)e^{r\sin\theta}(r\cos\theta) \\
+			&= -ye^y + x^2e^{y}
+		\end{align*}
+		Evaluated at $r = 2$ and $\theta = \pi/3$ (and thus $x=1$ and $y=\sqrt3$) gives \[
+			-\sqrt3e^{\sqrt3} + e^{\sqrt3} = e^{\sqrt3}(1- \sqrt3).
+		\]
+		Denote $\displaystyle \frac{\partial T}{\partial\theta} = T_\theta$. Then by
+		switching the order of differentiation,
+		\begin{align*}
+			\frac{\partial^2 T}{\partial \theta \partial r}
+			&= \frac{\partial T_\theta}{\partial r} \\
+			&= \frac{\partial T_\theta}{\partial x}\cdot\frac{\partial x}{\partial r}
+			+ \frac{\partial T_\theta}{\partial y}\cdot\frac{\partial y}{\partial r} \\
+			&= (2xe^y)(\cos\theta) + (-e^y - ye^y + x^2e^y)(\sin\theta).
+		\end{align*}
+		Again evaluated at $r = 2$ and $\theta = \pi/3$
+		(and thus $x=1$ and $y=\sqrt3$) gives \[
+			e^{\sqrt3} + (-e^{\sqrt3} - \sqrt3e^{\sqrt3} + e^{\sqrt3})\frac{\sqrt3}2
+			= -\frac{e^{\sqrt3}}2.
+		\]
+		\\
+  \end{enumerate}
+\end{document}

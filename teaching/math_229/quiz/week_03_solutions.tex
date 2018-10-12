@@ -1,0 +1,71 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Week 3 Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+	\begin{enumerate}
+    \item (\textit{5 points})
+    \begin{enumerate}
+	  \item Find a vector $\vec{v}$ of the form $\langle c, 2c, c-1\rangle$ (for some constant c)
+      such that $\vec{v} \cdot \langle 3, 2, 1\rangle = 15$
+	  \item Find the vector projection of $\vec{v}$ onto the vector $\langle -2, 1, 2\rangle$
+	\end{enumerate}
+    \textbf{Solution.}
+    \begin{enumerate}
+      \item We compute the dot product using the coordinates \begin{align*}
+        3(c) + 2(2c) + 1(c-1) &= 15 \\
+        8c-1 &= 15 \\
+        c &= 2 \\
+        \vec{v} &= \langle 2, 4, 1 \rangle
+      \end{align*}
+      \item We can use the projection formula, \[
+        \operatorname{proj}_a(b) = \left(\frac{a \cdot b}{|a|}\right)\frac{a}{|a|},
+      \] with $a = \langle -2, 1, 2\rangle$ and $b = \langle 2, 4, 1 \rangle$ giving \[
+        \operatorname{proj}_{\langle -2, 1, 2\rangle}(\vec v)
+        = \left(\frac{-4 + 4 + 2}{\sqrt{9}}\right)\frac{\langle -2, 1, 2\rangle}{\sqrt{9}}
+        = \frac{2}{9}\langle -2, 1, 2\rangle
+      \]
+    \end{enumerate}
+		\item (\textit{5 points})
+		\begin{enumerate}
+			\item Two forces $\vec{F}$ and $\vec{G}$ act on a wagon. $\vec{F}$ has magnitude $4$ N and acts at an angle of $60^\circ$ from the \textbf{negative} $x$-axis. $\vec{G}$ has magnitude  $2\sqrt2$ N and acts at an angle of $45^\circ$ from the \textbf{postive} $x$-axis. Find the vector components of the net force.
+			\item If this wagon is pulled 500 meters in the \textbf{positive} $x$ direction by this net force, find the total work done by the net force on the wagon.
+		\end{enumerate}
+    \textbf{Solution.}
+    \begin{enumerate}
+      \item Writing the vectors as magnitude and direction gives \begin{alignat*}{2}
+        \vec{F}
+          &= 4\text{ N}\langle-\cos(60^\circ), -\sin(60^\circ)\rangle
+          &&= \langle -2, -2\sqrt 3 \rangle\text{ N} \\
+        \vec{G}
+          &= 2\sqrt 2\text{ N}\langle\cos(45^\circ), \sin(45^\circ)\rangle
+          &&= \langle 2, 2 \rangle\text{ N} \\
+        \vec{F} + \vec{G}
+          &= \langle 0, 2-2\sqrt 3\rangle\text{ N} \\
+      \end{alignat*}
+      \item The formula for work is $W = \vec F_\text{net} \cdot \vec d$. In this case, $\vec F_\text{net} = \vec{F} + \vec{G}$. \[
+        W =
+        \langle 0  \text{ N}, 2-2\sqrt3\text{ N}\rangle \cdot
+        \langle 500\text{ m}, 0        \text{ m}\rangle
+        = 0 \text{ Nm}.
+      \]
+    \end{enumerate}
+  \end{enumerate}
+\end{document}

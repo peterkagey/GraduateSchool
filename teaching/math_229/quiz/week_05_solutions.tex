@@ -1,0 +1,79 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Week 5 Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+  \begin{enumerate}
+    \item (\textit{5 points})
+    Find a parametric equations of the tangent line to the curve
+    $\vec r(t)=\langle\frac{\pi}{t}, \cos^{2}(t),e^t\rangle$ at the point
+    $(1,1,e^\pi)$.
+    \\~\\
+    \textbf{Solution.}
+    \\
+    First, by solving for the $z$ coordinate and checking the others, it is
+    clear that when $t = \pi$, $\vec r(\pi) = (1, 1, e^\pi)$.
+    Then, it is enough to find the direction of a tangent vector at this point
+    \begin{align*}
+      \vec{r'}(t) &= \langle -\pi t^{-2}, -2\cos(t)\sin(t), e^t\rangle \\
+      \vec{r'}(\pi) &= \langle -1/\pi, 0, e^\pi\rangle.
+    \end{align*}
+    Using a point on the line and its direction, the parametric equations
+    of the tangent line can be written \begin{align*}
+      x &= 1 - t/\pi \\
+      y &= 1 \\
+      z &= e^\pi + e^\pi t.
+    \end{align*}
+		\item (\textit{5 points})
+		\begin{enumerate}
+			\item Let $\vec{r}(t)=\langle0,t,t^2\rangle$ and
+      $\vec{s}(u)=\langle u\sin(\pi u),u\cos(\pi u),u\rangle$.
+      Find the intersection points of $\vec{r}(t)$ and $\vec{s}(u)$.
+      \\~\\
+      \textbf{Solution.}
+      \begin{align}
+        0   &= u\sin(\pi u) \\
+        t   &= u\cos(\pi u) \\
+        t^2 &= u
+      \end{align}
+      \begin{itemize}
+        \item By the first equation, $u = 0$ or $\sin(\pi u) = 0$, so $u$ must
+        be an integer.
+        \item This means that, in the second equation, $\cos(\pi u) = \pm 1$, so
+        $t = u$ or $t = -u$.
+        \item Substitution into the third equation gives
+        $u = (\pm u)^2 = u^2$ so $u = 0$ or $u = 1$.
+        \item By the third equation, if $u = 0$ then $t = 0$.
+        \item By the second equation, if $u = 1$ then $t = -1$.
+      \end{itemize}
+      Checking these values, \begin{align*}
+        \vec s(0) &= \langle 0, 0, 0 \rangle = \vec r(0) \\
+        \vec s(1) &= \langle 0, -1, 1 \rangle = \vec r(-1).
+      \end{align*}
+
+			\item Which (if any) of these intersection points are collision points?
+      \\~\\
+      \textbf{Solution.}
+      \\
+      Collisions happens when $\vec r(t) = \vec s(t)$.
+      In this case, this only happens when $t = u = 0$.
+		\end{enumerate}
+  \end{enumerate}
+\end{document}

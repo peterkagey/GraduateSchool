@@ -1,0 +1,106 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Week 6 Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+  \begin{enumerate}
+		\item (\textit{7 points})
+    For $\vec r(t) = \langle 3\cos t, 3\sin t, t \rangle$, find
+    $\overrightarrow T, \overrightarrow N$ and $\overrightarrow B$ at the point
+    $(3,0,0)$. Find an equation of the normal plane at this point.
+    \\~\\
+    \textbf{Solution.}
+    \\
+		First, the curve $r(t) = (3, 0, 0)$ when $t = 0$, by the third coordinate.\\
+		To compute the unit tangent vector, first compute
+		$r'(t) = \langle -3 \sin t, 3\cos t, 1 \rangle$. Then the magnitude
+		and the unit tangent vector are
+		\begin{align*}
+			|r'(t)|
+			&= \sqrt{9 \sin^2 t + 9 \cos^2 t + 1}
+			= \sqrt{9(\sin^2 t + \cos^2) + 1}
+			= \sqrt{10} \\
+			T(t)
+			&= \frac{r'(t)}{|r'(t)|}
+			= \frac{1}{\sqrt{10}}\langle -3 \sin t, 3\cos t, 1 \rangle
+		\end{align*}
+		Then the unit normal vector is \begin{align*}
+			N(t)
+			= \frac{T'(t)}{|T'(t)|}
+			= \frac13 \langle -3\cos t, -3\sin t, 0\rangle
+			= \langle -\cos t, -\sin t, 0\rangle.
+		\end{align*}
+		Next, the binormal vector is \begin{align*}
+			B(t)
+			&= T(t) \times N(t) \\
+			&= \frac{1}{\sqrt{10}}\langle -3 \sin t, 3\cos t, 1 \rangle \times \langle -\cos t, -\sin t, 0\rangle\\
+			&= \frac{1}{\sqrt{10}}\begin{vmatrix}
+				\hat i & \hat j & \hat k \\
+				-3 \sin t & 3 \cos t & 1 \\
+				-\cos t & -\sin t & 0
+			\end{vmatrix} \\
+			&= \frac{1}{\sqrt{10}} \langle \sin t, -\cos t, 3 \rangle.
+		\end{align*}
+		Then evaulating at $t = 0$ gives \[
+			T(0) = \frac{1}{\sqrt{10}}\langle 0, 3, 1 \rangle \hspace{1cm}
+			N(0) = \langle -1, 0, 0\rangle \hspace{1cm}
+			B(0) = \frac{1}{\sqrt{10}} \langle 0, -1, 3 \rangle.
+		\]
+		Lastly, the normal plane is given by \[
+			3y + z + d = 0
+		\] where the coordinates are the direction of $T(0)$. Since $(3, 0, 0)$ is a
+		point on the plane, evaulating at this point yields $d = 0$. Therefore the
+		equation of the normal plane is \[
+			3y + z = 0
+		\]
+		\pagebreak
+		\item (\textit{3 points})
+		Find the velocity and position vectors of a particle that has the given
+		acceleration and the given initial velocity and position: \[
+			\vec a(t) = \langle 1, 0, 3 \rangle, \hspace{1.5cm}
+			\vec v(0) = \langle 1, 0, 0 \rangle, \hspace{1.5cm}
+			\vec r(0) = \langle 0, 1, 0 \rangle.
+		\]
+    \\~\\
+    \textbf{Solution.}
+		\\
+		First integrate $\vec a(t)$ to get $\vec v(t)$ \[
+		  \vec v(t)
+			= \left\langle \int 1\,dt, \int0\,dt, \int3\,dt \right\rangle
+			= \langle t + c_1, c_2, 3t + c_3 \rangle.
+		\]
+		Using the initial condition gives the velocity of the particle \begin{align*}
+			\vec v(0) &= \langle 1, 0, 0 \rangle = \langle 0 + c_1, c_2, 3(0) + c_3 \rangle, \\
+			\vec v(t) &= \langle t + 1, 0, 3t \rangle.
+		\end{align*}
+		We repeat the process to find the position vector. \[
+			\vec r(t)
+			= \left\langle \int t + 1\,dt, \int0\,dt, \int3t\,dt \right\rangle
+			= \left\langle \frac{t^2}{2} + t + c_4, c_5, \frac{3t^2}{2} + c_6 \right\rangle.
+		\] Using the initial condition gives \[
+			\vec r(0)
+			= \left\langle 0, 1, 0 \right\rangle
+			= \left\langle \frac{0^2}{2} + 0 + c_4, c_5, \frac{0^2}{2} + c_6 \right\rangle
+			= \left\langle c_4, c_5, c_6 \right\rangle,
+		\] so the position vector is given by \[
+			\vec r(t) = \left\langle \frac{1}{2}t^2 + t, 1, \frac{3}{2}t^2 \right\rangle.
+		\]
+  \end{enumerate}
+\end{document}

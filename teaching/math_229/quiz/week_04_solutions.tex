@@ -1,0 +1,71 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Week 4 Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+	\begin{enumerate}
+		\item (\textit{5 points})
+    Find a parametric equation of the line through the point $(1, 2, -1)$ and
+    perpendicular to both $\mathbf{i} + \mathbf{j}$ and
+    $\mathbf{j} - 2\mathbf{k}$.
+		\\~\\
+    \textbf{Solution.}
+		\\
+		The parametric equation of a line through $(x_0, y_0, z_0)$ parallel to
+		$\langle a, b, c\rangle$ is given by the parametric equations \begin{align*}
+			x &= x_0 + at \\
+			y &= y_0 + bt \\
+			z &= z_0 + ct.
+		\end{align*}
+		We can find a vector $\langle a, b, c \rangle$ perpendicular to both
+		$\mathbf{i} + \mathbf{j}$ and $\mathbf{j} - 2\mathbf{k}$ by taking the cross
+		product. \[
+			\begin{vmatrix}
+				\mathbf i & \mathbf j & \mathbf k \\
+				1 & 1 & 0 \\
+				0 & 1 & -2
+			\end{vmatrix}
+			= \mathbf i \begin{vmatrix} 1 & 0 \\ 1 & -2 \end{vmatrix}
+			- \mathbf j \begin{vmatrix} 1 & 0 \\ 0 & -2 \end{vmatrix}
+			+ \mathbf k \begin{vmatrix} 1 & 1 \\ 0 & 1 \end{vmatrix}
+			= -2\mathbf i + 2\mathbf j + \mathbf k
+		\]
+		Therefore (one choice for) the desired parametric equations is \begin{align*}
+			x &= 1 - 2t \\
+			y &= 2 + 2t \\
+			z &= -1 + t.
+		\end{align*}
+		\item (\textit{5 points})
+		Find the equation of the plane through the point $(2, 2, 9)$ and
+		perpendicular to the line $x = 2t$, $y = 1 + 2t$, and $z = 4 - t$.
+		\\~\\
+		\textbf{Solution.}
+		The paramteric equations described a line that is parallel to the vector
+		$\langle 2, 2, -1 \rangle$. Thus the desired plane is of the form \[
+			2x + 2y - z + d = 0.
+		\] Choosing our point on the plane, $(x, y, z) = (2, 2, 9)$, allows us to
+		solve for $d$ \begin{align*}
+			2(2) + 2(2) - 9 + d &= 0 \\
+			d &= 1.
+		\end{align*} So the desired equation is \[
+			2x + 2y - z + 1 = 0.
+		\]
+  \end{enumerate}
+\end{document}
