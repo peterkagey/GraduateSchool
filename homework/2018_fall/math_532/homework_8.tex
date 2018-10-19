@@ -1,0 +1,188 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Combinatorics: Homework 8}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1: 58 (a)} $[2]$ \\
+  For $u \in \mathfrak S_k$, let $s_u(n) = \#S_u(n)$ the number of permutations
+  $w \in \mathfrak S_n$ avoiding $u$. If also $v \in \mathfrak S_k$, then write
+  $u \sim v$ if $s_u(n) = s_v(n)$ for all $n \geq 0$.
+  \\~\\
+  Let $u, v \in \mathfrak S_k$. Suppose that the permutation matrix $P_v$ can
+  be obtained from $P_u$ by one of the eight dihedral symmnetries of the square.
+  Show that $u \sim v$.
+  \\~\\
+  We then say that $u$ and $v$ are equivalent by symmetry, denoted
+  $u \approx v$. What are the $\approx$ equivalence classes for $\mathfrak S_3$?
+\end{problem}
+
+\begin{solution} \text{}
+  Suppose that $\sigma$ is an element of the dihedral group of the square
+  and $P_v$ and $P_u$ are permutation matrices such that
+  $P_v = \sigma P_u$ under the group action.
+  \\
+  Then there is an ``obvious'' bijection between $S_u(n)$ and $S_v(n)$, namely
+  $f\colon S_u(n) \rightarrow S_v(n)$ maps $P_u \mapsto \sigma P_u$. To go back,
+  simply do the group action of $\sigma^{-1}$.
+  \\~\\
+  There are only two equivalence classes for $\mathfrak S_3$: \begin{align*}
+    \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+    &\approx
+    \begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 0 \\ 1 & 0 & 0 \end{bmatrix}
+    \text{ and}
+    \\
+    \begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}
+    &\approx
+    \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}
+    \approx
+    \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 0 & 0 \end{bmatrix}
+    \approx
+    \begin{bmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}.
+  \end{align*}
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2}
+  Find the recurrence and generating function formula for the ``corner colored''
+  paths $(0, 0) \rightarrow (n, n)$ with steps $(1, 0)$ or $(0, 1)$, on or above
+  the main diagonal such that every inner corner of the path of the kind
+  $(a, b) \rightarrow (a + 1, b) \rightarrow (a + 1, b + 1)$ can be colored in
+  one of two possible colors.
+\end{problem}
+
+\begin{solution} \text{} \\
+  We'll use the same technique that was used to compute the Catalan numbers in
+  class; namely, we'll sum over all positions where the Dyck paths first hit the
+  diagonal (stictly above $(0, 0)$) and take the products of the smaller Dyck
+  paths below and this point.
+  \begin{align*}
+    f(0) &= 1 \\
+    f(n) &= f(n - 1) + \sum_{k=1}^{n - 1}2f(k-1)f(n-k)
+  \end{align*}
+  \\~\\
+  We also do the same sort of generating function argument. \begin{align*}
+    F(x) &= \sum_{n=0}^\infty f(n)x^n \\
+         &= 1 + \sum_{n=1}^\infty f(n)x^n \\
+         &= 1 + \sum_{n=1}^\infty \left(f(n - 1) + \sum_{k=1}^{n - 1}2f(k-1)f(n-k)\right)x^n \\
+         &= 1 + \underbrace{\sum_{n=1}^\infty f(n - 1)x^n}_{xF(x)} + \sum_{n=1}^\infty\left(\sum_{k=1}^{n - 1}2f(k-1)f(n-k)\right)x^n.
+  \end{align*}
+  By reindexing the sums on the right with the standard trick, letting
+  $n = k + j$ where $j$ now runs from $0$ to infinity, we have
+  \begin{align*}
+    F(x) &= 1 + xF(x) + \sum_{j=0}^\infty\left(\sum_{k=1}^{\infty}2f(k-1)f(j)\right)x^{k + j} \\
+    &= 1 + xF(x) + 2x\sum_{j=0}^\infty\sum_{k=0}^{\infty}f(k)f(j)x^k x^j \\
+    &= 1 + xF(x) + 2xF(x)^2
+  \end{align*}
+  which means that solving $0 = 2xF(x)^2 + (x - 1)F(x) + 1$ for $F(x)$ by the
+  quadratic formula yields \[
+    \frac{-(x - 1) \pm \sqrt{(x - 1)^2 - 4\cdot2x}}{2\cdot 2x}.
+  \] When $x$ is near zero, $F(x)$ should be close to $f(0)$, so the root we
+  care about is \[
+    F(x) = \frac{1 - x - \sqrt{x^2 - 10x + 1}}{4x}
+  \]
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3}
+  Find the number of $132$-avoiding alternating permutations of length $2n$.
+\end{problem}
+
+\begin{proof}
+  I will construct a bijection
+  $\varphi\colon \mathfrak S_{n}^{(132)} \rightarrow \mathfrak S_{2n,\text{alt}}^{(132)}$
+  between $132$-avoiding permutations of length $n$ and
+  $132$-avoiding alternating permutations of length $n$.
+
+  The map $\varphi$ is simple, but its inverse is more complicated. In
+  particular, $\varphi$ takes in a word in $\mathfrak S_{2n,\text{alt}}^{(132)}$
+  and outputs the relative order of the odd letters.
+  \[
+    w_1 w_2 w_3 \hdots w_{2n-1} w_{2n} \xmapsto{\varphi}
+    \operatorname{order}(w_1 w_3 \hdots w_{2n-1})
+  \]
+  For example, if $w = 65748231$, then
+  $\varphi(w) = \operatorname{order}(6783) = 2341$.
+  \\~\\
+  Going back is a bit trickier.
+  \begin{enumerate}
+    \item Start with the permutation $w' \in \mathfrak S_{n}^{(132)}$.
+    \item For $i$ increasing from $1$ to $n-1$, recursively insert
+      $a = \min(w_1, w_2, \hdots w_{2i})$ into the $2i$th position, then
+      increment all letters that are greater than or equal to $a$, except
+      for the newly inserted letter.
+    \item Increment everything and append 1.
+  \end{enumerate}
+  For example, starting with $w' = 2341$ this algorithm recovers the original
+  alternating permutation. \begin{align*}
+    \begin{tabular}{ c c c c c c c c }
+    $2$ & $\underbrace{\hspace{1.5cm}}_{\min(2, 3)}$  & $3$ &  & $4$ & & $1$ & \\
+    $\downarrow$ & & $\downarrow$ &  & $\downarrow$ & & $\downarrow$ & \\
+    $3$ & $2$ & $4$ & $\underbrace{\hspace{1.5cm}}_{\min(2, 3, 4, 5)}$ & $5$ & & $1$ & \\
+    $\downarrow$ & $\downarrow$ & $\downarrow$ & & $\downarrow$ & & $\downarrow$ & \\
+    $4$ & $3$ & $5$ & $2$ & $6$ & $\underbrace{\hspace{1.5cm}}_{\min(2, 3, 4, 5, 6, 1)}$ & $1$ & \\
+    $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & & $\downarrow$ & \\
+    $5$ & $4$ & $6$ & $3$ & $7$ & $1$ & $2$ & $\underbrace{\hspace{1.5cm}}_{1}$ \\
+    $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ & \\
+    $6$ & $5$ & $7$ & $4$ & $8$ & $2$ & $3$ & 1
+    \end{tabular}
+  \end{align*}
+
+  In practice, this is a sequence of maps \[
+    \mathfrak S_n^{(132)} \xrightarrow{\psi_1}
+    \mathfrak S_{n+1}^{(132)} \xrightarrow{\psi_2}
+    \mathfrak S_{n+3}^{(132)} \xrightarrow{\psi_3}
+    \hdots \xrightarrow{\psi_{n-1}}
+    \mathfrak S_{2n-1} \xrightarrow{\psi_n}
+    \mathfrak S_{2n}
+  \]
+  Where each $\psi_i$ has the property that for all $i \neq n$, if the preimage
+  is alternating for letters $w_1 < w_2 > w_3 < \hdots > w_{2i-1}$, then the
+  image will be alternating for letters $w_1 < w_2 > w_3 < \hdots > w_{2i+1}$.
+  (In the case of $\psi_n$,  there is no $w_{2n + 1}$ letter, but this holds up
+  to $w_{2n}$.)
+  Also $\psi_i$ preserves the relative order of all of the letters
+  away from position $i$.
+  \\
+  There is only one map $\psi_i$ that satisfies this: \begin{enumerate}
+    \item If the inserted letter is greater than either of the neighboring
+    letters, then it fails to satify the
+    alternating condition.
+    \item If the inserted letter is less than its left neighbor $w_{2i-1}$, but
+    greater than some letter $w_j$ in the prefix, then the subsequence
+    $w_j, w_{2i-1}, a$ is not $132$-avoiding.
+    \item If the inserted letter, $a$, is less than
+    $\min(w_1, w_2, \hdots w_{2i})$, then there exists some letter $w_k$ with
+    $k > 2i$ such that the subsequence $a, w_{2i}, w_k$ is not $132$ avoiding.
+  \end{enumerate}
+  Therefore the map
+  $\phi^{-1} = \psi_n \circ \psi_{n - 1} \circ \hdots \circ \psi_1$ recovers the
+  orginal sequence, and so
+  $\phi \circ \phi^{-1} = \phi^{-1} \circ \phi = \operatorname{id}$, and
+  $\phi$ is a bijection.
+  Thus $\#\mathfrak S_{n}^{(132)} = \#\mathfrak S_{2n,\text{alt}}^{(132)} = C_n$.
+\end{proof}
+\end{document}
