@@ -25,17 +25,198 @@
 % First problem
 % -----------------------------------------------------
 \begin{problem}{1} \text{} \\
+  Let $X$ be path connected and locally path connected, and assume that
+  $\pi_1(X; x_0)$ is finite. Show that every map $f\colon X\rightarrow S^1$
+  from $X$ to the unit circle is homotopic to a constant map.
+  (Hint: consider the covering $p\colon\mathbb R \rightarrow S^1$ and use the
+  Lifting Criterion.)
 \end{problem}
 
 \begin{proof} \text{} \\
+  Let $p\colon \mathbb R \rightarrow S^1$ be a covering map. Then by the path
+  lifting criterion if there exists a map
+  $\widetilde f \colon X \rightarrow \mathbb R$ such that $p \circ \widetilde f = f$
+  and $\widetilde f(x_0) = p(f(x_0))$, then \[
+    f_* \pi_1(X; x_0)
+    \subset p_* \pi_1(\mathbb R; r_0)
+    = p_*(\mathbf{1})
+    = \mathbf{1} \text{ in } \pi_1(S^1; s_0).
+  \]
+  First define $p\colon \mathbb R \rightarrow S^1$.
+  Since $X$ is path connected, there exists a path
+  $\alpha_x \colon[0, 1] \rightarrow X$ starting at $x_0$ and ending at $x$.
+  Since $f$ is continuous, $f \circ \alpha_x$ defines a path in $S^1$, call it
+  $\beta_x = f \circ \alpha_x \colon [0, 1] \rightarrow S^1$.
+  By the path lifting property, we can choose any such path $\alpha_x$
+  (and thus $\beta_x$) and define its lift
+  $\widetilde \beta_x \colon [0,1] \rightarrow \mathbb R$ based at
+  $r_0 \in p^{-1}(f(x_0))$.
+  Lastly, define $\widetilde f(x) = \widetilde \beta_x(1)$.
+  \\~\\
+  Since $\pi(X; x_0)$ is finite, the homomorphism
+  $f_*\colon\pi(X; x_0) \rightarrow \pi(S^1; s_0) = \mathbb Z$ must be trivial.
+  Thus if $\alpha_{x_0}$ is a loop in $X$, it is homotopic to a constant path in
+  $S^1$, and so its lift is homotopic to a constant path in $\mathbb R$.
+  \\~\\
+  The constructed map satisfies the requirement that $p \circ \widetilde f = f$:
+  \begin{align*}
+    p(\widetilde f(x)) &= p(\widetilde \beta_x(1)) \\
+    &= (p \circ \widetilde \beta_x)(1) \\
+    &= (\beta_x)(1) \\
+    &= (f \circ \alpha_x)(1) \\
+    &= f(\alpha_x(1)) \\
+    &= f(x).
+  \end{align*}
+  So we can use the ``contraction'' homotopy in $\mathbb R$ to construct a
+  homotopy of $f$, namely \begin{align*}
+    \widetilde  H(t) &= (1 - t)\widetilde{f}(x) + \widetilde{f}(x_0) \\
+    H(t) &= p((1 - t)\widetilde{f}(x) + \widetilde{f}(x_0)).
+  \end{align*}
+  Thus $f$ is homotopic to the constant map with homotopy $H$.
 \end{proof}
 \pagebreak
 % -----------------------------------------------------
 % Second problem
 % -----------------------------------------------------
 \begin{problem}{2} \text{} \\
+  Let $X$ be path connected and locally path connected. Show that if there
+  exists a covering map $p\colon \widetilde X \rightarrow X$ and
+  $\widetilde x_0 \in \widetilde X$ such that $\widetilde X$ is path connected
+  and $\pi_1(\widetilde X; \widetilde x_0) = \mathbf{1}$, then $X$ is
+  semi-locally simply connected.
 \end{problem}
 
 \begin{proof} \text{} \\
+  In to show that $X$ is semi-locally simply connected, it is sufficient to
+  show that for all $x \in X$ there exists a neighborhood $U$ around $x$ such
+  that all loops in $U$ are null-homotopic in $X$.
+
+  Since $\widetilde X$ is the total space of the covering, there exists a
+  neighborhood $U_x$ around every point $x \in X$, such that
+  \begin{enumerate}[a.]
+    \item $\displaystyle p^{-1}(U_x) = \coprod_{i \in I} \widetilde U_i$
+    where $\widetilde U_i$ is an open subset of $\widetilde X$, and
+    \item the restriction
+    $p|_{\widetilde U_i}\colon\widetilde U_i \rightarrow U$ is a homeomorphism.
+  \end{enumerate}
+  % So all we must do is choose any $\widetilde U_i$, and construct a homotopy from
+  % in $X$.
+  Let $\alpha\colon[0, 1]\rightarrow U_x$ be a loop in $U_x$. Choosing the
+  $i \in I$ such that $\widetilde x_0 \in U_i$, we can lift $\alpha$ via
+  \[
+    (p|_{\widetilde U_i})^{-1} \circ \alpha
+    = \widetilde\alpha\colon[0,1]\rightarrow \widetilde X.
+  \]
+  Since the fundamental group of $\widetilde X$ is trivial,
+  $[\widetilde\alpha] = [\operatorname{id}_{x_0}] \in \pi_1(\widetilde X; \widetilde x_0) = \mathbf{1}$,
+  thus there exists a homotopy
+  $\widetilde H\colon [0,1] \times [0, 1] \rightarrow \widetilde X$
+  from $\widetilde\alpha$ to $\operatorname{id}_{x_0}$.
+  This homotopy induces a homotopy $H\colon [0,1] \times [0, 1] \rightarrow X$
+  by $p \circ \widetilde H$. Since $p$ is a covering map, and thus continuous,
+  $H$ must be continuous, and thus defines a homotopy from
+  $p \circ \widetilde\alpha = \alpha$ to
+  $p \circ c_{\widetilde x_0} = c_{p(\widetilde x_0)}$.
+  \\
+  Therefore there exists a neighborhood around every point $x \in X$ such that
+  any loop in that neighborhood is nullhomotopic in $X$.
 \end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} \text{} \\
+  Let $X$ be the Hawaiian earrings. Show that $X$ is not semi-locally simply
+  connected.
+\end{problem}
+
+\begin{proof} \text{} \\
+  By defintion $X$ is semi-locally simply connected if for every point $x \in X$
+  there exists a neighborhood $U$ around $x$ such that all loops in $U$ are
+  contractible in $X$.
+  \\~\\
+  Choose the point $x = (0, 0) \in X$. Then for any open neighborhood $U$
+  containing the origin, we can find a ball of radius $\varepsilon$ centered at
+  the origin and contained in $U$, and this ball contains $X_{n}$ for
+  $1/n < \varepsilon/2$. As shown in problem 3 of homework 4, the loop around
+  $X_{n}$ is not contractible in $X$, so $X$ must not be semi-locally simply
+  connected.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4} \text{} \\
+  Let $p\colon \widetilde X \rightarrow X$ be a covering space with
+  $\widetilde X$ path connected and with base points
+  $\widetilde x_0 \in \widetilde X$ and $x_0 = p(\widetilde x_0) \in X$.
+  Consider the right quotient set
+  $\pi_1(X; x_0)/p_*(\pi_1(\widetilde X; \widetilde x_0))$.
+  \begin{enumerate}[a.]
+    \item Show that there is a well-defined map \[
+      f \colon
+      p^{-1}(x_0) \rightarrow
+      \pi_1(X; x_0)/p_*(\pi_1(\widetilde X; \widetilde x_0))
+    \] such that if $\widetilde x \in p^{-1}(x_0)$, then $f(\widetilde x)$
+    is the equivalence class of $[p \circ \widetilde \alpha] \in \pi_1(X; x_0)$
+    for every path $\widetilde \alpha  \colon [0,1] \rightarrow \widetilde X$
+    with $\widetilde \alpha(0) = \widetilde x$ and $\widetilde \alpha(1) = \widetilde x_0$.
+    \item Show that $f$ is surjective.
+    \item Show that $f$ is injective.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[a.]
+    \item Suppose that
+    $\widetilde\alpha,\widetilde\beta\colon [0, 1]\rightarrow \widetilde X$
+    are two paths in $X$ such that
+    $\widetilde\alpha(0) = \widetilde\beta(0) = \widetilde x$ and
+    $\widetilde\alpha(1) = \widetilde\beta(1) = \widetilde x_0$.
+    Then $f(\widetilde x) = [[p \circ \widetilde \alpha]]$
+    and $f(\widetilde x) = [[p \circ \widetilde \beta]]$, so in order for $f$
+    to be well defined, it is sufficient to show that
+    $[p \circ \widetilde \alpha] \sim [p \circ \widetilde \beta]$. But this
+    follows because \begin{align*}
+        \underbrace{[p \circ \widetilde \alpha]^{-1}}_{a^{-1}} \cdot
+        \underbrace{[p \circ \widetilde \beta]}_{b}
+        &= [p \circ \overline{\widetilde \alpha}] \cdot [p \circ \widetilde \beta] \\
+        &= [(p \circ \overline{\widetilde \alpha}) * (p \circ \widetilde \beta)] \\
+        &= [p \circ (\overline{\widetilde \alpha} * \widetilde \beta)] \\
+        &= p_*[\overline{\widetilde \alpha} * \widetilde \beta] \\
+        &\in p_*(\pi_1(\widetilde X; \widetilde x_0)).
+    \end{align*}
+    \item Let
+    $[[\alpha]] \in \pi_1(X; x_0)/p_*(\pi_1(\widetilde X; \widetilde x_0))$ be
+    an arbitrary element of the right quotient set. Consider any underlying
+    path $\alpha\colon [0, 1] \rightarrow X$. By the path lifting property there
+    exists a lift $\widetilde\alpha\colon [0, 1] \rightarrow \widetilde X$ based
+    at $\widetilde x_0 \in p^{-1}(x_0)$. Since $p\circ\widetilde\alpha = \alpha$
+    is a loop, $\widetilde\alpha(1) \in p^{-1}(x_0)$, and so
+    $f(\widetilde\alpha(1)) = [[\alpha]]$, and so $f$ is surjective.
+    \item Assume that $f(\widetilde x) = f(\widetilde x')$. It is sufficient
+    to show that $\widetilde x_0 = \widetilde x'_0$. By defintion,
+    $f(\widetilde x)$ is the equivalence class of paths
+    $[p \circ \widetilde \alpha]$ from $\widetilde x$ to $\widetilde x_0$
+    and $f(\widetilde x')$ is the equivalence class of paths
+    $[p \circ \widetilde \alpha']$ from $\widetilde x'$ to $\widetilde x_0$.
+    So consider a choice of $\widetilde \alpha$ and $\widetilde \alpha'$ from
+    the respective equivalence classes.
+    Since $[p \circ \widetilde \alpha] \sim [p \circ \widetilde \alpha']$,
+    \begin{align*}
+        \underbrace{[p \circ \widetilde \alpha]^{-1}}_{a^{-1}} \cdot
+        \underbrace{[p \circ \widetilde \alpha']}_{b}
+        &= [p \circ \overline{\widetilde \alpha}] \cdot [p \circ \widetilde \alpha'] \\
+        &= [(p \circ \overline{\widetilde \alpha}) * (p \circ \widetilde \alpha')] \\
+        &= [p \circ (\overline{\widetilde \alpha} * \widetilde \alpha')] \\
+        &= p_*[\overline{\widetilde \alpha} * \widetilde \alpha'] \\
+        &\in p_*(\pi_1(\widetilde X; \widetilde x_0)).
+    \end{align*}
+    In order $*$ to be well-defined,
+    $\overline{\widetilde \alpha}(1) = \widetilde \alpha(0) = \widetilde \alpha'(0)$,
+    so $\alpha$ and $\alpha'$ are paths with the same base point, namely,
+    $\widetilde x = \widetilde x'$. Thus the map $f$ is injective.
+  \end{enumerate}
+\end{proof}
+
 \end{document}
