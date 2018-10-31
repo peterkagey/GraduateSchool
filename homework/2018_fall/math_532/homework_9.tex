@@ -1,0 +1,116 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Combinatorics: Homework 8}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{34} $[2]$ \\
+  Find all nonisomorphic posets P such that \[
+    F(J(P), x) = (1 + x)(1 + x^2)(1 + x + x^2)
+  \]
+\end{problem}
+
+\begin{solution} \text{}
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{46 a} $[2]$ \\
+  Let $f(n)$ be the number of sublattices of rank $n$ of the boolean algebra
+  $B_n$. Show that $f(n)$ is also the number of partial orders $P$ on $[n]$.
+\end{problem}
+
+\begin{solution} \text{} \\
+  Let $\phi$ be a map which sends a poset $P$ (with underlying set $[n]$) to
+  $J(P) \subset B_n$.
+  Since $B_n$ is a finite distributive lattice, and every sublattice of a
+  finite distributive lattice is a finite distributive lattice, we can
+  take the set of join irreducibles of any rank $n$ sublattice, and this will
+  be isomorphic to a poset on $[n]$.
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{53} $[2]$ \\
+  Let $P$ be a finite $n$-element poset. Simplify the two sums \[
+    f(P) = \sum_{I \subset J(P)} e(I)e(\overline I),
+  \] \[
+    g(P) = \sum_{I \subset J(P)} \binom{n}{\#I} e(I)e(\overline I),
+  \] where $\overline I$ denotes the complement $P - I$ of the order ideal $I$.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{57} ~
+  \begin{enumerate}[a.]
+    \item $[2]$ Let $P$ be an $n$-element poset. If $t \in P$, then set
+    $\lambda_t = \#\{s \in P : s \leq t\}$.
+    Show that \[
+      e(P) \geq \frac{n!}{ \prod_{t \in P} \lambda_t}.
+    \]
+    \item $[2+]$ Show that the equality holds if and only if every component of $P$ is
+    a rooted tree.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+  \begin{enumerate}[a.]
+    \item
+    \item By induction, the base case is clear. When $n=1$, there is only
+    one poset (which is a rooted tree) with one linear extension. \[
+      e([1]) = \frac{1!}{\lambda_{1}} = 1
+    \]
+  \end{enumerate}
+  Thus given some rooted tree $P$, we can take the subposet $P - \hat 1$, which
+  is a disjoint union of rooted trees
+  $P_1 + P_2 + \hdots + P_k$ with $n_1, n_2, \hdots, n_k$ elements respectively.
+  Since $P$ has a unique maximum, it must be labeled with $n$, then we can
+  then choose which letters go in each sub-tree (using a multinomial
+  coefficient), and then there are $e(P_i)$ ways to order the $n_i$ labels
+  for each $P_i$. Therefore \begin{align*}
+      e(P) &= \binom{n - 1}{n_1, n_2, \hdots, n_k}e(P_1)e(P_2)\hdots e(P_k)
+      \\
+      &= \binom{n - 1}{n_1, n_2, \hdots, n_k}
+      \frac{n_1!}{\prod_{t \in P_1} \lambda_t}
+      \frac{n_2!}{\prod_{t \in P_2} \lambda_t}
+      \hdots
+      \frac{n_k!}{\prod_{t \in P_k} \lambda_t}
+      \\
+      &= \left(\frac{(n - 1)!}{n_1! n_2! \hdots n_k!}\right)
+      \frac{n_1!n_2!\hdots n_k!}{\prod_{t \in P - \hat 1} \lambda_t}
+      \\
+      &= \frac{(n-1)!}{\prod_{t \in P - \hat 1} \lambda_t}
+  \end{align*}
+  Since all $n$ elements of $P$ are less than or equal to $\hat 1$,
+  $\lambda_{\hat 1} = n$, \[
+    n\prod_{t \in P - \hat 1} \lambda_t = \prod_{t \in P} \lambda_t
+  \] and thus \[
+    e(P) = \frac{n(n-1)!}{n\prod_{t \in P - \hat 1} \lambda_t} = \frac{n!}{\prod_{t \in P} \lambda_t}
+  \] as desired.
+\end{proof}
+\end{document}
