@@ -1,0 +1,199 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,multicol}
+\usepackage[shortlabels]{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\set}[1]{\{ #1 \}}
+
+\begin{document}
+
+\title{Topology: Homework 7}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+  Let $X$ be path connected and locally path connected, and choose a base point
+  $x_0 \in X$. Let $\fn{p}{\widetilde X}{X}$ and $\fn{p'}{\widetilde X'}{X}$ be
+  two coverings with $\inv p(x_0) = \inv{p'}(x_0) = F$ (for some set $F$).
+  Let $\fn{\rho, \rho'}{\pi_1(X; x_0)}{\operatorname{Bij}(F)}$ be the respective
+  monodromy antihomomorphisms of $p$ and $p'$. Show that the two coverings are
+  isomorphic (by an isomorphism that is not necessarily the identity on $F$)
+  if and only if there exists $\theta \in \operatorname{Bij}(F)$ such that \[
+    \rho'([\alpha]) = \theta \circ \rho([\alpha]) \circ \inv\theta
+  \] for every $[\alpha] \in \pi(X; x_0)$.
+\end{problem}
+
+\begin{proof} \text{} \\
+  $(\Longrightarrow)$ Suppose that the coverings are isomorphic, with
+  isomorphism $\fn{\varphi}{\widetilde X}{\widetilde X'}$.\\
+  Since $p \circ \inv\varphi = p'$, \begin{align*}
+    F = \inv{p'}(x_0) &= \inv{(p \circ \inv\varphi)}(x_0) \\
+    &= \varphi(\inv{p'}(x_0)) \\
+    &= \varphi(F)
+  \end{align*} and so the homeomorpism restricted to the fiber
+  $\varphi|_F\colon F \rightarrow F$ is a bijection of $F$.
+  \\
+  Setting $\theta = \varphi|_F\colon F \rightarrow F$ and letting
+  $\widetilde y \in F$ be an arbitrary element in the fiber yields \begin{align*}
+    \rho'([\alpha])(y) &= \widetilde\alpha'_{y}(1) \\
+    &= \varphi(\widetilde\alpha_{\inv\varphi(y)}(1)) \\
+    &= \varphi \circ \rho([\alpha]) \circ \inv\varphi(y) \\
+  \end{align*} where $\widetilde\alpha'_y$ is a path from $y$ to $\widetilde x'$,
+  and $\widetilde\alpha_{\inv\varphi(y)}$ is a path from
+  $\inv\varphi(y) \in \widetilde X$ to $\inv\varphi(\widetilde x')$.
+  \\~\\
+  $(\Longleftarrow)$ Suppose that there exists
+  $\theta \in \operatorname{Bij}(F)$ such that \[
+    \rho'([\alpha]) = \theta \circ \rho([\alpha]) \circ \inv\theta
+  \] for every $[\alpha] \in \pi(X; x_0)$.
+  We'll define the homeomorpism from $\widetilde X \rightarrow \widetilde X'$
+  as follows:
+  \begin{enumerate}
+    \item Let $\fn{\widetilde\beta}{[0,1]}{\widetilde X}$ be any path from
+    $\widetilde x_0$ to $\widetilde x$.
+    \item Project this path down to $X$ resulting in a map
+    $\fn{p \circ \widetilde \beta}{[0, 1]}{X}$, which describes a path from
+    $x_0$ to $p(\widetilde x)$.
+    \item Lift this path by to a path in $X'$ based at $\theta(\widetilde x_0)$.
+  \end{enumerate}
+  This map is continuous because it is the composition of lifts and continuous
+  functions, and it is invertible by performing the procedure with the roles of
+  $\widetilde X$ and $\widetilde X'$ switched. Thus it is a homeomorphism,
+  $\fn{\varphi}{\widetilde X}{\widetilde X'}$, which respects composition by
+  construction, $p' \circ \varphi = p$.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} \text{} \\
+  Consider the torus $X = S^1 \times S^1$ and consider all coverings
+  $\fn{p}{\widetilde X}{X}$ with fiber $F = \set{1, 2, 3}$. Up to covering
+  isomorphism fixing $F$, how many such coverings are there? And how many up to
+  covering isomorphsim not fixing $F$?
+\end{problem}
+
+\begin{proof} \text{} \\
+  Note that $D_3$ is isomorphic to the dihedral group
+  $D_3 = \langle \sigma, \tau | \sigma^3 = \tau^2 = 1, \tau\sigma\tau = \inv\sigma \rangle$.
+  The fundamental group of the torus is
+  $\pi_1(X; x_0) = \langle a, b \rangle$. So we will consider all monodromy
+  group antihomomorphisms of the covering $\widetilde X \rightarrow X$ with
+  fiber $F = \set{1,2,3}$, namely antihomomorpishms of the form \[
+    \fn{\rho}{\langle a, b; aba^{-1}b^{-1} = 1 \rangle}{D_3}
+  \] where $D_3$ is the symmetric group.
+  In particular, by the universal property of free products, the antihomomorphism
+  must satisfy \[
+  \rho(ab\inv a\inv b)
+    = \rho(\inv a) \circ \rho(\inv b) \circ \rho(a) \circ \rho (b))
+    = 1.
+  \]
+  Thus there are eighteen maps:
+  \begin{alignat}{2}
+    a &\mapsto \operatorname{id}_{D_3} &&\hspace{1cm} b \mapsto \operatorname{id}_{D_3} \\
+    a &\mapsto \operatorname{id}_{D_3} &&\hspace{1cm} b \mapsto \tau \\
+    a &\mapsto \operatorname{id}_{D_3} &&\hspace{1cm} b \mapsto \sigma \\
+    a &\mapsto \tau &&\hspace{1cm} b \mapsto \operatorname{id}_{D_3} \\
+    a &\mapsto \sigma &&\hspace{1cm} b \mapsto \operatorname{id}_{D_3} \\
+    a &\mapsto \tau &&\hspace{1cm} b \mapsto \tau \\
+    a &\mapsto \sigma &&\hspace{1cm} b \mapsto \sigma \\
+    a &\mapsto \sigma &&\hspace{1cm} b \mapsto \inv\sigma
+  \end{alignat}
+  where
+  (1) gives one maps,
+  (2) gives two maps,
+  (3) gives three maps,
+  (4) gives two maps,
+  (5) gives three maps,
+  (6) gives three maps,
+  (7) gives two maps, and
+  (8) gives two maps.
+  Thus there are $1 + 2 + 3 + 2 + 3 + 3 + 2 + 2 = 18$ different
+  antihomomorphisms and eight conjugacy classes. So there are $18$ covering
+  spaces up to isomorphism fixing $F$.
+  \\~\\
+  By Problem 1, the number of conjugacy classes counts the number of
+  isomorphisms not necessarily fixing $F$, so there are eight isomorphisms.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} \text{} \\
+  Consider the Klein bottle $K$
+  (with $\pi_1(K; x_0) = \langle a, b; ab\inv{a} = \inv{b}\rangle$)
+  and consider all coverings
+  $\fn{p}{\widetilde X}{X}$ with fiber $F = \set{1, 2, 3}$. Up to covering
+  isomorphism fixing $F$, how many such coverings are there? And how many up to
+  covering isomorphsim not fixing $F$?
+\end{problem}
+
+\begin{proof} \text{} \\
+  Note that $D_3$ is isomorphic to the dihedral group
+  $D_3 = \langle \sigma, \tau | \sigma^3 = \tau^2 = 1, \tau\sigma\tau = \inv\sigma \rangle$.
+  \setcounter{equation}{0}
+  There are eighteen antihomomorphisms \begin{alignat}{2}
+    % (id,id)
+    a &\mapsto \operatorname{id}_{D_3} &&\hspace{1cm} b \mapsto \operatorname{id}_{D_3} \\
+    % (id,12)
+    a &\mapsto \operatorname{id}_{D_3} &&\hspace{1cm} b \mapsto \tau \\
+    % (12,id)
+    a &\mapsto \tau &&\hspace{1cm} b \mapsto \operatorname{id}_{D_3} \\
+    % (12,12)
+    a &\mapsto \tau &&\hspace{1cm} b \mapsto \tau \\
+    % (12,123)
+    a &\mapsto \tau &&\hspace{1cm} b \mapsto \sigma \\
+    % (123,id)
+    a &\mapsto \sigma &&\hspace{1cm} b \mapsto \operatorname{id}_{D_3}
+  \end{alignat} where
+  (1) gives one map,
+  (2) gives three maps,
+  (3) gives three maps,
+  (4) gives three maps,
+  (5) gives six maps, and
+  (6) gives two maps,
+  totaling $1 + 3 + 3 + 3 + 6 + 2 = 18$ maps with six conjugacy classes.
+  Thus there are eighteen covering isomorphisms fixing $F$.
+  \\~\\
+  By Problem 1, the number of conjugacy classes counts the number of
+  isomorphisms not necessarily fixing $F$, so there are six isomorphisms.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4} \text{} \\
+  Let $\fn{\rho}{\pi_1(X; x_0)}{\operatorname{Bij}(\mathbb Z)}$ be the monodromy
+  antihomomorphism of the parking structure covering. Compute
+  $\rho([\alpha]), \rho([\beta]), \rho([\gamma]) \in \operatorname{Bij}(\mathbb Z)$
+  for the paths $\alpha, \beta, \gamma$ shown on the picture.
+\end{problem}
+
+\begin{proof} \text{} \\
+  When you traverse $\alpha$, you go up one floor. When you traverse $\beta$
+  you go up two floors, and when you traverse $\gamma$ you go down one floor.
+  Thus the map sends \begin{align*}
+    \rho([\alpha]) &= (n \mapsto n + 1) \\
+    \rho([\beta])  &= (n \mapsto n + 2) \\
+    \rho([\gamma]) &= (n \mapsto n - 1).
+  \end{align*}
+\end{proof}
+
+\end{document}
