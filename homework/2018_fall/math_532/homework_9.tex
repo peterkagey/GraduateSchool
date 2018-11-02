@@ -204,13 +204,21 @@
   $j$-element ideal. In particular, every ideal can be written as
   $\sigma^{-1}([j])$ for some linear extension.
   Therefore each linear extension has $n+1$ associated ideals, namely,
-  $\sigma^{-1}([k])$ for $k \in [n]$ along with $\sigma^{-1}(\emptyset)$.
-  Therefore since $P - \sigma^{-1}([j])$ has the relative order of a linear
-  extension, the sum given by $f$ overcounts each linear extension of $P$
-  exactly $n + 1$ times, so
-  \[
-    f(P) = (n + 1)e(P).
-  \]
+  $\sigma^{-1}([k])$ for $k = \set{0, 1, \hdots, n}$ with the convention that
+  $[0] = \emptyset$.
+  \\
+  Therefore the sum over all $k$-element ideals will give $e(P)$.
+  So
+  \begin{align*}
+    f(P) &= \sum_{k=0}^n \sum_{\substack{I \subset J(P) \\ \#I = k}} e(I)e(\bar I) \\
+         &= \sum_{k=0}^n e(P) \\
+         &= (n + 1) e(P)
+  \end{align*}
+  And similarly \begin{align*}
+    g(P) &= \sum_{k=0}^n \sum_{\substack{I \subset J(P) \\ \#I = k}} \binom nk e(I)e(\bar I) \\
+         &= \sum_{k=0}^n \binom nk e(P) \\
+         &= 2^n e(P)
+  \end{align*}
 \end{proof}
 \pagebreak
 % -----------------------------------------------------
