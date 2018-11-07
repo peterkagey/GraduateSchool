@@ -1,0 +1,257 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,multicol}
+\usepackage[shortlabels]{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\id}[1]{\operatorname{Id}_{#1}}
+\DeclareMathOperator{\im}{Im}
+
+\begin{document}
+
+\title{Topology: Homework 8}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+  \begin{enumerate}[a.]
+    \item Express the map
+    $\fn{\delta_i \circ F_j}{\Delta_n}{\Delta_n \times [0, 1]}$
+    in terms of
+    $(F_{j'} \times \id{[0,1]}) \circ \delta_{i'}$,
+    $\delta_{i\pm1} \circ F_{j'}$, $i_0 = \id{\Delta_n} \times ~ 0$, or $i_1 = \id{\Delta_n} \times ~ 1$.
+    \item Let $\fn{f_0, f_1}{X}{Y}$ be homotopic by a homotopy
+    $\fn{H}{X \times [0, 1]}{Y}$. Define a linear map $\fn{K_n}{C_n(X)}{C_{n+1}(Y)}$ by \[
+      K_n(\sigma) = \sum_{i=0}^{n} (-1)^{i} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i
+    \] for every simplex $\sigma \in C_n(X)$.\\
+    Show that \[
+      \partial_{n+1} \circ K_n + K_{n - 1} \circ \partial_n
+      = C_n(f_1) - C_n(f_0).
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[a.]
+    \item There are six cases to consider:
+    \begin{enumerate}[(i)]
+      \item
+      When $i = j = 0$ \begin{alignat*}{2}
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{F_0} (0, t_0, t_1, \hdots, t_n)
+        &&\xmapsto{\delta_0} ((t_0, t_1, \hdots, t_n), \underbrace{t_0 + t_1 + \hdots + t_n}_1) \\
+        (t_0, t_1, \hdots, t_n) & &&\xmapsto{i_1} ((t_0, t_1, \hdots, t_n), 1)
+      \end{alignat*}
+      so $\delta_i \circ F_j = i_1$.
+      \item
+      When $i = j > 0$ \begin{alignat*}{2}
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{F_i} (t_0, t_1, \hdots, t_{i-1}, 0, t_i, \hdots, t_n)
+        \xmapsto{\delta_i} &&((t_0, t_1, \hdots, t_{i-1}, 0 + t_i, \hdots t_n), t_i + \hdots + t_n) \\
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{F_i} (t_0, t_1, \hdots, t_{i-1}, 0, t_i, \hdots, t_n)
+        \xmapsto{\delta_{i-1}} &&((t_0, t_1, \hdots, t_{i-1} + 0, t_i, \hdots t_n), 0 + t_i + \hdots + t_n)
+      \end{alignat*}
+      so $\delta_i \circ F_i = \delta_{i-1} \circ F_i$.
+      \item
+      When $j - 1 = i < n$ \begin{alignat*}{2}
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{F_j} (t_0, t_1, \hdots, t_{j-1}, 0, t_j, \hdots, t_n)
+        \xmapsto{\delta_{j-1}} &&((t_0, t_1, \hdots, t_{j-1} + 0, t_j, \hdots t_n), 0 + t_j + \hdots + t_n) \\
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{F_j} (t_0, t_1, \hdots, t_{j-1}, 0, t_{j}, \hdots, t_n)
+        \xmapsto{\delta_j} &&((t_0, t_1, \hdots, t_{j-1}, 0 + t_j, \hdots t_n), t_j + \hdots + t_n)
+      \end{alignat*}
+      so $\delta_i \circ F_j = \delta_{i+1} \circ F_j$.
+      \item
+      When $j - 1 = i = n$ \begin{alignat*}{2}
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{F_{n+1}} (t_0, t_1, \hdots, t_n, 0)
+        &&\xmapsto{\delta_n} ((t_0, t_1, \hdots t_n), 0) \\
+        (t_0, t_1, \hdots, t_n) &
+        &&\xmapsto{i_0} ((t_0, t_1, \hdots, t_n), 0)
+      \end{alignat*}
+      so $\delta_n \circ F_{n+1} = i_0$.
+      \item
+      When $j - 1 > i$ \begin{alignat*}{2}
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{F_j} &&(t_0, \hdots, t_{j-1}, 0, t_j, \hdots, t_n) \\
+        &\xmapsto{\delta_i} && (
+          (t_0, \hdots, t_i + t_{i + 1}, \hdots, t_{j-1}, 0, t_j, \hdots, t_n),
+          t_{i+1} + \hdots + t_n
+        ) \\
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{\delta_i} &&
+        ((t_0, \hdots, t_i + t_{i + 1}, \hdots, t_n), t_{i + 1} \hdots t_n)\\
+        &\xmapsto{F_{j-1} \times \id{[0,1]}} &&(
+          (t_0, \hdots, t_i + t_{i + 1}, \hdots, t_{j-1}, 0, t_j, \hdots, t_n),
+          t_{i+1} + \hdots + t_n
+        )
+      \end{alignat*}
+      so $\delta_i \circ F_j = (F_{j-1} \times \id{[0,1]}) \circ \delta_i$.
+      \item
+      When $i > j$ \begin{alignat*}{2}
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{F_j} &&(t_0, \hdots, t_{j-1}, 0, t_j, \hdots, t_n) \\
+        &\xmapsto{\delta_i} && (
+          (t_0, \hdots, t_{j-1}, 0, t_j, \hdots, t_{i-1} + t_i, \hdots, t_n),
+          t_i + \hdots + t_n
+        ) \\
+        (t_0, t_1, \hdots, t_n)
+        &\xmapsto{\delta_{i-1}} &&
+        ((t_0, \hdots, t_{i-1} + t_i, \hdots, t_n), t_i \hdots t_n)\\
+        &\xmapsto{F_j \times \id{[0,1]}} &&(
+          (t_0, \hdots, t_{j-1}, 0, t_j, \hdots, t_{i-1} + t_i, \hdots, t_n),
+          t_i + \hdots + t_n
+        )
+      \end{alignat*}
+      so $\delta_i \circ F_j = (F_j \times \id{[0,1]}) \circ ~ \delta_{i-1}$.
+    \end{enumerate}
+    \item The two terms of the sum can be written as \[
+      \partial_{n+1}(K_n(\sigma))
+      = \partial_{n+1} \left(\sum_{i=0}^{n} (-1)^{i} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i\right)
+      = \sum_{j=0}^{n+1}\sum_{i=0}^{n} (-1)^{i + j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j
+    \] and \begin{align*}
+      K_{n-1}(\partial_{n}(\sigma))
+      &= \sum_{i=0}^{n-1} (-1)^{i} H\circ(\partial_n(\sigma) \times \id{[0,1]}) \circ \delta_i \\
+      &= \sum_{i=0}^{n-1} (-1)^{i} H\circ\left(\sum_{j=0}^n(-1)^j\sigma \circ F_j \times \id{[0,1]}\right) \circ \delta_i \\
+      &= \sum_{i=0}^{n-1}\sum_{j=0}^n (-1)^{i+j} H\circ\left(\sigma \circ F_j \times \id{[0,1]}\right) \circ \delta_i \\
+      &= \sum_{i=0}^{n-1}\sum_{j=0}^n (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_i
+    \end{align*}
+    This final sum can be split based on cases.
+    \begin{align*}
+      K_{n-1}(\partial_{n}(\sigma))
+      &=\sum_{i=0}^{n-1}\sum_{j=0}^n (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_i \\
+      % i + 1 > j
+      &= \sum_{i=0}^{n-1}\sum_{j=0}^i (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_i \\
+      &\hspace{1cm}+ \sum_{i=0}^{n-1}\sum_{j=i+1}^n (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_i
+    \end{align*}
+    Then these sums can be reindexed based on the above identities \begin{align*}
+      K_{n-1}(\partial_{n}(\sigma))
+      &= \sum_{i=1}^{n}\sum_{j=0}^{i-1} (-1)^{i-1+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_{i-1}\\
+      &\hspace{1cm}+ \sum_{i=0}^{n-1}\sum_{j=i+2}^{n+1} (-1)^{i+j-1} H\circ(\sigma \times \id{[0,1]}) \circ (F_{j-1} \times \id{[0,1]}) \circ \delta_i\\
+      &= \sum_{i=1}^{n}\sum_{j=0}^{i-1} (-1)^{i-1+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j\\
+      &\hspace{1cm}+ \sum_{i=0}^{n-1}\sum_{j=i+2}^{n+1} (-1)^{i+j-1} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j
+    \end{align*}
+    Then adding this to $\partial_{n+1}(K_n(\sigma))$ yields \begin{align*}
+      \partial_{n+1}(K_n(\sigma)) + K_{n-1}(\partial_{n}(\sigma))
+      &= \sum_{j=0}^{n+1}\sum_{i=0}^{n} (-1)^{i + j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j \\
+      &\hspace{1cm}- \sum_{i=1}^{n}\sum_{j=0}^{i-1} (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j \\
+      &\hspace{1cm}- \sum_{i=0}^{n-1}\sum_{j=i+2}^{n+1} (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j
+    \end{align*}
+  \end{enumerate}
+
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} \text{} \\
+  Let $X$ be a topological space. For all $n$, let $C_n(X)$ be the usual
+  $R$-module of singular $n$-chains in $X$ with coefficients in the ring $R$.
+  In particular, $C_0(X) = \set{\sum_{i=1}^k a_ix_i : a_i \in R, x_i \in X}$
+  consists of all linear combinations of points in $X$. Consider the
+  homomorphism $\fn{\widetilde \partial_0}{C_0(X)}{R}$ defined by the property
+  that $
+    \widetilde \partial_0\left(\sum_{i=1}^k a_ix_i\right) = \sum_{i=1}^k a_i
+  $
+  \\
+  For $n \in \mathbb Z$, define \[
+    \widetilde C_n(X) = \begin{cases}
+      C_n(X) & n \geq 0 \\
+      R      & n    = -1 \\
+      0      & n \leq -2
+    \end{cases}
+  \] and define $\fn{\widetilde\partial_n}{\widetilde C_n(X)}{\widetilde C_{n-1}(X)}$ by
+  the property that \[
+    \widetilde \partial_n = \begin{cases}
+      \partial_n        & n > 0 \\
+      \widetilde \partial_0 & n = 0 \\
+      0                 & n < 0.
+    \end{cases}
+  \]
+  Finally, let $\widetilde H_n(X) = \ker(\widetilde\partial_n)/\im(\widetilde\partial_{n+1})$
+  \begin{enumerate}[a.]
+    \item Show that $\widetilde H_n(X) = H_n(X)$ when $n \neq 0$.
+    \item Show that $\widetilde H_0(X) = 0$ if $X$ is path connected.
+    \item Show that $\widetilde H_0(X) \cong R^{n-1}$ if $X$ has $n$
+    path-connected components.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[a.]
+    \item For $n > 0$, $\widetilde\partial_n = \partial_n$ and
+    $\widetilde C_n(X) = C_n(X)$, so in particular,
+    $\ker(\widetilde\partial_n) = \ker(\partial_n)$ and
+    $\im(\widetilde\partial_n) = \im(\partial_n)$. Therefore \[
+      \widetilde H_n(X)
+      = \ker(\widetilde\partial_n)/\im(\widetilde\partial_{n+1})
+      = \ker(\partial_n)/\im(\partial_{n+1})
+      = H_n(X)
+    \] for $n > 0$.
+    \\
+    When $n < 0$, $\widetilde\partial_n = 0$, so
+    $\ker(\widetilde\partial_n) = \ker(0) = 0$. In particular,
+    $\widetilde H_n(X) = \ker(0)/\im(\widetilde\partial_{n+1}) = 0 = H_n(X)$
+    with the last equality by convention.
+    \item %$\widetilde H_0(X) = \ker(\widetilde \partial_0)/\im(\partial_1)$.
+    First note that \[
+      \partial_1(\sigma_i) = \sum_{j=0}^1 (-1)^j \sigma_i \circ F_j = \sigma_i \circ F_0 - \sigma_i \circ F_1
+    \] so if $\sigma_i(0, 1) = x_0$ and $\sigma_i(1, 0) = x_1$, then
+    $\partial_1(\sigma_i)$ is the constant map from the $0$-simplex to the
+    difference of the end points of $\sigma_i$, namely $1 \mapsto x_0 - x_1$.
+    \\
+    Let $c = \sum_{i} c_i \sigma_i$ be an element of $C_1(X)$. Then \[
+      \partial_1\!\!\left(\sum_{i} c_i \sigma_i\right)
+      = \sum_{i} c_i \partial_1(\sigma_i)
+      = \sum_{i} c_i (x_{i,0} - x_{i,1}).
+    \]
+    Then any element in $\im(\partial_1)$ maps to $0$ under
+    $\widetilde\partial_0$ \begin{align*}
+      \widetilde\partial_0\!\!\left(\sum_{i} c_i (x_{i,0} - x_{i,1})\right)
+      &= \widetilde\partial_0\!\!\left(\sum_{i} c_i x_{i,0} - \sum_{i}c_i x_{i,1}\right) \\
+      &= \widetilde\partial_0\!\!\left(\sum_{i} c_i x_{i,0}\right) - \widetilde\partial_0\!\!\left(\sum_{i}c_i x_{i,1}\right) \\
+      &= \sum_{i} c_i - \sum_{i} c_i \\
+      &= 0,
+    \end{align*}
+    which shows that $\im(\partial_1) \subset \ker(\widetilde \partial_0)$.
+    \\
+    Next I will show that $\im(\partial_1) \subset \ker(\widetilde \partial_0)$:
+    \\
+    Let $c \in \ker(\widetilde\partial_0) \subset C_0(X)$ be
+    written as $c = \sum_i c_i x_i$. Then, since $X$ is path-connected,
+    for each $x_i$, there exists a path path $\fn{\sigma_i}{\Delta_1}{X}$ from
+    $x_i$ to some designated basepoint $x_0$.
+    Then let $c_1 \in C_1(X)$ be defined as $\sum_i c_i \sigma_i$. Then \begin{align*}
+      \partial_1(c_1)
+      &= \partial_1\!\!\left(\sum_i c_i \sigma_i\right) \\
+      &= \sum_i c_i (x_i - x_0) \\
+      &= \sum_i c_i x_i - \sum_i c_i x_0 \\
+      &= \underbrace{\sum_i c_i x_i}_c - \underbrace{\left(\sum_i c_i\right)}_0 x_0 \\
+      &= c.
+    \end{align*}
+    Since each set contains the other,
+    $\im(\partial_1) = \ker(\widetilde \partial_0)$ and
+    $\widetilde H_0(X) = \ker(\widetilde \partial_0)/\im(\partial_1) = 0$.
+    \item
+  \end{enumerate}
+\end{proof}
+\end{document}
