@@ -128,33 +128,87 @@
       \partial_{n+1}(K_n(\sigma))
       = \partial_{n+1} \left(\sum_{i=0}^{n} (-1)^{i} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i\right)
       = \sum_{j=0}^{n+1}\sum_{i=0}^{n} (-1)^{i + j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j
-    \] and \begin{align*}
+    \] and \begin{align}
       K_{n-1}(\partial_{n}(\sigma))
       &= \sum_{i=0}^{n-1} (-1)^{i} H\circ(\partial_n(\sigma) \times \id{[0,1]}) \circ \delta_i \\
       &= \sum_{i=0}^{n-1} (-1)^{i} H\circ\left(\sum_{j=0}^n(-1)^j\sigma \circ F_j \times \id{[0,1]}\right) \circ \delta_i \\
       &= \sum_{i=0}^{n-1}\sum_{j=0}^n (-1)^{i+j} H\circ\left(\sigma \circ F_j \times \id{[0,1]}\right) \circ \delta_i \\
       &= \sum_{i=0}^{n-1}\sum_{j=0}^n (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_i
-    \end{align*}
-    This final sum can be split based on cases.
-    \begin{align*}
+    \end{align}
+    This final sum (4) can be split based on cases.
+    \begin{align}
       K_{n-1}(\partial_{n}(\sigma))
       &=\sum_{i=0}^{n-1}\sum_{j=0}^n (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_i \\
       % i + 1 > j
       &= \sum_{i=0}^{n-1}\sum_{j=0}^i (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_i \\
       &\hspace{1cm}+ \sum_{i=0}^{n-1}\sum_{j=i+1}^n (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_i
-    \end{align*}
-    Then these sums can be reindexed based on the above identities \begin{align*}
+    \end{align}
+    Then these sums can be reindexed based on the above identities \begin{align}
       K_{n-1}(\partial_{n}(\sigma))
       &= \sum_{i=1}^{n}\sum_{j=0}^{i-1} (-1)^{i-1+j} H\circ(\sigma \times \id{[0,1]}) \circ (F_j \times \id{[0,1]}) \circ \delta_{i-1}\\
       &\hspace{1cm}+ \sum_{i=0}^{n-1}\sum_{j=i+2}^{n+1} (-1)^{i+j-1} H\circ(\sigma \times \id{[0,1]}) \circ (F_{j-1} \times \id{[0,1]}) \circ \delta_i\\
       &= \sum_{i=1}^{n}\sum_{j=0}^{i-1} (-1)^{i-1+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j\\
       &\hspace{1cm}+ \sum_{i=0}^{n-1}\sum_{j=i+2}^{n+1} (-1)^{i+j-1} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j
-    \end{align*}
-    Then adding this to $\partial_{n+1}(K_n(\sigma))$ yields \begin{align*}
+    \end{align}
+    Then adding this to $\partial_{n+1}(K_n(\sigma))$ yields \begin{align}
       \partial_{n+1}(K_n(\sigma)) + K_{n-1}(\partial_{n}(\sigma))
       &= \sum_{j=0}^{n+1}\sum_{i=0}^{n} (-1)^{i + j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j \\
       &\hspace{1cm}- \sum_{i=1}^{n}\sum_{j=0}^{i-1} (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j \\
-      &\hspace{1cm}- \sum_{i=0}^{n-1}\sum_{j=i+2}^{n+1} (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j
+      &\hspace{1cm}- \sum_{i=0}^{n-1}\sum_{j=i+2}^{n+1} (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j.
+    \end{align}
+    By swapping the sums on the first term (12), and splitting the second (13) and third (14)
+    sums to their overlap $(1 \leq i \leq n-1)$ gives \begin{align}
+      \partial_{n+1}(K_n(\sigma)) + K_{n-1}(\partial_{n}(\sigma))
+      &= \sum_{i=0}^{n}\sum_{j=0}^{n+1} (-1)^{i + j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j \\
+      &\hspace{1cm}- \sum_{i=1}^{n-1}\sum_{j=0}^{i-1} (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j \\
+      &\hspace{1cm}- \sum_{j=0}^{n-1} (-1)^{n+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_n \circ F_j \\
+      &\hspace{1cm}- \sum_{j=2}^{n+1} (-1)^{j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_0 \circ F_j\\
+      &\hspace{1cm}- \sum_{i=1}^{n-1}\sum_{j=i+2}^{n+1} (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j.
+    \end{align}
+    Then the second (16)and fifth (19) terms sum over $1 \leq i \leq n - 1$, but miss
+    values where $j = 1$ or $j = i + 1$, so we'll add these back in \begin{align}
+      \partial_{n+1}(K_n(\sigma)) + K_{n-1}(\partial_{n}(\sigma))
+      &= \sum_{i=0}^{n}\sum_{j=0}^{n+1} (-1)^{i + j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j \\
+      &\hspace{1cm}- \sum_{i=1}^{n-1}\sum_{j=0}^{n+1} (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j \\
+      &\hspace{1cm}+ \sum_{i=1}^{n-1}\sum_{j=i}^{i+1} (-1)^{i+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_j \\
+      &\hspace{1cm}- \sum_{j=0}^{n-1} (-1)^{n+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_n \circ F_j \\
+      &\hspace{1cm}- \sum_{j=2}^{n+1} (-1)^{j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_0 \circ F_j.
+    \end{align}
+    Subtracting (21) from (20), and
+    splitting (22) into two sums gives \begin{align}
+      \partial_{n+1}(K_n(\sigma)) + K_{n-1}(\partial_{n}(\sigma))
+      &= \sum_{j=0}^{n+1} (-1)^{j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_0 \circ F_j \\
+      &\hspace{1cm}+ \sum_{j=0}^{n+1} (-1)^{n + j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_n \circ F_j \\
+      &\hspace{1cm}+ \sum_{i=1}^{n-1} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_i \\
+      &\hspace{1cm}- \sum_{i=1}^{n-1} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_{i+1} \\
+      &\hspace{1cm}- \sum_{j=0}^{n-1} (-1)^{n+j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_n \circ F_j \\
+      &\hspace{1cm}- \sum_{j=2}^{n+1} (-1)^{j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_0 \circ F_j.
+    \end{align} Then subtracting (30) from (25) and (29) from (26) gives \begin{align}
+      \partial_{n+1}(K_n(\sigma)) + K_{n-1}(\partial_{n}(\sigma))
+      &= \sum_{j=0}^{1} (-1)^{j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_0 \circ F_j \\
+      &\hspace{1cm}+ \sum_{j=n}^{n+1} (-1)^{n + j} H\circ(\sigma \times \id{[0,1]}) \circ \delta_n \circ F_j \\
+      &\hspace{1cm}+ \sum_{i=1}^{n-1} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_i \\
+      &\hspace{1cm}- \sum_{i=1}^{n-1} H\circ(\sigma \times \id{[0,1]}) \circ \delta_i \circ F_{i+1}.
+    \end{align}
+    Then using the substitution
+    $\delta_i \circ F_{i+1} = \delta_{i+1} \circ F_{i+1}$
+    when $i < n$, subtracting $(34)$ from $(33)$, and writing everything
+    termwise gives \begin{align}
+      \partial_{n+1}(K_n(\sigma)) + K_{n-1}(\partial_{n}(\sigma))
+      &= H\circ(\sigma \times \id{[0,1]}) \circ \underbrace{\delta_0 \circ F_0}_{i_1} \\
+      &\hspace{1cm}- H\circ(\sigma \times \id{[0,1]}) \circ \delta_0 \circ F_1 \\
+      &\hspace{1cm}+ H\circ(\sigma \times \id{[0,1]}) \circ \delta_n \circ F_n \\
+      &\hspace{1cm}- H\circ(\sigma \times \id{[0,1]}) \circ \underbrace{\delta_n \circ F_{n+1}}_{i_0} \\
+      &\hspace{1cm}+ H\circ(\sigma \times \id{[0,1]}) \circ \underbrace{\delta_1 \circ F_1}_{\delta_0 \circ F_1}\\
+      &\hspace{1cm}- H\circ(\sigma \times \id{[0,1]}) \circ \delta_{n} \circ F_{n}.
+    \end{align}
+    So $(36)$ cancels with $(39)$ and $(37)$ cancels with $(40)$ leaving \begin{align*}
+      \partial_{n+1}(K_n(\sigma)) + K_{n-1}(\partial_{n}(\sigma))
+      &= H\circ(\sigma \times \id{[0,1]}) \circ i_1
+      - H\circ(\sigma \times \id{[0,1]}) \circ i_0\\
+      &= H\circ(\sigma \times 1)
+      - H\circ(\sigma \times 0) \\
+      &= C_n(f_1)(\sigma) - C_n(f_0)(\sigma).
     \end{align*}
   \end{enumerate}
 
@@ -251,7 +305,31 @@
     Since each set contains the other,
     $\im(\partial_1) = \ker(\widetilde \partial_0)$ and
     $\widetilde H_0(X) = \ker(\widetilde \partial_0)/\im(\partial_1) = 0$.
-    \item
+    \item Suppose $X$ has $n$ path-connected components $X_1, X_2, \hdots, X_n$.
+    Then $C_n(X)$ is freely generated \[
+      C_n(X) = \bigoplus_{i=1}^n C_n(X_i).
+    \] The above result that
+    $\im(\partial_1) \subset \ker(\widetilde\partial_0)$ did not depend on
+    path-connectedness, so it still holds.
+    Also the image of $\partial_1$ can be written as the disjoint union of
+    boundaries of components \[
+      \im(\partial_1) = \coprod_{i=1}^n \im(\partial_1|_{C_1(X_i)}).
+    \]
+    I'm not sure what to do next with this: \[
+      \bigoplus_{i=1}^n C_n(X_i) \xrightarrow{\partial_1}
+      \bigoplus_{i=1}^n C_n(X_i) \xrightarrow{\widetilde\partial_0}
+      R.
+    \]
+    % Let $x_0^{(1)}, x_0^{(2)}, \hdots, x_0^{(n)}$ be basepoints in the components
+    % $X_1, X_2, \hdots, X_n$. And suppose by induction (with base case of $n=1$
+    % shown in the above part) that if $X'$ has $n-1$ components, that $H_n$ can
+    % be written with a basis $\sigma_1, \sigma_2, \hdots, \sigma_{n-1}$. Then
+    % for some $c = \sum_i c_ix_i$ in $\ker(\widetilde\partial_0)$ we can write
+    % \begin{align*}
+    %   \partial_1(c' - c_n)
+    %   &= \partial_1(c') - \partial_1(c_n) \\
+    %   &= \partial_1(c') - \partial_1(c_n)
+    % \end{align*}
   \end{enumerate}
 \end{proof}
 \end{document}
