@@ -1,0 +1,89 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\begin{document}
+
+\title{Combinatorics: Homework 10}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{70} $ $
+  \begin{enumerate}[a.]
+    \item $[2-]$ Let $E_n$ denote the poset of all subsets of $[n]$ whose
+    elements have even sum ordered by inclusion. Find $\#E_n$.
+    \item $[2+]$ Compute $\mu(S, T)$ for all $S \leq T$ in $E_n$ as a recursion \[
+      a_m = -\sum_{k<m}\binom{2m}{2k}a_k.
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} $ $
+  \begin{enumerate}[a.]
+    \item Consider all $2^{n-1}$ subsets of $\set{2,3,\hdots,n}$.
+    There are $a$ sets with an even sum, and $b$ with an odd sum, where
+    $a + b = 2^{n-1}$. This means that if we add $1$ to each set, there are
+    $b$ new sets with an even sum and $a$ odd sets with an odd sum.
+
+    Therefore there are
+    $a$ subsets of $[n]$ with an even sum which do not contain $1$, and
+    $b$ subsets of $[n]$ with an even sum which contain $1$, totaling
+    $a+b = 2^{n-1}$ subsets of $[n]$ with an even sum.
+    \item Using the identity \[
+      \mu(S, T) = \begin{cases}
+        1 & S = T \\
+        \displaystyle\sum_{S \leq U < T} -\mu(S,U) & S < T
+      \end{cases}
+    \]
+  \end{enumerate}
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{89} $[2]$ \\
+  For a finite lattice $L$, let $f_L(m)$ be the number of $m$-tuples
+  $(t_1, \hdots, t_m) \in L^m$ such that
+  $t_1 \wedge t_2 \wedge \hdots \wedge t_m = \hat 0$. Prove via M\"obius
+  inversion that \[
+    f_L(m) = \sum_{t \in L} \mu(\hat 0, t)(\#V_t)^m
+  \] where $V_t = \set{s \in L : s \geq t}$.
+\end{problem}
+
+\begin{solution} \text{} \\
+  Generalize $f_L(m)$ by defining \[
+    g^m_L(s) = \#\set{t_1, \hdots, t_m : t_1 \wedge t_2 \wedge \hdots \wedge t_m = s}.
+  \] In particular $g^m_L(\hat 0) = f_L(m)$.
+  \\~\\
+  Notice that $t_1 \wedge t_2 \wedge \hdots \wedge t_m \in V_t$ if and only if
+  $t_1, \hdots, t_m \in V_t$. Therefore if the number of tuples
+  $(t_1, \hdots, t_m)$ with entries in $V_s$ is exactly the number of tuples
+  such that $t_1 \wedge t_2 \wedge \hdots \wedge t_m \in V_t$, that is:
+  \[
+    (\#V_s)^m = \sum_{t \geq s} g_L^m(t).
+  \]
+  Therefore by the dual form of the M\"obius inversion formula, \[
+    g_L^m(s) = \sum_{t \geq s} \mu(\hat 0, t)(\#V_t)^m,
+  \] so in particular when $s = \hat 0$, \[
+    f_L(m) = g_L^m(\hat 0) = \sum_{t \geq 0} \mu(\hat 0, t)(\#V_t)^m
+    = \sum_{t \in L} \mu(\hat 0, t)(\#V_t)^m.
+  \]
+  % Want to show that
+\end{solution}
+\end{document}
