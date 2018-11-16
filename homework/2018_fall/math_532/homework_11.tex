@@ -1,0 +1,162 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\begin{document}
+
+\title{Combinatorics: Homework 11}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  Prove that every group of $2n$ children in which every child is friends with
+  at least $n$ other children can be partitioned into pairs of friends in at
+  least two different ways.
+\end{problem}
+
+\begin{proof} $ $ \\
+  If two children are friends, they can be paired up in exactly one way.
+  \\
+  If four children each have two or more friends, then this is network is
+  has a subgraph which is $C_4$, so it is
+  sufficient to show that $C_4$ can be partitioned in two different ways.
+  If the edges of $C_4$ are written $E = \set {v_1v_2, v_2v_3, v_3v_4, v_4v_1}$,
+  then take the pairs $(v_1, v_2)$ and $(v_3, v_4)$ or else take the pairs
+  $(v_4, v_1)$ and $(v_2, v_3)$.
+  \\
+  % With the base case established, take the child with the fewest friends, and
+  % pair them off with their friend with the fewest friends.
+  Take the child $v$ with the fewest friends, and pair them up with their friend
+  $v'$ with the fewest friends. Sinc $v$ is assumed to have the fewest friends,
+  $\deg(v) \leq \deg(v')$.
+  % \\
+  % \textbf{Case 1.} Assume $\deg(v) > n$, then all vertices in $V$ have at least
+  % $n+1$ friends, so removing $v$ and $v'$ results in a new graph with $2n - 2$
+  % vertices, where each vertex has degree of at least $n-1$.
+  \\
+  \textbf{Case 1.} Assume $\deg(v') > n$. There are no mutual friends of $v'$ and
+  $v''$ with exactly $n$ friends (otherwise this friend would be named $v'$), so
+  removing $v$ and $v'$ everyone with at least $n-1$ friends.
+  \\
+  \textbf{Case 2.} Assume $\deg(v) = \deg(v') = n$.
+  % Assume $v$ and $v'$ have a friend named $v''$ such that
+  % $\deg(v) = \deg(v') = \deg(v'')$.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2}
+  Find the chromatic polynomial for the graph with \begin{align*}
+    V &= \set{v_1, \hdots, v_n} \\
+    E &= \set{v_1 v_2, v_2v_3, \hdots v_{n-1}v_{n}, v_1v_n}
+      \cup \set{v_1v_3, v_1v_4, \hdots, v_1v_{n-1}},
+  \end{align*} using the facts that the chromatic polynomial for the cyclic
+  graph $C_n$ is \[
+    P_{C_n}(k) = (k-1)^n + (-1)^n(k-1)
+  \] and that the chromatic polynomial for any graph $G = G_1 \cup G_2$ where
+  $G_1 \cap G_2 = \set{v}$ is \[
+    P_G(k) = \frac{1}{k}p_{G_1}(k)p_{G_2}(k).
+  \]
+\end{problem}
+
+\begin{solution} \text{} \\
+  There are $k$ ways
+  to pick the color for $v_1$, $(k-1)$ ways to pick the color for $v_2$, since
+  $v_1$ is adjacent to $v_2$, and then $(k-2)$ ways to pick the color for $v_i$
+  as $i$ goes from $3$ to $n$, since $v_i$ is adjacent to $v_1$ and $v_{i-1}$.
+  Therefore if $G_n$ is the graph with $n$ vertices \[
+    P_{G_n}(k) = k(k-1)(k-2)^{n-2}.
+  \]
+  \\~\\
+  In order to use the hint, contraction/deletion gives \[
+    P_{G_n}(k) = P_{G_n'}(k) - P_{G_n''}(k)
+  \] where $G_n' = G_n - v_{n-1}v_n$ and $G_n'' = G_n/v_{n-1}v_n$.
+  \\
+  With induction hypothesis given above, using the information that $G_3 = C_3$,
+  \begin{align*}
+    P_{G_3}(k)
+    &= P_{C_3}(k) \\
+    &= (k-1)^3 - (k-1) \\
+    &= (k-1)((k-1)^2 - 1) \\
+    &= k(k-1)(k-2)
+  \end{align*} so the base case is satisfied for $n=3$.
+  \\
+  The first graph in the contraction/deletion argument satisfies \[
+    G_n' = G_{n-1} \cup \underbrace{(\set{v_1, v_n}, \set{v_1v_n})}_{C_2}
+  \] where $G_{n-1} \cap C_2 = \set{v_{n-1}}$. Therefore, by the facts given
+  along with the induction hypothesis, the chromatic
+  polynomial of $G_n'$ is given by \begin{align*}
+    P_{G_n'}(k)
+    &= \frac 1k
+      \cdot \underbrace{k(k-1)(k-2)^{n-2}}_{\displaystyle P_{G_{n-1}}(k)}
+      \cdot \underbrace{k(k-1)}_{\displaystyle P_{C_2}(k)} \\
+    &= k(k-1)^2(k-2)^{n-2}.
+  \end{align*}
+  Similarly, $G_n'' = G_{n-1}$, so by the induction hypothesis together with
+  contraction deletion, \begin{align*}
+    P_{G_n}(k) &= P_{G_n'}(k) - P_{G_n''}(k) \\
+      &= k(k-1)^2(k-2)^{n-2} - k(k-1)(k-2)^{n-2} \\
+      &= k(k-1)(k-2)^{n-2} ((k-1) - 1) \\
+      &= k(k-1)(k-2)^{n-1},
+  \end{align*} as desired.
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3}
+  Using the deletion/retraction recurrence on a graph, prove that the number of
+  acyclic orientations of $G$ is equal to $(-1)^{|V|}p_G(-1)$ where an acyclic
+  orientation is an assignment of a direction to each edge such that there are
+  no directed cycles.
+\end{problem}
+
+\begin{proof} \text{} \\
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4}
+  Let $G$ be a planar connected bipartite graph $V = V_1 \coprod V_2$ and
+  $E \subset V_1 \times V_2$ such that there is no $4$-cycle and no vertex of
+  degree $1$. Show that $3(|V|-2) \geq 2|E|$.
+\end{problem}
+
+\begin{solution} \text{} \\
+  Since $G$ is planar, the Euler characteristic states that \[
+    v - 2 = e - f
+  \]
+  Since $G$ is bipartite, any cycle must have even length, so $G$ does not
+  contain any $3$-cycles or $5$-cycles. Since $G$ is
+  assumed to be simple (and therefore does not have multiple edges) $G$ does
+  not contain any $2$-cycles. By assumption, $G$ does not contain any $4$-cycles.
+  Thus any face of $G$ must be adjacent to $6$ or more edges, whenever $G$ has
+  at least $6$ edges, and $G$ must have at least $6$ edges by the ``no vertex of
+  degree $1$ criterion'' coupled with having no cycles smaller than $6$.
+  \\~\\
+  Since every edge is adjacent to at most two faces, and since $e \geq 6$, \[
+    \frac f2 \leq \frac e6
+  \] and so in particular \begin{alignat*}{2}
+    v - 2 &= e - f &&\geq e - \frac 13e \\
+    3(|V| - 2)& &&\geq 2|E|.
+  \end{alignat*}
+\end{solution}
+\end{document}
