@@ -1,0 +1,70 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath, pgfplots}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Week 12 Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+  \begin{enumerate}
+		\item (\textit{7 points})
+      Let $E$ be the region of the cone $x^2 + y^2 = z^2$ that is
+      between the $xy$-plane and the plane $z = 1$.
+      The density of the solid is given by $f(x, y, z) = x^2 + y^2 + z^2$.
+      \begin{enumerate}
+        \item Set up \textbf{but do not evaluate} the integral to find the mass of $E$ using cylindrical coordinates.
+        \item Set up \textbf{but do not evaluate} the integral to find the mass of $E$ using spherical coordinates.
+      \end{enumerate}
+    \textbf{Solution.}\\
+			\begin{enumerate}
+				\item Substituting $r^2$ for $x^2 + y^2$ in the integrand gives \[
+					\int\int\int_E f(x,y,z)\,dV = \int_{\theta=0}^{2\pi}\int_{r=0}^1\int_{z=r}^1 r^3 + rz^2 \,dz\, dr\, d\theta
+				\]
+				\item We know that $z = \rho\sin(\phi) \leq 1$ so $\rho \leq \frac{1}{\sin\phi}$. Substituting $\rho^2$ for $x^2 + y^2 + z^2$ in the integrand gives: \[
+					\int_{\theta=0}^{2\pi}\int_{\phi=0}^{\pi/4}\int_{\rho=0}^{1/\sin\phi} \rho^4\sin\phi \,d\rho\, d\phi\, d\theta
+				\]
+			\end{enumerate}
+		\pagebreak
+		\item (\textit{3 points}) Find the tangent plane to the surface
+		parameterized by \begin{align*}
+			x &= u + v \\
+			y &= 2u \\
+			z &= uv - 1
+		\end{align*} at the point $(1,2,-1)$.
+    \\~\\
+    \textbf{Solution.}\\
+		Write the parameterization as $\vec r(u, v) = \langle u + v, 2u, uv - 1 \rangle$.
+		Then the partial derivatives with respect to $u$ and $v$ are \begin{align*}
+			\vec r_u(u, v) &= \langle 1, 2, v \rangle \\
+			\vec r_v(u, v) &= \langle 1, 0, u \rangle.
+		\end{align*}
+		In particular, the only solution to $\vec r(u, v) = \langle 1, 2, -1 \rangle$
+		is when $u = 1$ and $v = 0$.
+		The normal vector to the tangent plane is given by
+		\[
+			r_u(1, 0) \times r_v(1, 0) = \begin{bmatrix}
+				\hat i & \hat j & \hat k \\
+				1 & 2 & 0 \\
+				1 & 0 & 1
+			\end{bmatrix}
+			= \langle 2, -1, -2 \rangle.
+		\]
+		Therefore the plane through $(1, 2, -1)$ is \[
+			2(x - 1) - (y - 2) - 2(z + 1) = 0.
+		\]
+  \end{enumerate}
+\end{document}

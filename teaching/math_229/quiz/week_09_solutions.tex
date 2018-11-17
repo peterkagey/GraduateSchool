@@ -1,0 +1,74 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Week 9 Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+  \begin{enumerate}
+		\item (\textit{5 points})
+		Suppose $f(1,2,3)=9, f_x(1,2,3)=\sqrt{17}, f_y(1,2,3) = \ln 5, f_z(1,2,3) = e^2$. Use this information to approximate $f(0.99, 2.01, 2.98)$.
+    \\~\\
+    \textbf{Solution.}
+    \\
+		Using the equation of the tangent plane to do a linear approximation gives \begin{align*}
+			f(x, y, z) - \underbrace{f(1, 2, 3)}_9
+			&= \underbrace{f_x(1,2,3)}_{\sqrt{17}}(x - 1) +
+			\underbrace{f_y(1,2,3)}_{\ln 5}(y - 2) +
+			\underbrace{f_z(1,2,3)}_{e^2}(z - 3) \\
+			f(x, y, z) &= 9 + \sqrt{17}(x-1) + \ln(5)(y-2) + e^2(z-3) \\
+			f(0.99, 2.01, 2.98) &\approx 9 + \sqrt{17}(0.99-1) + \ln(5)(2.01-2) + e^2(2.98-3) \\
+			f(0.99, 2.01, 2.98) &\approx 9 + -0.01\sqrt{17} + 0.01\ln(5) + -0.02e^2
+		\end{align*}
+		\item (\textit{5 points})
+		The temperature $T$ at a location $(x, y, z)$ is given by \[
+			T(x,y,z) = 100e^{-(x^2+\frac{y^2}{4}+\frac{z^2}{9})}
+		\]. At $(1,2,3)$, what is the direction
+		in which $T$ increases most rapidly?
+		What is the direction of most rapid decrease in T?
+		\\~\\
+    \textbf{Solution.}
+		The directional derivative of $T$ in the direction $\vec u$ is given by \[
+			D_{\vec u}T(x,y,z) = \nabla T(x,y,z) \cdot \vec u
+		\] where $\vec u$ is a unit vector. So this is maximized when
+		$\nabla T(x,y,z)$ and $\vec u$ have the same direction. Namely, \[
+			\vec u = \frac{\nabla T(1,2,3)}{|\nabla T(1,2,3)|}.
+		\]
+		The gradient is given by \begin{align*}
+			\nabla T(x,y,z)
+			&= \langle T_x(x,y,z), T_y(x,y,z), T_z(x,y,z) \rangle \\
+			&= \left\langle
+				-200xe^{-(x^2+\frac{y^2}{4}+\frac{z^2}{9})},
+				-50ye^{-(x^2+\frac{y^2}{4}+\frac{z^2}{9})},
+				-\frac{200}{9}ze^{-(x^2+\frac{y^2}{4}+\frac{z^2}{9})} \right\rangle \\
+			\nabla T(1,2,3)
+			&= \langle -200e^{-3}, -(200/2)e^{-3}, -(200/3)e^{-3} \rangle \\
+			&= \frac{200}{6}e^{-3} \langle -6, -3, -2 \rangle.
+		\end{align*}
+		So the direction of the unit vector $\vec u$ where the increase in
+		temperature is maximized is given by \[
+			\vec u
+			= \frac{ \langle -6, -3, -2 \rangle }{ \sqrt{36 + 9 + 4} }
+			= \left\langle -\frac{6}{7}, -\frac{3}{7}, -\frac{2}{7} \right\rangle.
+		\]
+		The decrease in temperature occurs when moving in the opposite
+		direction, \[
+			-\vec u = \left\langle \frac{6}{7}, \frac{3}{7}, \frac{2}{7} \right\rangle.
+		\]
+  \end{enumerate}
+\end{document}

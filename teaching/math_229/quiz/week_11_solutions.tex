@@ -1,0 +1,92 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath, pgfplots}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Week 11 Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+  \begin{enumerate}
+		\item (\textit{3 points}) Find the tangent plane to the level surface
+		$xyz+z^2\cos{x}=-4$ at the point $(\pi,0,1)$.
+    \\~\\
+    \textbf{Solution.}
+		Let $f(x,y,z) = xyz + z^2\cos(x)$. Since the gradient $\nabla f$ always
+		points perpendicular to the level surface, the plane can be described as \[
+			f_x(\pi,0,1)(x - \pi) + f_y(\pi,0,1)(y - 0) + f_z(\pi,0,1)(z - 1) = 0
+		\] where \begin{alignat*}{2}
+			f_x(x,y,z) &= yz - z^2\sin(x)
+			&&\hspace{1cm} f_x(\pi,0,1) = -\sin(\pi) = 0\\
+			f_y(x,y,z) &= xz
+			&&\hspace{1cm} f_y(\pi,0,1) = \pi \\
+			f_z(x,y,z) &= xy + 2z\cos(x)
+			&&\hspace{1cm} f_z(\pi,0,1) = 2\cos(\pi) = -2.
+		\end{alignat*}
+		Therefore the plane is given by the equation \[
+			\pi y -2(z-1) = 0.
+		\]
+    \\
+		\item (\textit{4 points}) Evaluate \[
+      \iint\limits_{R} xye^{y^2+x^2}\mathrm{d}A
+    \] where $R=[0, 1] \times [0, 1]$.
+    \\~\\
+    \textbf{Solution.}
+    \\
+		The integral can be written with the bounds \[
+			\int_{y=0}^1\int_{x=0}^1 xye^{y^2 + x^2}\,dx\,dy =
+			\int_{y=0}^1\int_{x=0}^1 (xe^{x^2})(ye^{y^2})\,dx\,dy,
+		\] so in particular it can be separated \[
+			\left(\int_{x=0}^1 xe^{x^2}\,dx\right)
+			\left(\int_{y=0}^1 ye^{y^2}\,dy\right)
+		\]
+		By the substituion $u = x^2$ and $du = 2x dx$, this can be rewritten \[
+			\left(\int_{u=0}^1 \frac12 e^u\,du\right)^2
+			= \frac{(e - 1)^2}{4}.
+		\]
+		\pagebreak
+		\item (\textit{3 points}) Set up the double integral of
+    $f(x,y)=e^x\cos(y^{15})$ over region R bounded below by $y=x^3$ and above by
+    $y=\sqrt{x}$ in two different ways. Do not evaluate this double integral.
+    \begin{figure}[h]
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[axis lines=middle, xticklabels=\empty, yticklabels=\empty]
+          \addplot[domain=0:1.1, mark=none,samples=200] {sqrt(x)};
+          \addplot[domain=0:1.1, mark=none,samples=200] {x^3};
+          \draw (axis cs:0.8,1) node {$y=\sqrt x$};
+          \draw (axis cs:0.8,0.3) node {$y=x^3$};
+        \end{axis}
+      \end{tikzpicture}
+    \end{figure}
+    \\~\\
+    \textbf{Solution.}
+    \\
+		The two curves intersect where $\sqrt x = x^3$, namely $(0,0)$ and $(1,1)$.
+		Writing the bounds of $y$ as a function of $x$ \begin{alignat*}{2}
+			x^3 &\leq y &&\leq \sqrt{x} \\
+			0 &\leq x   &&\leq 1
+		\end{alignat*} gives the integral \[
+			\int_{x=0}^1\int_{y=x^3}^{\sqrt x} e^x\cos(y^{15})\,dy\,dx.
+		\]
+		Writing the bounds of $x$ as a function of $y$ \begin{alignat*}{2}
+			y^2 &\leq x &&\leq \sqrt[3]{y} \\
+			0 &\leq y   &&\leq 1
+		\end{alignat*} gives the integral \[
+			\int_{y=0}^1\int_{x=y^2}^{\sqrt[3] y} e^x\cos(y^{15})\,dx\,dy.
+		\]
+  \end{enumerate}
+\end{document}

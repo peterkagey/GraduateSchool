@@ -1,0 +1,73 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Week 10 Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+  \begin{enumerate}
+		\item (\textit{5 points})
+		Use the second derivatives test to identify local maxima, local minima, and
+		saddle points for the function \[
+			f(x, y) = \frac{x^3}{3} + 8x + 3y^2 - 6xy.
+		\]
+    \\~\\
+    \textbf{Solution.}
+    \\
+		First find the critical points of $f$, by setting the gradient equal to zero
+		\begin{align*}
+				\nabla f(x,y) = \langle x^2 + 8 - 6y, 6y - 6x \rangle = \langle 0, 0 \rangle.
+		\end{align*}
+		By the second equation this occurs when $x = y$. By substituting in the
+		first equation, this gives $x^2 - 6x + 8 = (x-2)(x-4) = 0$. So the critical
+		points occur at $(2, 2)$ or  $(4, 4)$.
+		By the second derivative test \begin{align*}
+			D &= f_{xx}(x, y)f_{yy}(x, y) - [f_{xy}(x, y)]^2 \\
+				&= (2x)(6) - (-6)^2 \\
+				&= 12x - 36.
+		\end{align*}
+		When $(x,y) = (2, 2)$, $D = -12 < 0$, so this is a saddle point. When
+		$(x, y) = (4, 4)$, $D = 12 > 0$ and $f_{xx} = 8$, so this is a local
+		minimum.
+		\item (\textit{5 points})
+		Use Lagrange multipiers to find the extreme values of the above function $f(x, y)$
+		subject to the constraint that $x - y = 2$.
+		\\~\\
+    \textbf{Solution.}
+		Name the constraint $g(x, y) = x - y$. Then we have \begin{align*}
+			\nabla f(x, y) &= \lambda \nabla g(x, y) \\
+			\langle x^2 + 8 - 6y, 6y - 6x \rangle &= \lambda\langle 1, -1 \rangle
+		\end{align*} which gives the following system of equations \begin{align}
+			x^2 + 8 - 6y &= \lambda \\
+			6y - 6x &= -\lambda \\
+			x - y &= 2
+		\end{align}
+		Combining equations (2) and (3) gives that $\lambda = 12$.
+		Then solving for $y$ in equation (3) and using equation (1) gives
+		\begin{align*}
+			x^2 + 8 - 6(x-2) &= 12 \\
+			x^2 - 6x + 8 &= 0 \\
+			(x - 2)(x - 4) &= 0.
+		\end{align*}
+		So $x = 2$ or $x = 4$, corresponding to the points $(2, 0)$ and $(4, 2)$
+		respectively. The function $f$ does not have a global maximum subject to
+		the constraint $x - y = 2$, but since \[
+		f(2, 0) = \frac 83 + 16 = \frac{56}{3} > f(4, 2) = \frac{64}{3} + 32 + 12 - 48 = \frac{52}{3}\]
+		$(2, 0)$ is a local max and $(4, 2)$ is a local min.
+  \end{enumerate}
+\end{document}
