@@ -129,6 +129,27 @@
 \end{problem}
 
 \begin{proof} \text{} \\
+  Let $A(G)$ be the number of acyclic orientations on $G$.
+  By induction on $|V| + |E|$ with base case of the singleton graph $\mathbf 1$, which has
+  chromatic polynomial $P_{\mathbf 1}(k) = k$.
+  The only assignment of direction to each edge is the empty assignment, and
+  \[
+    (-1)^{|\mathbf 1|}P_1(-1) = (-1)^1(-1) = 1 = A(\mathbf 1)
+  \] as desired.
+  \\~\\
+  Recall the usual contraction/deletion recurrence \[
+    P_{G}(k) = P_{G'}(k) - P_{G''}(k)
+  \] with $G' = G - uv$ and $G'' = G/uv$.
+  \\
+  Furthermore, the relation $A(G) = A(G') + A(G'')$ holds.
+  \\~\\
+  Applying the induction hypothesis together with the recurrence gives
+  \begin{align*}
+    A(G) &= A(G') + A(G'')\\
+    &= (-1)^{|V|}P_{G'}(-1) + (-1)^{|V|-1}P_{G'}(-1) \\
+    &=(-1)^{|V|}(P_{G'}(-1) - P_{G''}(-1)) \\
+    &= (-1)^{|V|}P_G(-1)
+  \end{align*} as desired.
 \end{proof}
 \pagebreak
 % -----------------------------------------------------
