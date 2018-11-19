@@ -31,32 +31,28 @@
 \end{problem}
 
 \begin{proof} $ $ \\
-  If two children are friends, they can be paired up in exactly one way.
-  \\
-  If four children each have two or more friends, then this is network is
-  has a subgraph which is $C_4$, so it is
-  sufficient to show that $C_4$ can be partitioned in two different ways.
-  If the edges of $C_4$ are written $E = \set {v_1v_2, v_2v_3, v_3v_4, v_4v_1}$,
-  then take the pairs $(v_1, v_2)$ and $(v_3, v_4)$ or else take the pairs
-  $(v_4, v_1)$ and $(v_2, v_3)$.
-  \\
-  % With the base case established, take the child with the fewest friends, and
-  % pair them off with their friend with the fewest friends.
-  Take the child $v$ with the fewest friends, and pair them up with their friend
-  $v'$ with the fewest friends. Sinc $v$ is assumed to have the fewest friends,
-  $\deg(v) \leq \deg(v')$.
-  % \\
-  % \textbf{Case 1.} Assume $\deg(v) > n$, then all vertices in $V$ have at least
-  % $n+1$ friends, so removing $v$ and $v'$ results in a new graph with $2n - 2$
-  % vertices, where each vertex has degree of at least $n-1$.
-  \\
-  \textbf{Case 1.} Assume $\deg(v') > n$. There are no mutual friends of $v'$ and
-  $v''$ with exactly $n$ friends (otherwise this friend would be named $v'$), so
-  removing $v$ and $v'$ everyone with at least $n-1$ friends.
-  \\
-  \textbf{Case 2.} Assume $\deg(v) = \deg(v') = n$.
-  % Assume $v$ and $v'$ have a friend named $v''$ such that
-  % $\deg(v) = \deg(v') = \deg(v'')$.
+  If there is a Hamiltonian cycle through the friendship network, then the
+  children can be placed in a circle based on this cycle and labeled
+  $v_1, v_2, \hdots, v_{2n}$.
+  Then the children can be paired up
+  $\set{v_1v_2, v_3v_4, \hdots, v_{2n-1}v_{2n}}$ or
+  $\set{v_2v_3, v_4v_5, \hdots, v_{2n-2}v_{2n-1}, v_{2n}v_1}$.
+  \\~\\
+  Firstly, this graph must be connected; if not, its smallest connected component has at
+  most $n$ vertices, which means that the degree of every vertex in the smallest
+  connected component is at most $n-1$.
+  \\~\\
+  Suppose $v_1v_2\hdots v_k$ is the longest path in $G$, which is not a cycle.
+  This means that all of $v_k$'s and $v_0$'s adjacent vertices are in
+  $\set{v_1, \hdots, v_{k-1}}$. Since the $\deg(v_0) > n$ and $\deg(v_k) > n$,
+  by the pigeonhole principle (since $k \leq 2n$), there exists some vertex
+  $v_i \in \set{v_1, \hdots, v_{k-1}}$ such that $v_0v_{i+1} \in E$ and
+  $v_iv_k \in E$.
+  Then the path from $v_1$ to $v_{i+1}$ to $v_k$ to $v_{i}$ back to $v_1$ must
+  be a Hamiltonian cycle---if it's not, then it misses some vertex $v_j$, which
+  can be used to create a contradiction: a path from $v_j$ to the
+  cycle exists because the graph is connected, and this path followed by
+  a walk around the cycle creates a longer path than the assumed longest path.
 \end{proof}
 \pagebreak
 % -----------------------------------------------------
