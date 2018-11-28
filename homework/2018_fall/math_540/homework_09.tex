@@ -1,0 +1,285 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,multicol}
+\usepackage[shortlabels]{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\id}[1]{\operatorname{Id}_{#1}}
+\newcommand{\ra}{\rightarrow}
+\DeclareMathOperator{\im}{Im}
+
+\begin{document}
+
+\title{Topology: Homework 8}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+  Suppose that $A$ is homotopoy equivalent to a point. Show that $H_n(X,A)$
+  is isomorphic to $H_n(X)$ for every $n \geq 1$.
+\end{problem}
+
+\begin{proof} \text{} \\
+  By the snake lemma we can turn the short exact sequences \[
+    0 \ra C(A) \ra C(X) \ra C(X,A) \ra 0
+  \] into the long exact sequence \[
+    \hdots \ra H_n(A) \ra H_n(X) \ra H_n(X,A) \xrightarrow{\delta_n} H_{n-1}(A) \ra \hdots.
+  \]
+  Since $A$ is homotopy equivalent to a point by hypothesis, for all $n > 0$,
+  $H_n(A) = 0$.
+  Therefore for $n > 1$ \[
+    \underbrace{H_n(A)}_0 \ra H_n(X) \ra H_n(X,A) \xrightarrow{\delta_n} \underbrace{H_{n-1}(A)}_0
+  \] and thus map $H_n(X) \ra H_n(X,A)$ has a kernel of $0$ so is injective, and it
+  has an image of $H_n(X,A)$, so it's surjective, and thus $H_n(X) \cong H_n(X,A)$.
+  \\~\\
+  In the case of $n = 1$, the long exact sequence is \[
+    \hdots \ra
+    \underbrace{H_1(A)}_0 \ra H_1(X) \ra H_1(X,A) \xrightarrow{\delta_1} \underbrace{H_0(A)}_R \ra \hdots,
+  \]
+  so the map $H_1(X) \rightarrow H_1(X, A)$ is injective. Thus it is enough to
+  show that the map is surjective. However, take the equivalence class
+  $[c] \in H_1(X, A) = H_1(X)/H_1(A)$, with representative $c \in H_1(X)$.
+  So the quotient map $c \mapsto [c]$ is surjective.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} \text{} \\
+  Suppose that $X$ is homotopy equivalent to a point. Show that $H_n(X,A)$ is
+  isomorphic to $H_{n-1}(A)$ for every $n \geq 2$. Show that this is in general
+  false if $n = 1$.
+\end{problem}
+
+\begin{proof} \text{} \\
+  By the same construction above, we have the long exact sequence \[
+    \hdots \ra H_n(X) \ra H_n(X,A) \xrightarrow{\delta_n} H_{n-1}(A) \ra H_{n-1}(X) \ra \hdots.
+  \] If $n > 1$, then we have the short exact sequence \[
+    \underbrace{H_n(X)}_0 \ra H_n(X,A) \xrightarrow{\delta_n} H_{n-1}(A) \ra \underbrace{H_{n-1}(X)}_0
+  \] so $\delta_n$ is an isomorphism.
+  \\~\\
+  In the case of $n=1$, $H_1(X,A) = C_1(X)/B_1(X,A)$
+  \[
+    \underbrace{H_1(X)}_0 \ra H_1(X,A) \xrightarrow{\delta_1} H_0(A) \ra \underbrace{H_0(X)}_R.
+  \]
+  The map $\fn{\delta_1}{H_1(X, A)}{H_0(A)}$ is injective, so it is
+  enough to show that $\delta_1$ is not surjective.
+  Let $X = {0}$ and $X = A$. Then $X_1(X, A) = 0$ and $X_0(A) = R$, so this map
+  cannot be surjective for all pairs $(X, A)$ as shown by this counterexample.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} \text{} \\
+  For $A \subset X$, suppose that the inclusion map $\fn iAX$ is a homotopy
+  equivalence. Show that $H_n(X, A) = 0$ for every $n$.
+\end{problem}
+
+\begin{proof} \text{} \\
+  Firstly, we have the exact sequence \[
+    \hdots \ra H_n(X,A) \xrightarrow{\delta_n} H_{n-1}(A) \xrightarrow{i_*} H_{n-1}(X) \xrightarrow{j_*} H_{n-1}(X,A) \hdots.
+  \] where $\ker(i_*) = 0 = \im(\delta_n)$, where the kernel is trivial because
+  $i_*$ is an isomorphism. Thus $\delta_n$ must be the zero map with kernel \[
+    \ker(\delta_n) = H_n(X,A).
+  \]
+  Since $\fn{j_* \circ i_*}{H_{n-1}(A)}{H_{n-1}(X,A)}$ maps everything to the
+  zero element in the quotient, $j_*$ must be the zero map, so
+  \[
+    0 = \im(j_*) = \ker(\delta_n) = H_n(X,A).
+  \]
+  % Since the sequence is exact, $\ker(\delta_n) = H_n(X,A) = \im(H_{n}(X) \ra H_{n}(X,A))$,
+  % so the map $H_{n}(X) \ra H_{n}(X,A)$ is surjective, and because of isomorphism
+  % Since $i_*$ is an isomorphism, $\im(i_*) = H_n(X) = \ker(j_*)$
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4} \text{} \\
+  Suppose that $X = X_1 \cup X_2$ for two subspaces $X_1, X_2 \subset X$. Let
+  $C_n^{X_1X_2}(X) = C_n(X_1) + C_n(X_2) \subset C_n(X)$ consist of chains
+  $c \in C_n(X)$ that can be written as a linear combination of simplices that
+  are either completely contained in $X_1$ or completely contained in $X_2$.
+  Let $H_n^{X_1X_2}$ denote the homology modules of the corresponding chain
+  \\~\\
+  Prove that $\fn{H_n(i)}{H_n^{X_1X_2}(X)}{H_n(X)}$ is an isomorphism for every $n$
+  if and only if $X_1 - X_2$ can be excised from the pair $(X, X_1)$.
+  \begin{enumerate}[a.]
+    \item Suppose that $\fn{H_n(i)}{H_n^{X_1X_2}(X)}{H_n(X)}$ is an isomorphism
+    for every $n$. We want to show that
+    $\fn{H_n(j)}{H_n(X_2,X_1 \cap X_2)}{H_n(X, X_1)}$ is surjective.
+    For this, consider $[c] \in H_n(X,X_1)$ represented by $c \in C_n(X)$ with
+    $\partial c \in C_{n-1}(X_1)$.
+    \begin{enumerate}[(i)]
+      \item Let $c' = \partial c$. Considering the classes $[c'] \in H_n^{X_1X_2}(X)$ and
+      $[c'] \in H_n(X)$, show that there exists $c_1 \in C_n(X_1)$ and
+      $C_2 \in C_n(X_2)$ such that $c' = \partial c_1 + \partial c_2$.
+      \item Show that there exists $c'_1  \in C_n(X_1)$, $c'_2 \in C_n(X_2)$ and
+      $c' \in C_{n+1}(X)$ such that \[
+        c-c_1-c_2 = c'_1 + c'_2 + \partial c'.
+      \]
+      \item Show that $\partial(c_2 + c_2') \in C_{n-1}(X_1 \cap X_2)$, so that
+      $c_2 + c_2'$ defines a class $[c_2 + c_2'] \in H_n(X_2, X_1 \cap X_2)$.
+      \item Show that $H_n(j)([c_2 + c_2']) = [c] \in H_n(X, X_1)$, which
+      concludes the proof that $H_n(j)$ is surjective.
+    \end{enumerate}
+    \item Suppose that $\fn{H_n(i)}{H_n^{X_1X_2}(X)}{H_n(X)}$ is an isomorpishm
+    for every $n$. We want to show that
+    $\fn{H_n(j)}{H_n(X_2,X_1 \cap X_2)}{H_n(X, X_1)}$ is injective. For this,
+    consider \[
+      [c_2] \in \ker H_n(j) \subset H_n(X_2, X_1 \cap X_2)
+    \] represented
+    by $c_2 \in C_n(X_2)$ with $\partial c_2 \in C_{n-1}(X_1 \cap X_2)$.
+    \begin{enumerate}[(i)]
+      \item Show that there exists $c_1 \in C_n(X_1), c_1' \in C_{n+1}(X_1)$ and
+      $c_2' \in C_{n+1}(X_2)$ such that $c_2 = c_1 + \partial c'_1 + \partial c'_2$. (Hint: use part a (i).)
+    \end{enumerate}
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[a.]
+    \item This part will assume that $\fn{H_n(i)}{H_n^{X_1X_2}(X)}{H_n(X)}$ is
+    an isomorphism for every $n$, and prove that
+    $\fn{H_n(j)}{H_n(X_2,X_1 \cap X_2)}{H_n(X, X_1)}$ is surjective.
+    \begin{enumerate}[(i)]
+      \item Since $H_n(i)$ is a bijection, $\inv{H_n(i)}([c]) = [c_1 + c_2] \in H_n^{X_1X_2}(X)$. Therefore $c = c_1 + c_2 + \partial \tilde c$ where $\partial\tilde c \in \im(\partial_{n+1})$.
+      Moreover, \[
+        c'
+        = \partial c
+        = \partial(c_1 + c_2 + \partial\tilde c)
+        = \partial c_1 + \partial c_2 + \underbrace{\partial\partial\tilde c}_0.
+      \]
+      \item Similarly, \[
+        \inv{H_n(i)}(\underbrace{[c - c_1 - c_2]}_{\in H_n(X)}) = [c_1' + c_2'] \in H_n^{X_1X_2}(X)
+      \] which means that \[
+        c - c_1 - c_2 = c_1' + c_2' + \underbrace{\partial c'}_{\in \im(\partial)},
+      \] by definition of the quotient.
+      \item By the above \begin{align*}
+        c_2' + c_2 &= c - c_1 - c_1' - \partial c' \\
+        \partial(c_2' + c_2)
+        &= \partial(c - c_1 - c_1' - \partial c') \\
+        &= \partial c - \partial(c_1 + c_1')
+      \end{align*} Since $\partial(c_1' + c_1) \in C_n(X_1)$,
+      $\partial(c_2' + c_2) \in C_n(X_2)$, and
+      $\partial c \in C_n(X_1)$ by hypothesis, the right hand side is in
+      $C_n(X_1)$ and the left hand side is in $C_n(X_2)$, so both must be in
+      $C_n(X_1 \cap X_2)$.
+      \item Using the above, \[
+        H_n(j)([c_2 + c_2'])
+        = H_n(j)([c - c_1 - c_1' - \partial c'])
+        = [j(c - c_1 - c_1' - \partial c')].
+      \]
+      Since
+      \[
+        \partial(c - c_1 - c_1' - \partial c')
+        = \partial c - \underbrace{\partial(c_1 + c_1' + \partial c')}_{C_n(X_1)}
+      \] this equivalence class is \[
+        [j(c - c_1 - c_1' - \partial c')] = [c] \in H_n(X, X_1)
+      \] so $H_n(j)$ is surjective.
+    \end{enumerate}
+    \item This part will assume that $\fn{H_n(i)}{H_n^{X_1X_2}(X)}{H_n(X)}$ is
+    an isomorphism for every $n$, and prove that
+    $\fn{H_n(j)}{H_n(X_2,X_1 \cap X_2)}{H_n(X, X_1)}$ is injective.
+    \begin{enumerate}[(i)]
+      \item Since $[c_2] \in \ker H_n(j)$,
+      $[c_2] = 0 \in X_n(X, X_1) = Z(X, X_1)/B(X, X_1)$, so
+      $c_2 \in B(X, X_1)$. By definition of relative boundary, this means that
+      there exists some $c \in C_{n+1}(X)$ such that
+      $c_2 - \partial c \in C_n(X_1)$. Let $c_1 = c_2 - \partial c \in C_n(X_1)$
+      so that $c_2 = c_1 + \partial c$. By part \textbf{a (i)},
+      $\partial c = \partial c_1' + \partial c_2'$ for some
+      $c_1' \in C_{n+1}(X_1)$ and $c_2' \in C_{n+1}(X_2)$, so \begin{align*}
+        c_2 &= c_1 + \partial c \\
+        &= c_1 + \partial c_1' + \partial c_2'.
+      \end{align*}
+      \item Solving for $c_1 + \partial c_1'$ yields \[
+        \underbrace{c_1 + \partial c_1'}_{\in C_n(X_1)} = \underbrace{c_2 - \partial c_2'}_{\in C_n(X_2)},
+      \] so $c_1 + \partial c_1' \in C_n(X_1 \cap X_2)$.
+      \item Therefore \[
+        c_2 - \partial c_2' = \underbrace{
+          c_1 + \partial c_1'
+        }_{C_n(X_1 \cap X_2)} \in C_n(X_1 \cap X_2)
+      \] so $c_2 \in B_n(X_2, X_1 \cap X_2)$, so
+      $[c_2] = 0 \in H_n(X_2, X_1 \cap X_2) = Z_n(X_2, X_1 \cap X_2)/B_n(X_2, X_1 \cap X_2)$.
+      Therefore $H_n(j)$ is injective.
+    \end{enumerate}
+    \item This part will assume that $X_1 - X_2$ can be excised from the pair
+    $(X, X_1)$ and prove that $\fn{H_n(i)}{H_n^{X_1X_2}(X)}{H_n(X)}$ is injective.
+    \begin{enumerate}[(i)]
+      \item Since $[c_1 + c_2] \in \ker H_n(i)$ (and thus there exists
+      $c \in C_n(X)$ such that $c_1 + c_2 = \partial c$) we can check
+      \begin{align*}
+        \partial(c_1 + c_2) &= \underbrace{\partial \partial c}_0 \\
+        \partial c_1 &= -\partial c_2 \in C_{n-1}(X_2),
+      \end{align*}
+      So $\partial c_1 \in C_{n-1}(X_1) \cap C_{n-1}(X_2) = C_{n-1}(X_1 \cap X_2)$,
+      and therefore $c_2$ defines a class $[c_2] \in H_n(X_2, X_1 \cap X_2)$.
+      \item By rearranging $c_1 + c_2 = \partial c$, it can be seent that
+      $c_2 - \partial c = c_1 \in C_n(X_1)$, and so $c_2 \in B_n(X, X_1)$.
+      Therefore $[c_2] = 0 \in Z_n(X, X_1)/B_n(X, X_1) = H_n(X, X_1).$ Since
+      $H_n(j)$ is injective, \[
+        [c_2] = 0 \in H_n(X_2, X_1 \cap X_2) = Z_n(X_2, X_1 \cap X_2)/B_n(X_2, X_1 \cap X_2)
+      \] so $c_2 \in B_n(X_2, X_1 \cap X_2)$ and so there exists $c'_2$ such that
+      $c_2 - \partial c'_2 \in C_n(X_1 \cap X_2)$.
+      Name this element $c_{12} = c_2 - \partial c'_2$. Then rearranging, \[
+        c_2 = c_{12} - \partial c'_2.
+      \]
+      \item By hypothesis $(X_2, X_1 \cap X_2) \rightarrow (X, X_1)$ is an
+      excision so $H_n(j)$ is an isomorphism.
+      We know by the first two parts that \begin{align*}
+        \partial c &= c_1 + c_2, \text{ and}\\
+        c_2 &= c_{12} - \partial{c'_2}
+      \end{align*} so it follows that $\partial(c + c'_2) = c_1 + c_{12}$, and
+      we can consider $[c - c'_2] \in H_{n+1}(X, X_1)$.
+      \\
+      Because $H_n(j)$ is an isomorphism, by taking the inverse map, there
+      exists $H_n(j)^{-1}([c-c'_2]) = [c' + c''] \in H_{n+1}(X_2, X_1 \cap X_2)$,
+      meaning there exists some $c'' \in C_{n+2}$ such that \[
+        c-c'2 = c''_2 + c_1' + \partial c'',
+      \] as desired.
+      \item From above, we can write \begin{align*}
+        \partial(c - c'_2) &= \partial(c''_2 + c'_1 + \partial c'') \\
+        c_1 + c_2 &= \partial c'_2 + \partial c''_2 + \partial c'_1 \\
+        c_1 + c_2 &= \partial(c'_2 + c''_2 + c'_1)
+      \end{align*} so $c_1 + c_2 \in \im(\partial)$ and thus
+      $[c_1 + c_2] \in H^{X_1X_2}_n(X)$, and so $H_n(i)$ is injective.
+    \end{enumerate}
+    \item This part will assume that $X_1 - X_2$ can be excised from the pair
+    $(X, X_1)$ and prove that $\fn{H_n(i)}{H_n^{X_1X_2}(X)}{H_n(X)}$ is surjective.
+    \\~\\
+    Let $[c] \in H_n(X)$, which meaning that the representative $c \in C_n$ is
+    in the kernel $\ker(\partial_n)$. We will construct $c_1 \in H_n(X_1)$ and
+    $c_2 \in H_n(X_2)$ such that $c = c_1 + c_2$.
+    \\
+    By the isomorpishm $H_n(j)$ there must exist $[c] \cong [c_2]$, namely
+    $c = c_2 + \partial c_{12}$.
+    Therefore $c = c_1 + c_2$ and \[
+      H_n(i)([c_1 + c_2]) = [c] \in H_n(X),
+    \] so $H_n(i)$ is surjective.
+    \item Given that $(X_2, X_1 \cap X_2) \ra (X, X_1)$ is an excision implies
+    that $H_n(j_1)$ is an isomorphism. Thus the previous two parts showed that
+    $H_n(i)$ is also an isomorphism, so $c = c_1 + c_2$. Thus reversing the
+    roles in the first two parts shows that $H_n(j_2)$ is also an isomorpism,
+    meaning that $(X_1, X_1 \cap X_2) \ra (X, X_2)$ is an excision.
+  \end{enumerate}
+\end{proof}
+\end{document}
