@@ -16,7 +16,7 @@
 \newcommand{\ang}[1]{\langle #1 \rangle}
 \begin{document}
 
-\title{Combinatorics: Homework 11}
+\title{Combinatorics: Homework 12}
 \author{Peter Kagey}
 
 \maketitle
@@ -30,9 +30,9 @@
 
 \begin{proof} $ $ \\
   $R_2(3,4) > 8$ because the coloring of $K_8$ in Figure 1 has no subgraphs
-  $K_3$ which are colored blue, because the only blue edges are of neighbors
+  $K_3$ which are colored blue (solid), because the only blue edges are of neighbors
   around the border or opposite vertices. The coloring has no subgraphs of $K_4$
-  colored red because no edges around the border are colored red, so a choice
+  colored red (dashed) because no edges around the border are colored red, so a choice
   of $K_4$ must include ``every other'' vertex around the border, and the two
   choices are constructed so that either choice has two blue edges.
   \begin{figure}[h]
@@ -61,8 +61,8 @@
   \\~\\
   \textbf{Case 1.} Assume there are $5$ red edges and $3$ blue edges.
   Not all vertices can be in this case, because the sum of degrees
-  over each vertex must be even, and if in the blue subgraph, all $9$ vertices
-  have degree $3$, then the sum of degrees is $27$, a contradiction. Thus,
+  must be even. If all nine vertices have three blue edges, then the sum of
+  degrees in the blue subgraph is $27$, a contradiction. Thus,
   it is always possible to choose a vertex in one of the following two cases.
   \\~\\
   \textbf{Case 2.} Assume there are $6$ or more edges which are colored red.
@@ -98,17 +98,23 @@
   \begin{enumerate}[(a)]
     \item By induction, the base case $m=1$ is clear since
     $M_1 = \lfloor 1!\,e\rfloor + 1 = 2 + 1 = 3$.
-    Thus using the identity \begin{align*}
-      \lfloor m!\,e \rfloor &= \left\lfloor \frac{m!}{0!} + \frac{m!}{1!} + \hdots + \frac{m!}{m!} + \frac{m!}{(m+1)!} + \hdots \right\rfloor \\
+    Thus the identity \begin{align*}
+      \lfloor m!\,e \rfloor
+      &= \left\lfloor \frac{m!}{0!} + \frac{m!}{1!} + \hdots + \frac{m!}{m!}
+        + \frac{m!}{(m+1)!} + \hdots \right\rfloor \\
       &= \frac{m!}{0!} + \frac{m!}{1!} + \hdots + \frac{m!}{m!}.
-    \end{align*} which holds for all $m \geq 1$ since \[
-      \frac{m!}{(m+1)!} + \frac{m!}{(m+2)!} + \hdots = \frac{1}{(m+1)} + \frac{1}{(m+1)(m+2)} + \hdots
-      \leq e - 2 \approx 0.71828.
+    \end{align*} holds for all $m \geq 1$ since \[
+      \frac{m!}{(m+1)!} + \frac{m!}{(m+2)!} + \hdots
+      = \frac{1}{(m+1)} + \frac{1}{(m+1)(m+2)} + \hdots
+      \leq e - 2
+      < 1
     \]
     Therefore,
     \begin{align*}
-      M_{m+1} &= (m+1)\lfloor m!\,e \rfloor + 2 \\
-              &= (m+1)\left\lfloor \frac{m!}{0!} + \frac{m!}{1!} + \hdots + \frac{m!}{m!} + \hdots  \right\rfloor + 2 \\
+      M_{m+1} &= (m+1)M_m - (m+1) + 2 \\
+              &= (m+1)(\lfloor m!\,e \rfloor + 1) - (m+1) + 2 \\
+              &= (m+1)\lfloor m!\,e \rfloor + 2 \\
+              % &= (m+1)\left\lfloor \frac{m!}{0!} + \frac{m!}{1!} + \hdots + \frac{m!}{m!} + \hdots  \right\rfloor + 2 \\
               &= (m+1)\left( \frac{m!}{0!} + \frac{m!}{1!} + \hdots + \frac{m!}{m!} \right) + 2 \\
               &= \frac{(m+1)!}{0!} + \frac{(m+1)!}{1!} + \hdots + \frac{(m+1)!}{m!} + 2 \\
               &= \underbrace{
@@ -120,8 +126,26 @@
               \underbrace{- \frac{(m+1)!}{(m+1)!}}_{-1} + 2 \\
               &= \lfloor (m+1)!\, e \rfloor + 1.
     \end{align*}
-    \item By induction, where the base case $m=1$ is clear.
-
+    \item By induction, where the base case $m=1$ is clear from a 1-coloring of
+    $K_3$ being a monochromatic triangle.
+    \\~\\
+    A vertex $v$ in $K_{M_m}$ has degree \[
+      \deg(v) = M_m - 1 = \lfloor m!\,e\rfloor = \frac{m!}{0!} + \frac{m!}{1!} + \hdots + \frac{m!}{m!}
+    \], so by
+    the pigeonhole principle, there are at least \begin{align*}
+      \left\lceil \frac{\deg(v)}{m} \right\rceil
+      &= \left\lceil
+        \underbrace{
+          \frac{(m-1)!}{0!} + \frac{(m-1)!}{1!} + \hdots + \frac{(m-1)!}{(m-1)!}
+        }_{\lfloor (m-1)!\,e\rfloor}
+        + \frac{(m-1)!}{m!}
+      \right\rceil \\
+      &= \lfloor (m-1)!\,e\rfloor + 1 \\
+      &= M_{m-1}
+    \end{align*} vertices with the same color, say, blue.
+    Therefore, by the induction hypothesis, the subgraph on these $M_{m-1}$
+    vertices either have a monochromatic triangle in the colors up to blue, or
+    it has a blue edge, and this constructs a blue triangle.
   \end{enumerate}
 \end{solution}
 \pagebreak
@@ -135,5 +159,16 @@
 \end{problem}
 
 \begin{proof} \text{} \\
+  As we showed in class, for a particular tree $T$ on $g$ vertices, \[
+    K_{(r-1)(g-1)+1}
+  \] either has a red $K_r$ or a green $T$.
+  \\~\\
+  If $K_{(r-1)(g-1)+1}$ does not have
+  a red $K_r$, it follows that it must have \textit{every} green $T$ on $g$
+  vertices, since $T$ was arbitrary to begin with.
+  \\~\\
+  If $K_{(r-1)(g-1)+1}$ does have a red $K_r$, then any tree on $r$ vertices can
+  be realized as a spanning tree on $K_r$, so $K_r$ (and thus $K_{(r-1)(b-1)+1}$)
+  has every red tree on $r$ vertices.
 \end{proof}
 \end{document}
