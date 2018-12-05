@@ -1,0 +1,277 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,multicol}
+\usepackage[shortlabels]{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\id}[1]{\operatorname{Id}_{#1}}
+\newcommand{\ra}{\rightarrow}
+\DeclareMathOperator{\im}{Im}
+
+\begin{document}
+
+\title{Topology: Homework 10}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} \text{} \\
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    % Part A
+    \item Composing the face maps with $\sigma_1$ and $\sigma_2$ respectively
+    yields \begin{alignat*}{3}
+      (\sigma_1 \circ F_0)(x_0, x_1)
+        &= \sigma_1(0, x_0, x_1)
+        &&= H(x_1, 1)
+        &&= \beta(x_1) \\
+      (\sigma_1 \circ F_1)(x_0, x_1)
+        &= \sigma_1(x_0, 0, x_1)
+        &&= H(x_1, x_1)
+        &&= f(x_1)\\
+      (\sigma_1 \circ F_2)(x_0, x_1)
+        &= \sigma_1(x_0, x_1, 0)
+        &&= H(0, x_1)
+        &&= c_{\alpha(0)}(x_1) \\
+      \\
+      (\sigma_2 \circ F_0)(x_0, x_1)
+        &= \sigma_2(0, x_0, x_1)
+        &&= H(1, x_1)
+        &&= c_{\alpha(1)}(x_1) \\
+      (\sigma_2 \circ F_1)(x_0, x_1)
+        &= \sigma_2(x_0, 0, x_1)
+        &&= H(x_1, x_1)
+        &&= f(x_1)\\
+      (\sigma_2 \circ F_2)(x_0, x_1)
+        &= \sigma_2(x_0, x_1, 0)
+        &&= H(x_1, 0)
+        &&= \alpha(x_1).
+    \end{alignat*}
+    Since these are all functions of $x_1$, \begin{align*}
+      \partial_2(\sigma_1 - \sigma_2)
+      &= \partial_2(\sigma_1) - \partial_2(\sigma_2) \\
+      &= ((\beta - f + c_{\alpha(0)})
+      - (c_{\alpha(1)} - f + \alpha)) \circ \pi_2 \\
+      &= (\beta - \alpha + c_{\alpha(0)} - c_{\alpha(1)}) \circ \pi_2.
+    \end{align*}
+    % Part B
+    \item It is sufficient to show that if $\alpha$ and $\beta$ are path
+    homotopic (i.e. $[\alpha] = [\beta] \in \pi_1(X;x_0)$) then \[
+      \rho([\alpha]) = [\alpha] = \rho([\beta]) = [\beta] \in H_1(X)
+      = \ker(\partial_1)/\im(\partial_2),
+    \] that is, to show that $\beta - \alpha \in \im(\partial_2)$. Let
+      $\sigma_1$, $\sigma_2$ be the simplices given above, and let
+      $\sigma_{\alpha(0)}$, and $\sigma_{\alpha(1)}$ be the constant simplices.
+    \begin{align*}
+      \partial(\sigma_1 - \sigma_2 - \sigma_{\alpha(0)} + \sigma_{\alpha(1)})
+      &= \partial(\sigma_1 - \sigma_2) - \partial(\sigma_{\alpha(0)}) + \partial(\sigma_{\alpha(1)}) \\
+      &= \beta - \alpha + c_{\alpha(0)} - c_{\alpha(1)} - c_{\alpha(0)} + c_{\alpha(1)} \\
+      &= \beta - \alpha,
+    \end{align*}
+    as desired.
+    \item Use the simplex $\fn{\sigma}{\Delta_2}{X}$ given by \[
+      (x_0, x_1, x_2) \mapsto \alpha * \beta(x_2 + x_1/2).
+    \] where $\alpha * \beta$ has the usual defintion, \[
+      \alpha * \beta(t) = \begin{cases}
+        \alpha(2t) & t \in [0, 1/2] \\
+        \beta(2t - 1) & t \in [1/2, 1]
+      \end{cases}.
+    \]
+    Then the face maps are \begin{alignat*}{2}
+      (x_0, x_1) &\xmapsto{F_0} (0, x_0, x_1) && \xmapsto{\sigma} \alpha * \beta(x_1 + x_0/2) = \beta(x_1) \\
+      (x_0, x_1) &\xmapsto{F_1} (x_0, 0, x_1) && \xmapsto{\sigma} \alpha * \beta(x_1) \\
+      (x_0, x_1) &\xmapsto{F_2} (x_0, x_1, 0) && \xmapsto{\sigma} \alpha * \beta(x_1/2) = \alpha(x_1)
+    \end{alignat*}
+    So $\partial_2(\sigma) = \beta - \alpha * \beta + \alpha = \alpha + \beta - \alpha * \beta$, as desired.
+    \item In order to show that the map is a homomorphism,
+    it is enough to show that \[
+      \rho([\alpha * \beta]) = \rho([\alpha]) + \rho([\beta])
+      \in H(X, \mathbb Z) = \ker(\partial_1)/\im(\partial_2).
+    \]
+    Using the usual abuse of notation, it is sufficient to show that \[
+      [\alpha] + [\beta] - [\alpha * \beta] = 0 \in H_1(X, \mathbb Z),
+    \] which is to say that \[
+      \alpha + \beta - \alpha * \beta \in \im(\partial_2).
+    \]
+    But this follows by part (c). In particular, \[
+      \partial_2(\sigma) = \alpha + \beta - \alpha * \beta.
+    \]
+    \item It is enough to check that \[
+      [G, G]
+      = \langle [\alpha * \beta * \bar\alpha * \bar\beta] \rangle
+      \subset \ker(\rho).
+    \] However \begin{align*}
+      \rho([\alpha * \beta * \bar\alpha * \bar\beta])
+        &= \rho([\alpha]) + \rho([\beta * \bar\alpha * \bar\beta]) \\
+        &= \hdots \\
+        &= \rho([\alpha]) + \rho([\beta]) * \rho([\bar\alpha]) * \rho([\bar\beta]) \\
+        &= \rho([\alpha * \bar\alpha]) + \rho([\beta * \bar\beta]) \\
+        &= \rho(\operatorname{id}_G) + \rho(\operatorname{id}_G) \\
+        &= 0,
+    \end{align*} as desired.
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} \text{} \\
+\end{problem}
+
+\begin{proof} \text{} \\
+  \begin{enumerate}[(a)]
+    \item There are two homeomorphisms and one deformation retract to prove.
+      \begin{enumerate}[(i)]
+      \item Claim: $U_n \simeq B^{2n}$. \\
+      Write $(z_0, \hdots, z_n) = (a_0 + b_0i, \hdots, a_n + b_ni)$. Then
+      \[
+        U_n = \set{(a_0, b_0, \hdots, a_n, b_n) \in \mathbb R^{2n+2}- \set 0:
+        \sum_{i=0}^{n-1} a_i^2 + b_i^2 \leq a_n^2 + b_n^2}/\sim
+      \] By the equivalence relation, we can choose the representative such
+      that every coordinate is divided by $|z_n| = \sqrt{a_n^2 + b_n^2}$ (which
+      is nonzero because the inequality would force the point to be zero if $|z_n|^2 = 0$.) This becomes \[
+        U'_n = \set{(a'_0, b'_0, \hdots, a'_{n-1}, b'_{n-1}) \in \mathbb R^{2n}:
+      \sum_{i=0}^{n-1} a_i^2 + b_i^2 \leq 1} = B^{2n}.
+      \]
+      \item The intersection $U_n \cap V_n \sim S^{2n-1}$ follows similarly,
+      \begin{align*}
+        U_n \cap V_n
+        &= \set{(a_0, b_0, \hdots, a_n, b_n) \in \mathbb R^{2n+2}- \set 0:
+        \sum_{i=0}^{n-1} a_i^2 + b_i^2 = a_n^2 + b_n^2}/\sim \\
+        &\simeq \set{(a'_0, b'_0, \hdots, a'_{n-1}, b'_{n-1}) \in \mathbb R^{2n}:
+      \sum_{i=0}^{n-1} a_i^2 + b_i^2 = 1} = S^{2n-1}.
+      \end{align*}
+      \item Lastly, the map $\fn{r}{V_n \times [0, 1]}{\mathbb{CP}^{n-1}}$ which
+      sends \[
+        r([(z_0, z_1, \hdots, z_n)], t) \mapsto [(z_0, z_1, \hdots, z_0(t-1))]
+      \] is a deformation retract, because it is continuous, $r(z, 0) = 1$, and
+      maps $V_n$ to the subspace when $t = 1$, where it is the identity when
+      restricted to the subspace. \begin{align*}
+        \set{(z_0, z_1, \hdots, z_{n-1}, 0) \in \mathbb C^{n+1}:
+        \sum_{i=0}^{n-1} |z_i|^2 \geq 0}/\sim \\
+        &\simeq \set{(z_0, z_1, \hdots, z_{n-1}) \in \mathbb C^{n}}/\sim \\
+        &\simeq \mathbb{CP}^{n-1}
+      \end{align*}
+    \end{enumerate}
+    \item \textbf{Base case.}
+    \\
+    First, consider the base case for $n=0$. It follows from the
+    defintions that $U_0 = \mathbb{CP}^0 \simeq \set{x_0}$ and $V_0 = \emptyset$.
+    Therefore by Mayer--Vietoris:
+    \begin{alignat*}{4}
+      H_0(U_0 \cap V_0)
+      &\ra H_0(U_0) &&\oplus H_0(V_0)
+      &&\ra H_0(\mathbb{CP}^0)
+      &&\ra 0\\
+      H_0(\emptyset)
+      &\ra H_0(\emptyset) &&\oplus H_0(\set{x_0})
+      &&\ra H_0(\mathbb{CP}^0)
+      &&\ra 0\\
+      0
+      &\ra 0 &&\oplus R
+      &&\ra H_0(\mathbb{CP}^0)
+      &&\ra 0
+    \end{alignat*} so $H_0(\mathbb{CP}^0) = R$.
+    \\~\\ For $p > 0$ \begin{alignat*}{3}
+      H_p(U_0) &\oplus H_p(V_0)
+      &&\ra H_p(\mathbb{CP}^0)
+      &&\ra H_{p - 1}(U_0 \cap V_0)\\
+      H_p(\set{x_0}) &\oplus H_p(\emptyset)
+      &&\ra H_p(\mathbb{CP}^0)
+      &&\ra H_{p - 1}(\emptyset)\\
+      0 &\oplus 0
+      &&\ra H_p(\mathbb{CP}^0)
+      &&\ra 0
+    \end{alignat*} so $H_p(\mathbb{CP}^0) = 0$ for $p > 0$.
+    \\~\\
+    \textbf{Inductive step.}\\
+    Now, using Mayer--Vietoris:
+    \\
+    \textbf{Case 1.} Assume $p > 2n$ so that $p = 2n + k$ for some $k \geq 1$. Then
+    \begin{alignat*}{3}
+      H_{2n + k}(U_n) &\oplus H_{2n + k}(V_n)
+      &&\ra H_{2n + k}(\mathbb{CP}^n)
+      &&\ra H_{2n + k - 1}(U_n \cap V_n) \\
+      H_{2n + k}(B^{2n}) &\oplus H_{2n + k}(\mathbb{CP}^{n-1})
+      &&\ra H_{2n + k}(\mathbb{CP}^n)
+      &&\ra H_{2n + k - 1}(S^{2n - 1}) \\
+      0 &\oplus 0
+      &&\ra H_{2n + k}(\mathbb{CP}^n)
+      &&\ra 0,
+    \end{alignat*} so $H_{2n + k}(\mathbb{CP}^n) = 0$ for $k > 0$.
+    \\~\\
+    \textbf{Case 2.} Assume $p = 2n$.
+    \begin{alignat*}{5}
+      H_{2n}(U_n) &\oplus H_{2n}(V_n)
+      &&\ra H_{2n}(\mathbb{CP}^n)
+      &&\ra H_{2n - 1}(U_n \cap V_n)
+      &&\ra H_{2n-1}(U_n) &&\oplus H_{2n-1}(V_n)\\
+      H_{2n}(B^{2n}) &\oplus H_{2n}(\mathbb{CP}^{n-1})
+      &&\ra H_{2n}(\mathbb{CP}^n)
+      &&\ra H_{2n - 1}(S^{2n - 1})
+      &&\ra H_{2n-1}(B^{2n}) &&\oplus H_{2n-1}(\mathbb{CP}^{n-1})\\
+      0 &\oplus 0
+      &&\ra H_{2n}(\mathbb{CP}^n)
+      &&\ra R
+      &&\ra 0 &&\oplus 0
+    \end{alignat*} so $H_{2n}(\mathbb{CP}^n) = R$, as desired.
+    \\~\\
+    \textbf{Case 3.} Assume $0 < p < 2n$, where $p$ is even, that is
+    $p = 2(n-k)$ for some $0 < k < n$.
+    \begin{alignat*}{4}
+      H_{2(n-k)}(U_n \cap V_n)
+      &\ra H_{2(n-k)}(U_n) &&\oplus H_{2(n-k)}(V_n)
+      &&\ra H_{2(n-k)}(\mathbb{CP}^n)
+      &&\ra H_{2(n-k)-1}(U_n \cap V_n)\\
+      H_{2(n-k)}(S^{2n-1})
+      &\ra H_{2(n-k)}(B^{2n}) &&\oplus H_{2(n-k)}(\mathbb{CP}^{n-1})
+      &&\ra H_{2(n-k)}(\mathbb{CP}^n)
+      &&\ra H_{2(n-k)-1}(S^{2n-1})\\
+      0
+      &\ra 0 &&\oplus R
+      &&\ra H_{2(n-k)}(\mathbb{CP}^n)
+      &&\ra 0
+    \end{alignat*} so $H_{2n-2k}(\mathbb{CP}^n) = R$, as desired.
+    \\~\\
+    \textbf{Case 4.} Assume $0 < p < 2n$, where $p$ is odd.
+    \begin{alignat*}{3}
+      H_{p}(U_n) &\oplus H_{p}(V_n)
+      &&\ra H_{p}(\mathbb{CP}^n)
+      &&\ra H_{p-1}(U_n \cap V_n)\\
+      H_{p}(B^{2n}) &\oplus H_{p}(\mathbb{CP}^{n-1})
+      &&\ra H_{p}(\mathbb{CP}^n)
+      &&\ra H_{p-1}(S^{2n-1})\\
+      0 &\oplus 0
+      &&\ra H_{p}(\mathbb{CP}^n)
+      &&\ra 0
+    \end{alignat*} so $H_p(\mathbb{CP}^n) = 0$, as desired.
+    \\~\\
+    \textbf{Case 5.} Assume $p = 0$. Thus there is a short exact sequence
+    \[
+      \underbrace{H_1(\mathbb{CP}^n)}_0
+      \ra \underbrace{H_0(S^{2n-1})}_R
+      \ra \underbrace{H_0(U_n)}_R \oplus \underbrace{H_0(V_n)}_R
+      \ra H_0(\mathbb{CP}^n)
+      \ra 0.
+    \] so $H_0(\mathbb{CP}^n) = R$, as desired.
+  \end{enumerate}
+\end{proof}
+\end{document}
