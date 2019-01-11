@@ -2,7 +2,7 @@
 
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amsthm,amssymb}
-\usepackage{bbm, enumerate}
+\usepackage{bbm, enumerate, mathtools}
 
 \newenvironment{problem}[2][Problem]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
@@ -68,12 +68,14 @@
 \begin{problem}{5}
   Let $M$ be a manifold and let $C^\infty(M)$ be the algebra of $C^\infty$
   functions $M \rightarrow \mathbb{R}$. Explain the relationship between vector
-  fields on $M$ and $C^\infty(M)$. if we consider vector fields as maps
+  fields on $M$ and $C^\infty(M)$.
+  If we consider vector fields as maps
   $C^\infty(M) \rightarrow C^\infty(M)$ is the composition map $XY$ also a
   vector field? What about $[X, Y] = XY - YX$?
 \end{problem}
 
 \begin{proof}
+  
 \end{proof}
 
 % -----------------------------------------------------
@@ -89,6 +91,24 @@
 \end{problem}
 
 \begin{proof}
+  By Stokes' Theorem, knowing that $\partial B^4 = S^3$, we can rewrite the
+  integral as \[
+    \int_S\omega = \int_{\partial B^4}\omega = \int_{B^4} d\omega.
+  \]
+  Then \begin{align*}
+    d\omega
+    &= d((w + w^2)\, dx \wedge dy \wedge dz) \\
+    &= (1 + 2w)\,dw \wedge dx \wedge dy \wedge dz \\
+    &= -(1 + 2w)\, dx \wedge dy \wedge dz \wedge dw,
+  \end{align*} where $dx \wedge dy \wedge dz \wedge dw$ is the usual volume
+  form.
+  \\~\\
+  By linearity, \begin{align*}
+    \int_{B^4} d\omega
+    &= -\underbrace{\int_{B^4}\, dx \wedge dy \wedge dz \wedge dw}_{\operatorname{volume}(B^4)} -
+      \underbrace{\int_{B^4}2w\, dx \wedge dy \wedge dz \wedge dw}_{=0 \text{ by symmetry}} \\
+    &= -\operatorname{volume}(B^4).
+  \end{align*}
 \end{proof}
 
 % -----------------------------------------------------
@@ -101,5 +121,14 @@
 \end{problem}
 
 \begin{proof}
+  Consider the map $f\colon \mathbb R^3 \rightarrow \mathbb R$ which sends
+  $(x,y,z) \xmapsto f x^2  - y^3$. The function $f$ is not submersive at $f^{-1}(0)$ because
+  \[
+    df_{(x,y,z)} =
+    \begin{bmatrix}
+      2x & -3y^2 & 0
+    \end{bmatrix}
+  \] has rank $0$ when $x=y=0$. Thus $0 \in \mathbb R$ is a critical value, and
+  $f^{-1}(0)$ cannot be given the structure of a smooth manifold.
 \end{proof}
 \end{document}
