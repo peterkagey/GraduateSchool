@@ -1,0 +1,291 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate, tikz}
+\usepackage{multicol}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Thanksgiving week discussion problems.}
+% \author{Peter Kagey}
+\date{}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{13.3.7}
+  Determine whether or not \[
+    \mathbf F(x,y) = \underbrace{(ye^x + \sin y)}_P\mathbf i + \underbrace{(e^x + x\cos y)}_Q\mathbf j
+  \] is a conservative vector field.
+  \\
+  If it is, find a function $f$ such that $\mathbf F = \nabla f$.
+\end{problem}
+
+\begin{solution} $ $\\
+  In two dimensions, we can check if $\mathbf F$ is conservative by checking
+  whether or not \[
+    \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}
+  \]
+  In this case these partial derivatives are both equal to \[
+    \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x} = e^x + \cos y.
+  \]
+  To recover the original function, we'll integrate $P$ with respect to $x$
+  and $Q$ with respect to $Y$ \begin{align*}
+    \int ye^x + \sin y\,dx &= ye^x + x\sin y + f_1(y)\\
+    \int e^x + x\cos y\,dy &= ye^x + x\sin y + f_2(x)
+  \end{align*}
+  Therefore $f_1(y) = f_2(x)$ are both constants, and \[
+    F(x,y) = \nabla(ye^x + x\sin y + c).
+  \]
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{13.5.11}
+  Determine whether or not \[
+    \mathbf F(x,y,z)
+      = \underbrace{y^2z^3}_P\mathbf i
+      + \underbrace{2xyz^3}_Q\mathbf j
+      + \underbrace{3xy^2z^2}_R\mathbf k
+  \] is a conservative vector field.
+  \\
+  If it is, find a function $f$ such that $\mathbf F = \nabla f$.
+\end{problem}
+
+\begin{solution} $ $\\
+  We'll start by computing $\operatorname{curl}\mathbf F$: \begin{align*}
+    \nabla \times \mathbf F &= \begin{vmatrix}
+      \mathbf i & \mathbf j & \mathbf k
+      \\
+      \displaystyle\frac{\partial}{\partial x}
+      & \displaystyle\frac{\partial}{\partial y}
+      & \displaystyle\frac{\partial}{\partial z}
+      \\
+      P & Q & R
+    \end{vmatrix} \\
+    &=
+    \left(\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}\right)\mathbf i +
+    \left(\frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}\right)\mathbf j +
+    \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\mathbf k
+    \\
+    &=
+    \left(6xyz^2 - 6xyz^2\right)\mathbf i +
+    \left(3y^2z^2 - 3y^2z^2\right)\mathbf j +
+    \left(2yz^3 - 2yz^3\right)\mathbf k
+    \\
+    &= 0.
+  \end{align*}
+  Therefore $\mathbf F$ is conservative. In order to find $f$ such that
+  $F = \nabla f$ \begin{alignat*}{2}
+    f(x) = \int y^2z^3\,dx &=
+    \int 2xyz^3\,dy &&=
+    \int 3xy^2z^2\,dz
+    \\
+    xy^2z^3 + f_1(y,z) &=
+    xy^2z^3 + f_2(x,z) &&=
+    xy^2z^3 + f_3(x,y)
+  \end{alignat*}
+  So $f(x) = xy^2z^3 + c$.
+\end{solution}
+
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{13.5.13}
+  Determine whether or not \[
+    \mathbf F(x,y,z)
+      = \underbrace{3xy^2z^2}_P\mathbf i
+      + \underbrace{2x^2yz^3}_Q\mathbf j
+      + \underbrace{3x^2y^2z^2}_R\mathbf k
+  \] is a conservative vector field.
+  \\
+  If it is, find a function $f$ such that $\mathbf F = \nabla f$.
+\end{problem}
+
+\begin{solution} $ $\\
+  We'll start by computing $\operatorname{curl}\mathbf F$: \begin{align*}
+    \nabla \times \mathbf F &= \begin{vmatrix}
+      \mathbf i & \mathbf j & \mathbf k
+      \\
+      \displaystyle\frac{\partial}{\partial x}
+      & \displaystyle\frac{\partial}{\partial y}
+      & \displaystyle\frac{\partial}{\partial z}
+      \\
+      P & Q & R
+    \end{vmatrix} \\
+    &=
+    \left(\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}\right)\mathbf i +
+    \left(\frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}\right)\mathbf j +
+    \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right)\mathbf k
+    \\
+    &=
+    \left(6x^2yz^2 - 6x^2yz^2\right)\mathbf i +
+    \left(6xy^2z - 6xy^2z^2\right)\mathbf j +
+    \left(4xyz^3 - 6xyz^2\right)\mathbf k
+    \\
+    &\not= \langle 0, 0, 0 \rangle.
+  \end{align*}
+  Therefore $\mathbf F$ is not conservative.
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{13.2.19}
+  Evaluate the line integral \[
+    \int_C \mathbf F \cdot d\mathbf r,
+  \] where $F(x,y) = \langle xy, 3y^2 \rangle$ and $C$ is given by the
+  function $\mathbf r(t) = \langle 11t^4, t^3 \rangle$ for $0 \leq t \leq 1$.
+\end{problem}
+
+\begin{solution} $ $\\
+  We can rewrite the integral as \[
+    \int_{t=0}^{1} \langle 11t^7, 3t^6\rangle \cdot \langle 44t^3, 3t^2 \rangle\,dt
+    = \int_{t=0}^{1} 484t^{10} + 9t^8\,dt
+    = [44t^{11} + t^9]_0^1 = 45.
+  \]
+\end{solution}
+
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{13.2.39}
+  Find the work done by the force field \[
+    \mathbf F(x,y,z) = \langle x-y^2, y-z^2, z - x^2 \rangle
+  \] on a particle that moves along the line segment from $(0, 0, 1)$ to
+  $2, 1, 0$.
+\end{problem}
+
+\begin{solution} $ $\\
+  Start by parameterizing the line segment \[
+    \mathbf r(t) = \langle 2t, t, 1 - t\rangle.
+  \] for $0 \leq t \leq 1$
+  Then then amount of work is the integral of the dot product of force and
+  distance: \begin{align*}
+    \int_C \mathbf F \cdot d\mathbf r
+    &= \int_{t=0}^1 \mathbf F(\mathbf r(t)) \cdot \mathbf r'(t)\,dt \\
+    &= \int_{t=0}^1\langle 2t - t^2, t-(1-t)^2, 1 - t - 4t^2 \rangle \cdot \langle 2, 1, -1 \rangle\,dt \\
+    &= \int_{t=0}^1 t^2 + 8t -2 \, dt \\
+    &= [\frac 13 t^3 + 4t^2 - 2t]_{t=0}^1 \\
+    &= \frac 73.
+  \end{align*}
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Sixth problem
+% -----------------------------------------------------
+\begin{problem}{13.7.25}
+  Evaluate the surface integral $\int\int_S \mathbf F \cdot d\mathbf S$ for \[
+    \mathbf F(x, y, z) = \langle x, -z, y \rangle
+  \] on the sphere $x^2 + y^2 + z^2 = 2^2$ in the first octant with orientation
+  toward the origin.
+\end{problem}
+
+\begin{solution} $ $\\
+  We can parameterize the eigth sphere in cartesian coordinates with over the quarter disk $D$ by \begin{align*}
+    z &= \sqrt{4-x^2-y^2} \\
+    0 \leq y &\leq \sqrt{4-x^2} \\
+    0 \leq x &\leq 2
+  \end{align*} so $r(x,y) = (x,y,\sqrt{4-x^2-y^2})$.
+  Then \[
+    \iint_S \mathbf F \cdot d\mathbf S
+    = \iint_D
+      \langle x, -\sqrt{4-x^2-y^2}, y \rangle
+      \cdot
+    (r_y(x,y) \times r_x(x,y))\,
+    dA
+  \]
+  Where the order of the cross product is given by the right hand rule, and  \begin{align*}
+    r_y(x,y) &= \left\langle 0, 1, -\frac{y}{\sqrt{4 - x^2 -y^2}} \right\rangle \\
+    r_x(x,y) &= \left\langle 1, 0, -\frac{x}{\sqrt{4 - x^2 -y^2}} \right\rangle \\
+    r_y(x,y) \times r_x(x,y) &= \left\langle
+      -\frac{x}{\sqrt{4 - x^2 -y^2}},
+      -\frac{y}{\sqrt{4 - x^2 -y^2}},
+      -1
+    \right\rangle.
+  \end{align*}
+  Evaluating the dot product gives \[
+    \iint_S \mathbf F \cdot d\mathbf S =
+    \iint_D \frac{-x^2}{\sqrt{4 - x^2 -y^2}}\, dA.
+  \]
+  Then switching to polar coordinates, this is \begin{align*}
+    \iint_D \frac{-x^2}{\sqrt{4 - x^2 -y^2}}\, dA &=
+    \int_{\theta=0}^{\pi/2}\int_{r=0}^2 \frac{-r^2\cos^2(\theta)}{\sqrt{4-r^2}}r\,dr\,d\theta \\
+    &=\left(\int_{\theta=0}^{\pi/2} \cos^2(\theta)\,d\theta\right)
+    \left(\int_{r=0}^2 \frac{-r^3}{\sqrt{4-r^2}}\,dr\right)
+  \end{align*}
+  which can be evaluated with ordinary methods to be $-4\pi/3$.
+\end{solution}
+\pagebreak
+% -----------------------------------------------------
+% Seventh problem
+% -----------------------------------------------------
+\begin{problem}{13.7.27}
+  Evaluate the surface integral $\int\int_S \mathbf F \cdot d\mathbf S$ for \[
+    \mathbf F(x, y, z) = \langle 0, y, -z \rangle
+  \] on the paraboloid $y = x^2 + z^2$ for $0 \leq y \leq 1$ and on the disk
+  $x^2 + z^2 \leq 1$ in the plane $y=1$.
+\end{problem}
+
+\begin{solution} $ $\\
+  We can parameterize the paraboloid cartesian coordinates over the unit circle
+  $D$ in the $xz$-plane by \[r(x,z) = \langle x,x^2 + z^2, z \rangle.\]
+  \\
+  We can parameterize the disk over the unit circle in the $xz$-plane by
+  \[s(x,z) = \langle x, 1, z \rangle.\]
+  Then \[
+    \iint_S \mathbf F \cdot d\mathbf S
+    = \iint_D
+      \langle 0, \underbrace{x^2 + z^2}_{y}, -z \rangle
+      \cdot
+    (r_x(x,y) \times r_z(x,y))\,
+    dA
+    +
+    \iint_D
+      \langle 0, 1, -z \rangle
+      \cdot
+    (s_z(x,y) \times s_x(x,y))\,
+    dA
+  \]
+  Where the order of the cross product is given by the right hand rule so that
+  the orientation points out:  \begin{align*}
+    r_x(x,z) &= \left\langle 1, 2x, 0 \right\rangle \\
+    r_z(x,z) &= \left\langle 0, 2z, 1 \right\rangle \\
+    r_x(x,z) \times r_z(x,z) &= \left\langle
+      2x, -1, 2z
+    \right\rangle,
+    \end{align*}
+    and
+    \begin{align*}
+    s_z(x,z) &= \left\langle 0, 0, 1 \right\rangle \\
+    s_x(x,z) &= \left\langle 1, 0, 0 \right\rangle \\
+    s_z(x,z) \times s_x(x,z) &= \left\langle
+      0, 1, 0
+    \right\rangle.
+  \end{align*}
+  Evaluating the dot products gives \[
+    \iint_S \mathbf F \cdot d\mathbf S =
+    \iint_D -(x^2 + y^2) - 2z^2\, dA +
+    \underbrace{\iint_D 1\, dA}_\pi,
+  \]
+  where the first integral can be evaluated by polar coordinates with $x = r \cos\theta$ and $z = r\sin\theta$, \begin{align*}
+    \int_{\theta=0}^{2\pi}\int_{r=0}^1 (-(r^2) - 2r^2\sin^2\theta) r\,dr\,d\theta
+    &= -\int_{\theta=0}^{2\pi}\int_{r=0}^1 r^3 + 2r^3\sin^2\theta\,dr\,d\theta\\
+    &= -\left(\int_{\theta=0}^{2\pi} 1 + 2\sin^2\theta\,d\theta\right)
+    \left(\int_{r=0}^1 r^3\,dr\right) \\
+    &= (-4\pi)(1/4) = -\pi.
+  \end{align*}
+  Therefore \[
+    \iint_S \mathbf F \cdot d\mathbf S = -\pi + \pi = 0.
+  \]
+\end{solution}
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass[12 pt]{article}
+\pagestyle{empty}
+\addtolength{\topmargin}{-0.9in}
+\addtolength{\textheight}{1.9in}
+\addtolength{\oddsidemargin}{-0.7in}
+\addtolength{\textwidth}{1.4in}
+\newcommand{\D}{\displaystyle}
+\usepackage{amsmath, pgfplots}
+
+\begin{document}
+	\begin{center}
+		\textbf{\hfill Math 226/229 -- Quiz} \\
+	\end{center}
+	\medskip
+
+	\noindent
+	\textbf{Last Week Quiz Solutions.} \hfill
+	\vspace{.1in}
+	%\textbf{Discussion: 10 am   11 am}\
+	\hspace*{0.2in}
+	\medskip
+	\noindent
+  \begin{enumerate}
+		\item (\textit{5 points})
+      Show that $\Vec{F}(x,y) = \langle 2x e^{-y},2y-x^2e^{-y} \rangle$ is
+			conservative and then find a potential function $f$ (so that
+			$\vec{F} = \nabla f$.) Use this $f$ to calculate
+			$\int_C\vec{F}\cdot d\vec{r}$ where $C$ is any path from $(1,0)$ to
+			$(2,1)$.
+			\\~\\
+    \textbf{Solution.}\\
+		To check that $\vec{F}(x, y)$ is conservative it is enough to check that \[
+			\frac{\partial}{\partial y} [2x e^{-y}] =
+			\frac{\partial}{\partial x} [2y-x^2e^{-y}].
+		\] These are both equal to $-2xe^{-y}$, so the vector field is indeed
+		conservative.
+
+		Thus there exists some function $f$ such that $F = \nabla f$, namely, \begin{alignat*}{2}
+			f(x, y) &= \int 2x e^{-y} \, dx &&= \int 2y-x^2e^{-y} \, dy \\
+							&= x^2e^{-y} + f_1(y)   &&= y^2 + x^2e^{-y} + f_2(x) \\
+							&= y^2 + x^2e^{-y} + c.
+		\end{alignat*}
+		Then by the fundamental theorem of calculus for conservative vector fields
+		\[
+			\int_C\nabla f\cdot d\vec{r} = f(2, 1) - f(1, 0) = 1 + \frac 4e + c - (1 + c) = \frac 4e.
+		\]
+		\pagebreak
+		\item (\textit{5 points})
+				Set up but do not evaluate the flux integral
+				$\iint_S \Vec{F}\cdot d\Vec{S}$ where
+				$\vec{F} =\langle xy, yz ,zx \rangle $ and $S$ is the portion of the
+				paraboloid $z=4-x^2-y^2$ which lies above the square
+				$0\le x\le 1, \ 0\le y\le 1$, and has upward orientation.
+    \\~\\
+    \textbf{Solution.}\\
+			This can be parameterized by \[
+				\vec r(x, y) = \langle x, y, 4 - x^2 - y^2 \rangle.
+			\] so that \begin{align*}
+				\vec r_x(x, y) &= \langle 1, 0, -2x \rangle \\
+				\vec r_y(x, y) &= \langle 0, 1, -2y \rangle,
+			\end{align*} with cross product \[
+				\vec r_x(x, y) \times \vec r_y(x, y)
+				= \begin{vmatrix}
+					\mathbf i & \mathbf j & \mathbf k \\
+					1         & 0         & -2x \\
+					0         & 1         & -2y
+				\end{vmatrix}
+				= \langle 2x, 2y, 1 \rangle
+			\]
+			Then integrated over the square region by the upward orientation and the
+			right hand rule,
+			$0 \le x \le 1$ and $0 \le y \le 1$. \begin{align*}
+				\iint_S \Vec{F}\cdot d\Vec{S}
+				&= \int_0^1\int_0^1 \Vec F(\vec r(x, y)) \cdot \underbrace{(r_x(x, y) \times r_y(x, y))}_{\vec n\, |r_x(x, y) \times r_y(x, y)|}\,dA \\
+				&= \int_0^1\int_0^1
+					\langle xy, y(4 - x^2 - y^2), x(4 - x^2 - y^2)\rangle
+					\cdot \langle 2x, 2y, 1 \rangle
+				\,dx\,dy \\
+				&= \int_0^1\int_0^1
+					2x^2y + 2y^2(4 - x^2 - y^2) + x(4 - x^2 - y^2)
+				\,dx\,dy.
+			\end{align*}
+  \end{enumerate}
+\end{document}
