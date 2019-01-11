@@ -1,0 +1,174 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{definition}[1][Definition.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{example}[1][Example.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{note}[1][Note.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{theorem}[1][Theorem.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{exercise}[1][Exercise.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+
+\begin{document}
+
+\title{Math 510B Notes}
+\author{Peter Kagey}
+
+\maketitle
+
+\begin{theorem}[Lemma.] (Zorn's Lemma) \\
+  Let $\mathscr S$ be a nonempty partially ordered set. If every chain of
+  subsets $S_1 \preceq S_2 \preceq \hdots$ in $\mathscr S$ has an upper bound in
+  $\mathscr S$, then $\mathscr S$ contains a maximal element.
+\end{theorem}
+
+\begin{definition}[Notation.]
+  Let $R$ denote a commutative ring with $1$.
+\end{definition}
+
+\begin{theorem}[Corollary.] (to Zorn's Lemma) \\
+  If $1 \in R$ and $I \neq R$ is any proper ideal of $R$
+  (left, right, or two-sided), then there exists a maximal ideal $M$ such that
+  $I \subseteq M \subset R$.
+\end{theorem}
+\begin{note}
+  This corollary does not hold for rings without $1$.
+\end{note}
+\begin{proof}
+  % https://equatorialmaths.wordpress.com/2009/03/11/existence-of-maximal-ideals/
+  Let $\mathscr S_I = \set{J : I \subseteq J \text{ and } J \text{ is a proper ideal of } R}$
+  be the set of proper ideals of $R$ that contain $I$. Then any chain
+  $\set{S_n}$ has an upper bound in $\mathscr S_I$, namely $\bigcup_n S_n$, so
+  by Zorn's Lemma, $\mathscr S_I$ contains a maximal element.
+
+  Notice that for all $S \in \mathscr S_I$, $1 \not\in S$ (otherwise $S = R$).
+  Thus $\bigcup_n S_n$ is a proper subset of $R$, so it is enough to show that
+  it is an ideal. Notice that for any $x, y \in \bigcup_n S_n$ there exists some
+  $N$ such that $x, y \in S_N$. Thus
+  \begin{enumerate}
+    \item $\bigcup_n S_n$ is closed because
+    $x + y \in S_N \subseteq \bigcup_n S_n$, and
+    \item $\bigcup_n S_n$ is an ideal because for all $r \in R$,
+    $xr \in S_N \subseteq \bigcup_n S_n$.
+  \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Lemma.]
+  Let $R$ be a commutative ring with unity. Then $M$ is a maximal ideal if and
+  only if $R/M$ is a field.
+\end{theorem}
+\begin{proof} $ $ \\
+  % https://proofwiki.org/wiki/Maximal_Ideal_iff_Quotient_Ring_is_Field
+  $(\Longrightarrow)$ Assume that $M$ is a maximal ideal, and let choose
+  $r \not\in M$ so that $\bar r = r + M \neq \bar 0$. Then the set
+  $M + rR = \set{m + r \cdot s : m \in M, s \in R}$ is an ideal of $R$ (check)
+  and $M$ is a proper subset of $M + rR$, so by the maximality of $M$,
+  $M + rR = R$, and thus there exists some $m \in M$ and $s \in R$ such that
+  $m + r\cdot s = 1$. Thus in the quotient, $\bar r \cdot \bar s = \bar 1$,
+  and so $\bar r$ is invertible, and $R/M$ is a field.
+  \\~\\
+  $(\Longleftarrow)$ Assume that $R/M$ is a field. (...)
+\end{proof}
+\begin{definition}(Prime ideal) \\
+  Assume $R$ is a commutative ring. Then a proper ideal $P \vartriangleleft R$
+  is called a prime ideal if $ab \in P$ then either $a \in P$ or $b \in P$.
+\end{definition}
+\begin{theorem}[Lemma.]
+  $P$ is a prime ideal of $R$ if and only if $R/P$ has no zero divisors.
+\end{theorem}
+\begin{proof} $ $ \\
+  $(\Longrightarrow)$ Assume that $P$ is a prime ideal of $R$. For the sake of
+  contradiction, also assume that $\bar a, \bar b \in R/P$ with $\bar a \bar b = \bar 0$.
+  Thus $(a + P)(b + P) \subseteq P$, and so $ab \in P$ (check).\\
+  By hypothesis, since $P$ is a prime ideal, $a \in P$ or $b \in P$,
+  so $\bar a = \bar 0$ or $\bar b = \bar 0$. Thus $R/P$ has no zero divisors.
+  \\~\\
+  $(\Longleftarrow)$ Assume that $R/P$ has no zero divisors. Let $ab \in P$,
+  and consider $(a + P)(b + P) = ab + aP + Pb + P \in R/P$. Since $ab \in P$,
+  $\bar a \cdot \bar b = \bar 0 \in R/P$. Since $R/P$ has no zero divisors,
+  $\bar a = \bar 0$ or $\bar b = \bar 0$ and thus $a \in P$ or $b \in P$.
+  Therefore $P$ must be a prime ideal.
+\end{proof}
+\begin{example}
+  Let $R = \mathbb Z$. Then any prime ideal
+  $P = \ang{p} = \mathbb Z/p\mathbb Z$, so all nonzero prime ideals are maximal.
+\end{example}
+\begin{example}
+  Let $R = k[x]$ for some field $k$. Then any prime ideal
+  $P = \ang{f(x)} = f(x) \cdot k[x]$ for some irreducible polynomial $f$, so
+  all nonzero prime ideals are maximal.
+\end{example}
+\begin{example}
+  Let $R = k[x, y]$ for some field $k$. Then  $P = \ang{x} = xR$ is a prime
+  ideal since $R/\ang{x} \cong k[y]$ is a domain, but it is \textbf{not maximal}
+  because $k[y]$ is not a field.
+\end{example}
+\begin{definition}
+  A (not necessarily commutative) ring $R$ is called a domain if it has the
+  zero-product property. That is if $ab = 0$ implies that $a = 0$ or $b = 0$.
+\end{definition}
+\begin{definition}[Definitions.] Let $R$ be a commutative ring with unity.
+  \begin{enumerate}
+    \item A ring $R$ is called a principal ideal domain (PID) if for every
+    $I \subset R$ there exists $a \in I$ so that $I = aR = \ang{a}$.
+    \item If $a, b \in R$ then $c = \gcd(a, b)$ is the greatest common divisor
+    of $a$ and $b$ if \begin{enumerate}
+      \item $c | a$ and $c | b$ (i.e. there exists some $x$ such that $a = cx$, etc.), and
+      \item if $d \in R$ divides $a$ and $b$ then $d | c$.
+    \end{enumerate}
+    \item A unit $u \in R$ is an invertible element.
+    \item Two elements $a, b \in R$ are associates if there exists a unit $u$
+    such that $a = bu$.
+    \item An element $a \in R$ is irreducible if whenever $a = bc$ for
+    $b, c \in R$ then either $b$ or $c$ is a unit.
+    \item An element $p \in R$ is a prime element if whenever $p | ab$ then
+    $p | a$ or $p | b$.
+    \item $R$ is a unique factorization domain (UFD) if every element $a \in R$
+    may be written as a product of irreducible elements which are unique up to
+    being associates. That is if $a = q_1q_2 \hdots q_r = t_1t_2 \hdots t_r$,
+    then up to reordering, $q_i = u_it_i$ where $u_i$ is some unit.
+  \end{enumerate}
+\end{definition}
+\begin{theorem}[Claim.]
+  $I = \ang{p}$ is a prime ideal if and only if $p$ is a prime element.
+\end{theorem}
+\begin{theorem}[Lemma.]
+  A prime element is irreducible when $R$ is a domain.
+\end{theorem}
+\begin{proof}
+  Assume $p = ab$. Since $p$ is prime, $p | a$ or $p | b$. (Assume $p | a$ WLOG).
+  So $a = px$, thus $p = (px)b$ and $1 = xb$ by the cancellation property. Thus
+  $b$ is a unit and hence $p$ is irreducible.
+\end{proof}
+\begin{example}
+  The ring of polynomials over a ring in $n$ variables, $k[x_1, \hdots, x_n]$ is
+  a unique factorization domain (UFD).
+\end{example}
+\begin{theorem}[Lemma.]
+  Let $R$ be a PID. Then $\gcd$s exist  and $\ang{\gcd(a, b)} = \ang a + \ang b$.
+\end{theorem}
+\begin{exercise}
+  Prove this lemma when $R = \mathbb Z$.
+\end{exercise}
+\end{document}
