@@ -1,0 +1,141 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{definition}[1][Definition.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{example}[1][Example.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{note}[1][Note.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{theorem}[1][Theorem.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{exercise}[1][Exercise.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+
+\begin{document}
+
+\title{Math 510B Notes}
+\author{Peter Kagey}
+
+\maketitle
+
+\begin{definition}
+  Let $R$ be a commutative domain with unity. Then $R$ is called Euclidean if it
+  has a ``division algorithm''. This is, there exists
+  $\fn{\phi}{R - \set 0}{\mathbb N}$ satisfying \begin{enumerate}
+    \item $\phi(a) \leq \phi(ab)$ if $ab \neq 0$, and
+    \item $a = qb + r$ with $\phi(r) < \phi(b)$ for some $q, r \in R$ if $a, b \neq 0$.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}[Examples.] $ $
+  \begin{enumerate}
+    \item If $R = \mathbb Z$, then $\phi(a) = |a|$.
+    \item If $R = k[x]$, then $\phi(f) = \deg(f)$
+  \end{enumerate}
+\end{example}
+
+\begin{theorem}[Lemma.]
+  If $R$ is Euclidean then $R$ is a PID.
+\end{theorem}
+\begin{proof}
+  Need to show any ideal $I \subset R$ is principal.
+  First, if $I = \ang 0$, we're done. Otherwise $I$ contains a nonzero element.
+  Pick such an element $b \neq 0$ such that $\phi(a)$ is minimal. If $a$ is
+  another nonzero element, then $a = qb + r$ where $\phi(r) < \phi(b)$, so
+  $r = 0$. Thus $b = qa \in \ang a = I$.
+\end{proof}
+
+\begin{example}
+  Let $F = \mathbb Q(\sqrt m)$, and let
+  $\mathcal O_F = \set{a \in F : a \text{ is integral over } \mathbb Z}$.
+  \begin{enumerate}
+    \item If $m \cong 2, 3 \mod 4$, then
+    $\mathcal O_F = \mathbb Z \oplus \mathbb Z(\sqrt m)$.
+    \item if $m \cong 1 \mod 4$, then
+    $\mathcal O_F = \mathbb Z \oplus \mathbb Z(1/2 + \sqrt m / 2)$.
+  \end{enumerate}
+\end{example}
+\begin{note}
+  An element $a \in \mathbb Q(\sqrt m)$ is integral over $\mathbb Z$ if there
+  exists $\alpha_i \in \mathbb Z$ such that
+  $a^k + \alpha_{k-1}a^{k-1} + \hdots + \alpha_0 = 0$
+\end{note}
+\begin{note}
+  A048981 gives the twenty one values of $m$ such that $\mathcal O_F$ is Euclidean.
+\end{note}
+\begin{theorem}[Lemma.]
+  Let $R$ be a PID, then greatest common divisors exist, and given $a, b \neq 0$ and
+  $d = \gcd(a, b)$ (...?)
+\end{theorem}
+% TODO: Write proof.
+\begin{proof} Omitted.
+\end{proof}
+\begin{theorem}[Corollary]
+  If $R$ is Euclidean is it a PID, so it has greatest common divisors as usual.
+\end{theorem}
+\begin{theorem}
+  Let $R$ be an integral domain. Then $R$ is a UFD if and only if
+  \begin{enumerate}[(a)]
+    \item $R$ has an ascending chain condition on principal ideals.
+    (That is, every chain $\ang{a_1} \subseteq \ang{a_2} \subseteq \hdots$
+    is eventually constant.)
+    \item Irreducible elements are prime. (i.e. if $p|ab$ then $p|a$ or $p|b$.)
+  \end{enumerate}
+\end{theorem}
+\begin{proof} $ $ \\
+  ($\Longrightarrow$) Assume $R$ is a UFD.\\
+  \textbf{Proof of (a).} First note that for any $a, b\in R$,
+  $\ang a \subseteq \ang b$ if and only if $b | a$. So suppose there is a chain
+  of principal ideals $\ang{a_1} \subseteq \ang{a_2} \subseteq \hdots$;
+  since $a_{i+1} | a_i$, we can write $a_{i+1} = p_1\hdots p_n$ and write
+  $a_i = up_{j_1}\hdots p_{j_k}$ where $u$ is a unit and $k \leq n$. Therefore
+  the number of prime factors of the generators weakly decreases, and so the
+  chain must eventually stop or become constant.
+  \\~\\
+  \textbf{Proof of (b).} Assume $a$ is irreducible, and assume $a|bc$ where
+  $b = p_1\cdots p_r$ and $c = q_1 \cdots q_s$; that is, there exists $x \in R$
+  such that $x a = bc = p_1\cdots p_r q_1 \cdots q_s$. Since $a$ is irreducible,
+  $a = up_i$ or $a = u q_i$, so either $a|b$ or $a|c$.
+  \\~\\
+  ($\Longleftarrow$) Assume (a) and (b).\\
+  \textbf{Existence.}
+  Let $\mathcal S = \set{a \in R : a \text{ is not the product of irreducible polynomials}}$.
+  Then assume for the sake of contradiction that $a \in \mathcal S$ is chosen
+  so that $\ang a$ is maximal among the ideals $\ang b$, which can be done by
+  (1). But since $a \in \mathcal S$, $a$ is not irreducible
+  (or else is could be written as the one-term product $a$) so it factors as
+  $a = a_1\cdots a_k$. But since $a \in \mathcal S$ was chosen so that $\ang a$
+  is maximal, and $\ang a \subset \ang{a_i}$, $a_i \not\in \mathcal S$, and so
+  can be written as a product of irreducible elements, and thus $a$ can be
+  written as a product of irreducible elements. Thus $a \not\in \mathcal S$ so
+  $\mathcal S = \emptyset$.
+  \\~\\
+  \textbf{Uniqueness.}
+  Say $a = q_1 \hdots q_s = p_1 \hdots p_r$ where $p_i$ and $q_i$ are
+  irreducible. By (2) this means $p_i$ and $q_i$ are prime, so since $p_1 | a$,
+  $p_1 | q_1 \hdots q_s \hdots q_s$. In particular, after relabeling,
+  $q_1 = u_1p_1$. By the cancellation property, it follows that
+  $q_2 \hdots q_s = u_1p_2 \hdots p_r$. By induction, it follows that $s=r$ and
+  $q_i = u_ip_i$ for all $i$ with $u_i$ unit.
+\end{proof}
+\end{document}
