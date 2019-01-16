@@ -1,0 +1,203 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Algebraic Combinatorics: Homework 1}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  For $n \geq 0$, define a sequence $f(n)$ by the recurrence \[
+    f(n) = f(n-1) + f(n-2)
+  \] for $n \geq 2$ with initial conditions $f(0) = f(1) = 1$.
+  \begin{enumerate}[(a)]
+    \item Define $F(x) = \sum_{n\geq0} f(n) x^n$ to be the ordinary generating
+    function of $f(n)$. Use the recurrence relation for $f(n)$ to prove
+    $F(x) = 1 + xF(x) + x^2F(x)$
+    \item Solve (a) for $F(x)$ and use partial fraction decomposition to write
+    $F(x)$ as \[
+      F(x) = \frac{A}{1 - \alpha x} + \frac B{1 - \beta x}.
+    \]
+    \item Extract the coefficients of $F(x)$ from $b$ to give an explicit
+    formula for $f(n)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} $ $
+  \begin{enumerate}[(a)]
+    \item \begin{align*}
+      F(x) &= \sum_{n\geq0} f(n) x^n \\
+      &= 1 + x + \sum_{n\geq2} f(n) x^n \\
+      &= 1 + x + \sum_{n\geq2} f(n-1) + f(n-2) x^n \\
+      &= 1 + x + \sum_{n\geq2} f(n-1)x^n + \sum_{n\geq2} f(n-2) x^n \\
+      &= 1 + x + \sum_{n\geq1} f(n)x^{n+1} + \sum_{n\geq0} f(n) x^{n+2} \\
+      &= 1 + \underbrace{x + x\sum_{n\geq1} f(n)x^n}_{xF(x)} + x^2\underbrace{\sum_{n\geq0} f(n) x^n}_{F(x)} \\
+      &= 1 + xF(x) + x^2F(x)
+    \end{align*}
+    \item Using the identity $F(x) = 1 + xF(x) + x^2F(x)$ and solving for $F(x)$
+    yields $F(x) = 1/(1 - x - x^2)$. Then using the quadratic formula to
+    find the roots of $1 - x - x^2$ (equivalently $x^2 + x - 1 = 0$) gives \[
+      % \varphi =
+      \underbrace{\frac{-1 - \sqrt{5}}{2}}_{-\varphi}
+      \hspace{1cm}\text{}\hspace{1cm}
+      % \overline\varphi =
+      \underbrace{\frac{-1 + \sqrt{5}}{2}}_{-\overline\varphi}.
+    \] where $-(x + \varphi)(x + \overline\varphi) = 1 - x - x^2$.
+    Then partial fraction decomposition on \[
+      \frac{1}{1 - x - x^2}
+      = \frac{A}{x + \varphi} + \frac{B}{x + \overline\varphi}
+    \] where $A$ and $B$ satisfy the system of equations \begin{align*}
+        A + B &= 0 \\
+        \overline\varphi A + \varphi B &= 1
+    \end{align*} which gives $A = -B = 1/\sqrt 5$ resulting in \begin{align*}
+      F(x)
+      &= \frac{1}{1 - x - x^2} \\
+      &= \frac{1}{(x + \varphi)\sqrt{5}} - \frac{1}{(x+\overline\varphi)\sqrt{5}} \\
+      &= \frac{1}{\varphi\sqrt{5}}\cdot\frac{1}{(x/\varphi + 1)}
+      - \frac{1}{\overline\varphi\sqrt{5}}\cdot\frac{1}{(x/\overline\varphi + 1)}
+    \end{align*}
+    \item We can write \begin{align*}
+      F(x) &= \frac{1}{\varphi\sqrt{5}}\sum_{i\geq0}(x/\varphi)^n
+      - \frac{1}{\overline\varphi\sqrt{5}}\sum_{i\geq0}(x/\overline\varphi)^n \\
+      &= \frac{1}{\sqrt{5}}\left(
+        \sum_{i\geq0}\frac{x^n}{\varphi^{n+1}}
+        - \sum_{i\geq0}\frac{x^n}{\overline\varphi^{n+1}}
+      \right) \\
+      &= \frac{1}{\sqrt{5}}
+        \sum_{i\geq0}\left(\frac{1}{\varphi^{n+1}} - \frac{1}{\overline\varphi^{n+1}}
+      \right)x^n \\
+      &= \frac{1}{\sqrt{5}}
+        \sum_{i\geq0}\left(\frac{\overline\varphi^{n+1} - \varphi^{n+1}}{(\overline\varphi\varphi)^{n+1}}
+      \right)x^n \\
+      &= \frac{1}{\sqrt{5}}
+        \sum_{i\geq0}\left(\varphi^{n+1} - \overline\varphi^{n+1}
+      \right)x^n.
+    \end{align*} Therefore the coefficients are given by \begin{align*}
+      f(n)
+      = \frac{1}{\sqrt{5}}(\varphi^{n+1} - \overline\varphi^{n+1})
+      = \frac{1}{\sqrt{5}}\left(\frac{1 + \sqrt 5}{2}\right)^{n+1}
+      - \frac{1}{\sqrt{5}}\left(\frac{1 - \sqrt 5}{2}\right)^{n+1}.
+    \end{align*}
+  \end{enumerate}
+\end{solution}
+\pagebreak
+\begin{problem}{2} Prove the product formula for exponential generating
+  functions: \[
+    \left(\sum_{n\geq0} f_n\frac{x^n}{n!}\right)
+    \left(\sum_{n\geq0} g_n\frac{x^n}{n!}\right)
+    = \sum_{n\geq0} \left(
+      \sum_{k=0}^n \binom nk f_kg_{n-k}
+    \right)\frac{x^n}{n!}
+  \]
+\end{problem}
+\begin{solution} \text{} \\
+  Using the definition of multiplication of (ordinary) generating functions
+  gives \begin{align*}
+    \left(\sum_{n\geq0} f_n\frac{x^n}{n!}\right)
+    \left(\sum_{n\geq0} g_n\frac{x^n}{n!}\right)
+    &= \sum_{n\geq0} \left(
+      \sum_{k=0}^n \frac{f_k}{k!}\frac{g_{n-k}}{(n-k)!}
+    \right)\!x^n \\
+    &= \sum_{n\geq0} \left(
+      \sum_{k=0}^n \frac{f_k}{k!}\frac{g_{n-k}}{(n-k)!}\frac{n!}{n!}
+    \right)\!x^n \\
+    &= \sum_{n\geq0} \left(
+      \sum_{k=0}^n \binom nk f_k g_{n-k}\frac{1}{n!}
+    \right)\!x^n \\
+    &= \sum_{n\geq0} \left(
+      \sum_{k=0}^n \binom nk f_kg_{n-k}
+    \right)\frac{x^n}{n!}
+  \end{align*} as desired.
+\end{solution}
+\pagebreak
+%%%%%%%%%%%%
+%
+% Problem 3
+%
+%%%%%%%%%%%%
+\begin{problem}{3}
+  Assume that $\displaystyle 1 + \sum_{n\geq1}f(n)x^n = \exp\sum_{n\geq1}h(n)\frac{x^n}{n!}$,
+  and show that the following are equivalent for $N \geq 1$ fixed.
+  \begin{enumerate}
+    \item $f(n) \in \mathbb Z$ for all $n \in [N]$.
+    \item $h(n) \in \mathbb Z$ and
+      $\sum_{d|n} h(d)\mu(n/d) \cong 0\ (\mathrm{mod}\ n)$ for all $n \in [N]$.
+    \item $h(n) \in \mathbb Z$ and $h(n) \cong  h(n/p)\ (\mathrm{mod}\ p^r)$
+      whenever $n \in [N]$ and $p$ is a prime that divides $n$ at least once
+      and at most $r$ times.
+    \item there exists a polynomial
+      $P(t) = \prod_{i=1}^N (t-\alpha_i) \in \mathbb Z[t]$ with complex roots
+      such that $h(n) = \sum_{i=1}^N \alpha_i^n$ for all $n \in [N]$.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} \text{} \\
+  First note that $ $
+\end{solution}
+\pagebreak
+%%%%%%%%%%%%
+%
+% Problem 4
+%
+%%%%%%%%%%%%
+\begin{problem}{4}
+  Let $f(n) = 1 \cdot 3 \cdot 5 \cdots (2n-1)$ and $g(n) = 2^nn!$.
+  \begin{enumerate}[(a)]
+    \item Show that $G(x) = F(x)^2$.
+    \item Give a combinatorial proof.
+  \end{enumerate}
+\end{problem}
+
+\begin{solution} \text{} \\
+  \begin{enumerate}[(a)]
+    \item
+      Firstly, the generating function $G$ is given by \begin{align*}
+        G(x)
+        = \sum_{n\geq0}g(n)\frac{x^n}{n!}
+        = \sum_{n\geq0} 2^nn!\frac{x^n}{n!}
+        = \sum_{n\geq0} (2x)^n
+        = \frac{1}{1-2x}.
+      \end{align*}
+      Next the generating function $F$ is given by \begin{align*}
+        F(x) &= \sum_{n\geq0} f(n)\frac{x^n}{n!} \\
+        &= \sum_{n\geq0} 1 \cdot 3 \cdot 5 \cdots (2n-1)\frac{x^n}{n!} \\
+        &= \sum_{n\geq0}
+          \left(\frac1{-2}\right)
+          \left(\frac{3}{-2}\right)
+          \left(\frac{5}{-2}\right)
+          \cdots
+          \left(\frac{2n-1}{-2}\right)
+          (-2)^n\frac{x^n}{n!} \\
+        &= \sum_{n\geq0}\frac{(-\frac12)(-\frac12-1)(-\frac12-2)\hdots(-\frac12 - n + 1)}{n!}(-2)^nx^n \\
+        &= \sum_{n\geq0}\binom{-1/2}{n}(-2x)^n \\
+        &= (1 + (-2x))^{-1/2} \\
+        &= \frac{1}{\sqrt{1 - 2x}}
+      \end{align*}
+      So it is clear that $F(x)^2 = G(x)$.
+    \item
+      Using the product formula for exponential generating functions gives \[
+        F(x) \cdot F(x) = \sum_{n \geq 0}\left(\sum_{k=0}^n\binom{n}{k}f(k)f(n-k)\right)\frac{x^n}{n!},
+      \] so it is sufficient to show that \[
+        g(n) = 2^nn! = \sum_{k=0}^n\binom{n}{k}f(k)f(n-k).
+      \]
+      $g(n)$ gives the number of two-colorings of all permutations of $[n]$.
+  \end{enumerate}
+\end{solution}
+\end{document}
