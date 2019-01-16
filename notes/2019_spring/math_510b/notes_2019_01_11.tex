@@ -1,0 +1,144 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{definition}[1][Definition.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{example}[1][Example.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{note}[1][Note.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{theorem}[1][Theorem.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{exercise}[1][Exercise.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+
+\begin{document}
+
+\title{Math 510B Notes}
+\author{Peter Kagey}
+
+\maketitle
+
+\begin{theorem}[Corollary.]
+  If $R$ is a principal ideal domain (PID) then $R$ is also a unique factorization domain (UFD).
+\end{theorem}
+
+\begin{proof}
+  It is sufficient to show that a PID satisfies the hypotheses of the previous theorem.
+  \\
+  \textbf{Proof of (a).}
+  Assume that $\ang{a_1} \subseteq \ang{a_2} \subseteq \hdots$ is a chain of
+  (principal) ideals. Then define the ideal $I = \bigcup_{i\geq 1} \ang{a_i}$.
+  Since $R$ is a PID, $I = \ang b$ for some $b$.
+  Since there exists some $m$ such that $b \in \ang{a_m}$, $I = \ang{a_m}$, so
+  the chain is constant after $\ang{a_m}$.
+  \\~\\
+  \textbf{Proof of (b)} (similar to argument for $\mathbb Z$).
+  Assume that $p$ is irreducible, and $p \mid ab$. If $p \mid a$, then we're done, so
+  assume $p \nmid a$. Since $p$ is irreducible, $\gcd(p, a) = 1$, so there exist
+  $x, y \in R$ such that $xp + ya = 1$ and thus $xpb + yab = b$ since
+  $p \mid ab$, $p$ can be factored from the left-hand side, and thus $p \mid b$,
+  and $p$ is prime.
+\end{proof}
+
+\begin{note}
+  Euclidean domains (e.g. $\mathbb Z[i]$) are PIDs and PIDs are UFDs.
+\end{note}
+
+\begin{theorem}
+  If $D$ is a UFD then so it $D[x]$.
+\end{theorem}
+
+\begin{theorem}[Corollary.]
+  Let $k$ be a field. Then the ring $k[x_1, x_2, \hdots, x_n]$ is a UFD.
+\end{theorem}
+
+\begin{theorem}[Lemmas.] $ $
+  \begin{enumerate}
+    \item If $D$ is an integral domain then so is $D[x]$.
+    \item If $D$ is a UFD then greatest common divisors exist.
+  \end{enumerate}
+\end{theorem}
+\begin{proof} $ $
+  \begin{enumerate}
+    \item Assume that $p(x)\cdot q(x) = 0$. For the sake of contradiction,
+    assume we can write each polynomial as
+    \[
+      (\underbrace{a_n x^n + \hdots + a_0}_{p(x)})
+      (\underbrace{b_mx^m + \hdots + b_0}_{q(x)}) =
+      a_n b_mx^{n + m} + \hdots + a_0b_0
+    \] with $a_n$ and $b_m$ nonzero.
+    Then since $D$ is an integral domain, $a_n b_m \neq 0$ so $p(x) \cdot q(x)$
+    has degree $n + m$, and so is nonzero. Thus if $p(x) \cdot q(x) = 0$
+    either $p(x)$ or $q(x)$ is zero.
+    \item Given $a, b \neq 0$ look at irreducible factorizations of both, and
+    then $\gcd(a, b)$ is the product of the factors which are the same up to
+    unit.\\
+    (Note: cannot use $\ang a + \ang b = \ang d$ because $\ang a + \ang b$
+    might not be principal.)
+  \end{enumerate}
+\end{proof}
+\begin{example}
+  The ring $\mathbb Z[x]$ is a UFD but not a PID. In particular, the ideal
+  $I = \ang{2, x}$ is not principal. If $\ang{2, x} = \ang{f(x)}$ then
+  $2 \in \ang{f(x)}$ so $f(x) \in \mathbb Z$, but then $x \not\in \ang{f(x)}$.
+\end{example}
+\begin{example}
+  The ring $F[x, y]$ with $F$ a UFD is itself a UFD by a previous theorem.
+  Notice that $x$ and $y$ are primes since $R/\ang x \simeq F[y]$ is a domain,
+  so $\ang{x}$ is a prime ideal and thus $x$ is a prime element.
+\end{example}
+
+\begin{definition}[Definitions.]
+  Let $D$ be a UFD and let $R = D[x]$.
+  \begin{enumerate}
+    \item The content $C(f)$ is the $\gcd$ of the coefficients of $f$ in $D$.
+    \\
+    (e.g. If $f(x) = 4x^2 + 6x + 8 \in \mathbb Z[x]$, then $C(f) = 2$)
+    \item The polynomial $f(x)$ is called primitive if $C(f) = 1$.
+  \end{enumerate}
+\end{definition}
+\begin{note}
+  Any polynomial can be factored as $f(x) = C(f)f_1(x)$ where $f_1(x)$ is
+  primitive.
+\end{note}
+\begin{theorem}[Lemma.] (Gauss's Lemma) \\
+  If $f, g \in D[x]$ are both primitive then their product $fg$ is primitive.
+\end{theorem}
+\begin{proof}
+  By contrapositive, assume $fg$ is not primitive, that is $C(fg) \neq 1$.
+  Then there exists a prime $p \in D$ such that $p \mid C(fg)$.
+  Consider the homomorphism $\fn{\phi}{D[x]}{D/\ang{p}[x]}$ which maps all
+  coefficients modulo $p$. Since $p$ is chosen to be a prime, $D/\ang p$ is a
+  domain, so $\phi(fg) = \overline 0 = \phi(f)\phi(g)$ implies that
+  $p \mid C(f)$ or $p \mid C(g)$, a contradiction.
+\end{proof}
+\begin{theorem}[Corollary.]
+  The content of a product is the product of the content up to unit. That is,
+  $C(fg) \approx C(f) C(g)$ where $\approx$ means
+  ``up to unit''.
+\end{theorem}
+\begin{note}[Fact.]
+  Any integral domain $D$ has a field of fractions $K = S/{\sim}$ where
+  is the set of pairs $S = D \times D$, and $(a, b) \sim (c, d)$ if $ad = bc$.
+\end{note}
+\end{document}
