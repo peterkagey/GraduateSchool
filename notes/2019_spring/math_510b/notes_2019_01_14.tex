@@ -1,0 +1,132 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{definition}[1][Definition.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{example}[1][Example.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{note}[1][Note.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{theorem}[1][Theorem.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{exercise}[1][Exercise.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+
+\begin{document}
+
+\title{Math 510B Notes}
+\author{Peter Kagey}
+
+\maketitle
+
+\begin{theorem} (recall from 2019-01-11) \\
+  If $D$ is a UFD then $D[x]$ is also a UFD.
+\end{theorem}
+\begin{theorem}[Lemma.]
+  If $f$ factors in $K[x]$ then it factors in $D[x]$. Namely,
+  suppose $D$ is a UFD with field of fractions $K$, and assume $f(x) \in D[X]$
+  is primitive. If $f(x) = g(x)h(x) \in K[x]$ then there exists a factorization
+  $f(x) = g_2(x)h_2(x)$ with $g_2, h_2 \in D[x]$, where $g(x) = \alpha g_2(x)$
+  and $h(x) = \beta h_2(x)$ with $\alpha, \beta \in K$.
+\end{theorem}
+\begin{proof}[Proof of lemma.] The polynomials $g$ and $h$ can be written as \[
+    g(x) = \sum_{i=0}^n \paren{\frac{a_i}{b_i}} x^i,
+    \hspace{1cm}
+    h(x) = \sum_{i=0}^m \paren{\frac{c_i}{d_i}} x^i
+  \] with $a_i, b_i, c_i, d_i \in D$. Then let $b = \prod_{i=0}^n b_i$ and
+  $d = \prod_{i=0}^m d_i$ so that $b\cdot g(x) = g_1(x) \in D[x]$, and
+  $bd\cdot f(x) = g_1(x)h_1(x)$. Since $f$ is primitive, taking the content of
+  both sides, $C(bd \cdot f) = bd \approx C(g_1)\cdot C(h_1)$.
+  Thus \begin{alignat*}{2}
+    bd\cdot f(x)
+    &= g_1(x)h_1(x) && \\
+    &= C(g_1)g_2(x)\cdot C(h_1)h_2(x) \hspace{1cm }&& \text{where $g_2$ and $h_2$ are primitive}\\
+    &\approx bd g_2(x)h_2(x) && \text{where $g_2h_2$ is primitive by Gauss}
+  \end{alignat*} so by the cancellation property, $f(x) = ug_2(x)h_2(x)$ where
+  $u$ is a unit.
+\end{proof}
+
+\begin{proof}[Proof of theorem.]
+  Choose $f(x) \in D[x]$. \\
+  \textbf{Existence.} \\
+  Write $f(x) = C(f)f_1(x)$ where $f_1$ is primitive with $\deg(f_1) \geq 1$,
+  so that $f(x) \not\in D$. Since $D$ is a UFD, $C(f)$ can be factored in $D$,
+  $C(f) = p_1\cdots p_k$.
+  \\~\\
+  If $f_1$ is irreducible, then $f(x)$ factors as $p_1\cdots p_k f_1(x)$.
+  \\~\\
+  If $f_1$ is not irreducible, then $f_1(x) = g(x)h(x)$ with the degree of
+  $g$ and $h$ strictly less than $f_1$, so by induction on the degree of
+  polynomials, $g_1$ and $h_1$ are products of irreducibles, so $f$ factors as
+  $f(x) = p_1 \cdots p_k h_1(x) \cdots h_n(x) g_1(x) \cdots g_m(x)$
+  \\~\\
+  \textbf{Uniqueness.} \\
+  Assume that $f$ can be factored as both \begin{align*}
+    f(x) &= c_1 \cdots c_m p_1(x) \cdots p_n(x) \\
+    &= d_1 \cdots d_r q_1(x) \cdots q_s(x),
+  \end{align*} where $c_i, d_i$ are prime and $p_i(x), q_i(x)$ are irreducible.
+  Further, without loss of generality, move the content of each irreducible
+  polynomial to the coefficient. Then
+  $p_1(x) \cdots p_n(x)$ and $q_1(x) \cdots q_s(x)$ are primitive so
+  $c_1 \cdots c_m \approx d_1 \cdots d_r$ and $c_i \approx d_i$ after
+  relabeling. Therefore
+  $p_1(x) \cdots p_n(x) \approx q_1(x) \cdots q_s(x) \in D[x]$.
+  Consider these terms over the field of fractions $K[x]$, then $p_i(x), q_i(x)$
+  are irreducible in $K[x]$ since they're irreducible in $D[x]$ (by the lemma.)
+  Then the uniqueness of factorizations in $K[x]$ implies $n=s$ and
+  $p_i(x) \approx q_i(x)$ in $K[x]$.
+  \\~\\
+  So for all $i$, $p_i(x) = \frac{a_i}{b_i}q_i(x)$, so
+  $b_i p_i(x) = a_i q_i(x)$ and thus $C(b_i p_i(x)) = C(a_i q_i(x))$ and
+  $b_i \approx a_i$. Thus $\frac{a_i}{b_i} = \frac{a_i}{u a_i} = u^{-1}$, which
+  is a unit in $D$. Therefore polynomial parts are unique.
+\end{proof}
+\begin{theorem} (Eisenstein's irreducibility criteria for UFDs) \\
+  Let $D$ be a UFD then $f(x) = a_0 + \hdots + a_n x^n \in D[x]$ is irreducible
+  in $K[x]$ if there exists some prime $p \in D$ such that
+  \begin{enumerate}
+    \item the prime divides all but the leading coefficient,
+    $p \mid a_0, \hdots p \mid a_{n-1}$, but $p \nmid a_n$, and
+    \item the prime divides the constant term only once, $p^2 \nmid a_0$.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  By Gauss's lemma, if $f$ factors in $K[x]$ it factors in $D[x]$, so assume
+  that \[
+    f(x) = g(x)h(x) = (b_0 + \hdots + b_k x^k)(c_0 + \hdots + c_\ell x^\ell).
+  \]
+  Since $a_0 = b_0c_0$ and $p^2 \nmid a_0$, either $p \nmid b_0$ or
+  $p \nmid c_0$, so assume without loss of generality that $p \nmid b_0$.
+  \\
+  Next consider the map $\fn{\phi}{D[x]}{D/\ang p[x]}$ which reduces all
+  coefficients mod $p$ \[
+    \phi(f(x))
+    = \overline f(x)
+    = \overline a_n x^n
+    = (\overline b_0 + \hdots + \overline b_k x^k)
+    (\overline c_0 + \hdots + \overline c_\ell x^\ell)
+  \] where $b_0 \neq 0$, so $x \nmid \overline g(x)$. This means
+  $x^n \mid h(x)$, so $l = n$ and $k = 0$, and thus $\overline g$ is constant.
+  Therefore $f(x)$ has only trivial factorizations.
+\end{proof}
+\end{document}
