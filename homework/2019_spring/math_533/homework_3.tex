@@ -1,0 +1,172 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\newenvironment{definition}[1][Definition.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{example}[1][Example.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{note}[1][Note.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{theorem}[1][Theorem.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{exercise}[1][Exercise.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+
+\begin{document}
+
+\title{Math 533: Homework 3}
+\author{Peter Kagey}
+\date{Wednesday, February 13, 2019}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}
+    \item ~\\\vspace{10cm}
+    \item A binary tree can be decomposed as a root and the left side and right side (which are themselves trees)
+    \begin{align*}
+      B(x) &= \underbrace{1}_\text{root} + \underbrace{B(x)}_\text{left}\underbrace{B(x)}_\text{right} \\
+      &= 1 + B(x)^2.
+    \end{align*}
+    \item Solving the quadratic $xB(x)^2 - B(x) + 1 = 0$ yields \[
+      B(x) = \frac{1 \pm \sqrt{1 - 4x}}{2x}
+    \] where we take minus, so that $\displaystyle\lim_{x\rightarrow0}B(x) = 1$.
+  \item We can write \begin{align*}
+    1 - \sqrt{1 - 4x}
+      &= 1 - \sum_{n = 0}^\infty \binom{\frac 12}{n}(-4)^nx^n \\
+      &= - \sum_{n=1}^\infty \frac{(\frac 12)(\frac 12 - 1) \hdots (\frac 12 - n + 1)}{n!}(-4)^nx^n \\
+      &= \sum_{n=1}^\infty 1 \cdot 3 \cdots (2(n-1) - 1)\frac{(2x)^n}{n!} \\
+      &= \sum_{n=1}^\infty \frac{(2n-2)!}{2^{n-1}(n-1)!}\frac{(2x)^n}{n!} \\
+    \frac{1 - \sqrt{1 - 4x}}{2x}
+    &= \sum_{n=1}^\infty \frac{(2n-2)!}{2^{n-1}(n-1)!}2^{n-1}\frac{x^{n-1}}{n!} \\
+    &= \sum_{n=1}^\infty \frac{1}{n!}\binom{2n-2}{n-1}x^{n-1} \\
+    &= \sum_{n=0}^\infty \frac{1}{(n+1)!}\binom{2n}{n}x^n.
+  \end{align*}
+  Thus \[
+    b_n = \frac{1}{(n+1)!}\binom{2n}{n}.
+  \]
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item It is sufficient to evaluate both sides at $G(x)$: \begin{align*}
+      \underbrace{F(G(x))}_{x} &= G(x) \cdot E(\underbrace{F(G(x))}_x) \\
+      x &= G(x) \cdot E(x) \\
+      &= \frac{x}{E(x)}\cdot E(x)
+    \end{align*}
+    \item
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3}
+\end{problem}
+
+\begin{proof}
+  This falls nicely to a generating function approach. Let $r(n, j)$ be the
+  number of rooted, ordered trees on $n$ vertices with $j$ leaves, and define
+  the generating function \[
+    T(x,y) = \sum_{n, j \geq 0} r(n, j) x^n y^j.
+  \]
+  Then $T(x,y)$ satisfies the recurrence \begin{align*}
+    T(x, y) &= xy + xT(x,y) + xT(x,y)^2 + xT(x,y)^3 + \hdots \\
+            &= xy + \frac{xT(x,y)}{1-T(x,y)} \\
+    T(x, y) - T(x, y)^2 &=   xy(1-T(x,y)) + xT(x,y),
+  \end{align*} and so it is sufficient to find the roots of the quadratic
+  $T(x, y)^2 + (x - xy - 1)T(x, y) + xy$: \[
+    T(x,y) = \frac{1 + xy - x \pm \sqrt{(x - xy - 1)^2 - 4xy}}{2}.
+  \]
+  Then taking the root which subtracts the radical gives \begin{align*}
+    T(x,y)
+    &= \frac 12\paren{1 + xy - x - \sqrt{1 - 2 x + x^2 - 2 x y - 2 x^2 y + x^2 y^2}} \\
+    &= \frac 12\paren{
+      xy - x - \sum_{n=1}^\infty\binom{\frac12}{n}(-2x + x^2 - 2 x y - 2 x^2 y + x^2 y^2)^n
+    } \\
+    &= \frac 12\paren{
+      xy - x - \sum_{n=1}^\infty\binom{\frac12}{n}(-2 + x - 2y - 2 x y + x y^2)^n x^n
+    }\\
+    &= \frac 12\paren{
+      xy - x - \sum_{n=1}^\infty\binom{\frac12}{n}\sum_{m=0}^n\binom{n}{m}(-2 - 2y)^m(- 2 x y + x y^2 + x)^{n-m} x^n
+    } \\
+    &= \frac 12\paren{
+      xy - x - \sum_{n=1}^\infty\binom{\frac12}{n}\sum_{m=0}^n\binom{n}{m}(-2)^m(y + 1)^m(y - 1)^{2n-2m} x^{2n-m}
+    }.
+  \end{align*}
+  Then letting $n = m + j$, \[
+  \frac 12\paren{
+    1 + xy - x - \sum_{m,j\geq0}^\infty\binom{\frac12}{m+j}\binom{m+j}{m}(-2)^m(y + 1)^m(y - 1)^{2j} x^{m + 2j}
+  }
+  \]
+\end{proof}
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4}
+\end{problem}
+
+\begin{proof} ~
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{5}
+  Let $B_{n+1}$ be the $n + 1 \times n + 1$ matrix with entries \[
+    b_{ij} = \begin{cases}
+      2 & i = j \\
+      -1 & |i - j| = 1 \\
+      -1 & i = n + 1 \text{ and } j \in \set{1, n} \\
+      -1 & j = n + 1 \text{ and } i \in \set{1, n} \\
+      0 & \text{otherwise}
+    \end{cases}.
+  \] This is the Laplacian matrix for the cyclic graph $C_{n+1}$.
+  Then by the matrix-tree theorem, deleting the $n+1$ row and column gives the
+  number of spanning trees of the cyclic graph on $n+1$ vertices, $C_{n+1}$.
+  The only way to get a spanning tree of $C_{n+1}$ is to delete a vertex,
+  so the number of spanning trees is equal to the number of vertices. Thus
+  $\det(A_n) = n + 1$.
+\end{problem}
+
+\begin{proof} ~
+\end{proof}
+\end{document}
