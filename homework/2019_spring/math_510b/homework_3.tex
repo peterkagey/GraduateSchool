@@ -1,0 +1,239 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\newenvironment{definition}[1][Definition.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{example}[1][Example.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{note}[1][Note.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{theorem}[1][Theorem.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{exercise}[1][Exercise.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+
+\begin{document}
+
+\title{Math 510b: Homework 2}
+\author{Peter Kagey}
+\date{Wednesday, February 27, 2019}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{5.57 (Rotman)} % https://artofproblemsolving.com/wiki/index.php/Nilradical
+  % https://math.stackexchange.com/a/859408/121988
+  If $R$ is a commutative ring, then its \textbf{nilradical}
+  $\operatorname{nil}(R)$ is defined to be the intersection of all of the prime
+  ideals in $R$. Prove that $\operatorname{nil}(R)$ is the set of all the
+  nilpotent elements in $R$: \[
+    \operatorname{nil}(R) = \set{r \in R : r^m = 0 \text{ for some } m \geq 1}
+  \]
+\end{problem}
+
+\begin{proof} ~ \\
+  $(\Longleftarrow)$ Let $\mathfrak p$ be an arbitrary prime ideal, and assume
+  that $x \in \sqrt{(0)}$. Then $x^n \in \mathfrak p$ because $x^m = 0$ for some
+  $m > 1$. Next, if $x^n \in \mathfrak p$, then $x \cdot x^{n-1} \in \mathfrak p$,
+  meaning that either $x \in \mathfrak p$ (in which case we're done) or
+  $x^{n-1} \in \mathfrak p$, which can be continued by induction to show that
+  $x \in \mathfrak p$. Since $\mathfrak p$ was an arbitrary prime ideal, $x$ is
+  in the intersection of all prime ideals.
+  \\~\\ % Exercise 5.7
+  $(\Longrightarrow)$ Now to prove the converse, let $x \not\in \sqrt{(0)}$.
+  Next, let $\mathcal S = \set{I \text{ ideal of } R : I \text{ has no element of the form } x^n}$.
+  This set is nonempty because it contains $(0)$.
+  Thus by Zorn's Lemma $\mathcal S$ has a maximal element $\mathfrak m$ because
+  the union of all ideals in a chain is in $\mathcal S$ and serves as an upper
+  bound.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{10.27 (Rotman)} %
+  If $R$ is an integrally closed domain and $S \subseteq R$ is multiplicative,
+  prove that $S^{-1}R$ is also integrally closed.
+\end{problem}
+
+\begin{proof} ~
+  \begin{definition}
+    A domain $R$ is called an \textit{integrally closed domain} if every element
+    $\alpha \in \operatorname{Frac}(R)$ is the root of a monic polynomial in
+    $R[x]$.
+  \end{definition}
+  Let $f_1/f_2 \in \operatorname{Frac}(S^{-1}R)$. We want to show that $f_1/f_2$
+  can be written as the root of a monic polynomial with coefficients in $S^{-1}R$: \[
+    \paren{\frac{f_1}{f_2}}^n
+    + \frac{r_{n-1}}{s_{n-1}}\cdot\paren{\frac{f_1}{f_2}}^{n-1}
+    + \hdots
+    + \frac{r_0}{s_0}
+    = 0.
+  \] Let $s = s_{n-1} \hdots s_0$, since we know that since $R$ is integrally closed and \[
+    \paren{\frac{sf_1}{f_2}}^n
+    + \frac{s r_{n-1}}{s_{n-1}}\cdot\paren{\frac{sf_1}{f_2}}^{n-1}
+    + \frac{s^2 r_{n-2}}{s_{n-2}}\cdot\paren{\frac{sf_1}{f_2}}^{n-2}
+    + \hdots
+    + \frac{s^n r_0}{s_0}
+    = 0
+  \]  has coefficients in $R$, that $\frac{sf_1}{f_2}$ is a root of a polynomial
+  with coefficients in $R$, and thus $\frac{f_1}{f_2}$ is a root of a polynomial
+  with coefficients in $S^{-1}R$. Therefore $S^{-1}R$ is integrally closed.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{10.39 (Rotman)} % p. 915
+  Let $k$ be a field and let $\mathfrak m$ be a maximal ideal in
+  $k[x_1, \hdots, x_n]$. Prove that \[
+    \mathfrak m = (f_1(x_1), f_2(x_1, x_2), \hdots, f_n(x_1, \hdots, x_n)).
+  \]
+\end{problem}
+
+\begin{proof}
+  Consider $\mathfrak m' = \mathfrak m \cap k[x_1, \hdots, x_{n-1}]$, which is
+  maximal in $k[x_1, \hdots, x_{n-1}]$. By Corollary 10.71,
+  $\mathfrak m = (\mathfrak m', g_n(x_n))$ where $f_n$ has coefficients in
+  $k[x_1, \hdots, x_{n-1}]$, so that $g_n(x_n) = f_n(x_1, \hdots, x_n)$.
+  \\~\\
+  Then continuing by induction,
+  $\mathfrak m^{(k)} = \mathfrak m^{(k-1)} \cap k[x_1, \hdots, x_{n-k}]$, and so
+  \begin{align*}
+    \mathfrak m^{(k)}
+    &= (\mathfrak m^{(k+1)}, g_{n-k}(x_{n-k})) \\
+    &= (\mathfrak m^{(k+1)}, f_{n-k}(x_1, \hdots, x_{n-k})) \\
+    \mathfrak m
+    &= (\mathfrak m', f_n(x_1, \hdots, x_n)) \\
+    &= (\mathfrak m'', f_{n-1}(x_1, \hdots, x_{n-1}), f_n(x_1, \hdots, x_n)) \\
+    &= \hdots \\
+    &= (\mathfrak m^{(n)}, f_{1}(x_1), \hdots, f_{n-1}(x_1, \hdots, x_{n-1}), f_n(x_1, \hdots, x_n))
+  \end{align*}
+  Where $\mathfrak m^{(n)}$ is a maximal ideal in $k$, a field, so it can be omitted. Thus \[
+    \mathfrak m = (
+      \mathfrak m^{(n)}, f_{1}(x_1),
+      \hdots,
+      f_{n-1}(x_1, \hdots, x_{n-1}),
+      f_n(x_1, \hdots, x_n)
+    ),
+  \] as desired.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{10.40 (Rotman)} % p. 915
+  Prove that if $R$ is Noetherian then $\operatorname{nil}(R)$ is a nilpotent ideal.
+\end{problem}
+
+\begin{proof}
+  We'll do this combinatorially. Notice that $R$ is Noetherian so the nilpotent
+  ideal is finitely generated, $\operatorname{nil}(R) = (a_1, \hdots, a_n)$,
+  and thus every element can be written as \[
+    \operatorname{nil}(R) = \sum_{i=1}^n a_iR.
+  \] Therefore \[
+    \operatorname{nil}(R)^k = \sum_{i=1}^N \paren{\prod_{j=1}^k a_{i_j}R}.
+  \]
+  Then let $p = \max\set{p_i : a_i^{p_i} = 0}$ and let $k = np$. Then by the
+  pigeonhole principal, some $a_i$ must show up at least $p$ times in the
+  product, so $\prod_{j=1}^k a_{i_j}R = 0R = (0)$.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{4 (Artin)} ~
+  \begin{enumerate}[(a)]
+    \item Determine the prime ideals of the polynomial ring $\mathbb C[x, y]$ in two variables.
+    \item Show that unique factorization of ideals does not hold in the ring $\mathbb C[x, y]$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Sixth problem
+% -----------------------------------------------------
+\begin{problem}{15 (Artin)}
+  Determine the singular points of $x^3 + y^3  - 3xy = 0$.
+\end{problem}
+
+\begin{proof}
+  Singular points occur when \begin{alignat*}{2}
+    \frac{\partial}{\partial x} &= x^3 + y^3  - 3xy = 3x^2 - 3y &&= 0 \\
+    \frac{\partial}{\partial y} &= x^3 + y^3  - 3xy = 3y^2 - 3x &&= 0
+  \end{alignat*}
+  Then solving for $y$ in the first equation yields $y = x^2$, and substituting it
+  into the second equation gives $3x^4 - 3x = 0 = 3x(x^3 - 1)$ which has roots at
+  $x = 0$ and $x = 1$. Using the relation $y = x^2$ gives roots $(0, 0)$ and
+  $(1, 1)$.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Seventh problem
+% -----------------------------------------------------
+\begin{problem}{16 (Artin)} ~
+  \begin{enumerate}[(a)]
+    \item Consider the map $\fn \psi {\mathbb C[x, y]}{\mathbb C[t]}$ which sends
+    $f(x, y) \mapsto f(t^2, t^3)$. Prove that its kernel is a principal ideal
+    and that its image is the set of polynomials $p(t)$ such that $p'(0) = 0$.
+    \item Consider the map $\fn \phi {\mathbb C[x, y]}{\mathbb C[t]}$ which sends
+    $f(x, y) \mapsto f(t^2 - t, t^3 - t^2)$. Prove that its kernel is a principal ideal
+    and that its image is the set of polynomials $p(t)$ such that $p(0) = p(1)$.
+    Give an intuitive explanation in terms of the geometry of the variety
+    $\set{f=0}$ in $\mathbb C^2$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item The $\ker(\psi)$ consists of polynomials of the form \[
+      \psi\paren{\sum_{n=0}^N \sum_{i=0}^n c_{n,i} x^i y^{n-i}}
+      = \sum_{n=0}^N \sum_{i = 0}^n c_{n,i}(t^2)^i(t^3)^{n-i} = 0,
+    \] and thus $\ker(\psi)$ is principal.
+    \\
+    Now polynomials with $p'(0) = 0$ are exactly of the form \[
+      p(t) = c^nt^n + \hdots + c_3t^3 + c_2t^2 + c_0,
+    \] that is, those with vanishing linear term. Notice that all non-negative
+    integers besides $1$ can be written as $2k + 3\ell$ for some $k$ and $\ell$,
+    so all polynomials with $p'(0) = 0$ are in $\operatorname{Im}(\psi)$.
+    Similarly, $1 \neq 2k + 3\ell$ for any $k, \ell \in \mathbb N_{\geq 0}$,
+    so $p(t)$ has no linear terms and $p'(0) = 0$.
+    \item The $\ker(\phi)$ consists of polynomials of the form \begin{align*}
+      \phi\paren{\sum_{n=0}^N \sum_{i=0}^n c_{n,i} x^i y^{n-i}}
+      &= \sum_{n=0}^N \sum_{i = 0}^n c_{n,i}(t^2-t)^i(t^3-t^2)^{n-i} = 0 \\
+      &= \sum_{n=0}^N \sum_{i = 0}^n c_{n,i}(t-1)^n t^{2n-i}.
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+\end{document}
