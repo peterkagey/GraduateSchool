@@ -1,0 +1,311 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\newenvironment{definition}[1][Definition.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{example}[1][Example.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{note}[1][Note.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{theorem}[1][Theorem.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{exercise}[1][Exercise.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+
+\begin{document}
+
+\title{Math 510b: Midterm}
+\author{Peter Kagey}
+\date{Monday, March 18, 2019}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item (The idea here is that there is an increasing number of irreducible
+    factors of each generator as you go down the chain. Since any element in $R$
+    has a finite number of irreducible factors, no element can be be in all of
+    the ideals.)
+    \\~\\
+    Since $R$ is a PID, each of the ideals in the chain can be written as
+      principal ideals, that is $I_i = (a_i)$ for some $a_i \in R$, \[
+      (a_1) \supsetneq (a_2) \supsetneq \hdots
+    \] where $a_i \mid a_{i+1}$ for all $i \in \mathbb N_{>0}$, and thus
+    $a_{i+1} = b_i a_i$ where $b_i$ is not a unit (otherwise
+    $(a_{i+1}) = (a_i)$).
+    \\~\\
+    Since a PID is a UFD, we can write each of these
+    uniquely (up to units) as the product of irreducible elements of $R$,
+    namely \[
+        a_n = \underbrace{b_{n,1}\hdots b_{n,k_n}}_{b_n}
+        \hdots \underbrace{b_{2,1}\hdots b_{2,k_2}}_{b_2}
+        \underbrace{a_{1,1} \hdots a_{1,k}}_{a_1}
+    \] (with $k_i \geq 1$) so the number of irreducible factors of $a_n$
+    strictly increases as $n$ increases.
+    Since every $r \in R$ has finitely many irreducible factors (say $m_r$ of
+    them), $r$ cannot be in the intersection of the ideals, because in
+    particular $r \not\in (a_{m_{r+2}})$. Thus the intersection of all of the
+    ideals in the descending chain must be the zero ideal.
+    \item Let $R = \mathbb R[x,y]$, which is a UFD, but not a PID. Then let
+    $I_n = (x, y^n)$. It is clear that $I_{n+1} \subsetneq I_n$ and that
+    $x \in I_n$ for all $n$, so $x \in \bigcup_{n=1}^\infty I_n \neq (0)$.
+\end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} %
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item First, notice that $p(x,y,z) = x^2z^3 + (xy - y^2)z - x^3y$ is
+    irreducible by the Eisenstein criteria viewed as a function of $z$ over
+    $\mathbb Q[x,y]$ with prime $y$. (In particular, $y \nmid x^2$,
+    $y \mid (xy - y^2)$, $y \mid x^3y$, and $y^2 \nmid x^3y$.) So the polynomial is
+    irreducible in $\mathbb Q[x,y][z]$.
+    Similarly, viewed as a function of $x$ with prime $z$ it is irreducible
+    over $\mathbb Q[y,z][x]$, and viewed as a function of $y$ with prime $x$ it
+    is irreducible over $\mathbb Q[x,z][y]$.
+    Thus it is irreducible in $\mathbb Q[x,y,z]$.
+    \\~\\
+    Next, suppose $[f(x,y,z)], [g(x,y,z)] \neq [0] \in \mathbb Q[x,y,z]/(p(x))$, then
+    $[f(x,y,z)g(x,y,z)] \neq [0]$ because if $p(x,y,z) \nmid f(x,y,z)$ and
+    $p(x,y,z) \nmid g(x,y,z)$, then $p(x,y,z) \nmid f(x,y,z)\cdot g(x,y,z)$
+    since $\mathbb Q[x,y,z]$ is a UFD, and in a UFD all irreducible elements are prime.
+    \\~\\
+    Thus $S$ is an integral domain.
+    \item This follows directly by Corollary 5.39 (iii) which states
+      \begin{quote}
+        For any ideal $I$ in $k[x_1, \hdots, x_n]$ where [...] $k$ is a field,
+        the quotient ring $k[x_1, \hdots, x_n]/I$ is noetherian.
+      \end{quote}
+    This occurs because generators descend via the quotient map.
+    \item Rotman defines a \textbf{Jacobson radical} $J(R)$ as the intersection
+    of all maximal left (or right) ideals in $R$. Proposition 7.15 (i) states
+    that $x \in J(R)$ if and only if $1 - rx$ has a left inverse for every
+    $r \in R$.
+    \\
+    Since $p(x,y,z)$ is irreducible, $1 - rx$ having a left inverse is
+    equivalent to $rx = 0$. However, because $R/I$ is a UFD, so $rx = 0$ only
+    when $x = 0$. Thus the only element in the intersection of all maximal
+    ideals is $0$.
+    \item Let $[x] = x + R \in R/I$. Then $
+      \mathfrak m = ([x - 1], [y - 1], [z - 1])
+    $ is a maximal ideal with $(R/I)/\mathfrak m = \mathbb Q$.
+    Notice that in this quotient, $[x] = [y] = [z] = 1$,
+    and this is well-defined since \[
+      p(1,1,1) =
+      \underbrace{1^21^3}_1
+      + \underbrace{(1\cdot 1 - 1^2)1}_0
+      - \underbrace{1^3\cdot1}_1 = 0
+    \] so under this substitution map \[
+      s([f(x,y,z)])
+      = f(1,1,1)
+      = f(1,1,1) + \underbrace{p(1,1,1)}_0 q(x,y,z)
+      = [f(x,y,z) + p(x,y,z)q(x,y,z)].
+    \]
+    Therefore if $[[q]]$ is the image of $[q] = q + I$ under the quotient map
+    (with respect to $\mathfrak m$)
+    then $(R/I)/\mathfrak m = \mathbb Q$ with $[[q + I]] \mapsto q$ for all $q \in \mathbb Q$.
+\end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3}
+\end{problem}
+
+\begin{proof}
+  Let $R_0$ be the subalgebra of $R$ generated by the entries of all the
+  matrices $A_i$, and let $S_0 = M_n(R_0)$, as per the hint.
+  The number of entries in all of the $m$ matrices is at most $mn^2$, so $R_0$
+  is a finitely generated commutative $k$-algebra. Since $k$ is (presumably) a
+  field and thus Noetherian, thus by Hilbert's Basis Theorem,
+  since $R_0$ is a finitely generated commutative $k$-algebra, it is also a
+  Noetherian ring.
+  \\~\\
+  Thus it is sufficient to show that $S_0$ is finitely generated, because a
+  finitely generated module over a Noetherian ring is a Noetherian module.
+  If $R_0$ includes $1$ (that is $R_0 = R$), then $S_0$ is finitely generated
+  because each matrix in $S_0$ can be written as \[
+  \begin{bmatrix}
+    r_{11} & r_{12} & \hdots & r_{1n} \\
+    r_{21} & r_{22} & \hdots & r_{2n} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    r_{n1} & r_{n2} & \hdots & r_{nn} \\
+  \end{bmatrix} = r_{11} \begin{bmatrix}
+      1 & 0 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & 0
+    \end{bmatrix}
+    + r_{12} \begin{bmatrix}
+      0 & 1 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & 0
+    \end{bmatrix}
+    + \hdots + r_{nn} \begin{bmatrix}
+      0 & 0 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & 1
+    \end{bmatrix},
+  \] so $S_0$ is generated by $n^2$ elements in $M$.
+  But if $R_0$ does not include $1$, we can exploit the fact that each entry in
+  $S_0$ is finitely generated, so each element of $S_0$ can be written as \begin{align*}
+    &r_{11}^{(1)} \begin{bmatrix}
+      a_1 & 0 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & 0
+    \end{bmatrix}
+    & + r_{12}^{(1)} \begin{bmatrix}
+      0 & a_1 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & 0
+    \end{bmatrix}
+    & + \hdots + r_{nn}^{(1)} \begin{bmatrix}
+      0 & 0 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & a_1
+    \end{bmatrix} \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%
+    + &\ r_{11}^{(2)} \begin{bmatrix}
+      a_1 & 0 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & 0
+    \end{bmatrix}
+    & + r_{12}^{(2)} \begin{bmatrix}
+      0 & a_2 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & 0
+    \end{bmatrix}
+    & + \hdots + r_{nn}^{(2)} \begin{bmatrix}
+      0 & 0 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & a_2
+    \end{bmatrix} \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%
+    + &\hdots + \\
+    %%%%%%%%%%%%%%%%%%%%%%%%%%
+    + &\ r_{11}^{(m)} \begin{bmatrix}
+      a_m & 0 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & 0
+    \end{bmatrix}
+    & + r_{12}^{(m)} \begin{bmatrix}
+      0 & a_m & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & 0
+    \end{bmatrix}
+    & + \hdots + r_{nn}^{(m)} \begin{bmatrix}
+      0 & 0 & \hdots & 0 \\
+      0 & 0 & \hdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \hdots & a_m
+    \end{bmatrix}
+  \end{align*}
+  where $R_0 = (a_1, \hdots, a_m)$. Thus $S_0$ is finitely generated over a
+  Noetherian ring and thus is a Noetherian module and algebra.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4}
+\end{problem}
+
+\begin{proof} The \textbf{Hilbert's Basis Theorem} states simply that that if
+  $R$ is a Noetherian ring, then $R[x]$ is also a Noetherian ring.
+  \begin{enumerate}[(a)]
+    \item I chose this theorem because it allows us to construct
+    lots of natural examples of Noetherian rings which turn out to be very
+    familiar and important, like $\mathbb R[x,y,z]$, $\mathbb C[x,y]$ and
+    $k[x]$ (where $k$ is a field).
+    \\~\\
+    The Wikipedia page for Hilbert's Basis Theorem lists two specific
+    applications \begin{enumerate}[(i)]
+      \item
+        ``Since any affine variety over $\displaystyle R^n$
+        may be written as the locus of an ideal $\mathfrak a \subset R[X_{0},\hdots ,X_{n-1}]$
+        and further as the locus of its generators, it follows that every affine
+        variety is the locus of finitely many polynomials---i.e. the intersection
+        of finitely many hypersurfaces.''
+      \item
+        ``If $A$ is a finitely-generated $R$-algebra, then we know that
+        $A\simeq R[X_{0},\dotsc ,X_{n-1}]/\mathfrak {a}$ where $\mathfrak {a}$
+        is an ideal. The basis theorem implies that $\mathfrak {a}$ must be
+        finitely generated, [...] i.e. $A$ is finitely presented.''
+    \end{enumerate}
+    At nLab it's mentioned that one reason to care about a ring being
+    Noetherian at all is because it allows for induction over its ideals since,
+    by one definition, a noetherian ring is one
+    that satisfies the ascending chain condition on ideals, i.e. for any chain \[
+      I_1 \subseteq \hdots \subseteq I_j \subseteq I_{j+1} \subseteq \hdots
+    \] there exists some large $N$ such that $I_n = I_{n+1}$ for all $n \geq N$
+    \item The proof assumes that $R$ is noetherian and $J$ is a nonzero
+    ideal of $R[x]$, and shows that $J$ is finitely generated.
+
+    First one considers all ideals of $F$ defined by
+    $I_m = \set{r \in R : rx^m + a_{m-1}x^m-1 + \hdots + a_0 \in J}$ and notes
+    that $I_j$ is an ideal of $R$ and $I_j \subseteq I_{j+1}$, so that we can
+    use the ascending chain condition on $R$---this means that eventually
+    $I_n = I_{n+1}$ for all $n \geq N$. Since $R$ is noetherian,
+    all rings are finitely generated so $I_{N} = (a_1, \hdots, a_m)$.
+    Next the proof constructs an ideal $J' = (f_1, \hdots, f_m)$ where each
+    $f_i$ is in $I$ and has leading coefficient $a_i$, which by definition is
+    contained in $J$.
+
+    The remainder of the proof shows (by contradiction) that $J$ is also
+    contained in $J'$. In particular, it assumes there is some polynomial
+    $g \in J \setminus J'$, chosen to be of minimal degree, and then constructs
+    a polynomial of smaller degree:
+    In particular, it constructs another function of degree $\deg(g)$ in $I$
+    with the same leading coefficient, and the difference of these two functions
+    is a polynomial in $I$ of strictly smaller degree.
+  \end{enumerate}
+\end{proof}
+\end{document}
