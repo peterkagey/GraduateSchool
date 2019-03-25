@@ -1,0 +1,199 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm,enumerate,mathtools,mathrsfs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{matrix, arrows}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{solution}[1][Solution.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{problempart}[1]{\begin{trivlist}\item[\textbf{Part #1.}]}{\end{trivlist}}
+
+\newenvironment{definition}[1][Definition.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{example}[1][Example.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{note}[1][Note.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{theorem}[1][Theorem.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newenvironment{exercise}[1][Exercise.]{
+  \begin{trivlist} \item[\hskip \labelsep {\bfseries #1}]
+}{\end{trivlist}}
+
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
+
+\begin{document}
+
+\title{Math 510b: Homework 4}
+\author{Peter Kagey}
+\date{Monday, March 25, 2019}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{8.7(i) (Rotman)}
+\end{problem}
+
+\begin{proof}
+  By definition, \[
+    U_{(p)}(n, M \oplus N) = \dim\paren{\frac{p^n(M \oplus N)}{p^{n+1}(M \oplus N)}}
+  \] and \[
+    U_{(p)}(n, M) + U_{(p)}(n, N) = \dim\paren{\frac{p^nM}{p^{n+1}M}} + \dim\paren{\frac{p^nN}{p^{n+1}N}}
+  \]. \\
+  Consider the usual quotient map \[
+    p^n(M \oplus N) \cong p^nM \oplus p^nN \rightarrow \frac{p^nM}{p^{n+1}M} \oplus \frac{p^nN}{p^{n+1}N},
+  \] which has kernel $p^{n+1}M \oplus p^{n+1}N \cong p^{n+1}(M \oplus N)$,
+  so by the first isomorphism theorem \[
+    \frac{p^n(M \oplus N)}{p^{n+1}(M \oplus N)} \cong \frac{p^nM}{p^{n+1}M} \oplus \frac{p^nN}{p^{n+1}N}
+  \] and thus \[
+  \dim\paren{\frac{p^n(M \oplus N)}{p^{n+1}(M \oplus N)}}
+  = \dim\paren{\frac{p^nM}{p^{n+1}M} \oplus \frac{p^nN}{p^{n+1}N}}
+  = \dim\paren{\frac{p^nM}{p^{n+1}M}} + \dim\paren{\frac{p^nN}{p^{n+1}N}}
+  \] as desired.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{8.31 (Rotman)} %
+  We will start by computing the characteristic polynomials of the three
+  matrices, \begin{enumerate}[(a)]
+    \item \[
+      \begin{bmatrix} x - 1 & 2 \\ 3 & x - 4 \end{bmatrix} = x^2 - 5x - 2
+    \] which has roots $\alpha$ and $\overline\alpha$. Since the minimal and characteristic polynomials of $A$ do not coincide (i.e. $A$ does not satisfy $A = \alpha I$ or $A = \overline\alpha I$,) $A$ is similar to the companion matrix of its characteristic polynomial,
+    $\begin{bmatrix} 0 & 2 \\ 1 & 5 \end{bmatrix}$.
+    \item \[
+      \begin{bmatrix} x - 2 & 0 & 0 \\ 1 & x - 2 & 0 \\ 0 & 0 & x - 3 \end{bmatrix} = (x-2)^2(x-3) = x^3 - 7 x^2 + 16 x - 12
+    \] has only two proper divisors of degree $2$, $(t-2)^2 = t^2 - 4t + 4$ and $(t-2)(t-3) = t^2 - 5t + 6$, and $B$ does not satisfy either. Thus it is similar to the companion matrix of its characteristic polynomial, \[
+      \begin{bmatrix} 0 & 0 & 12 \\ 1 & 0 & -16 \\ 0 & 1 & 7 \end{bmatrix}.
+    \]
+    \item \[
+      \begin{bmatrix} x - 2 & 0 & 0 \\ 1 & x - 2 & 0 \\ 0 & 1 & x - 2 \end{bmatrix} = (x-2)^3 = x^3 - 6 x^2 + 12 x - 8
+    \] has only one proper divisors of degree $2$, $(t-2)^2 = t^2 - 4t + 4$, and $C$ does not satisfy it. Thus it is similar to the companion matrix of its characteristic polynomial, \[
+      \begin{bmatrix} 0 & 0 & 8 \\ 1 & 0 & -12 \\ 0 & 1 & 6 \end{bmatrix}.
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{8.39 (Rotman)} % p. 915
+\end{problem}
+
+\begin{proof}
+  Let $N$ be a nilpotent $6 \times 6$ matrix.
+  Since $N^6 = 0$, its minimal polynomial is of the form $x^k$, for $1 \leq k \leq 6$
+  and its characteristic polynomial is of the form $x^k f(x)$ where $f(x)$ is a degree $n-k$ polynomial.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{1} % p. 915
+\end{problem}
+
+\begin{proof}
+  First, note that if $A$ is invertible, then $AB$ and $BA$ are similar
+  (via $B(AB)B^{-1}$), so they have the same characteristic polynomial.
+  If $A$ is not invertible, then since invertible matrices are dense
+  (Zariski topology), there is $A_\varepsilon$ invertible in any neighborhood of
+  $A$, so $A_\varepsilon B \simeq BA_\varepsilon$,
+  and since this is true in any neighborhood, $AB$ and $BA$ must have
+  the same characteristic polynomial.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{2} ~
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item Per the hint, let $r \in R$ and define  \[
+      p_r(x) = \prod_{g\in G} (x - g(r)).
+    \] It is sufficient to show that $p_r(x) \in R^G[x]$, that is $p_r$ is fixed
+    under the action of any $g' \in G$. Now let an arbitrary $g' \in G$ act on the
+    coefficients of $p_r(x)$, \[
+      g' \cdot p_r(x) = \prod_{g\in G} (g'(1)x - g'\cdot g(r) = \prod_{g\in G} (x - g(r)) = p_r(x)
+    \] where $g'(x) = x$ because $g'$ fixes all elements of $R^G[x]$.
+    \item
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Sixth problem
+% -----------------------------------------------------
+\begin{problem}{3}
+\end{problem}
+
+\begin{proof}
+  Let $b | a$ with $a = bk$.
+  There is a simple way to construct a submodule $N \subset M$ such that
+  $(b) \in \exp(N)$ (and thus $(b) \subset \exp(N)$), namely let $N = kM$, so
+  that $bkM = aM = \set 0$.
+  \\~\\
+  Now for any arbitrary elements $c \in \exp(N), n \in N$, $cn = 0$ and
+  $cn = ckm$ for some $m \in M$, thus $ck \in \exp(M) = (a)$, that is, there
+  exists some $h$ such that $ck = ah = bkh$. Thus since $R$ is a PID, $c = bh$, and
+  so $c \in (b)$, so $\exp(N) \subset (b)$.
+  \\~\\
+  Combining with the above, $\exp(N) = (b)$.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Seventh problem
+% -----------------------------------------------------
+\begin{problem}{4} ~
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item ($\Longrightarrow$) Assume that $A$ has order a power of $p$, namely
+    $A^{p^e} = I$. This means that $A$ satisfies \[
+      x^{p^e} - 1 \equiv (x - 1)^{p^e} \bmod p,
+    \] and so the minimum polynomial looks like $m_A(x) = (x-1)^k$ for some $k \leq n$
+    (since the minimum polynomial also divides the characteristic polynomial
+    which is at most degree $n$). Thus \[
+      (A - I)^n = \underbrace{(A - I)^k}_{m_A(A) = 0}(A - I)^{n-k} = 0.
+    \]
+    ($\Longleftarrow$) Assume $(A - I)^n = 0$, then the minimum polynomial
+    $m_A(x) = (x-1)^k$ for some $k \leq n$, and thus for some $p^e \geq k$, \[
+      m_A(x) (x-1)^{p^e - k} \equiv (x-1)^{p^e} \equiv x^{p^e} - 1\ (\bmod\ p)
+    \] so \[
+      m_A(A) (A-I)^{p^e - k} = 0 = A^{p^e} - I
+    \] and $A^{p^e} = I$, as desired.
+    \item This is very similar to the second part of the above argument.
+    Assume $(A - I)^n = 0$, then the minimum polynomial
+    $m_A(x) = (x-1)^k$ for some $k \leq n$, and thus $np > p \geq k$, so \[
+      m_A(x) (x-1)^{np - k} \equiv (x-1)^{np} \equiv x^{np} - 1\ (\bmod\ p)
+    \] so \[
+      m_A(A) (A-I)^{np - k} = 0 = A^{np} - I
+    \] and $A^{np} = I$, as desired.
+    \item We know that $A$ is diagonalizable whenever its minimal polynomial
+    splits over the field, and in this case, $(x-1)^k$ splits over the field.
+  \end{enumerate}
+\end{proof}
+\end{document}
