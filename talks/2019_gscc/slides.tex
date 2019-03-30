@@ -9,6 +9,7 @@
   \usetheme{default}      % or try Darmstadt, Madrid, Warsaw, ...
   \usecolortheme{beaver} % or try albatross, beaver, crane, ...
   \usefonttheme{default}  % or try serif, structurebold, ...
+  \usefonttheme[onlymath]{serif}
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
 }
@@ -20,7 +21,8 @@
 \usepackage{tikz}
 
 \newcommand\indx[2]{\genfrac{}{}{0pt}{1}{#1}{#2}}
-\newcommand\indxx[2]{(#1,#2)}
+\newcommand\indxx[2]{#1#2}
+\newcommand\indxxx[2]{\genfrac{}{}{0pt}{0}{#1}{#2}}
 
 \title[Leaf Free]{Counting structures on the $n \times k$ grid graph}
 \author{Peter Kagey}
@@ -361,56 +363,171 @@
   \node at (11,-0.5) {$\indx 21$};
   \node at (12,-0.5) {$\indx 22$};
   \end{tikzpicture}
+  \\~\\
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{tikzpicture}[scale=0.8] % (0, 0) -> (0, 0) or (1, 1)
+        \draw[line width=2, line cap=round, white]
+         (-1,0)--(0,0)
+         (-1,1)--(0,1)
+        ;
+        \node at (-0.8,0.5) {$\indxxx 00$};
+        \draw[line width=2, dashed] (1,0)--(1,1);
+        \fill[gray] (0,0) circle (0.1) (1,0) circle (0.1) (0,1) circle (0.1) (1,1) circle (0.1);
+        \end{tikzpicture}
+        \\~\\
+        \begin{tikzpicture}[scale=0.8] % (0, 1) -> (0, 1) or (1, 2)
+        \draw[line width=2, line cap=round, white]
+         (-1,0)--(0,0)
+         (-1,1)--(0,1)
+        ;
+        \node at (-0.8,0.5) {$\indxxx 01$};
+        \draw[line width=2, gray!100] (-0.5,0)--(0,0);
+
+        \draw[line width=2] (0,0)--(1,0);
+        \draw[line width=2, dashed] (1,0)--(1,1);
+        \fill[gray] (0,0) circle (0.1) (1,0) circle (0.1) (0,1) circle (0.1) (1,1) circle (0.1);
+        \end{tikzpicture}
+        \\~\\
+        \begin{tikzpicture}[scale=0.8] % (1, 0) -> (1, 0) or (2, 1)
+        \draw[line width=2, line cap=round, white]
+         (-1,0)--(0,0)
+         (-1,1)--(0,1)
+        ;
+        \node at (-0.8,0.5) {$\indxxx 10$};
+        \draw[line width=2, gray!100] (-0.5,1)--(0,1);
+
+        \draw[line width=2] (0,1)--(1,1);
+        \draw[line width=2, dashed] (1,0)--(1,1);
+        \fill[gray] (0,0) circle (0.1) (1,0) circle (0.1) (0,1) circle (0.1) (1,1) circle (0.1);
+        \end{tikzpicture}
+        \\~\\
+        \begin{tikzpicture}[scale=0.8] % (1, 1) -> (1, 0) or (2, 1)
+        \draw[line width=2, line cap=round, white]
+         (-1,0)--(0,0)
+         (-1,1)--(0,1)
+        ;
+        \node at (-0.8,0.5) {$\indxxx 11$};
+        \draw[line width=2, gray!100]
+         (-0.5,0)--(0,0)
+         (-0.5,1)--(0,1)
+        ;
+
+        \draw[line width=2]
+         (0,0)--(1,0)
+         (0,1)--(1,1)
+        ;
+        \draw[line width=2, dashed] (1,0)--(1,1);
+        \fill[gray] (0,0) circle (0.1) (1,0) circle (0.1) (0,1) circle (0.1) (1,1) circle (0.1);
+        \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.5\textwidth}  %%<--- here
+      \begin{tikzpicture}[scale=0.8] % (1, 2) -> (1, 0), (1, 1), (2, 1), (2, 2)
+        \draw[line width=2, line cap=round, white]
+          (-1,0)--(0,0)
+          (-1,1)--(0,1)
+        ;
+        \node at (-0.8,0.5) {$\indxxx 12$};
+        \draw[line width=2, gray!100] (-0.5,0)--(0,0)--(0,1);
+
+        \draw[line width=2] (0,1)--(1,1);
+        \draw[line width=2, dashed] (0,0)--(1,0)--(1,1);
+        \fill[gray] (0,0) circle (0.1) (1,0) circle (0.1) (0,1) circle (0.1) (1,1) circle (0.1);
+      \end{tikzpicture}
+      \\~\\
+      \begin{tikzpicture}[scale=0.8] % (2, 1) -> (0, 1), (1, 1), (1, 2), (2, 2)
+        \draw[line width=2, line cap=round, white]
+          (-1,0)--(0,0)
+          (-1,1)--(0,1)
+        ;
+        \node at (-0.8,0.5) {$\indxxx 21$};
+        \draw[line width=2, gray!100] (-0.5,1)--(0,1)--(0,0);
+
+        \draw[line width=2] (0,0)--(1,0);
+        \draw[line width=2, dashed] (0,1)--(1,1)--(1,0);
+        \fill[gray] (0,0) circle (0.1) (1,0) circle (0.1) (0,1) circle (0.1) (1,1) circle (0.1);
+      \end{tikzpicture}
+      \\~\\
+      \begin{tikzpicture}[scale=0.8] % any + (1, 1)
+        \draw[line width=2, line cap=round, white]
+          (-1,0)--(0,0)
+          (-1,1)--(0,1)
+        ;
+        \node at (-0.8,0.5) {$\indxxx 22$};
+        \draw[line width=2, gray!100] (-0.5,1)--(0,1)--(0,0)--(-0.5,0);
+        \draw[line width=2, dashed] (0,1)--(1,1)--(1,0)--(0,0);
+        \fill[gray] (0,0) circle (0.1) (1,0) circle (0.1) (0,1) circle (0.1) (1,1) circle (0.1);
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{Leaf Free Grids: The System of Recurrences}
-  % \begin{tikzpicture}[scale=0.8]
-  % \draw[gray!50, line width=1, dashed] (0,0) grid (12,1);
-  % \foreach \x in {0, 1, ..., 12} {
-  %   \fill[gray]
-  %     (\x,0) circle (0.1)
-  %     (\x,1) circle (0.1)
-  %   ;
-  % }
-  % \draw[line width=3, line cap=round]
-  %   (1,0)--(1,1)--(2,1)--(2,0)--cycle
-  %   (2,0)--(4,0)--(4,1)--(6,1)--(6,0)--(4,0)
-  %   (6,1)--(8,1)--(8,0)--(7,0)--(7,1)
-  %   % (4,1)--(6,1)--(6,0)--(8,0)--(8,1)--(6,1)
-  %   % (2,1)--(4,1)--(4,0)--(2,0)
-  %   % (4,1)--(5,1)--(5,0)--(8,0)--(8,1)--(7,1)--(7,0)
-  %   (9,0) rectangle (10,1)--(11,1) rectangle (12,0);
-  % ;
-  % \node at (0,-0.5) {$\indx 00$};
-  % \node at (1,-0.5) {$\indx 11$};
-  % \node at (2,-0.5) {$\indx 22$};
-  % \node at (3,-0.5) {$\indx 01$};
-  % \node at (4,-0.5) {$\indx 12$};
-  % \node at (5,-0.5) {$\indx 11$};
-  % \node at (6,-0.5) {$\indx 22$};
-  % \node at (7,-0.5) {$\indx 21$};
-  % \node at (8,-0.5) {$\indx 22$};
-  % \node at (9,-0.5) {$\indx 11$};
-  % \node at (10,-0.5) {$\indx 22$};
-  % \node at (11,-0.5) {$\indx 21$};
-  % \node at (12,-0.5) {$\indx 22$};
-  % \end{tikzpicture}
+\begin{frame}{Example: A System of Recurrences}
+  The $1 \times 2$ grid has initial conditions
   \begin{align*}
-    a_{\indxx 00}(n) &= a_{\indxx 00}(n - 1) + a_{\indxx 22}(n - 1) \\
-    a_{\indxx 10}(n) &= a_{\indxx 00}(n - 1) + a_{\indxx 22}(n - 1)
+    a_{\indxx 00}(1) &= a_{\indxx 11}(1) = 1 \\
+    a_{\indxx 10}(1) &= a_{\indxx 01}(1) = a_{\indxx 12}(1) = a_{\indxx 21}(1) = a_{\indxx 22}(1) = 0,
+  \end{align*}
+  and satisfies the system of first order homogeneous difference relations
+  \begin{align*}
+    a_{\indxx 00}(n + 1) &= a_{\indxx 00}(n) + a_{\indxx 22}(n) \\
+    a_{\indxx 01}(n + 1) &= a_{\indxx 01}(n) + a_{\indxx 21}(n) + a_{\indxx 22}(n) \\
+    a_{\indxx 10}(n + 1) &= a_{\indxx 10}(n) + a_{\indxx 12}(n) + a_{\indxx 22}(n) \\
+    a_{\indxx 11}(n + 1) &= a_{\indxx 00}(n) + a_{\indxx 11}(n) + a_{\indxx 12}(n)
+                      + a_{\indxx 21}(n) + 2a_{\indxx 22}(n) \\
+    a_{\indxx 12}(n + 1) &= a_{\indxx 01}(n) + a_{\indxx 21}(n) + a_{\indxx 22}(n) \\
+    a_{\indxx 21}(n + 1) &= a_{\indxx 10}(n) + a_{\indxx 12}(n) + a_{\indxx 22}(n) \\
+    a_{\indxx 22}(n + 1) &= a_{\indxx 11}(n) + a_{\indxx 12}(n) + a_{\indxx 21}(n) + a_{\indxx 22}(n).
   \end{align*}
 \end{frame}
 
 \begin{frame}{System of Recurrences: Getting one long recurrence}
-  % \[
-    % \begin{bmatrix}
-      % a_{11} & a_{12} & \hdots & a_{1k} \\
-  %     a_{21} & a_{22} & \hdots & a_{2k} \\
-  %     \cdots & \cdots & \ddots & \cdots \\
-  %     a_{k1} & a_{k2} & \hdots & a_{kk} \\
-  %   \end{bmatrix}^n
-  %   \bmatrix{}
-  % \]
+  \begin{theorem}[Corollary of Cayley–Hamilton theorem]
+    Given a system of $k$ first order homogeneous linear recurrences, \begin{align*}
+      a^{(1)}(n+1) &= \alpha_{11}a^{(1)}(n) + \hdots + \alpha_{1k}a^{(k)}(n) \\
+      \vdots\hspace{5pt} &= \hspace{5pt}\vdots  \\
+      a^{(k)}(n+1) &= \alpha_{k1}a^{(1)}(n) + \hdots + \alpha_{kk}a^{(k)}(n)
+    \end{align*} then each linear recurrence (and thus linear combination of recurrences) satisfies \[
+      a^{(i)}(n) = -\beta_{k-1}a^{(i)}(n-1) - \hdots -\beta_{1}a^{(i)}(n-k-1) - \beta_0 a^{(i)}(n-k)
+    \] for $n > k$ where $A = \{\alpha_{ij}\}_{i,j=1}^k$ is the coefficient matrix, and \[
+      \chi_A(x) = \det(xI_k - A) = x^k + \beta_{k-1}x^{k-1} + \hdots + \beta_1 x + \beta_0
+    \] is the characteristic polynomial of $A$.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}{System of Recurrences: Getting one long recurrence}
+  \[
+    \begin{bmatrix}
+      a_{\indxx 00}(n+1) \\
+      a_{\indxx 01}(n+1) \\
+      a_{\indxx 10}(n+1) \\
+      a_{\indxx 11}(n+1) \\
+      a_{\indxx 12}(n+1) \\
+      a_{\indxx 21}(n+1) \\
+      a_{\indxx 22}(n+1)
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      1 & 0 & 0 & 0 & 0 & 0 & 1 \\ % 00
+      0 & 1 & 0 & 0 & 0 & 1 & 1 \\ % 01
+      0 & 0 & 1 & 0 & 1 & 0 & 1 \\ % 10
+      1 & 0 & 0 & 1 & 1 & 1 & 2 \\ % 11
+      0 & 1 & 0 & 0 & 0 & 1 & 1 \\ % 12
+      0 & 0 & 1 & 0 & 1 & 0 & 1 \\ % 21
+      0 & 0 & 0 & 1 & 1 & 1 & 1 \\ % 22
+    \end{bmatrix}^n
+    \begin{bmatrix}
+      1 \\ 0 \\ 0 \\ 1 \\ 0 \\ 0 \\ 0
+    \end{bmatrix}
+  \]
+  % Then $\vec{a}(n + 1) = A^{n}\vec a(1)$,
+  Let $\chi_A(x) = \det(xI_k - A) = x^k + \beta_{k-1}x^{k-1} + \hdots + \beta_1 x + \beta_0$ be the characteristic polynomial of $A$. %satisfies its characteristic polynomial
+\end{frame}
+
+\begin{frame}{Some conjectural recurrences}
+  \[a_3(n) = 12a_3(n-1) - 6a_3(n-2) - 20a_3(n-3) - 5a_3(n-4)\]
+  \[a_4(n) = 36a_4(n-1) - 7a_4(n-2) - 201a_4(n-3) + 49a_4(n-4) + 20a_4(n-5) - 5a_4(n-6)\]
+  \[a_5(n) = 103a_5(n-1) + 1063a_5(n-2) - 1873a_5(n-3) - 20274a_5(n-4) + 44071a_5(n-5) - 10365a_5(n-6) - 20208a_5(n-7) + 5959a_5(n-8) + 2300a_5(n-9) - 500a_5(n-10)\]
 \end{frame}
 
 \begin{frame}{Mazes and Spanning Trees}
