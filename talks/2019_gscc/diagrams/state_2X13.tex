@@ -1,0 +1,31 @@
+\begin{tikzpicture}[scale=0.8]
+  \draw[gray!50, line width=1, dashed] (0,0) grid (12,1);
+  \foreach \x in {0, 1, ..., 12} {
+    \fill[gray]
+      (\x,0) circle (0.1)
+      (\x,1) circle (0.1)
+    ;
+  }
+  \draw[line width=3, line cap=round]
+    (1,0)--(1,1)--(2,1)--(2,0)--cycle
+    (2,0)--(4,0)--(4,1)--(6,1)--(6,0)--(4,0)
+    (6,1)--(8,1)--(8,0)--(7,0)--(7,1)
+    % (4,1)--(6,1)--(6,0)--(8,0)--(8,1)--(6,1)
+    % (2,1)--(4,1)--(4,0)--(2,0)
+    % (4,1)--(5,1)--(5,0)--(8,0)--(8,1)--(7,1)--(7,0)
+    (9,0) rectangle (10,1)--(11,1) rectangle (12,0);
+  ;
+  \node at (0,-0.5) {$\indx 00$};
+  \node at (1,-0.5) {$\indx 11$};
+  \node at (2,-0.5) {$\indx 22$};
+  \node at (3,-0.5) {$\indx 01$};
+  \node at (4,-0.5) {$\indx 12$};
+  \node at (5,-0.5) {$\indx 11$};
+  \node at (6,-0.5) {$\indx 22$};
+  \node at (7,-0.5) {$\indx 21$};
+  \node at (8,-0.5) {$\indx 22$};
+  \node at (9,-0.5) {$\indx 11$};
+  \node at (10,-0.5) {$\indx 22$};
+  \node at (11,-0.5) {$\indx 21$};
+  \node at (12,-0.5) {$\indx 22$};
+\end{tikzpicture}
