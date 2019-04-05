@@ -124,10 +124,15 @@
   \center{\includegraphics[width=300pt]{pipe_mania.png}}
 \end{frame}
 
-\begin{frame}{Leaf Free Grids} % V2 Problem 56.
+\begin{frame}{Leaf-free subgraphs of the grid graph} % V2 Problem 56.
   % Can also use this to count multipartite graphs and planar multipartite graphs.
-  \input{diagrams/leaf_free_4X12}
-  The $n \times 2$ grid, obeys the recurrence
+  \begin{figure}[!h]
+    \input{diagrams/leaf_free_4X12}
+    \caption {
+      One of the $a_4(12) = 42 650 154 782 713 601$ ($42$ quadrillion) subgraphs on the $12 \times 4$ grid graph $G_{12,4} = P_{12} \square P_{4}$.
+    }
+  \end{figure}
+  The number of leaf-free subgraphs of $G_{n,2}$ grid, obeys the recurrence
   \begin{align*}
     a_2(1) &= 1,\ a_2(2) = 2 \\
     a_2(n) &= 5a(n-1) - 5a(n-2).
@@ -144,12 +149,12 @@
   \end{align*}
 \end{frame}
 
-\begin{frame}{Leaf Free subgraphs: The System of Recurrences}
-  \begin{figure}
+\begin{frame}{Leaf-free subgraphs: intermediate states}
+  \begin{figure}[ht!]
     \input{diagrams/state_2X13}
     \caption{An example of a leaf-free subgraph with its states labeled}
   \end{figure}
-  \begin{figure}
+  \begin{figure}[ht!]
     \input{diagrams/next_generation_2Xn}
     \caption{Two examples of transitions from states to their children}
   \end{figure}
@@ -265,7 +270,7 @@
   %      - 3420      * a(n-18)
 \end{frame}
 
-\begin{frame}{Graphs which satisfy linear recurrences}
+\begin{frame}{Subgraphs which satisfy linear recurrences}
   \input{diagrams/G_square_Pn}
   \begin{theorem}[Faase, 1994] % https://www.researchgate.net/publication/2588839_On_the_number_of_specific_spanning_subgraphs_of_the_graphs_G_P_n
     Let $G$ be an arbitrary finite graph and let $H_n$ denote either the path
@@ -277,47 +282,73 @@
       \item Connectivity
       \item Acyclicity
     \end{enumerate}
-    Then $s(n)$ satisfies some linear recurrence.
+    Then $s(n)$ satisfies a linear recurrence.
   \end{theorem}
 \end{frame}
 
-\begin{frame}{Graphs which satisfy linear recurrences}
-  \begin{corollary}
-    Let $G$ be an arbitrary finite graph with some notion of horizontal and
-    vertical symmetry. Then let $s(n)$ count the number of subsets of
-    $G \square P_n$ subject to any combination of the following properties:
-    \begin{enumerate}
-      \item Exactly $m_1, m_2, \hdots, m_k$ vertices of degree
-        $d_1, d_2, \hdots, d_k$ respectively.
-      \item Exactly $\ell$ connected components.
-      \item Reflection symmetry (horizontal)
-      \item Reflection symmetry (vertical)
-    \end{enumerate}
-    Then $s(n)$ satisfies some linear recurrence.
-  \end{corollary}
-  % Example?
+\begin{frame}{Examples: subgraphs which satisfy linear recurrences}
+  Let $G_{n,k}$ be a grid graph, then the following classes of
+  subgraphs satisfy linear recurrences:
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \item Leaf-free subgraphs \begin{itemize}
+          \item Degree set $D = \{0, 2, 3, 4\}$
+        \end{itemize}
+        \item Spanning tree (mazes) \begin{itemize}
+          \item Degree set $D = \{1,2,3,4\}$
+          \item Connected
+          \item Acyclic
+        \end{itemize}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \begin{itemize}
+        \item Hamiltonian paths \begin{itemize}
+          \item Degree set $D = \{1, 2\}$
+          \item Connected
+          \item Acyclic
+        \end{itemize}
+        \item Perfect matchings (domino tilings) \begin{itemize}
+          \item Degree set $D = \{1\}$
+        \end{itemize}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \begin{figure}[ht!]
+    % Can we count this up to dihedral action?
+    % Does there exist such a tree with >k leaves? This is NP-complete.
+    %   (Maximum Leaf Spanning Tree Problem for Grid Graphs by Li)
+    \input{diagrams/maze_spanning_trees}
+    \caption{A correspondence between mazes and spanning trees}
+  \end{figure}
 \end{frame}
 
-\begin{frame}{Linear recurrences for graphs which are symmetric}
+\begin{frame}{Generalizing domino tilings}
+
+\end{frame}
+
+\begin{frame}{More subgraphs which satisfy linear recurrences}
   \begin{theorem}
-    Let $G$ be an arbitrary finite graph with vertex set
-    $V = \{ v_1, v_2, \hdots, v_m \},$
-    and let $P_n$ denote the path graph on $n$ vertices.
-    Then let $H_n$ be the graph Cartesian product $G \square P_n$ together with
-    a choice of adding edges between the first row and the last row.
-    (i.e. some $E \in V \times V$ such that
-    $\{((1, v_i), (n, v_j)) : (v_i, v_j) \in E\})$ is added to the edge set.)
-    Next let $s(n)$ count the number of subgraphs $S \subset H_n$
-    subject to any combination of the following properties:
+    Let $H$ be a group and $X$ be an arbitrary finite graph upon which $H$ acts.
+    Then let $s(n)$ count the number of subsets of
+    $X \square P_n$ subject to any combination of the following properties:
     \begin{enumerate}
-      \item Restrictions on degree
-      \item Connectivity
-      \item Acyclicity
+      \item Exactly/fewer than/more than $m$ vertices of degree $d$
+      \item Exactly/fewer than/more than $c$ connected components on
+        exactly/fewer than/more than $d$ vertex.
+      \item An odd/even number of vertices of degree $d$
+      \item Exactly $\ell$ connected components
+      \item Fixed by the induced action of $h \in H$
     \end{enumerate}
-    Then $s(n)$ satisfies some linear recurrence.
+    Then $s(n)$ satisfies a linear recurrence.
   \end{theorem}
-  Note that $E = \{(v_1, v_1), (v_2, v_2), \hdots, (v_m, v_m)\}$ recovers
-  $G \square C_n$ and $E = \emptyset$ recovers $G \square C_n$.
+  % Example?
+  \begin{corollary}
+    The number of subgraphs of $X \square P_n$ (with appropriate vertex degree,
+    connectivity, or acyclicity restrictions) counted up to the group action of
+    $H$ satisfies a linear recurrence.
+  \end{corollary}
 \end{frame}
 
 \begin{frame}{Up to horizontal/vertical reflection} % A303930
@@ -337,33 +368,84 @@
   % Eight term linear recurrence.
 \end{frame}
 
-\begin{frame}{Mazes and Spanning Trees}
-  % Can we count this up to dihedral action?
-  % Does there exist such a tree with >k leaves? This is NP-complete.
-  %   (Maximum Leaf Spanning Tree Problem for Grid Graphs by Li)
-  \input{diagrams/maze_spanning_trees}
+\begin{frame}{Example: M\"obius ladder (Guy, 1967)}
+  \begin{figure}
+    \includegraphics[width=240pt]{diagrams/Moebius-ladder-16.png}
+    \caption{The M\"obius ladder $M_{16}$ on $16$ vertices.}
+  \end{figure}
+  \begin{fact}
+    The number of leaf-free subgraphs on the M\"obius ladder on $2n$ vertices is
+    equal to the number of leaf-free subgraphs on the $(n + 2) \times 2$ grid
+    graph.
+  \end{fact}
+\end{frame}
+
+\begin{frame}{Cycling around (a generalization of the M\"obius ladder)}
+  \begin{theorem}
+    Let $G$ be an arbitrary finite graph with vertex set
+    $V = \{ v_1, v_2, \hdots, v_m \},$
+    and let $E \subseteq V \times V$.
+    Then let $H_n$ be the graph Cartesian product $G \square P_n$ together with
+    the edges $\{((1, v_i), (n, v_j)) : (v_i, v_j) \in E\})$
+    \\
+    Next let $s(n)$ count the number of subgraphs of $H_n$
+    subject to any combination of the following properties:
+    \begin{enumerate}
+      \item Restrictions on degree
+      \item Connectivity
+      \item Acyclicity
+    \end{enumerate}
+    Then $s(n)$ satisfies a linear recurrence.
+  \end{theorem}
+  Note that $E = \{(v_1, v_1), (v_2, v_2), \hdots, (v_m, v_m)\}$ recovers
+  $G \square C_n$ and $E = \emptyset$ recovers $G \square P_n$.
+\end{frame}
+
+\begin{frame}{More exotic connections}
+  \begin{theorem}
+    Let $G$ be an arbitrary finite graph with vertex set
+    $V = \{ v_1, v_2, \hdots, v_m \}$, and let $E \subseteq V \times V$.
+    Then let $H_n$ be the disjoint union product
+    $\underbrace{G \sqcup G \sqcup \hdots \sqcup G}_{n \text{ times}}$ together with the edges \[
+      \{((k, v_i), (k + 1, v_j)) : (v_i, v_j) \in E, k \in [n-1]\}).
+    \]
+    Next let $s(n)$ count the number of subgraphs of $H_n$
+    subject to any combination of the properties mentioned in the previous theorems.
+    Then $s(n)$ satisfies a linear recurrence.
+  \end{theorem}
+  Note that $E = \{(v_1, v_1), (v_2, v_2), \hdots, (v_m, v_m)\}$ recovers
+  $G \square P_n$.
+\end{frame}
+
+\begin{frame}{Example: king graph}
+  Let $P_5$ be the path labeled $v_1, v_2, \hdots, v_5$ in the obvious way, and let
+  $E = \set{(v_i, v_{i+i}) : i < 5} \cup \set{(v_i, v_{i}) : i \in [5]} \cup \set{(v_i, v_{i-i}) : i > 1}$.
+  \begin{figure}
+    \input{diagrams/king_walk}
+    \caption{
+      The number of ways a king can tour every square of the
+      $5 \times 15$ chessboard is given by the number of Hamiltonian
+      subgraphs in the $5 \times 15$ king graph
+    }
+  \end{figure}
+  The number of kings tours on a $k \times n$ chessboard is a linear
+  recurrence in $n$.
 \end{frame}
 
 \begin{frame}{Generalizations}
-  % \textbf{can do}
-  % \begin{enumerate}
-  %   % \item Other degree restrictions. We saw $\deg(v) \neq 0$, but we could do, say
-  %   % \item $\deg(v) \in \{2,3\}$
-  %   % \item Connectivity restrictions, say, exactly $m$ connected components.
-  %   % \item Other graphs, e.g. King graph. Arbitrary $G \square P_n$, $K_{m,m,\hdots,m}$, cylinder, torus.
-  %   % \item Exactly $m$ vertices of degree $0$.
-  %   % \item Avoiding cycles
-  % \end{enumerate}
-
-  \textbf{can't do}
-  \begin{enumerate}
-    \item Can't count $k \times n$ for $k > 7$.
-    \item It's faster to do, e.g. Kirchhoff's matrix tree theorem than count spanning trees this way.
-    \item (?) Can't count, say, acyclic orientations of G.
-    \item (?) Chromatic number exactly $2$ on $G \square P_n$?
-    \item Global properties: (e.g. no connected component is a shift of another connected component.)
-    \item Figure out how long a particular recurrence is.
-  \end{enumerate}
+  \begin{itemize}
+    \item Is there always a nice algorithm for counting subgraphs of the
+      $n \times n$ grid graph satisfying particular properties?
+      \begin{itemize}
+        \item There are nice ways of counting domino tilings and spanning trees.
+      \end{itemize}
+    % \item It's sometimes faster to do, e.g. Kirchhoff's matrix tree theorem than count spanning trees this way.
+    % \item (?) Can't count, say, acyclic orientations of G.
+    % \item (?) Chromatic number exactly $2$ on $G \square P_n$?
+    % \item Global properties: (e.g. no connected component is a shift of another connected component.)
+    \item Given some graph and some properties, what is the order of recurrence
+      that counts the number of subgraphs satisfying those properties?
+  \end{itemize}
 
 \end{frame}
 \end{document}
