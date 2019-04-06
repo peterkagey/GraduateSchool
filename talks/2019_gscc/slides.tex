@@ -19,7 +19,8 @@
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{mathtools}
-\usepackage{tikz}
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{shapes.geometric}
 
 \newcommand\indx[2]{\genfrac{}{}{0pt}{1}{#1}{#2}}
 \newcommand\indxx[2]{#1#2}
@@ -33,18 +34,13 @@
 \institute{University of Southern California}
 \date[]{
   Graduate Student Combinatorics Conference\\
-  April 2019
+  Saturday, April 6, 2019
 }
 
 \begin{document}
 \begin{frame}
   \titlepage
 \end{frame}
-
-% Uncomment these lines for an automatically generated outline.
-%\begin{frame}{Outline}
-%  \tableofcontents
-%\end{frame}
 
 \begin{frame}{Commodore 64 (1/3)} % https://www.youtube.com/watch?v=m9joBLOZVEo
   % When I was working in software, I became known for my one-off programming
@@ -69,7 +65,7 @@
   \center{\includegraphics[width=300pt]{website_post.png}}
 \end{frame}
 
-\begin{frame}{Counting grids} % V2 Problem 56.
+\begin{frame}{Counting tilings of the grid} % V2 Problem 56.
   \begin{figure}
     \input{diagrams/diagonal-quarter_circle_duality}
     \caption{An illustration of the bijection between tiles with diagonal markings and tiles with quarter circles in opposite corners.}
@@ -88,7 +84,7 @@
   % $1, 6, 84, 8548, 4203520, 8590557312, 70368815480832, \hdots$
 \end{frame}
 
-\begin{frame}{Other tiles} % https://www.youtube.com/watch?v=m9joBLOZVEo
+\begin{frame}{Grids with other tiles} % https://www.youtube.com/watch?v=m9joBLOZVEo
     \begin{figure}
       \input{diagrams/box_drawing_characters}
       \includegraphics[width=230pt]{pseudomaze2.png}
@@ -160,13 +156,14 @@
   \end{figure}
 \end{frame}
 %
-\begin{frame}{Example: A System of Recurrences}
-  The $1 \times 2$ grid has initial conditions
+\begin{frame}{Example: a system of linear difference equations}
+  The states of leaf-free subgraphs on the $1 \times 2$ grid satisfy the initial
+  conditions
   \begin{align*}
     a_{\indxx 00}(1) &= a_{\indxx 11}(1) = 1 \\
     a_{\indxx 10}(1) &= a_{\indxx 01}(1) = a_{\indxx 12}(1) = a_{\indxx 21}(1) = a_{\indxx 22}(1) = 0,
   \end{align*}
-  and satisfies the system of first order homogeneous difference relations
+  and satisfy the system of first order homogeneous linear difference equations
   \begin{align*}
     a_{\indxx 00}(n + 1) &= a_{\indxx 00}(n) + a_{\indxx 22}(n) \\
     a_{\indxx 01}(n + 1) &= a_{\indxx 01}(n) + a_{\indxx 21}(n) + a_{\indxx 22}(n) \\
@@ -180,7 +177,7 @@
 \end{frame}
 
 \begin{frame}{A single recurrence from a system of recurrences}
-  \begin{theorem}[Corollary of Cayley–Hamilton theorem]
+  \begin{corollary}[of Cayley–Hamilton theorem]
     In a system of first order homogeneous linear difference equations, \begin{align*}
       a^{(1)}(n+1) &= \alpha_{11}a^{(1)}(n) + \hdots + \alpha_{1k}a^{(k)}(n) \\
       \vdots\hspace{25pt} &= \hspace{66pt}\vdots  \\
@@ -190,7 +187,7 @@
     \] for $n > k$ where $A = \{\alpha_{ij}\}_{i,j=1}^k$ is the coefficient matrix and \[
       m_A(x) = x^k + \beta_{k-1}x^{k-1} + \hdots + \beta_1 x + \beta_0
     \] is the minimal polynomial of $A$.
-  \end{theorem}
+  \end{corollary}
 \end{frame}
 
 \begin{frame}{A single recurrence from a system of recurrences}
@@ -324,34 +321,36 @@
   \end{figure}
 \end{frame}
 
-\begin{frame}{Generalizing domino tilings}
+\begin{frame}{Tiling with $3$-ominoes}
+  Recall domino tilings were counted by subgraphs of the grid with degree set $D = \set{1}$.
+  \\
+  Similarly, $3$-omino tilings are counted by subgraphs of the grid where each
+  component has exactly three vertices.
+  \begin{figure}
+    \input{diagrams/triomino_tiling}
+    \caption{Correspondence between subgraphs and triomino tilings}
+  \end{figure}
 
 \end{frame}
 
 \begin{frame}{More subgraphs which satisfy linear recurrences}
   \begin{theorem}
-    Let $H$ be a group and $X$ be an arbitrary finite graph upon which $H$ acts.
-    Then let $s(n)$ count the number of subsets of
-    $X \square P_n$ subject to any combination of the following properties:
+    Let $G$ be an arbitrary finite graph, and let $s(n)$ count the number of
+    subgraphs of $G \square P_n$ subject to any combination of the following
+    properties:
     \begin{enumerate}
       \item Exactly/fewer than/more than $m$ vertices of degree $d$
-      \item Exactly/fewer than/more than $c$ connected components on
-        exactly/fewer than/more than $d$ vertex.
-      \item An odd/even number of vertices of degree $d$
-      \item Exactly $\ell$ connected components
-      \item Fixed by the induced action of $h \in H$
+      \item Exactly/fewer than/more than $m$ connected components on
+        exactly/fewer than/more than $d$ vertices.
+      \item Has $k \pmod m$ vertices of degree $d$
+      \item Exactly/fewer than/more than $\ell$ connected components containing
+        exactly/fewer than/more than $v$ vertices.
     \end{enumerate}
     Then $s(n)$ satisfies a linear recurrence.
   \end{theorem}
-  % Example?
-  \begin{corollary}
-    The number of subgraphs of $X \square P_n$ (with appropriate vertex degree,
-    connectivity, or acyclicity restrictions) counted up to the group action of
-    $H$ satisfies a linear recurrence.
-  \end{corollary}
 \end{frame}
 
-\begin{frame}{Up to horizontal/vertical reflection} % A303930
+\begin{frame}{Counting up to symmetry} % A303930
   The number of no-leaf subgraphs of the $2 \times n$ grid satisfies the two
   term recurrence \[
     a_2(n) = 5a_2(n-1) - 5a_2(n-2).
@@ -368,10 +367,27 @@
   % Eight term linear recurrence.
 \end{frame}
 
+\begin{frame}{Subgraphs up to group action}
+  \begin{theorem}
+    Suppose $H$ is a group and the finite graph $X$ is an $H$-set which is
+    fixed under the action of $H$, and consider $P_n$ under the action of
+    $\mathbb Z_2$ which is either the identity on $P_n$ or reverses $P_n$.
+    Next let $s(n)$ count the number of subgraphs $S \subset X \square P_n$
+    such that $S$ is fixed under the action of $(h, d)$ for
+    $(h, d) \in H \times \mathbb Z_2$
+    Then $s(n)$ is defined by a linear recurrence.
+  \end{theorem}
+  \begin{corollary}
+    The number of subgraphs of $X \square P_n$ (with appropriate vertex degree,
+    connectivity, or acyclicity restrictions) counted up to the group action of
+    $H \times \mathbb Z_2$ satisfies a linear recurrence.
+  \end{corollary}
+\end{frame}
+
 \begin{frame}{Example: M\"obius ladder (Guy, 1967)}
   \begin{figure}
     \includegraphics[width=240pt]{diagrams/Moebius-ladder-16.png}
-    \caption{The M\"obius ladder $M_{16}$ on $16$ vertices.}
+    \caption{From Wikipedia: the M\"obius ladder $M_{16}$ on $16$ vertices.}
   \end{figure}
   \begin{fact}
     The number of leaf-free subgraphs on the M\"obius ladder on $2n$ vertices is
@@ -401,22 +417,6 @@
   $G \square C_n$ and $E = \emptyset$ recovers $G \square P_n$.
 \end{frame}
 
-\begin{frame}{More exotic connections}
-  \begin{theorem}
-    Let $G$ be an arbitrary finite graph with vertex set
-    $V = \{ v_1, v_2, \hdots, v_m \}$, and let $E \subseteq V \times V$.
-    Then let $H_n$ be the disjoint union product
-    $\underbrace{G \sqcup G \sqcup \hdots \sqcup G}_{n \text{ times}}$ together with the edges \[
-      \{((k, v_i), (k + 1, v_j)) : (v_i, v_j) \in E, k \in [n-1]\}).
-    \]
-    Next let $s(n)$ count the number of subgraphs of $H_n$
-    subject to any combination of the properties mentioned in the previous theorems.
-    Then $s(n)$ satisfies a linear recurrence.
-  \end{theorem}
-  Note that $E = \{(v_1, v_1), (v_2, v_2), \hdots, (v_m, v_m)\}$ recovers
-  $G \square P_n$.
-\end{frame}
-
 \begin{frame}{Example: king graph}
   Let $P_5$ be the path labeled $v_1, v_2, \hdots, v_5$ in the obvious way, and let
   $E = \set{(v_i, v_{i+i}) : i < 5} \cup \set{(v_i, v_{i}) : i \in [5]} \cup \set{(v_i, v_{i-i}) : i > 1}$.
@@ -432,20 +432,43 @@
   recurrence in $n$.
 \end{frame}
 
-\begin{frame}{Generalizations}
+\begin{frame}{More exotic connections}
+  \begin{theorem}
+    Let $G$ be an arbitrary finite graph with vertex set
+    $V = \{ v_1, v_2, \hdots, v_m \}$, and let $E \subseteq V \times V$.
+    Then let $H_n$ be the disjoint union
+    $\underbrace{G \sqcup G \sqcup \hdots \sqcup G}_{n \text{ times}}$ together with the edges \[
+      \{((k, v_i), (k + 1, v_j)) : (v_i, v_j) \in E, k \in [n-1]\}.
+    \]
+    Next let $s(n)$ count the number of subgraphs of $H_n$
+    subject to any combination of the properties mentioned in the previous theorems.
+    Then $s(n)$ satisfies a linear recurrence.
+  \end{theorem}
+  Note that $E = \{(v_1, v_1), (v_2, v_2), \hdots, (v_m, v_m)\}$ recovers
+  $G \square C_n$.
+\end{frame}
+
+\begin{frame}{Open questions}
   \begin{itemize}
-    \item Is there always a nice algorithm for counting subgraphs of the
+    \item Do there exist general nice algorithms for counting subgraphs of the
       $n \times n$ grid graph satisfying particular properties?
-      \begin{itemize}
-        \item There are nice ways of counting domino tilings and spanning trees.
-      \end{itemize}
+    % \item Is there a general algorithm which given some list of properties can
+    % produce a linear recurrence on the number of graphs satisfying that property?
+      % \begin{itemize}
+      %   \item There are fast ways of counting domino tilings and spanning trees.
+      % \end{itemize}
     % \item It's sometimes faster to do, e.g. Kirchhoff's matrix tree theorem than count spanning trees this way.
     % \item (?) Can't count, say, acyclic orientations of G.
     % \item (?) Chromatic number exactly $2$ on $G \square P_n$?
     % \item Global properties: (e.g. no connected component is a shift of another connected component.)
-    \item Given some graph and some properties, what is the order of recurrence
-      that counts the number of subgraphs satisfying those properties?
+    \item Given some graph and some properties on subgraphs, how do you find
+      the order of the smallest recurrence that counts the number of such
+      subgraphs?
+    \item What is the expected value of a randomly selected component in the
+    diagonal ``maze'' construction shown in the Commodore 64 program?
+    What's the expected number of connected components?
+    \item What if we want to count structures on other tiles, e.g.:
+      \input{diagrams/other_tiles}
   \end{itemize}
-
 \end{frame}
 \end{document}

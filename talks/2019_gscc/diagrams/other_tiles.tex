@@ -1,0 +1,56 @@
+\begin{itemize}
+  \item
+  \begin{tikzpicture}[scale=0.7, baseline=1.8ex]
+    \draw[thick] (0,0)--(0.5,{sqrt(3)/6})--(1,0);
+    \draw[thick] (2,{sqrt(3)/2})--(2,{sqrt(3)/6})--(2.5,0);
+    \draw[thick] (3,0)--(3.5,{sqrt(3)/6})--(3.5,{sqrt(3)/2});
+    \draw[thick] (4.5,0)--(5,{sqrt(3)/6})--(5,{sqrt(3)/2}); \draw[thick] (5,{sqrt(3)/6})--(5.5,0);
+
+    \def\count{3}
+    \foreach \x in {0,...,\count} {\draw[gray, thick] (1.5*\x, 0)--(1.5*\x + 0.5, {sqrt(3)/2})--(1.5*\x + 1,0)--cycle;}
+    \foreach \x in {1,...,\count} { \node at (1.5*\x - 0.4,0) {\Large,};}
+    \draw [thick,decorate,decoration={brace,amplitude=3pt,mirror}] ({1.5*\count + 1.1},-0.1)--({1.5*\count + 1.1},1.1);
+    \draw [thick,decorate,decoration={brace,amplitude=3pt}] (-0.1,-0.1)--(-0.1,1.1);
+  \end{tikzpicture}
+  \item
+  \begin{tikzpicture}[scale=0.7, baseline=1.8ex]
+    \draw[thick] (0.25,{sqrt(3)/4})--(0.5,{sqrt(3)/6})--(0.5,0);
+    \draw[thick] (2.25,{sqrt(3)/4})--(2,{sqrt(3)/6})--(2,0);
+    \draw[thick] (3.75,{sqrt(3)/4})--(3.5,{sqrt(3)/6})--(3.25,{sqrt(3)/4});
+    \draw[thick] (5.25,{sqrt(3)/4})--(5,{sqrt(3)/6})--(5,0); \draw[thick] (4.75,{sqrt(3)/4})--(5,{sqrt(3)/6});
+
+    \def\count{3}
+    \foreach \x in {0,...,\count} {\draw[gray, thick] (1.5*\x, 0)--(1.5*\x + 0.5, {sqrt(3)/2})--(1.5*\x + 1,0)--cycle;}
+    \foreach \x in {1,...,\count} { \node at (1.5*\x - 0.4,0) {\Large,};}
+    \draw [thick,decorate,decoration={brace,amplitude=3pt,mirror}] ({1.5*\count + 1.1},-0.1)--({1.5*\count + 1.1},1.1);
+    \draw [thick,decorate,decoration={brace,amplitude=3pt}] (-0.1,-0.1)--(-0.1,1.1);
+  \end{tikzpicture}
+  \item
+  \begin{tikzpicture}[scale=0.7, baseline=1.8ex]
+    \draw[thick, draw={}, domain=210:330] plot ({0.25*cos(\x) + sqrt(3)/4}, {0.25*sin(\x) + 1});
+    \draw[thick, draw={}, domain=30:150] plot ({0.25*cos(\x) + sqrt(3)/4}, {0.25*sin(\x) + 0});
+    \draw[thick] (0,0.5)--({sqrt(3)/2},0.5);
+
+    \draw[thick, draw={}, domain=-30:90] plot ({0.25*cos(\x) + 1.5}, {0.25*sin(\x) + 0.25});
+    \draw[thick, draw={}, domain=150:270] plot ({0.25*cos(\x) + 1.5 + sqrt(3)/2}, {0.25*sin(\x) + 0.75});
+    \draw[thick] ({1.5 + sqrt(3)/8},{7/8})--({1.5 + 3*sqrt(3)/8},{1/8});
+
+    \draw[thick, draw={}, domain=-90:30] plot ({0.25*cos(\x) + 3}, {0.25*sin(\x) + 0.75});
+    \draw[thick, draw={}, domain=90:210] plot ({0.25*cos(\x) + 3 + sqrt(3)/2}, {0.25*sin(\x) + 0.25});
+    \draw[thick] ({3 + 3*sqrt(3)/8},{7/8})--({3 + sqrt(3)/8},{1/8});
+
+    \draw[thick, draw={}, domain=210:330] plot ({0.25*cos(\x) + 4.5 + sqrt(3)/4}, {0.25*sin(\x) + 1});
+    \draw[thick, draw={}, domain=-30:90] plot ({0.25*cos(\x) + 4.5}, {0.25*sin(\x) + 0.25});
+    \draw[thick, draw={}, domain=90:210] plot ({0.25*cos(\x) + 4.5 + sqrt(3)/2}, {0.25*sin(\x) + 0.25});
+
+    \draw[thick, draw={}, domain=30:150] plot ({0.25*cos(\x) + 6 + sqrt(3)/4}, {0.25*sin(\x) + 0});
+    \draw[thick, draw={}, domain=-90:30] plot ({0.25*cos(\x) + 6}, {0.25*sin(\x) + 0.75});
+    \draw[thick, draw={}, domain=150:270] plot ({0.25*cos(\x) + 6 + sqrt(3)/2}, {0.25*sin(\x) + 0.75});
+
+    \def\count{4}
+    \foreach \x in {0,...,\count} {\draw[gray, thick] (1.5*\x, 1/4)--(1.5*\x, 3/4)--({1.5*\x + sqrt(3)/4}, 1)--({1.5*\x + sqrt(3)/2}, 3/4)--({1.5*\x + sqrt(3)/2}, 1/4)--({1.5*\x + sqrt(3)/4}, 0)--cycle;}
+    \foreach \x in {1,...,\count} {\node at (1.5*\x - 0.5,0) {\Large,};}
+    \draw [thick,decorate,decoration={brace,amplitude=3pt}] (-0.1,-0.1)--(-0.1,1.1);
+    \draw [thick,decorate,decoration={brace,amplitude=3pt,mirror}] ({1.5*\count + 0.1 + sqrt(3)/2},-0.1)--({1.5*\count + 0.1 + sqrt(3)/2},1.1);
+  \end{tikzpicture}
+\end{itemize}
