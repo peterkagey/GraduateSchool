@@ -1,0 +1,289 @@
+\documentclass{article}
+
+\input{../../header}
+
+\begin{document}
+
+\title{Math 510b: Homework 4}
+\author{Peter Kagey}
+\date{Monday, March 25, 2019}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{7.10 (Rotman)} % p. 533
+  Let $R$ be the ring of all $2 \times 2$ upper triangular matrices where $a_{11} \in \mathbb Q$ and $a_{12}, a_{22} \in \R$.
+  \begin{enumerate}[(a)]
+    \item Prove that $R$ is right Artinian.
+    \item Prove that $R$ is not left Artinian.
+    \item Find $J(R)$.  % p 534
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item
+      % Let $I \subseteq R$ be a right ideal. There are three cases to consider.
+      % \begin{enumerate}[(i)]
+      %   \item Suppose that $I$ contains an element with
+      %   $a_{11} \neq 0 \neq a_{22}$, then since $1/a_{11}$ is rational and
+      %   $1/a_{22}$ is real,
+      %   \[
+      %     \underbrace{\begin{bmatrix}a_{11} &  a_{12} \\ 0 & a_{22} \end{bmatrix}}_{\in I}
+      %     \underbrace{\begin{bmatrix}a_{11}^{-1} &  0 \\ 0 & a_{22}^{-1} \end{bmatrix}}_{\in R} =
+      %     \underbrace{\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}}_{\in I},
+      %   \] and since $I$ contains the identity, $I = R$.
+      %   \item Thus it is sufficient to consider matrices where $a_{11} = 0$ or
+      %   $a_{22} = 0$.
+      % \end{enumerate}
+    \item By the hint, consider the case where $V \subset \R$ is a vector
+    space over $\mathbb Q$ \[
+      \begin{bmatrix}  0 & V \\ 0 & 0  \end{bmatrix}
+      = \set{
+        \begin{bmatrix}  0 & v \\ 0 & 0  \end{bmatrix} : v \in V
+      },
+    \] which is a left ideal because \[
+      \begin{bmatrix}  q & r_1 \\ 0 & r_2  \end{bmatrix}
+      \begin{bmatrix}  0 & v \\ 0 & 0  \end{bmatrix} =
+      \begin{bmatrix}  0 & qv \\ 0 & 0  \end{bmatrix} \in
+      \begin{bmatrix}  0 & V \\ 0 & 0  \end{bmatrix}.
+    \]
+    Then we can construct a descending chain without the descending chain
+    condition, namely, we can come up with an infinite dimensional vector space
+    $V \in \R$ over $\mathbb Q$ with basis $\set{r_1, r_2, \hdots}$, and
+    \[
+      (r_1, r_2, r_3, \hdots)
+      \supseteq (r_2, r_3, \hdots)
+      \supseteq (r_3, \hdots)
+      \supseteq \hdots
+    \] is a descending chain that never stops.
+    \item $J(R) = \begin{bmatrix} 0 & \R \\ 0 & 0 \end{bmatrix}$.
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{7.17 (Rotman)} %
+  Let $I$ be a two-sided ideal of $R$. Prove that if $I \subseteq J(R)$, then \[
+    J(R/I) = J(R)/I.
+  \]
+\end{problem}
+
+\begin{proof} This follows from the correspondence theorem for rings, which
+  states that for any two-sided ideal $I$, there is a bijection $\varphi$ between
+  two-sided ideals in $R$ that contain $I$ and the set of ideals in $R/I$.
+
+  Then using the naive definition of Jacobson radical, $J(R/I)$ is the
+  intersection of maximal ideals in $R/I$, and $J(R)/I$ is the intersection of
+  all maximal ideals in $R/I$ under the map $\varphi^{-1}$.
+\end{proof}
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{7.26 (Rotman)} %
+  Find $\mathbb CA_4$.
+\end{problem}
+
+\begin{proof}
+  First, $|A_4| = 4!/2 = 12$, so $\mathbb CA_4$ is twelve-dimensional, and has
+  four conjugacy classes corresponding to the identity, $(acb)$, $(abc)$, and $(ab)(cd)$.
+  Since $A_4$ is finite, $\C A_4$ is semisimple, so we can decompose $\C A_4$
+  into direct sums of matrices over $\C$  by Artin-Wedderburn, and such
+  decomopositions must have four summands by Theorem 7.58. Therefore \[
+    \mathbb CA_4 \cong
+    \C \oplus \C \oplus \C \oplus
+    \operatorname{Mat}_2(\mathbb C),
+  \] because $1 + 1 + 1 + 9$ is the only quadruple of squares that sums to $12$.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{7.54 (Rotman)} % p 613
+  Prove that $\mathbb H \otimes_\mathbb{R} \mathbb H \cong \operatorname{Mat}_4(\R)$ as $\R$-algebras.
+\end{problem}
+
+\begin{proof}
+  % We know that $\mathbb H$ is (left and right) Artinian, and so
+  % $\mathbb H \otimes_\R \mathbb H$ is too.
+  Since $\mathbb H$ is a central simple algebra, Lemma 7.48 (iv) gives that \[
+    \mathbb H \otimes_\R \mathbb H^\text{op} \cong \operatorname{Mat}_n(\R),
+  \] where $n = [\mathbb H : \R] = 4$, and $\mathbb H \cong \mathbb H^\text{op}$
+  because there is only one $4$-dimensional $\R$-algebra up to isomorphism.
+  Thus \[
+    \mathbb H \otimes_\R \mathbb H \cong \operatorname{Mat}_n(\R),
+  \] as desired.
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{7.57 (Rotman)} % p 613
+\end{problem}
+
+\begin{proof}
+  \begin{enumerate}[(i)]
+    \item Consider the ring homomorphism $\fn \varphi {\C(x) \times \C(y)} {\C(x,y)}$
+    which sends a pair of polynomials to their product,
+    $(f, g) \xmapsto{\varphi} fg$.
+    First, the image of this map $\set{f(x)g(y): f\in \C(x), g \in \C(y)}$
+    is a subring, inheriting its ring structure from $\C(x, y)$.
+    It is easy to check that this map is middle linear: \begin{align*}
+      \varphi(f + f', g) &= fg + f'g = \varphi(f, g) + \varphi(f', g) \\
+      \varphi(f, g + g') &= fg + fg' = \varphi(f, g) + \varphi(f, g') \\
+      \varphi(fz, g) &= (fz)g = fzg = f(zg) = \varphi(f, zg)
+    \end{align*}
+    Therefore by the universal property of tensor products, there exists a
+    unique map
+      \mbox{$\fn {\widetilde\varphi}{\C(x) \otimes_\C  \C(y)}{\C(x, y)}$}
+    such that $\widetilde\varphi \circ i = \varphi$ where $i$ is the standard
+    projection onto $\C(x) \otimes_\C \C(y)$.
+    Now $\widetilde\varphi$ is a surjective homomorphism onto its image, and it
+    is injective via $f(x)g(x) \xmapsto{\varphi^{-1}} f \otimes g$ termwise,
+    so it is a ring isomorphism.
+    \item
+    Notice that the subring consisting of rational functions of the form
+    $h(x,y)/f(x)g(y)$ is not a field, in particular, the inverse of an element
+    $f(x)g(y)/h(x,y)$ can not necessarily be written as the quotient of a
+    polynomial with a polynomial in $x$ and a polynomial in $y$, for example,
+    take $h(x,y)$ as an irreducible polynomial containing $x$ and $y$ and
+    $f(x) = g(y) = 1$.
+    \item
+    Exercise 7.7 states that a left artinian ring $R$ with no left zero-divisors
+    must be a division ring, then if $\Delta$ is Artinian with infinite dimension
+    over its center, then $\Delta \otimes_\Delta \Delta = \Delta_{Z(\Delta)}$ is
+    not Artinian, because we can construct a descending chain without DCC in the
+    obvious way.
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Sixth problem
+% -----------------------------------------------------
+\begin{problem}{1} %
+  Let $G$ be a finite group and let $R = \mathbb CG$ be the group algebra.
+  \begin{enumerate}[(a)]
+    \item Show that the number of distinct group homomorphisms from $G$ to
+    $\mathbb C^*$ equals the number of copies of $\C$ in the Wedderburn-Artin
+    decomposition of $\C G$
+    \item Let $G = S_n$. Show that there are exactly two copies of $\C$ in the
+    Wedderburn-Artin decomposition of $\C G$.
+    \item Apply this to $S_4$ to find the the
+    Wedderburn-Artin decomposition of $\C S_4$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item
+    \item By part (a), it is sufficient to show that there are only two
+    distinct group homomorphisms from $G$ to $\mathbb C^*$, and this is well
+    known: the only two group homomorphisms are
+    $\omega \mapsto 1$ and $\omega \mapsto \operatorname{sgn}(\omega)$.
+    \item There is only one $5$-tuple of squares that sums to $24$, so by
+    earlier arguments \[
+      \C S_4
+      \cong \C
+      \oplus \C
+      \oplus \operatorname{Mat}_2(\mathbb C)
+      \oplus \operatorname{Mat}_3(\mathbb C)
+      \oplus \operatorname{Mat}_3(\mathbb C).
+    \]
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Seventh problem
+% -----------------------------------------------------
+\begin{problem}{2} ~
+  Let $k$ be any field and let $G$ be a finite group. In the group algebra
+  $kG$, let $v = \sum_{g \in G} g$, that is, $v$ is the sum of all the group elements.
+  \begin{enumerate}[(a)]
+    \item Show that $I = k v$ is a one-dimensional 2-sided ideal of $kG$.
+    \item Show the converse of Maschke's theorem: that is, assume
+      that $\operatorname{char} k = p > 0$, and $p$ divides $|G|$. Then not all
+      $kG$-modules are completely reducible. (hint: use part (a))
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item Firstly, $I$ is one-dimensional with basis $\set{v}$. It's a two
+      sided ideal because \[
+        v = \sum_{g \in G} g = \sum_{g \in G} g'g = \sum_{g \in G} gg',
+      \] that is, left (or right) multiplication by a fixed $g' \in G$ is a
+      bijection of sets. Therefore \begin{align*}
+        (k_1g_1 + k_2g_2 + \hdots + k_ng_n)\paren{\sum_{g \in G} g}
+        &= k_1\paren{\sum_{g \in G} g_1g} + k_2\paren{\sum_{g \in G} g_2g} + \hdots + k_n\paren{\sum_{g \in G} g_ng} \\
+        &= \underbrace{(k_1 + k_2 + \hdots + k_n)}_{\in k}\underbrace{\paren{\sum_{g \in G} g}}_{v} \\
+        &= \paren{\sum_{g \in G} g}(k_1g_1 + k_2g_2 + \hdots + k_ng_n) \\
+        &\in I = kG,
+      \end{align*}
+      so $I$ is indeed an two-sided ideal.
+    \item The idea here is that the sum of group elements is always a
+    one-dimensional two-sided ideal of $kG$.
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Eighth problem
+% -----------------------------------------------------
+\begin{problem}{3}
+\end{problem}
+
+\begin{proof}
+  \begin{enumerate}
+    \item Since $A$ is finite dimensional as a vector space, we know that for
+    any descending chain $I_1 \supseteq I_2 \supseteq \hdots$, the dimensions of
+    these subspaces must be weakly decreasing, and so the chain must stabilize.
+    Thus $A$ is Artinian and has only a finite number of maximal ideals, because
+    otherwise the descending chain
+    \[
+      \mathfrak{m}_1 \supseteq \mathfrak{m}_1\mathfrak{m}_2 \subseteq \hdots
+    \] would violate DCC.
+    \item
+    Choose $a \neq 0$ and $b$ such that $a = aba$. Then \[
+      ab(abc - c) = \underbrace{aba}_abc - abc = 0
+    \]  so $abc = c$ and $ab = 1$ (and $1 \in R$). Doing this on the other side yields \[
+      (cab - c)ab = c\underbrace{aba}_ab - cab = 0
+    \] and so $ab = ba = 1$.
+
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Ninth problem
+% -----------------------------------------------------
+\begin{problem}{4} %Fall 2015, Problem 6.1.
+\end{problem}
+
+\begin{proof}
+  Define the map $\fn \varphi {R/I \times R/J} {R/(I + J)}$ by sending \[
+    (r + I, s + J) \xmapsto{\varphi} rs + (I + J).
+  \] Then it is quick to check that $\varphi$ is middle linear \begin{align*}
+    \varphi((r_1 + r_2) + I, s + J)
+      &= r_1s + r_2s + (I + J)
+      = \varphi(r_1 + I, s + J) + \varphi(r_2 + I, s + J) \\
+    \varphi(r + I, (s_1 + s_2) + J)
+      &= rs_1 + rs_2 + (I + J)
+      = \varphi(r + I, s_1 + J) + \varphi(r + I, s_2 + J) \\
+    \varphi(rc + I, s + J)
+      &= (rc)s + (I + J)
+      = r(cs) + (I + J)
+      = \varphi(r + I, cs + J).
+  \end{align*}
+  Thus by the universal property of tensor products, there exists a unique
+  $\fn {\widetilde\varphi} {R/I \otimes_R R/J} {R/(I + J)}$ satisfying
+  $\widetilde\varphi \circ i = \varphi$.
+
+  Furthermore, it has inverse
+  $\widetilde\varphi^{-1}(r + (I + J)) = (1 + I) \otimes (r + J)$: \begin{align*}
+    \widetilde\varphi\circ\widetilde\varphi^{-1}(r + (I + J)) &= \widetilde\varphi((1 + I) \otimes (r + J)) = r + (I + J) \\
+    \widetilde\varphi^{-1}\circ\widetilde\varphi((r + I) \otimes (s + J)) &= \widetilde\varphi^{-1}(rs + (I + J)) = (1 + I) \otimes (rs + J) = (r + I) \otimes (s + J)
+  \end{align*}
+  as desired.
+\end{proof}
+\end{document}
