@@ -4,6 +4,8 @@
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{bbm,enumerate,mathtools}
 \usepackage[hidelinks]{hyperref}
+\usepackage{biblatex}
+\addbibresource{geodesic.bib}
 \usepackage{tikz}
 \usetikzlibrary{arrows}
 
@@ -27,22 +29,31 @@
 
 \begin{document}
 
-\title{Geodesics}
+\title{Closed Geodesics: Topological Existence Theorems}
 \author{Peter Kagey}
 
 \maketitle
 % How do we measure the length of a curve?
 
 % Definition of geodesic
+A note to begin: I wrote this paper with a particular audience in mind, namely
+me in February of this year. I tried to capture a few things: (1) intuition for
+the topic (2) rigorous definitions, (3) early theorems and consequences,
+(4) modern theorems, and (5) conjectures and open problems.
+
 \begin{section}{Preliminaries}
-  The running intuition in this paper is to think of a creature who lives in the
-  manifold walking in a ``straight'' line in some sense at a constant
-  (nonzero) speed--in other words, the creature isn't accelerating.
+  The intuition in this paper is to think of a creature who lives in a manifold
+  walking in a ``straight'' line in some sense at a constant
+  (nonzero) speed. In particular, the examples I try to keep in mind is the
+  torus $\mathbb R^2/\mathbb Z^2$, the round sphere $S^2 \subset \mathbb R^3$,
+  a very ``wobbly'' sphere, and
+  (to avoid thinking about only so-called ``geodesically complete'' $2$-manifolds)
+  $\mathbb R^3 \setminus \set{0}$.
 
   In the case where $\mathbb R^n$, the notion of acceleration along a path at
   some point in time is easy to naively define, since the notion of adding
   velocity vectors at two different points along the curve can be done naively,
-  and so the second derivative works in the typical sense \[
+  and the second derivative works in the expected way \[
     \gamma''(t) = \lim_{h \rightarrow 0} \frac{\gamma'(t + h) - \gamma'(t)}{h}.
   \] However, one has to be much more careful when talking about acceleration
   in a general manifold. In particular, $T_{\gamma(t)}$ and $T_{\gamma(t+h)}$ are
@@ -214,6 +225,7 @@
     Every closed geodesic $\gamma$ has an all-time extension $\fn {\widetilde\gamma} {\mathbb R} {M}$.
   \end{remark}
 \end{section}
+
 \begin{section}{Properties of geodesics}
   An arbitrary manifold is not endowed with any ``measuring tape'' and creatures
   living on the manifold don't have any notion of their speed when they travel.
@@ -258,11 +270,22 @@
     show that  \begin{enumerate}
       \item $d(a, b) = 0$  if and only if $a = b$.
 
-      Suppose $a \neq b$. Then $d(a, b) > 0$  because of the exponential map.
+      $(\Longrightarrow)$ (A sketch, as this proof is a bit involved and technical.)
 
-      The other direction is much simpler. If $a = b$, the constant path
-      $\gamma(t) = a = b$ has length $0$, and the length of a path is strictly
-      non-negative because $g$ is positive definite.
+      Choose some chart $(U, \varphi)$ around $p$ but not $q$, then in any
+      compact set $K \subset U$ around $p$ there exists some $C \in (0, \infty)$ such that
+      for all $x \in K$ and $v \in T_xK$, all vectors $||\varphi_*v|| \leq C ||v||_g$, which
+      means that all curves in $K$ have length greater than $1/C$ times the
+      length of their image under $\varphi$.
+
+      Then let $R = \varphi^{-1}(B_\varepsilon(\varphi(p)))$ be the preimage of
+      a small ball around $\varphi(p)$. By construction, $p$ is inside this
+      region, $q$ is outside the region, and the distance to the boundary of the
+      region is at least $\varepsilon$. Thus $d(p, q) \geq \epsilon$ by the
+      Jordan Curve Theorem.
+
+      $(\Longleftarrow)$ If $a = b$, the constant path
+      $\gamma(t) = a = b$ has length $0$, and the length of a path is strictly non-negative because the integrand is nonnegative: $||v||_g \geq 0$.
       \item $d(x, y) = d(y, x)$
 
       If $\fn\gamma {(t_0, t_1)} M$ is a path from $a$ to $b$, then
@@ -279,63 +302,93 @@
     \end{enumerate}
   \end{proof}
 
-  The distance function on $M$ is defined as the infimum under a (generally)
-  uncountable number of paths, however in a geodesically complete (connected)
-  manifold, it is equivalent to use the minimum over the paths instead of the
-  infimum.
+  \begin{definition}
+    A connected Riemannian manifold $(M, g)$ is called \textbf{geodesically complete}
+    if every geodesic curve $\fn\gamma I M$ there is an extension of $\gamma$
+    with $\mathbb R$ as the domain,
+    $\fn {\widetilde\gamma} {\mathbb{R}} M$.
+  \end{definition}
+
+  While the distance $d(a, b)$ function on $M$ is defined as the
+  infimum under all paths from $a$ to $b$, in the case of a geodesically
+  complete (connected) manifold, it is equivalent to define distance as the
+  \textit{minimum} over all paths instead.
+
   \begin{theorem}
     In a geodesically complete Riemannian manifold, there exists a geodesic
     (with respect to the Levi-Civita connection) $\gamma$ from $(a, b)$ such
     that $L(\gamma) = d(a, b)$.
   \end{theorem}
 
-  Since $(M,g)$ is a metric space $(M, d)$ via the metric induced by $g$, it is
-  also a topological space $(M, \mathcal O)$ induced by the metric.
-  \begin{theorem} % https://maths-people.anu.edu.au/~andrews/DG/DG_chap9.pdf
-    The metric topology $(M, d)$ induced by $g$ agrees with the manifold
-    topology $(M, \mathcal A)$.
-  \end{theorem}
+  \begin{proof}[Proof idea]
+    This follows from the Hopf-Rinow Theorem (below) along with some technical
+    applications using the exponential map.
+  \end{proof}
+
+  Now is perhaps an appropriate time to introduce the exponential map. The idea
+  is that the exponential map takes initial conditions of a geodesic
+  (position and velocity), and (when possible) returns the position of a particle
+  flowing along such a geodesic after unit time.
+  The exponential map takes a point in the tangent bundle
+  $(p, v) \in TM$ and returns the position of a geodesic starting at $p$
+  and flowing in the direction of $v$ after unit time.
+  \begin{definition}[Exponential Map]
+    Let \[
+      \mathcal D = \set{ (p, v) \in TM :
+        \exists
+        \text{ a geodesic curve }
+        \fn \gamma {[0, 1]} M
+        \text{ with }
+        \gamma(0) = p
+        \text{ and }
+        \gamma'(0) = v
+      }
+    \]
+    Then the \textbf{exponential map} is a map \[
+      \fn {\exp} {\mathcal D} M
+    \] satisfying $\exp((p, v)) = \gamma(1)$ where
+    $\fn \gamma {[0, 1]} M$ is any geodesic satisfying $\gamma(0) = p$ and
+    $\gamma'(0) = v$.
+  \end{definition}
+  \begin{remark}
+    A geodesically complete (connected) manifold is equivalently defined as one
+    in which $\mathcal D = TM$.
+  \end{remark}
+
+    % Since $(M,g)$ is a metric space $(M, d)$ via the metric induced by $g$, it is
+    % also a topological space $(M, \mathcal O)$ induced by the metric.
+    % \begin{theorem} % https://maths-people.anu.edu.au/~andrews/DG/DG_chap9.pdf
+    %   The metric topology $(M, d)$ induced by $g$ agrees with the manifold
+    %   topology $(M, \mathcal A)$.
+    % \end{theorem}
 \end{section}
 
-\begin{section}{Geodesically complete manifolds}
-  We're interested in when the creature can travel forever in a
-  ``straight line'' starting at any point and heading in any direction.
+\begin{section}{Manifolds as metric spaces}
+  It is interesting to ask about whether or not a manifold is geodesically
+  complete, that is whether or not the creature in the manifold can travel
+  forever in a ``straight line'' starting at any point and heading in any
+  direction.
+
   Clearly the creature does not run into any trouble flying through space
   ($\mathbb R^3$) or walking on the surface of a sphere ($S^2$), but the creature
   clearly \textit{does} run into trouble if it is on the surface of a disc
-  ($D^2$) or if it is flying toward the origin, but that point has been
-  removed ($\mathbb R^3 \setminus \{ 0 \}$).
+  ($D^2 \subset \mathbb R^2$) or if it is flying toward the origin,
+  but that point has been removed ($\mathbb R^3 \setminus \{ 0 \}$).
 
     The Hopf-Rinow Theorem says that these two examples capture the extent of what
-  can go wrong during the creature's journey. In particular, the notion of being able
-  to fly through space is captured by the notion of a manifold being
-  \textit{geodesically complete}.
-
-  But before we can give a proper definition of geodesic completeness, we must
-  first introduce the exponential map. The exponential map gives a way of
-  precisely specifying where a point ends up after flowing in some tangent
-  direction for a unit of time.
-  \begin{definition}[Exponential Map] % http://math.uchicago.edu/~may/REU2016/REUPapers/Spiegel.pdf
-
-  \end{definition}
-
-  \begin{definition}
-    A connected Riemannian manifold $(M, g)$ is called \textbf{geodesically complete}
-    if each of its geodesics extends indefinitely, that is if for each $p \in M$
-    the geodesic exponential map $\fn \exp {T_pX} X$  is defined on the full
-    tangent space at that point.
-  \end{definition}
+  can go wrong during the creature's journey. In particular, it says that that
+  properties of geodesics and the induced metric agree with each other and with
+  the topology.
 
   \begin{definition}[Complete metric space]
     A complete metric space is a metric space in which every Cauchy sequence is
     convergent.
   \end{definition}
-  \begin{theorem}[Hopf-Rinow]
+  \begin{theorem}[\cite{Hopf}]
     % Quasimetrics?
-    % http://mathworld.wolfram.com/Hopf-RinowTheorem.html
     Let $(M, g)$ be a Riemannian manifold, and let $(M, d)$ be the induced
     metric space. Then the following are equivalent:
-    \begin{enumerate}
+    \begin{enumerate}[(i)]
       \item $(M, d)$ is metrically complete.
       \item $(M, g)$ is geodesically complete.
       \item $(M, g)$ is geodesically complete at some point.
@@ -343,8 +396,25 @@
     \end{enumerate}
     And furthermore, between any two points $p, q \in M$, there exists a length-minimizing geodesic connecting these two points.
   \end{theorem}
-  \begin{proof}
-    A proof will be sketched.
+  \begin{proof}[Proof sketch.] ~\\
+    (i) $\Longrightarrow$ (ii) The idea is to assume that $M$ is not complete
+    and arrive at a contradiction. In particular, this means there is some
+    geodesic curve $\fn \gamma {[a, b)} M$ which can not be extended to
+    $\fn {\widetilde\gamma} {[a, b]} M$---however this can't happen because
+    we can use the limit of a Cauchy sequence to give a value for
+    $\widetilde\gamma(b)$ such that $\widetilde\gamma$ is a geodesic.
+    \\
+    (ii) $\Longrightarrow$ (iii) If $(M, g)$ is geodesically complete at every
+    point, then in particular it is geodesically complete at some point.
+    \\
+    (iii) $\Longrightarrow$ (iv) Suppose $(M, g)$ is geodesically complete at $p$.
+    For any closed and bounded $A \subset M$, we can always find a ball $B_R(p)$
+    around $A$. Since the exponential map is continuous, we can see that a
+    closed subset of a compact set is itself compact.
+    \\
+    (iv) $\Longrightarrow$ (i) Let $(x_n)$ be a Cauchy sequence in $M$. Since
+    $\set{x_n}$ is bounded, its closure is compact and so $(x_n)$ has a
+    convergent subsequence, and because it is Cauchy, it converges to this subsequence.
   \end{proof}
 \end{section}
 % Definition simple geodesic
@@ -357,8 +427,8 @@
     of loops $[\alpha] \in \pi_1$ has a (closed) geodesic representative, in
     particular it contains a curve of minimal length which is a geodesic.
   \end{theorem}
-  \begin{proof}[Proof idea] % https://math.stackexchange.com/a/2844405/121988
-    Aloizio Macedo summaries the proof as \begin{quote}
+  \begin{proof}[Proof idea]
+    \cite{Macedo} summaries the proof as \begin{quote}
       One way to see why this is true is via a Morse-theory approach, with a
       full proof being given in Klingenberg - Lectures on Closed Geodesics. The
       gist of it is to pick a loop close to the infimum on the class and flow it
@@ -369,8 +439,8 @@
   \end{proof}
 
   \begin{remark}
-  In a survey paper, Alexandru Oancea claims
-    \begin{quote} % https://arxiv.org/pdf/1406.3107.pdf
+  In a survey paper, \cite{Oancea} writes
+    \begin{quote}
       one of the first successes of the calculus of variations was to establish
       rigorously that such a minimizing procedure is effective and produces a
       closed geodesic. The situation is subtler if the manifold is simply
@@ -379,25 +449,26 @@
     \end{quote}
   \end{remark}
 
-  \begin{theorem}[Lyusternik, Fet, 1951]
+  \begin{theorem}[\cite{Lyusternik}]
     % Lee: Proposition 6.28 (Existence of Closed Geodesics).
     Every compact Riemannian manifold $(M, g)$ has at least one closed geodesic.
   \end{theorem}
-  \begin{proof} % https://aimath.org/pastworkshops/geodesicsproblems.pdf
-    Lyusternik and Fet considered the energy functional on the loop space $\Lambda M$ and
-    showed that the topology of $\Lambda M$ is complicated enough so that the
-    energy functional must have critical points with nonzero energy (which are
-    non trivial closed geodesics).
+  \begin{proof}
+    In a report from the International Workshop on Geodesics in August 2010,
+    \cite{Burns} writes \begin{quote}
+      Lyusternik and Fet considered the energy functional on the loop space $\Lambda M$ and
+      showed that the topology of $\Lambda M$ is complicated enough so that the
+      energy functional must have critical points with nonzero energy (which are
+      non trivial closed geodesics).
+    \end{quote}
   \end{proof}
 
-  \begin{conjecture}
-    % https://aimath.org/pastworkshops/geodesicsproblems.pdf
+  \begin{conjecture}[\cite{Burns}]
     Every compact Riemannian manifold of dimension greater than $1$ contains infinitely
     many geometrically distinct non-constant closed geodesics.
   \end{conjecture}
   \begin{remark}
-    This particular conjecture is discussed in a report from the
-    International Workshop on Geodesics in August 2010:
+    This particular conjecture in the above report by \cite{Burns}:
     \begin{quote}
       How many closed geodesics must exist on a closed manifold? For surfaces, the
       answer is known: there are always infinitely many geometrically different
@@ -414,28 +485,54 @@
     \end{quote}
   \end{remark}
 
-  \begin{remark} % https://doi.org/10.1112/S0024609398004883
-    As of (at least) 1999, it appears that \begin{quote}
+  \begin{remark}
+    In 1999 \cite{adams} writes \begin{quote}
       The question of which Riemannian manifolds admit simple closed geodesics
       is still a mystery. It is not known whether all closed Riemannian
       manifolds contain simple closed geodesics.
     \end{quote}
   \end{remark}
-  \begin{theorem}[Lyusternik, Schnirelmann (1929); Ballman (1978)]
+  \begin{theorem}[\cite{Schnirelmann}; \cite{Ballmann}]
     % Theorem of three geodesics
     Every Riemannian manifold with the topology of a sphere has at least three
     simple closed geodesics.
   \end{theorem}
 
   \begin{proof}
-    Proof of theorem of three geodesics
+    The history of the proof from the \cite{Liokumovich} paper:
+    \begin{quote}
+      The existence of three simple periodic geodesics on every Riemannian 2-sphere
+      was first proven by L.A. Lyusternik and L.G. Shnirelman. They considered
+      the space $\Pi M$ of non-parametrized curves on a $2$-dimensional
+      Riemannian manifold $M$ diffeomorphic to $S^2$, as well as its subset
+      $\Pi_0M$ that consists of all constant curves (and, thus, can be
+      identified with $M$). [One can then] consider the three relative homology
+      classes of the pair ($\Pi S^2, \Pi_0S^2$) with coefficients in
+      $\mathbb Z_2$, where we regard $S^2$ as the unit round sphere in $\mathbb R^3$
+      \begin{enumerate}[1)]
+        \item The $1$-dimensional class represented by the relative $1$-cycle $z_1$
+        formed by all circles on $S^2$ in planes parallel to the $XZ$-plane in
+        the ambient $R^3$;
+        \item The $2$-dimensional class represented by the relative cycle $z_2$
+        formed by all circles in planes parallel to the Z-axis; and
+        \item The $3$-dimensional class represented by the relative $3$-cycle
+        $z_3$ formed by all round circles on the sphere (including points regarded
+        as “degenerate” circles).
+      \end{enumerate}
+
+      Lyusternik and Shnirelman described a curve shortening flow in $\Pi M$, [and]
+      they observed that this flow “gets stuck” on critical points representing simple periodic
+      geodesics, when applied to $z_1$, $z_2$, $z_3$, and proved that if two of
+      these three geodesics coincide, then there is a whole critical level with
+      a $1$-parametric set of distinct simple periodic geodesics. Some errors in
+      the construction of their curve shortening flow had been later corrected
+      by W. Ballman [and others]. Alternatively, one
+      can prove the existence of three simple periodic geodesics using either the curvature flow
+      and Grayson’s theorem or an especially simple curve shortening flow constructed
+      by J. Hass and P. Scott.
+    \end{quote}
   \end{proof}
 
-  \begin{remark} % https://arxiv.org/pdf/1410.8456.pdf
-    This is classical result of M. Morse, who proved that the fourth periodic
-    [not necessarily simple] geodesic becomes uncontrollably large for
-    ellipsoids with distinct but very close semi-axes.k
-  \end{remark}
   In particular, a recent theorem shows an even stronger result: the
   lengths of all three geodesics on a sphere are bounded by the ``size'' of
   the manifold.
@@ -459,11 +556,11 @@
   \end{example}
   \begin{figure}[ht]
     \input{figures/diameter}
-    \caption{Illustrations of diameters on $S^1$ and $T^2$.}
+    \caption{Illustrations of diameters on $S^1$ and $T^2$, and geodesics
+    that achieve them.}
   \end{figure}
 
-  \begin{theorem}[Liokumovich, Nabutovsky, Rotman, 2014]
-    % https://arxiv.org/abs/1410.8456
+  \begin{theorem}[\cite{Liokumovich}]
     Let $M$ be a Riemannian $2$-sphere. Then there exist three distinct simple
     geodesics with lengths that do not exceed $20d$ where $d$ is the diameter
     of $M$.
@@ -488,6 +585,16 @@
       bounds.
     \end{quote}
   \end{proof}
+  \begin{remark}
+    From \cite{Liokumovich}:
+    \begin{quote}
+      [There is a] classical result of M. Morse, who proved that the fourth periodic
+      [not necessarily simple] geodesic becomes uncontrollably large for
+      ellipsoids with distinct but very close semi-axes.
+    \end{quote}
+  \end{remark}
 \end{section}
-
+% \begin{section}{Conclusion}
+% \end{section}
+\printbibliography
 \end{document}
