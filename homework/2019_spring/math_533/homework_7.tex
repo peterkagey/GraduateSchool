@@ -57,26 +57,33 @@
 \end{problem}
 
 \begin{proof}
-  First, we know that the trivial and the signed representation have to be in
-  there. Next, we know that there is only one way to write $4! = 24$ as a
-  sum of five squares, namely $1 + 1 + 4 + 9 + 9$.
+  First we have cycle types corresponding to the partitions \begin{alignat*}{2}
+    1 &\text{ permutation with cycle type }  && (1, 1, 1, 1) \\
+    6 &\text{ permutations with cycle type } && (2, 1, 1) \\
+    3 &\text{ permutations with cycle type } && (1, 1, 1, 1) \\
+    8 &\text{ permutations with cycle type } && (3, 1) \\
+    6 &\text{ permutations with cycle type } && (4).
+  \end{alignat*}
+  We begin the character table with the trivial and the signed representations.
+  Next, since there is only one way to write $4! = 24$ as a sum of five squares,
+  namely $1 + 1 + 2^2 + 3^2 + 3^2$, this is the first column.
   \[
   \begin{array}{ l|rrrrr }
-        & (1,1,1,1) & (2,1,1) & (2,2) & (3,1) & (4) \\
+                    & (1,1,1,1) & (2,1,1) & (2,2) & (3,1) & (4) \\
    \hline
-   \chi^{(1,1,1,1)} & 1 &  1 & 1 &  1 &  1 \\
-   \chi^{(2,1,1)}   & 3 & ? &  ? &  ? &  ? \\
-   \chi^{(2,2)}     & 2 & ? &  ? &  ? &  ? \\
-   \chi^{(3,1)}     & 3 & ? &  ? &  ? &  ? \\
-   \chi^{(4)}       & 1 & -1 & 1 &  1 & -1
+   \chi^\text{triv} & 1 &  1 & 1 &  1 &  1 \\
+   \chi^\text{sgn}  & 1 & -1 & 1 &  1 & -1 \\
+   \chi'            & 2 & ? &  ? &  ? &  ? \\
+   \chi''           & 3 & ? &  ? &  ? &  ? \\
+   \chi'''          & 3 & ? &  ? &  ? &  ?
  \end{array}
   \]
-  We know that the defining representation has \begin{alignat*}{2}
-      &\chi^\text{def}((1)(2)(3)(4)) &&= 4 \\
-      &\chi^\text{def}((12)(3)(4)) &&= 2 \\
-      &\chi^\text{def}((12)(34)) &&= 0 \\
-      &\chi^\text{def}((123)(4)) &&= 1 \\
-      &\chi^\text{def}((1234)) &&= 0 \\
+  We know that the defining/standard representation has \begin{alignat*}{2}
+      &\chi^\text{std}((1)(2)(3)(4)) &&= 4 \\
+      &\chi^\text{std}((12)(3)(4)) &&= 2 \\
+      &\chi^\text{std}((12)(34)) &&= 0 \\
+      &\chi^\text{std}((123)(4)) &&= 1 \\
+      &\chi^\text{std}((1234)) &&= 0 \\
   \end{alignat*}
   And by taking the inner products with the two known characters gives \begin{alignat*}{2}
     &\frac{1}{4!}\ang{\chi^\text{def}, \chi^{(1,1,1,1)}} &&= \frac{
@@ -94,19 +101,101 @@
       - 6 \cdot 0
     }{4!} = 0
   \end{alignat*}
+  Subtracting off the trivial representation gives
+  \[
+    \begin{array}{ l|rrrrr }
+            & (1,1,1,1) & (2,1,1) & (2,2) & (3,1) & (4) \\ \hline
+     \chi^3 & 3 & 1 & -1 &  0 & -1
+   \end{array}
+  \]
+  which is indeed irreducible
+  \[
+    \ang{\chi^3,\chi^3} = \frac{
+      1 \cdot 3^2 +
+      6 \cdot 1^2 +
+      3 \cdot (-1)^2 +
+      8 \cdot 0 +
+      6 \cdot (-1)^2
+    }{4!} = 1.
+  \]
+  Then the tensor product of $\chi^\text{sgn}$ and $\chi^3$ gives $\chi^4$
+  \[
+    \begin{array}{ l|rrrrr }
+            & (1,1,1,1) & (2,1,1) & (2,2) & (3,1) & (4) \\ \hline
+     \chi^4 & 3 & -1 & -1 &  0 & 1
+   \end{array}
+  \]
+  which is also irreducible
+  \[
+    \ang{\chi^4,\chi^4} = \frac{
+      1 \cdot 3^2 +
+      6 \cdot (-1)^2 +
+      3 \cdot (-1)^2 +
+      8 \cdot 0 +
+      6 \cdot 1^2
+    }{4!} = 1.
+  \]
+  This leaves just one more row which can be deduced from orthogonality.
+  \begin{align}
+    \ang{\chi^\text{triv}, \chi^5} &=
+    1 \cdot 2 +
+    6a +
+    3b +
+    8c +
+    6d = 0 \\
+    \ang{\chi^\text{sgn}, \chi^5} &=
+    1 \cdot 2 -
+    6a +
+    3b +
+    8c -
+    6d = 0 \\
+    \ang{\chi^3, \chi^5} &=
+    1 \cdot 6 +
+    6a -
+    3b +
+    8 \cdot 0 -
+    6d = 0 \\
+    \ang{\chi^4, \chi^5} &=
+    1 \cdot 6 -
+    6a -
+    3b +
+    8 \cdot 0 +
+    6d = 0
+  \end{align}
+  Adding equations (1) and (2) gives $4 + 6b + 16c = 0$, and
+  adding equations (3) and (4) gives $12 - 6b = 0$, so $b = 2$ and $c = -1$.
+
+  This gives \[
+    \begin{array}{ l|rrrrr }
+            & (1,1,1,1) & (2,1,1) & (2,2) & (3,1) & (4) \\ \hline
+     \chi^5 & 2 & ? & 2 &  -1 & ?
+   \end{array}
+  \] but \[
+    \ang{\chi^4,\chi^4} = \frac{
+      1 \cdot 2^2 +
+      6a^2 +
+      3 \cdot 2^2 +
+      8 \cdot (-1)^2 +
+      6d^2
+    }{4!}
+    = \frac{
+      4 +
+      6a^2 +
+      12 +
+      8 +
+      6d^2
+    }{4!}
+    = 1
+  \] so $a = d = 0$, and the full table is \[
+    \begin{array}{ l|rrrrr }
+                        & (1,1,1,1) & (2,1,1) & (2,2) & (3,1) & (4) \\
+       \hline
+       \chi^\text{triv} & 1 &  1 & 1 &  1 &  1 \\
+       \chi^\text{sgn}  & 1 & -1 & 1 &  1 & -1 \\
+       \chi^3           & 3 & 1 & -1 &  0 & -1 \\
+       \chi^4           & 3 & -1 & -1 &  0 & 1 \\
+       \chi^5           & 2 & 0 & 2 &  -1 & 0
+     \end{array}.
+   \]
 \end{proof}
-\pagebreak
-
-% -----------------------------------------------------
-% Second problem
-% -----------------------------------------------------
-\begin{problem}{3}
-\end{problem}
-
-\begin{proof} ~
-  \begin{enumerate}[(a)]
-    \item
-  \end{enumerate}
-\end{proof}
-
 \end{document}
