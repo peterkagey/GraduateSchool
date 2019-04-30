@@ -11,6 +11,7 @@
 
 \newcommand{\fn}[3]{#1 \colon #2 \rightarrow #3}
 \newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\ang}[1]{\left\langle#1\right\rangle}
 \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
 
 \theoremstyle{definition}
@@ -44,45 +45,53 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
 \begin{section}{Preliminaries}
   The intuition in this paper is to think of a creature who lives in a manifold
   walking in a ``straight'' line in some sense at a constant
-  (nonzero) speed. In particular, the examples I try to keep in mind is the
-  torus $\mathbb R^2/\mathbb Z^2$, the round sphere $S^2 \subset \mathbb R^3$,
-  a very ``wobbly'' sphere, and
-  (to avoid thinking about only so-called ``geodesically complete'' $2$-manifolds)
-  $\mathbb R^3 \setminus \set{0}$.
+  (nonzero) speed. In particular, some examples worth keeping in mind are \begin{itemize}
+    \item the torus $\mathbb R^2/\mathbb Z^2$, where ``straight lines'' are inherited from $\mathbb R^2$;
+    \item the round sphere $\set{(x, y, z) \in \mathbb R^3 : x^2 + y^2 + z^2 = 1} = S^2 \subset \mathbb R^3$, where ``straight lines'' are great circles;
+    \item a very ``wobbly'' sphere embedded in $R^3$; and
+    \item $\mathbb R^3 \setminus \set{0}$, where straight lines are ordinary lines in $\mathbb R^3 \setminus \set 0$,
+  \end{itemize}
+  where the last example is included to avoid the dangers of thinking about only
+  so-called ``geodesically complete'' $2$-manifolds.
 
-  In the case where $\mathbb R^n$, the notion of acceleration along a path at
-  some point in time is easy to naively define, since the notion of adding
+  In the case of $\mathbb R^n$, the notion of acceleration along a path at
+  some point in time follows from the usual calculus definition, since the
+  notion of subtracting
   velocity vectors at two different points along the curve can be done naively,
-  and the second derivative works in the expected way \[
+  allowing the second derivative computation to work in the expected way \[
     \gamma''(t) = \lim_{h \rightarrow 0} \frac{\gamma'(t + h) - \gamma'(t)}{h}.
-  \] However, one has to be much more careful when talking about acceleration
+  \] However, one has to be careful when talking about acceleration
   in a general manifold. In particular, $T_{\gamma(t)}$ and $T_{\gamma(t+h)}$ are
-  generally different tangent spaces, and the notion of adding their vectors is
-  decidedly more subtle. In particular, if a manifold is isometrically embedded
-  into Euclidean space via $\fn f M {\mathbb R^n}$, the velocity along the image
-  of a curve is preserved, but the acceleration is not quite the same---instead,
-  the acceleration in $M$ corresponds to the acceleration in $f(M)$
-  of the projection of the acceleration to the tangent plane.
-  However, capturing this notion intrinsically is more subtle.
+  generally different tangent spaces, and the notion of subtracting such velocity
+  vectors is decidedly more subtle. In particular, an isometric embedding of a
+  Riemannian manifold into Euclidean space via $\fn f M {\mathbb R^n}$,
+  preserves notions of velocity, but ``zero acceleration'' curves in the sense of
+  geodesics may not be ``zero acceleration'' in an extrinsic sense
+  (for example, a constant speed particle moving along $S^1 \subset \mathbb R^2$
+  accelerates toward the origin.)
+  We can fix this by considering the projection of the acceleration to the
+  tangent plane, but capturing an \textit{intrinsic} notion of a directional
+  derivative is more subtle.
   % Note: geodesics satisfy the properties of (non-euclidean) geometry
   % In this section, $M$ will always refer to a connected smooth manifold with or
   % without boundary unless otherwise noted, and $\nabla$ will refer to a connection in
   % $TM$.
-
-
-  \begin{definition}[Connection]
-    Let $\fn \pi E M$ be a smooth vector bundle over $M$. Then a connection in
+  \begin{definition}
+    Let $\fn \pi E M$ be a smooth vector bundle over $M$. Then a \textbf{connection} in
     $E$ is any map that sends a tangent vector field and a section of $E$ to
     another section of $E$ \[
       \fn{\nabla}{\mathfrak X(M) \times \Gamma(E)}{\Gamma(E)}
     \] denoted $\nabla_XY := \nabla(X, Y)$ and satisfying the following three properties:
     \begin{enumerate}[(i)]
-      \item $\displaystyle\nabla_{f_1X_1 + f_2X_2}Y = f_1\nabla_{X_1}Y + f_2\nabla_{X_2}Y$,
-      \item $\displaystyle\nabla_X(a_1Y_1 + a_2Y_2) = a_1\nabla_X Y_1 + a_2\nabla_XY_2$, and
-      \item $\displaystyle\nabla_X(fY) = f\nabla_{X}Y + \underbrace{(Xf)}_{\in C^\infty(M)}Y$.
+      \item $\nabla$ is $C^\infty(M)$-linear in the first argument:
+        $\displaystyle\nabla_{f_1X_1 + f_2X_2}Y = f_1\nabla_{X_1}Y + f_2\nabla_{X_2}Y$
+      \item $\nabla$ is $\mathbb R$-linear in the second argument:
+        $\displaystyle\nabla_X(a_1Y_1 + a_2Y_2) = a_1\nabla_X Y_1 + a_2\nabla_XY_2$, and
+      \item $\nabla$ satisfies a product rule in the second argument:
+        $\displaystyle\nabla_X(fY) = f\nabla_{X}Y + \underbrace{(Xf)}_{\in C^\infty(M)}Y$.
     \end{enumerate}
-    Connections are generalizations of directional derivatives with respect to
-    $X$, a tangent vector field.
+    % Connections are generalizations of directional derivatives with respect to
+    % $X$, a tangent vector field.
   \end{definition}
   \begin{remark} % https://youtu.be/nEaiZBbCVtI
     In the case where $\Gamma(E) = C^\infty(M)$, $\nabla(X, f) := Xf$ satisfies
@@ -92,8 +101,8 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
   \end{remark}
   \begin{example}
     Consider the case of $M = \mathbb R^3$ with the section of the tangent
-    bundle given by  $(x, 1, e^y) = X \in \mathfrak X(\mathbb R^3)$
-    and the rank 2 vector bundle $(x^2, y + z) = Y \in \Gamma(E)$. Then taking
+    bundle given by  $\ang{x, 1, e^y} = X \in \mathfrak X(\mathbb R^3)$
+    and a section of a rank-2 vector bundle $\ang{x^2, y + z} = Y \in \Gamma(E)$. Then taking
     the derivative of $Y$ along $X$ yields \[
       \nabla_XY = \underbrace{\begin{bmatrix}
         \displaystyle\pd{x^2}{x} & \displaystyle\pd{x^2}{y} & \displaystyle\pd{x^2}{z} \\
@@ -103,9 +112,11 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
       \underbrace{\begin{bmatrix}
         x \\~\\ 1 \\~\\ e^y
       \end{bmatrix}}_{X} =
-      \begin{bmatrix}
-        2x^2 \\~\\ 1 + e^y
-      \end{bmatrix}.
+      \underbrace{
+        \begin{bmatrix}
+          2x^2 \\~\\ 1 + e^y
+        \end{bmatrix}
+      }_{\in \Gamma(E)}.
     \] The matrix multiplication perspective makes it clearer to see that in
     this case (i) $\nabla$ is $C^\infty(\mathbb R^3)$-linear in the first
     term, because the column vector is $C^\infty(\mathbb R^3)$-linear,
@@ -116,60 +127,61 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
   These conditions capture, in some sense, the ``essential qualities'' of
   taking the directional derivative of a vector bundle over a given section of
   the tangent bundle.
-
-  % Being able to take the derivative of a section of a vector bundle in the
-  % direction of the tangent bundle is the first step to being able to take the
-  \begin{definition}[Covariant derivative along a curve]
-    Let $\nabla$ be a connection in tangent bundle $TM$, and let $\gamma$ be a
-    curve in $M$. Then the \textbf{covariant derivative along} $\boldsymbol{\gamma}$ is the
-    (unique) map \[
-      \fn {D_\gamma }{\mathfrak X(\gamma)}{\mathfrak X(\gamma)}
-    \] satisfying the following three properties \begin{enumerate}[(i)]
-      \item $\displaystyle D_\gamma (aV + bW) = aD_\gamma V + bD_\gamma W$
-      \item $\displaystyle D_\gamma (fV) = f'V + fD_\gamma V$
-      \item $\displaystyle D_\gamma V(t) = \nabla_{\gamma'(t)}\widetilde{V}$ for every extension $\widetilde V$ of $V$.
-    \end{enumerate}
-  \end{definition}
   \begin{remark}
-    This definition is sensible, because (i) and (ii) correspond to (ii) and
-    (iii) in the definition of a connection, and the last condition is roughly
-    equivalent to (i) in the definition of a connection: that is, the covariant
-    derivative is $C^\infty(M)$-linear in the first component, so it only
-    depends on the vector field pointwise.
-  \end{remark}
-
-  % \begin{remark}
     When on a Riemannian manifold, it is common to use a particular connection
     called the Levi-Civita connection, which is compatible with the metric in
     the expected way, and which has some other nice properties.
-  % \end{remark}
-  \begin{definition}[Levi-Civita connection]
-    The \textbf{Levi-Civita connection} is a connection $\nabla$ such that
+  \end{remark}
+  \begin{definition}
+    The \textbf{Levi-Civita connection} is a connection
+    \[
+      \fn\nabla {\mathfrak X(M) \times \mathfrak X(M)} {\mathfrak X(M)}
+    \] such that for any tangent vector fields $X, Y \in \mathfrak X(M)$,
+    $\nabla$ is
     \begin{enumerate}[(a)]
-      \item the metric is preserved under $\nabla$, that is, $\nabla_{\!(-)\,}g \equiv 0$, and
-      \item for any vector fields $X, Y \in \mathfrak(M)$, $\nabla_XY - \nabla_YX = [X, Y]$.
+      \item compatible with the metric: $\nabla_X(g(Y, Z)) = g(\nabla_XY, Z) + g(Y, \nabla_XZ)$, and
+        % the metric is preserved under $\nabla$, that is, $\nabla_{\!(-)\,}g \equiv 0$, and
+      \item torsion-free: $\nabla_XY - \nabla_YX = [X, Y]$.
     \end{enumerate}
   \end{definition}
   \begin{remark}
     When the Levi-Civita connection exists, it is unique.
   \end{remark}
   \begin{remark}
-    A connection that satisfies the second condition in the definition of the
-    Levi-Civita connection is called``torsion-free'', because the torsion is
-    defined as \[
+    The second condition gets its name from the definition of the torsion,
+    namely \[
       T(X, Y):= \nabla_XY - \nabla_YX - [X, Y].
     \]
     % What is torsion on a 2-manifold? Always 0?
   %   The inner product $g$ on the tangent bundle is a vector space, and
   %   so the action of $\nabla$ on $g$ is well-defined.
   \end{remark}
-  \begin{definition}[Acceleration of a curve]
+  % Being able to take the derivative of a section of a vector bundle in the
+  % direction of the tangent bundle is the first step to being able to take the
+  \begin{definition}
+    Let $\nabla$ be a connection in tangent bundle $TM$, and let $\gamma$ be a
+    curve in $M$. Then the \textbf{covariant derivative along} $\boldsymbol{\gamma}$ is the
+    (unique) map $
+      \fn {D_\gamma }{\mathfrak X(\gamma)}{\mathfrak X(\gamma)}
+    $ satisfying the following three properties \begin{enumerate}[(i)]
+      \item $\displaystyle D_\gamma (aV + bW) = aD_\gamma V + bD_\gamma W$
+      \item $\displaystyle D_\gamma (fV) = f'V + fD_\gamma V$
+      \item $\displaystyle D_\gamma V(t) = \nabla_{\gamma'(t)}\widetilde{V}$ for every extension $\widetilde V$ of $V$.
+    \end{enumerate}
+  \end{definition}
+  \begin{remark}
+    This definition is sensible, because (i) and (ii) respectively correspond to
+    (ii) and (iii) in the definition of a connection, and the last condition is
+    roughly says that the derivative along $\gamma$ should agree with a
+    restriction on a vector field which is equal to $\gamma'$ along the curve.
+  \end{remark}
+  \begin{definition}
    For every smooth map from an interval to the manifold, $\fn \gamma I M$,
    define the \textbf{acceleration of $\gamma$} as the vector field
    $D_\gamma  \gamma'$ along $\gamma$.
   \end{definition}
 
-  \begin{definition}[Geodesic]
+  \begin{definition}
     A smooth curve $\gamma$ is called a \textbf{geodesic} (with respect to
     $\nabla$) if it's acceleration is zero: $D_\gamma \gamma' \equiv 0$.
   \end{definition}
@@ -181,49 +193,37 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
   %   \end{tikzpicture}
   % \end{figure}
 
-  \begin{theorem}[Existence and uniqueness for geodesics] % Lee Theorem 4.27
+  \begin{theorem}[Existence and uniqueness of geodesics; from \cite{Lee}, Theorem 4.27] % Lee Theorem 4.27
     Let $M$ be a smooth manifold and $\nabla$ a connection. Then for every
-    $p \in M$, $v \in T_pM$ and $t_0 \in \mathbb R$, there exists an open
-    interval $I \subset \mathbb R$ containing $t_0$ and a geodesic
-    $\fn \gamma I M$ satisfying $\gamma(t_0) = p$ and $\gamma'(t_0) = v$.
+    $p \in M$ and $v \in T_pM$ there exists an interval $I \subset \mathbb R$
+    around $0$ and a geodesic
+    $\fn \gamma I M$ satisfying $\gamma(0) = p$ and $\gamma'(0) = v$.
 
     Furthermore, any two geodesics with the same initial conditions agree on
     their common domain.
   \end{theorem}
   \begin{proof}[Proof idea]
-    This result follows from moving to local coordinates in a way that respects
+    The proof of the theorem works by moving to local coordinates in a way that respects
     the connection, and then making an appeal to uniqueness and existence for
     (second order) ordinary differential equations.
   \end{proof}
 
-  \begin{definition}[Geodesic extension]
-    Given a geodesic $\fn \gamma I M$, an \textbf{extension of} $\boldsymbol{\gamma}$ is a map
-    $\fn {\widetilde \gamma} {\widetilde I} M$ such that \begin{enumerate}[(i)]
-      \item $I$ is a subset of $\widetilde I$,
-      \item the map $\widetilde \gamma$ is itself a geodesic, that is $D_{\widetilde\gamma}{\widetilde\gamma'} \equiv 0$, and
-      \item the map agrees on the original interval, that is $\widetilde \gamma|_I = \gamma$.
-    \end{enumerate}
+  \begin{definition}
+    Given a geodesic $\fn \gamma I M$, an
+    \textbf{extension of $\boldsymbol{\gamma}$ to $\boldsymbol{\widetilde I}$}
+    $\supset I$ is a geodesic curve $\fn {\widetilde \gamma} {\widetilde I} M$
+    such that the geodesics agree on $I$: $\widetilde \gamma|_I = \gamma$.
   \end{definition}
   \begin{remark}
     A \textit{proper} extension is an extension in which condition (i) is strengthened
-    such that $I$ is a \textit{proper} subset of $\widetilde I$.
+    such that $I$ is a \textit{proper} subset of $\widetilde I$, and a geodesic
+    with no proper extension is called a \textbf{maximal} geodesic.
   \end{remark}
-  \begin{remark}
-    A geodesic with no proper extension is called a \textbf{maximal} geodesic.
-  \end{remark}
-  \begin{definition}[Geodesically complete manifold]
-    A manifold is called geodesically complete (with respect to $\nabla$) if
-    every geodesic curve $\gamma$ has an ``all-time'' extension to
-    $\fn {\widetilde\gamma} {\mathbb R} {M}$.
-  \end{definition}
-  \begin{definition}[Closed geodesic]
-    A geodesic $\fn \gamma I M$ is called \textbf{closed} if there exist
-    two points $t_1 \neq t_2 \in I$ such that $\gamma(t_1) = \gamma(t_2)$ and
-    $\gamma'(t_1) = \gamma'(t_2)$.
-  \end{definition}
-  \begin{remark}
-    Every closed geodesic $\gamma$ has an all-time extension $\fn {\widetilde\gamma} {\mathbb R} {M}$.
-  \end{remark}
+  % \begin{definition}
+  %   A manifold is called geodesically complete (with respect to $\nabla$) if
+  %   every geodesic curve $\gamma$ has an ``all-time'' extension to
+  %   $\fn {\widetilde\gamma} {\mathbb R} {M}$.
+  % \end{definition}
 \end{section}
 
 \begin{section}{Properties of geodesics}
@@ -332,7 +332,7 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
   The exponential map takes a point in the tangent bundle
   $(p, v) \in TM$ and returns the position of a geodesic starting at $p$
   and flowing in the direction of $v$ after unit time.
-  \begin{definition}[Exponential Map]
+  \begin{definition}
     Let \[
       \mathcal D = \set{ (p, v) \in TM :
         \exists
@@ -344,10 +344,10 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
         \gamma'(0) = v
       }
     \]
-    Then the \textbf{exponential map} is a map \[
+    Then the \textbf{exponential map} is a map $
       \fn {\exp} {\mathcal D} M
-    \] satisfying $\exp((p, v)) = \gamma(1)$ where
-    $\fn \gamma {[0, 1]} M$ is any geodesic satisfying $\gamma(0) = p$ and
+    $ satisfying $\exp((p, v)) = \gamma(1)$ where
+    $\fn \gamma {[0, 1]} M$ is any geodesic with $\gamma(0) = p$ and
     $\gamma'(0) = v$.
   \end{definition}
   \begin{remark}
@@ -380,7 +380,7 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
   properties of geodesics and the induced metric agree with each other and with
   the topology.
 
-  \begin{definition}[Complete metric space]
+  \begin{definition}
     A complete metric space is a metric space in which every Cauchy sequence is
     convergent.
   \end{definition}
@@ -421,7 +421,14 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
 
 % Definition closed geodesic
 \begin{section}{Closed geodesics}
-
+  \begin{definition}
+    A geodesic $\fn \gamma I M$ is called \textbf{closed} if there exist
+    two points $t_1 \neq t_2 \in I$ such that $\gamma(t_1) = \gamma(t_2)$ and
+    $\gamma'(t_1) = \gamma'(t_2)$.
+  \end{definition}
+  \begin{remark}
+    Every closed geodesic $\gamma$ has an all-time extension $\fn {\widetilde\gamma} {\mathbb R} {M}$.
+  \end{remark}
   \begin{theorem}
     Let $\pi_1(M)$ be the fundamental group of $M$. Then each equivalence class
     of loops $[\alpha] \in \pi_1$ has a (closed) geodesic representative, in
@@ -499,7 +506,7 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
   \end{theorem}
 
   \begin{proof}
-    The history of the proof from the \cite{Liokumovich} paper:
+    The history of the proof from \cite{Liokumovich}:
     \begin{quote}
       The existence of three simple periodic geodesics on every Riemannian 2-sphere
       was first proven by L.A. Lyusternik and L.G. Shnirelman. They considered
@@ -534,8 +541,8 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
   \end{proof}
 
   In particular, a recent theorem shows an even stronger result: the
-  lengths of all three geodesics on a sphere are bounded by the ``size'' of
-  the manifold.
+  lengths of all three geodesics on a sphere are bounded by the size of
+  the manifold, as measured by the supremal distance between two points.
   \begin{definition} % Diameter of a Riemannian manifold
     The \textbf{diameter} of a Riemannian manifold $(M, g)$ is defined by \[
       \operatorname{diam}(M) := \sup_{p, q\in M} d(p, q) \in \mathbb R_{\geq 0} \cup \set{+\infty}
@@ -586,13 +593,30 @@ the topic (2) rigorous definitions, (3) early theorems and consequences,
     \end{quote}
   \end{proof}
   \begin{remark}
-    From \cite{Liokumovich}:
+    With these bounds, it is natural to ask if all $2$-spheres have a fourth
+    geodesic which has length bounded by the size of the manifold, but
+    \cite{Liokumovich} writes:
     \begin{quote}
       [There is a] classical result of M. Morse, who proved that the fourth periodic
       [not necessarily simple] geodesic becomes uncontrollably large for
       ellipsoids with distinct but very close semi-axes.
     \end{quote}
   \end{remark}
+\end{section}
+\begin{section}{Conclusion}
+  A quick final personal note: I find that the farther I get in my mathematical
+  career, the deeper I have to dig to find new-to-me theorems that spark a
+  sense of wonder, but I've found that this relatively simple topic is full
+  of them, especially those discussed in the previous section.
+
+  In particular, the theorem of three simple closed geodesics is quite
+  unbelievable---especially when combined with the result that a fourth
+  (perhaps non-simple) closed geodesic can be arbitrarily large. It's especially
+  remarkable in the context of Conjecture 4.1, which says that it is not
+  known whether or not simple closed geodesics exist on all compact manifolds.
+
+  Thanks again for your help in suggesting this as a topic---I found the
+  experience to be immensely rewarding.
 \end{section}
 % \begin{section}{Conclusion}
 % \end{section}
