@@ -1,0 +1,206 @@
+\documentclass{article}
+
+\input{../../header}
+
+\begin{document}
+
+\title{Math 574: Homework 1}
+\author{Peter Kagey}
+\date{Monday, September 23, 2019}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} ~
+  \begin{enumerate}[(a)]
+    \item Show that $A, B \in M_3(K)$ are similar if and only if they have the
+    same minimal and characteristic polynomials.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  $A$ and $B$ are similar if and only if they have the same Jordan
+  normal form, so it is sufficient to compare the minimal and characteristic
+  polynomials of matrices in Jordan normal form.
+  \begin{enumerate}[(a)]
+    \item A $3 \times 3$ matrix can have one of three Jordan normal forms \[
+    A_1 = \begin{bmatrix}
+      \lambda_1 & 0 & 0 \\
+      0 & \lambda_2 & 0 \\
+      0 & 0 & \lambda_3
+    \end{bmatrix},\
+    A_2 = \begin{bmatrix}
+      \lambda_1 & 1 & 0 \\
+      0 & \lambda_1 & 0 \\
+      0 & 0 & \lambda_2
+    \end{bmatrix},\ \text{ or }
+    A_3 = \begin{bmatrix}
+      \lambda_1 & 1 & 0 \\
+      0 & \lambda_1 & 1 \\
+      0 & 0 & \lambda_1
+    \end{bmatrix}.
+    \]
+    Notice that a matrix $A$ \begin{enumerate}[(i)]
+      \item similar to $A_1$ if and only if $(\lambda_1 - x)$ divides $m_{A}(x)$ exactly once,
+      \item similar to $A_2$ if and only if $(\lambda_1 - x)$ divides $m_{A}(x)$ exactly twice, and
+      \item similar to $A_3$ if and only if $(\lambda_1 - x)$ divides $m_{A}(x)$ exactly three times.
+    \end{enumerate}
+    \item Let \[
+      A = \begin{bmatrix}
+        1 & 1 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 1 \\
+        0 & 0 & 0 & 1
+      \end{bmatrix}
+      \hspace{1cm}\text{and}\hspace{1cm}
+      B = \begin{bmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 1 \\
+        0 & 0 & 0 & 1
+      \end{bmatrix}.
+    \]
+    Both $A$ and $B$ have the same minimal and characteristic polynomials
+    \begin{alignat*}{2}
+      m_A(x) &= m_B(x) &= (1-x)^2 \\
+      p_A(x) &= p_B(x) &= (1-x)^4,
+    \end{alignat*}
+    but $A$ and $B$ are not similar because they have different Jordan
+    canonical forms.
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} ~
+  Fix $A \in M_n(K)$ and let $C(A) = \set{B : BA = AB}$.
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item Suppose $A$ is cyclic, that is $p_A(x) = m_A(x)$, and moreover \[
+      A^n = c_0I + c_1A + \hdots + c_{n-1}A^{n-1}
+    \] and the Jordan normal form of $A$ is a single Jordan block.
+    Now look at what commutes \[
+      \begin{bmatrix}
+        \lambda & 1 & \ & \ & \ \\
+         \ & \lambda & 1 & \ & \ \\
+         \ &  \ & \lambda & 1 & \ \\
+        \lambda & 1 & \ & \ & \ \\
+        \lambda & 1 & \ & \ & \
+      \end{bmatrix}
+    \]
+    % Notice that $B$ commutes with $A$ if and only if $B$ commutes with $J_A$: \[
+    %   BAU = BUU^{-1}AU = ABU
+    % \]
+    \item First consider $A$ in Jordan canonical form.
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} ~
+  \begin{enumerate}[(a)]
+    \item Show that if $N$ is nilpotent then $N^n = 0$.
+    \item
+    \item How many similarity classes of $5 \times 5$ nilpotent matrices are there?
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item If $N^d = 0$, then there exists some $d' \leq n$ such that
+    $N^{d'} = 0$ because the minimal polynomial $m_N(x) | x^d$, so the minimal
+    polynomial is of the form $m_N(x) = x^{d'}$ with $d' <= n$, since the
+    minimal polynomial has degree less than or equal to $n$.
+    \item
+    \item By (a), the characteristic polynomial of a $5 \times 5$ nilpotent
+    matrix is $p(x) = x^5$, so in Jordan canonical form, $a_{ii} = 0$. Thus
+    the Jordan canonical form of $A$ has
+    zeros along the diagonal, with possibly some ones on the superdiagonal: \[
+      \begin{bmatrix}
+        0 & * & 0 & 0 & 0 \\
+        0 & 0 & * & 0 & 0 \\
+        0 & 0 & 0 & * & 0 \\
+        0 & 0 & 0 & 0 & * \\
+        0 & 0 & 0 & 0 & 0
+      \end{bmatrix}.
+    \] Thus similarity classes of nilpotent matrices are in bijection with the
+    seven partitions of $5$ via the size of the Jordan blocks: \begin{align*}
+        &5 \\
+        &4 + 1 \\
+        &3 + 2 \\
+        &3 + 1 + 1 \\
+        &2 + 2 + 1 \\
+        &2 + 1 + 1 + 1\\
+        &1 + 1 + 1 + 1 + 1
+    \end{align*}
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4} %
+\end{problem}
+
+\begin{proof} ~
+\end{proof}
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{5} % p 613
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item   Let $A = U^{-1} J_A U$, where $J_A$ is the Jordan canonical form of $A$, which
+      can be written $J_A = D_A + N_A$, with $D_A$ the diagonal entries of $J_A$,
+      and $N_A$ the superdiagonal entries of $J_A$. \[
+        \underbrace{
+          \begin{bmatrix}
+            \lambda_1 & * & \ & \ & \ \\
+            \ & \lambda_2 & * & \ & \ \\
+            \ & \ & \lambda_3 & \ddots & \ \\
+            \ & \ & \ & \ddots & * \\
+            \ & \ & \ & \ & \lambda_n
+          \end{bmatrix}
+        }_{J_A}
+        = \underbrace{
+          \begin{bmatrix}
+            \lambda_1 & 0         & \         & \      & \ \\
+            \         & \lambda_2 & 0         & \      & \ \\
+            \         & \         & \lambda_3 & \ddots & \ \\
+            \         & \         & \         & \ddots & 0 \\
+            \         & \         & \         & \      & \lambda_n
+          \end{bmatrix}
+        }_{D_A}
+        = \underbrace{
+          \begin{bmatrix}
+            0 & * & \ & \      & \ \\
+            \ & 0 & * & \      & \ \\
+            \ & \ & 0 & \ddots & \ \\
+            \ & \ & \ & \ddots & * \\
+            \ & \ & \ & \      & 0
+          \end{bmatrix}
+        }_{N_A}
+      \]
+      Notice that $p_{N_A}(x) = x^n$, so by Cayley-Hamilton, $N_A^n = 0$ and $N_A$.
+      is nilpotent.
+      Next, notice that \begin{align*}
+        A
+        &= U^{-1} J_A U \\
+        &= U^{-1} (D_A + N_A) U \\
+        &= U^{-1} D_A U + U^{-1} N_A U
+      \end{align*} where $U^{-1} D_A U$ is clearly diagonalizable, and where
+      $U^{-1} N_A U$ is nilpotent because \begin{align*}
+        (U^{-1} N_A U)^n
+          &= \underbrace{(U^{-1} N_A U)(U^{-1} N_A U)\hdots(U^{-1} N_A U)}_{n} \\
+          &= U^{-1} \underbrace{N_A^n}_0 U \\
+          &= 0.
+      \end{align*}
+  \end{enumerate}
+\end{proof}
+\end{document}

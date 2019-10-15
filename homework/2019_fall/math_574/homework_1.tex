@@ -1,0 +1,201 @@
+\documentclass{article}
+
+\input{../../header}
+
+\begin{document}
+
+\title{Math 574: Homework 1}
+\author{Peter Kagey}
+\date{Monday, September 23, 2019}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} Let $V$ be a vector space over $F$ of dimension $n$, with
+  $V_1$ and $V_2$ subspaces of $V$.
+  \begin{enumerate}[(a)]
+    \item Prove that $V_1 + V_2$ is a subspace.
+    \item Prove that $\dim(V_1 + V_2) = \dim V_1 + \dim V_2 - \dim(V_1 \cap V_2)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item It is enough to show that $V_1 + V_2$ is closed under vector addition
+    and scalar multiplication, because the other vector space properties are
+    inherited from $V$. Closure with respect to addition follows from the
+    commutativity of addition: \[
+      \underbrace{(v_1 + v_2)}_{V_1 + V_2} +
+      \underbrace{(v'_1 + v'_2)}_{V_1 + V_2} =
+      \underbrace{(v_1 + v'_1)}_{V_1}
+      \underbrace{(v_2 + v'_2)}_{V_2},
+    \] and closure with respect to scalar multiplication follows from
+    distributivity: \[
+      \underbrace{a(v_1 + v_2)}_{V_1 + V_2} =
+      \underbrace{av_1}_{V_1}
+      +
+      \underbrace{av_2}_{V_2}.
+    \]
+
+    \item % Not very clear.
+    The dimension of $V_1 + V_2$ is the cardinality of its basis.
+    If $V_1$ has basis $\set{u_i}$, $V_2$ has basis $\set{w_i}$, and
+    $V_1 \cap V_2$ has basis $\set{v_i}$ then each $v_i$ can be written as both
+    $v_i = \sum_k a_ku_k$ and
+    $v_i = \sum_k b_kw_k$, where at least one $a_k$ and at least one $b_k$ are nonzero.
+    Then solving for one such $b_k$ in terms of the other $a_i$s and $b_i$s
+    allows for $b_k$ to be removed from the basis. This can be done inductively
+    with each element the basis $\set{v_i}$ of $V_1 \cap V_2$ removing one
+    element of the spanning set, ultimately resulting in a set of linearly
+    independent vectors, so \[
+      \dim(V_1 + V_2) = \dim V_1 + \dim V_2 - \dim(V_1 \cap V_2)
+    \] as desired.
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} ~
+  \begin{enumerate}[(a)]
+    \item Prove that $V = V_1 \oplus V_2$ if and only if $n = n_1 + n_2$ and $V_1 \cap V_2 = 0$.
+    \item Prove that $V = V_1 \oplus V_2$ if and only if each $v \in V$ can be
+    written uniquely as $v_1 + v_2$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item ~\\ $(\Longrightarrow)$ Assume $V = V_1 \oplus V_2$. Then by definition,
+    $V = V_1 + V_2$ and $V_1 \cap V_2 = 0$. So by Problem 1 (b), \[
+      \underbrace{\dim(V)}_{n} =
+      \underbrace{\dim(V_1)}_{n_1} +
+      \underbrace{\dim(V_2)}_{n_2} +
+      \underbrace{\dim(V_1 \cap V_2)}_{0}.
+    \]
+    $(\Longleftarrow)$ Assume $n = n_1 + n_2$ and $V_1 \cap V_2 = 0$.
+    Then any basis of $V_1$ and any basis of $V_2$ are disjoint, call them
+    $\set{u_i}$ and $\set{w_i}$ respectively, and their (disjoint) union forms
+    a basis for $V$: $\set{u_i} \cup \set{w_i}$. Since any vector $v \in V$ can
+    be written in terms of its basis elements, \[
+      v = \underbrace{\sum_i a_iu_i}_{V_1} + \underbrace{\sum_i b_iw_i}_{V_2}.
+    \]
+    \item ~\\
+    $(\Longrightarrow)$ Assume $V = V_1 \oplus V_2$. Then by definition,
+    $V = V_1 + V_2$ so each $v$ can be written as $v_1 + v_2$. Moreover, this
+    sum is unique because if $v = v_1' + v_2'$, since $V_1 \cap V_2 = 0$,
+    $v_1' - v_1 = 0$ and $v_2' - v_2 = 0$.
+    \\~\\
+    $(\Longleftarrow)$ Assume that each $v \in V$ can be uniquely written as
+    $v_1 + v_2$, then $V \subseteq V_1 + V_2$ and $V_1 + V_2 \subseteq V$
+    (since they are subspaces). Next, arguing by contrapositive, suppose that
+    there exists a nonzero $v \in V_1 \cap V_2$, then \[
+      \underbrace{(v_1 - u)}_{V_1} + \underbrace{(v_2 + u)}_{V_2} = v,
+    \] so the choice of vectors are not unique.
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} %
+  Let $\fn T V V$ be a linear transformation with $\dim V = n$.
+  \begin{enumerate}[(a)]
+    \item Prove that $\rank(T) = \rank(T^2)$ if and only if $V = T(V) \oplus \ker(T)$.
+    \item
+  \end{enumerate}
+\end{problem}
+
+\begin{proof}
+  The rank of $T$ is $\dim T(V)$. % In any case, $\ker(T) \cap T(V) = 0$
+  \begin{enumerate}[(a)]
+    \item ~\\ % Questionable!
+      $(\Longrightarrow)$ Assume $\rank(T) = \rank(T^2)$.
+      Let $\set{u_i}$ be a basis for $T(V)$. By the hypothesis, $\set{T(u_i)}$
+      has the same dimension and is also a basis for $T(V)$. Since all basis
+      elements of $\ker(T)$ are sent to $0$ under $T$,
+      $\ker(T) \cap T(V) = 0$ and moreover, every vector can be written as
+      $v_1 + v_2$ with $v_1$ in the kernel and $v_2$ in the image.
+      \\~\\
+      $(\Longleftarrow)$ Assume $V = T(V) \oplus \ker(T)$. Let $\set{u_i}$
+      be a basis for the image of $T$ and $\set{w_i}$ be a basis for the kernel
+      of $T$, so that for each $v \in V$ \[
+        v = \sum_{i=1}^{m} a_iu_i + \sum_{i=1}^{n-m} b_iw_i
+      \] then \[
+        T(v) = T\bigl(\sum_{i=1}^{m} a_iu_i + \sum_{i=1}^{n-m} b_iw_i\bigr) = \sum a_iT(u_i) + \sum b_i\underbrace{T(w_i)}_0.
+      \] Since $T(V) \cap \ker(T) = 0$, $\sum a_iu_i$ is in $\ker(T)$ if and
+      only if $a_1 = \hdots = a_m = 0$. Therefore $\set{T(u_i)}$ forms a basis for
+      $T(V)$ and \[
+        \rank(T) = \dim\set{u_1, \hdots, u_m} = \dim\set{T(u_1), \hdots, T(u_m)} = \rank(T^2).
+      \]
+    \item If $T^2 = T$, then clearly $\rank(T) = \rank(T^2)$, so
+    $V = \ker(T) \oplus T(V)$. Furthermore, every element in the image is fixed
+    under a successive transformation, so $T(V) = \set{v \in V \mid T(v) = v}$.
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4} %
+  Let $V$ be the space of complex valued $C^\infty$ functions on $\R$, and let
+  $\fn D V V$ be differentiation. \begin{enumerate}[(a)]
+    \item Find all eigenvalues and eigenvectors for $D$.
+    \item Find $\ker(D^n)$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item This is equivalent to solving the differential equation
+    $D(f(x)) = af(x)$. By the existence and uniqueness of ODEs, the only
+    solution to this equation is $b\exp(ax)$, and $D(b\exp(ax)) = ab\exp(ax)$,
+    which has eigenvalue $a$.
+    \item Firstly, note that the only functions $f$ such that $D f = 0$ are the
+    constant functions, $f(x) = c_1$. By induction with the hypothesis that
+    $\ker(D^n)$ consists of polynomials of degree $n-1$. Certainly $\ker(D^1)$
+    consists of $0$-degree polynomials, so assuming that
+    $\ker(D^{n-1}) = \set{a_{n}x^{n-1} + a_{n-1}x^{n-2} + \hdots a_{2}x + a_1}$,
+    and integrating,
+    \begin{align*}
+      \ker(D^n) &= \set{\frac{a_{n}}{n}x^{n} + \frac{a_{n-1}}{n-1}x^{n-1} + \hdots \frac{a_{2}}{2}x^2 + a_1x + a_0 \,\middle|\, a_i \in \C} \\
+      &= \set{b_{n}x^{n} + b_{n-1}x^{n-1} + \hdots b_{2}x^2 + b_1x + b_0 \,\middle|\, b_i \in \C}
+    \end{align*} gives the set of polynomials of degree $n$.
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{5} % p 613
+
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item ~\\
+    $(\Longrightarrow)$ Arguing by contrapositive, assume that $A_1$ has a nonzero
+    kernel (that is, $A_1$ is not invertible), and let $u \in \ker(A_1)$ be a
+    nonzero vector.
+    Then \[
+      (A_1 \otimes A_2)(u \otimes v) = (\underbrace{A_1(u)}_0 \otimes A_2(v)) = 0,
+    \] so $A_1 \otimes A_2$ has a nonzero kernel and therefore is not invertible.
+    \\
+    $(\Longleftarrow)$ Assume $A_1$ and $A_2$ are invertible. Then \begin{align*}
+      (\inv{A_1} \otimes \inv{A_2})(A_1 \otimes A_2)(u \otimes v)
+      &= (\inv{A_1} \otimes \inv{A_2})(A_1(u) \otimes A_2(v))\\
+      &= (\inv{A_1}(A_1(u)) \otimes \inv{A_2}(A_2(v))) \\
+      &= (u,v),
+    \end{align*}
+    so $\inv{(A_1 \otimes A_2)} = (\inv{A_1} \otimes \inv{A_2})$.
+    \item This follows almost directly by looking at the Kronecker product.
+    Suppose that $a_{ii}$ gives the $i$th entry on the main diagonal of $A_1$.
+    Then reading down the main diagonal of the Knocker product gives \begin{align*}
+      \trace(A_1 \otimes A_2)
+      &= a_{11}\trace(A_2) + a_{22}\trace(A_2) + \hdots + a_{nn}\trace(A_2) \\
+      &= (a_{11} + a_{22} + \hdots + a_{nn})\trace(A_2) \\
+      &= \trace(A_1)\trace(A_2),
+    \end{align*}
+    as desired.
+  \end{enumerate}
+\end{proof}
+\end{document}
