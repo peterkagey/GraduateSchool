@@ -80,22 +80,100 @@
 
 \begin{proof} ~
   \begin{enumerate}[(a)]
-    \item Suppose $A$ is cyclic, that is $p_A(x) = m_A(x)$, and moreover \[
-      A^n = c_0I + c_1A + \hdots + c_{n-1}A^{n-1}
-    \] and the Jordan normal form of $A$ is a single Jordan block.
-    Now look at what commutes \[
-      \begin{bmatrix}
-        \lambda & 1 & \ & \ & \ \\
-         \ & \lambda & 1 & \ & \ \\
-         \ &  \ & \lambda & 1 & \ \\
-        \lambda & 1 & \ & \ & \ \\
-        \lambda & 1 & \ & \ & \
-      \end{bmatrix}
-    \]
-    % Notice that $B$ commutes with $A$ if and only if $B$ commutes with $J_A$: \[
-    %   BAU = BUU^{-1}AU = ABU
+    % \item Suppose $A$ is cyclic, that is the Jordan normal form $J_A = U^{-1}AU$
+    % is a composed of Jordan blocks with distinct eigenvalues.
+    % Now consider each Jordan block:
+    % \\
+    % Let $B' = U^{-1}BU$ (with the same $U$ as above) and notice that \begin{align*}
+    %   AB = BA \Leftrightarrow
+    %   A\underbrace{UU^{-1}}_IB = B\underbrace{UU^{-1}}_IA
+    %   \Leftrightarrow \underbrace{U^{-1}AU}_{J_A} \underbrace{U^{-1}BU}_{B'} = \underbrace{U^{-1}BU}_{B'}\underbrace{U^{-1}AU}_{J_A}.
+    % \end{align*}
+    % Now look at what commutes with $J_A$ \[
+    %   \underbrace{
+    %     \begin{bmatrix}
+    %       \lambda & 1 & \ & \ & \ \\
+    %        \ & \lambda & 1 & \ & \ \\
+    %        \ &  \ & \ddots & \ddots & \ \\
+    %        \ & \ & \ & \lambda & 1  \\
+    %        \ & \ & \ & \ & \lambda  \\
+    %     \end{bmatrix}
+    %   }_{J_A}
+    %   \underbrace{
+    %     \begin{bmatrix}
+    %       b_{11} & b_{12} & \hdots & b_{1n} \\
+    %       b_{21} & b_{22} & \hdots & b_{2n} \\
+    %       b_{31} & b_{32} & \hdots & b_{3n} \\
+    %       \vdots & \vdots & \ddots & \vdots \\
+    %       b_{n1} & b_{n2} & \hdots & b_{nn}
+    %     \end{bmatrix}
+    %   }_{B'} = \lambda J_A + \begin{bmatrix}
+    %     b_{21} & b_{22} & \hdots & b_{2n} \\
+    %     b_{31} & b_{32} & \hdots & b_{3n} \\
+    %     \vdots & \vdots & \ddots & \vdots \\
+    %     b_{n1} & b_{n2} & \hdots & b_{nn} \\
+    %     0 & 0 & \hdots & 0
+    %   \end{bmatrix}
+    % \] and similarly, \[
+    %   \underbrace{
+    %     \begin{bmatrix}
+    %       b_{11} & b_{12} & \hdots & b_{1n} \\
+    %       b_{21} & b_{22} & \hdots & b_{2n} \\
+    %       b_{31} & b_{32} & \hdots & b_{3n} \\
+    %       \vdots & \vdots & \ddots & \vdots \\
+    %       b_{n1} & b_{n2} & \hdots & b_{nn}
+    %     \end{bmatrix}
+    %   }_B
+    %   \underbrace{
+    %     \begin{bmatrix}
+    %       \lambda & 1 & \ & \ & \ \\
+    %        \ & \lambda & 1 & \ & \ \\
+    %        \ &  \ & \ddots & \ddots & \ \\
+    %        \ & \ & \ & \lambda & 1  \\
+    %        \ & \ & \ & \ & \lambda  \\
+    %     \end{bmatrix}
+    %   }_{J_A}
+    %   = \lambda J_A + \begin{bmatrix}
+    %     0 & b_{11} & \hdots & b_{1(n-1)} \\
+    %     0 & b_{21} & \hdots & b_{2(n-1)} \\
+    %     \vdots & \vdots & \ddots & \vdots \\
+    %     0 & b_{n1} & \hdots & b_{n(n-1)}
+    %   \end{bmatrix}
     % \]
-    \item First consider $A$ in Jordan canonical form.
+    % So $a_{21} = a_{31} = \hdots = a_{(n-1)1} = 0$ and $a_{n1} = a_{n2} = \hdots = a_{n(n-1)} = 0$,
+    % And otherwise, $a_{ij} = a_{(i+1)(j+1)}$, so if $B'$ commutes with $J_A$ then
+    % $B'$ is of the form \[
+    %  B' = \begin{bmatrix}
+    %     c_1 & c_2 & c_3 & \hdots & c_n \ \\
+    %     \ & c_1 & c_2 & \hdots & c_{n-1}\ \\
+    %     \ &  \ & \ddots & \ddots & \vdots \\
+    %     \ & \ & \ & c_1 & c_2  \\
+    %     \ & \ & \ & \ & c_1  \\
+    %  \end{bmatrix}
+    % \] since $b_1, b_2, \hdots, b_n$ can be chosen arbitrarily, $B'$ has dimension $n$.
+    % So clearly $B = UB'U^{-1}$ also has dimension $n$.
+    % \item When $A$ is a general matrix, the same general argument holds, except
+    % for that $J_A$ now may have zeros on the super diagonal. 1
+    \item Firstly, suppose $f(x) \in K[x]$. Then \begin{align*}
+      Af(A) &= A(c_0I + c_1A + \cdots + c_nA^n) \\
+        &= c_0A + c_1A^2 + \cdots + c_nA^{n+1} \\
+        &= (c_0I + c_1A + \cdots + c_nA^n)A
+    \end{align*} so $f(A) \in C(A)$.
+    Conversely, suppose $v$ is a cyclic vector for $A$, that is
+    $\set{v, Av, A^2v, \cdots, A^{n-1}}$ is a basis for $M_n(K)$, meaning we can write \[
+      Bv = c_0v + c_1Av + \cdots + c_nA^nv = f(A)v.
+    \]
+    Moreover, we can write $B(A^kv) = f(A)(A^kv)$, and since ${A^k}_{k=0}^{n-1}$
+    is a basis, $B = f(A)$ because it $B$ and $f(A)$ send every basis vector to
+    the same place.
+    \\
+    Lastly, $\dim C(A) = n$ because the map \[
+      (c_0, c_1, \hdots, c_{n-1}) \mapsto c_0I + c_1A + \cdots + c_{n-1}A^{n-1} = f(A) = B
+    \]
+    is surjective since the minimal polynomial is degree $n$.
+    \item
+    % For general $A$, the set $\set{f(A) : f(x) \in k[x]}$ is a subspace of
+    % $C(A)$ since it is closed under
   \end{enumerate}
 \end{proof}
 % -----------------------------------------------------
@@ -104,7 +182,7 @@
 \begin{problem}{3} ~
   \begin{enumerate}[(a)]
     \item Show that if $N$ is nilpotent then $N^n = 0$.
-    \item
+    \item Show that $\dim \ker N$ is the number of Jordan blocks in its Jordan canonical form.
     \item How many similarity classes of $5 \times 5$ nilpotent matrices are there?
   \end{enumerate}
 \end{problem}
@@ -115,7 +193,25 @@
     $N^{d'} = 0$ because the minimal polynomial $m_N(x) | x^d$, so the minimal
     polynomial is of the form $m_N(x) = x^{d'}$ with $d' <= n$, since the
     minimal polynomial has degree less than or equal to $n$.
-    \item
+    \item Because the minimal polynomial is of the form $m_N(x) = x^{d'}$,
+    the Jordan canonical form of $N$ must have all zeros on the diagonal.
+    Now it is enough to go block by block, and show that each block has nullity
+    of exactly $1$, namely \[
+      \begin{bmatrix}
+        0 & 1 & \ & \ & \ & \\\
+        \ & 0 & 1 & \ & \ & \\\
+        \ & \ & \ddots & \ddots & \ & \ \\
+        \ & \ & \ & 0 & 1 & \ \\
+        \ & \ & \ & \ & 0 & 1\\
+        \ & \ & \ & \ & \ & 0\\
+      \end{bmatrix}\begin{bmatrix}
+        a_{11} \\ a_{21} \\ \vdots \\ a_{(m-1)1} \\ a_{m1}
+      \end{bmatrix} = \begin{bmatrix}
+        a_{21} \\ a_{31} \\ \vdots \\ a_{m1} \\ 0
+      \end{bmatrix}
+    \] so $a_11$ is a free variable and the dimension of the kernel of any block is $1$.
+    By induction on the number of Jordan blocks, the dimension of the kernel is
+    equal to the number of blocks.
     \item By (a), the characteristic polynomial of a $5 \times 5$ nilpotent
     matrix is $p(x) = x^5$, so in Jordan canonical form, $a_{ii} = 0$. Thus
     the Jordan canonical form of $A$ has
@@ -201,6 +297,7 @@
           &= U^{-1} \underbrace{N_A^n}_0 U \\
           &= 0.
       \end{align*}
+    \item
   \end{enumerate}
 \end{proof}
 \end{document}
