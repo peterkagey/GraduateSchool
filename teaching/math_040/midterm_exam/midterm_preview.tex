@@ -1,0 +1,144 @@
+\documentclass[12pt]{exam}
+\include{header}
+\begin{document}
+\include{first_page}
+%
+\begin{questions}
+% \pointformat{}
+\pagebreak
+
+\question[5] {
+  True or false. \begin{parts}
+    \item $\displaystyle \frac{4}{5} > \frac{41}{50}$
+    \\~\\
+    \item $\displaystyle \frac{3}{4} < 0.8$
+    \\~\\
+    \item $\displaystyle -\frac{2}{5} \geq \frac{1}{5}$
+    \\~\\
+    \item $\displaystyle 2.1719 \geq 2.18$
+    \\~\\
+    \item $\displaystyle (-2)^6 > -2^6$
+    \\~\\
+  \end{parts}
+}
+
+\question[4] {
+  Evaluate the following expressions \begin{parts}
+    \item $a^3 + a^2$ when $a = -2$
+    \\~\\~\\~\\
+    \item $\sqrt{b^2 + c}$ when $b = -3$ and $c = 8$
+    \\~\\~\\~\\
+    \item $\displaystyle\left(\frac{1}{2}d\right)^2$ when $d = 6$
+    \\~\\~\\~\\
+    \item $\displaystyle \left(\frac{1}{x}\right)^3$ when $x = 10$
+    \\~\\~\\~\\
+  \end{parts}
+}
+\pagebreak
+
+\question[6] {
+  Suppose you want to draw a ``perfect'' five-point star on a poster for an
+  event you're going to, and you know that for each of the five triangular arms,
+  the angle at the top, $\alpha$, is half the angle at the base, $\beta$.
+  What is the angle $\alpha$ of the tip of the star? \\
+  (Recall that the three angles of a triangle add to $180^\circ$.)
+  \\~\\
+  \begin{tikzpicture}[scale=2]
+    \draw (0,-0.9511)--(2.618,-0.9511)--(0.5,-2.4899)--(1.3090,-0)--(2.118,-2.4899)--cycle;
+    \draw[ultra thick] (1,-0.9511)--(1.6180,-0.9511)--(1.309,0)--cycle;
+    \draw (1.15,-0.9511) arc (0:72:0.15) node[right] {\tiny $\beta$};
+    \draw (1.263,-0.1427) arc (252:288:0.15);
+    \node at (1.3090,-0.2) {\tiny $\alpha$};
+  \end{tikzpicture}
+  \begin{tikzpicture}[scale=2]
+    \draw[ultra thick] (0.5,-2.4899)--(1.3090,-0)--(2.118,-2.4899)--cycle;
+    \draw (0.9,-2.4899) arc (0:72:0.4);
+    \node at (0.9,-2.15) {$\beta$};
+    \draw (1.1854,-0.3804) arc (252:288:0.4);
+    \node at (1.3090,-0.5) {$\alpha$};
+  \end{tikzpicture}
+}
+\pagebreak
+
+\question[5] {
+  Suppose you just got two offers for sales jobs. \begin{enumerate}
+    \item[(A)] In job A, you will earn a base salary of $\$5000$ each month,
+    plus $6\%$ of sales in commission.
+    \item[(B)] In job B, you will earn a base salary of $\$4000$ each month,
+    plus $10\%$ of sales in commission.
+  \end{enumerate}
+  Set up a linear inequality that describes the amount of sales that you'll have
+  to do each month in order to make more money with the second job than with the
+  first, where the variable $x$ denotes sales in dollars. Solve for $x$.
+}
+\pagebreak
+\question[6] {
+  Suppose that the number of baseball cards that Alex owns is given by $y = 200 + 6x$
+  where $x$ is the number of months since Alex's 12th birthday.
+  \begin{parts}
+    \item What is the value of the slope in this equation, and what does it represent in terms of baseball cards?
+    \item What is the value of the $y$-intercept, and what does it represent in
+    terms of baseball cards?
+    \item How many baseball cards does Alex own on her 13th birthday?
+    (Hint: recall that $x$ represents the number of \textit{months} since her 12th birthday.)
+  \end{parts}
+}
+\pagebreak
+\question[5] {
+  In 2018, Atlanta was the busiest airport in the world is about $107\,000\,000$
+  ($107$ million) air passengers, about $20\%$ more than LAX (the second busiest
+  US airport). Approximately how many air passengers did LAX have in 2018?
+}
+\pagebreak
+\question[5] {
+  Suppose you are a farmer with $100$ meters of fencing that you plan to use to
+  enclose a $10$ meter by $\ell$ meter section of your grass lot. The enclosed area
+  needs to have at least $350$ square meters of space for your animals.
+  Find \textbf{all} values of $\ell$ such that the perimeter no more than $100$
+  meters while the area of the lot is at least 350 square meters?
+  \\~\\
+  \begin{tikzpicture}[scale=2]
+    \draw[ultra thick] (0,0) rectangle (3, 1);
+    \node at (-0.2, 0.5) {$10$};
+    \node at (1.5, -0.2) {$\ell$};
+  \end{tikzpicture}
+}
+\pagebreak
+\question[8] {
+  Consider the function $f(x) = |2x| - 1$.
+  \begin{parts}
+    \part Graph the function $f$ including the points when $x = -1$, $\displaystyle x =-\frac 12$, $x = 0$, $x = 1$, and $x = 2$.
+    \\~\\
+    \begin{tikzpicture}
+      \draw[gray] (-4,-4) grid (4, 4);
+      \draw[thick,<->] (-4.1,0)--(4.1,0) node[right] {$x$};
+      \draw[thick,<->] (0,-4.1)--(0,4.1) node[above] {$f(x)$};
+    \end{tikzpicture}
+    \part What is the range of the function $f$? \\~\\~\\
+    \part What is the domain of the function $f$?
+  \end{parts}
+}
+\pagebreak
+\question[5] {
+  At a 2018 basketball tournament, tickets cost $\$10$ for adults and $\$5$ for children.
+  Suppose 300 people came to the game, and ticket sales totaled $\$2400$.
+  Set up a system of equations and use it to determine how many of the attendees were children.
+}
+\pagebreak
+\question[5] {
+  Suppose that a toy company has learned that if they price a toy at $\$3$, they
+  will sell $1000$ units, and if they price a toy at $\$4$, they will sell $700$
+  units.
+  \begin{parts}
+    \part Assuming that the price-sales relationship is linear, write a linear
+    equation describing the number of units sold as a function of price.
+    \part If the company gives away toys for free, how many will they give away,
+    according to this linear model?
+  \end{parts}
+}
+\pagebreak
+\question[6] {
+  Find all values of $x$ satisfying $1 -2\left|3-x\right| > 4$.
+}
+\end{questions}
+\end{document}
