@@ -1,0 +1,557 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{array,multirow}
+\usepackage{bbm, enumerate}
+\usepackage[yyyymmdd,hhmmss]{datetime}
+
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
+
+\newcommand{\n}[1]{\multicolumn{1}{|c|}{#1}}
+
+\newtheorem{theo}{Theorem}[subsection]
+\newtheorem{definition}[theo]{Definition}
+\newtheorem{conjecture}[theo]{Conjecture}
+\newtheorem{lemma}[theo]{Lemma}
+\newtheorem{theorem}[theo]{Theorem}
+\newtheorem{datatable}[theo]{Table}
+\newtheorem{example}[theo]{Example}
+\newtheorem{note}[theo]{Note}
+
+\begin{document}
+
+% Notes, use multline
+
+\title{Permutation statistics}
+\author{Peter Kagey}
+\date{\today\ at \currenttime}
+
+\maketitle
+\section{Fixed points}
+Let $F(n,m)$ denote the number of permutations $\pi \in S_n$ with exactly $m$
+fixed points. Then $F(1,1) = 1$ and $F(1,m) = 0$ for $m \neq 1$.
+For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
+  F(n, m) =
+    \underbrace{F(n - 1, m-1)}_{\text{(A)}} +
+    \underbrace{(n - m - 1)F(n - 1, m)}_{\text{(B)}} +
+    \underbrace{(m + 1)F(n-1, m + 1)}_{\text{(C)}}
+\end{align} where \begin{enumerate}[(A)]
+  \item Append an $n$ to the end of a word of length $n-1$ with $m-1$ fixed
+  points. This increases both the length and the number of fixed points by one.
+  \item Choose one of the $n - m - 1$ non-fixed points of a word of length $n-1$ and $m$
+  fixed points, and replace it with $n$, append the chosen letter to the end.
+  This increases the length by one while preserving the number of fixed points.
+  \item Choose one of the $m + 1$ fixed points of a word of length $n-1$ and $m+1$
+  fixed points, replace it with $n$, append the chosen letter to the end. This
+  decreases the number of fixed points by one and increases the length by one.
+\end{enumerate}
+\subsection{Take 1 (didn't work, skip to next subsection)}
+\begin{theorem}
+  Let $F^{(a)}(n, m)$ denote the number of permutations $\pi \in S_n$ such that
+  $\pi$ has $m$ fixed points and $\pi(1) = a$, and
+  let $E[\pi_{\text{fix},1}^{n,m}]$ denote the expected value of $\pi$ for
+  $\pi \in S_n$ with exactly $m$ fixed points, then for $m \neq n - 1$.
+  \begin{align}
+    E[\pi_{\text{fix},1}^{n,m}] := \frac{1}{F(n,m)}\sum_{a=1}^n aF^{(a)}(n, m) = \frac{n - m + 2}{2}
+  \end{align}
+  NOTE: Fix division by $0$ when $m = n - 1$.
+\end{theorem}
+\begin{proof}
+  By multiplying both sides (when $m \neq n - 1$), it is equivalent to show that \begin{align}
+    F(n,m)E[\pi_{\text{fix},1}^{n,m}] = \sum_{a=1}^n aF^{(a)}(n, m).
+  \end{align}
+  I'll start by showing that both $F^{(1)}$ and $F^{(n)}$ with $b \neq 1$
+  satisfy essentially similar recurrences to $F$, namely
+  \begin{align}
+    F^{(1)}(n, m) &=
+      \underbrace{F^{(1)}(n - 1, m-1)}_{\text{(A)}} +
+      \underbrace{(n - m - 1)F^{(1)}(n - 1, m)}_{\text{(B)}} +
+      \underbrace{mF^{(1)}(n-1, m + 1)}_{\text{(C')}} \\
+    &=
+      \underbrace{F(n-1,m-1)}_{\text{(D)}} \\
+    F^{(n)}(n, m) &=
+    \underbrace{F^{(n)}(n - 1, m-1)}_{\text{(A)}} +
+    \underbrace{(n - m - 2)F^{(n)}(n - 1, m)}_{\text{(B')}} +
+    \underbrace{(m + 1)F^{(n)}(n-1, m + 1)}_{\text{(C)}} \\
+    &= \underbrace{F(n-1,m) - F^{(1)}(n-1, m)}_{\text{(E)}} + \underbrace{F^{(1)}(n-1, m+1)}_{\text{(F)}}
+  \end{align} where (A) has the exact same construction as above, and
+  \begin{enumerate}[(A')]
+    \item[(B')]
+    Choose one of the $n - m - 2$ non-fixed points
+    \textit{that is not the first letter} of a word of length $n-1$ and $m$
+    fixed points, and replace it with $n$, append the chosen letter to the end.
+    This increases the length by one while preserving the number of fixed points.
+    \item[(C')] Choose one of the $m$ fixed points
+    \textit{that is not the first letter} of a word of length $n-1$ and $m+1$
+    fixed points, replace it with $n$, append the chosen letter to the end. This
+    decreases the number of fixed points by one and increases the length by one.
+    \item[(D)] Increase every letter by $1$ and prepend a $1$, this preserves
+    the number of fixed points.
+    \item[(E)] Take a permutation not starting with $1$, and replace its first
+    letter with $n$, and put the previous first letter at the end of the word.
+    \item[(F)] Take a permutation starting with $1$, and replace its first
+    letter with $n$, and put the $1$ at the end of the word.
+  \end{enumerate}
+  % By induction [show base case], \begin{align}
+  %   F(n,m)E[\pi_{\text{fix},1}^{n,m}]
+  %   % \left(
+  %   %   F(n - 1, m-1) +
+  %   %   (n - m - 1)F(n - 1, m) +
+  %   %   (m + 1)F(n-1, m + 1)
+  %   % \right)E[\pi_{\text{fix},1}^{n,m}] =
+  %   &= \left(
+  %     \sum_{a=1}^n F^{(a)}(n,m)
+  %   \right)E[\pi_{\text{fix},1}^{n,m}] \\
+  %   &= \left(
+  %     F^{(1)}(n,m) + (n-1)F^{(n)}(n,m)
+  %   \right)E[\pi_{\text{fix},1}^{n,m}]
+  % \end{align}
+  % On the right hand side \begin{align}
+  %   \sum_{a=1}^n aF^{(a)}(n, m)
+  %   &= F^{(1)}(n,m) + \frac{(n+2)(n-1)}{2}F^{(n)}(n,m)
+  % \end{align}
+  Now \begin{align}
+    F(n,m)E[\pi_{\text{fix},1}^{n,m}]
+    &= \sum_{a=1}^n aF^{(a)}(n, m) \\
+    &= F^{(1)}(n, m) + \frac{(n+2)(n-1)}{2}F^{(n)}(n,m) \\
+    &= F(n-1, m-1) + \frac{(n+2)(n-1)}{2}\left(F(n-1,m) - F^{(1)}(n-1, m) + F^{(1)}(n-1, m+1)\right) \\
+    &= F(n-1, m-1) + \frac{(n+2)(n-1)}{2}\left(F(n-1,m) - F(n-2, m-1) + F(n-2, m)\right) \\
+  \end{align}
+  Put everything on the right hand side into terms of $F(n-2, *)$,
+  \begin{align}
+    \sum_{a=1}^n aF^{(a)}(n, m)
+    &= F(n-1, m-1) + \frac{(n+2)(n-1)}{2}\left(F(n-1,m) - F(n-2, m-1) + F(n-2, m)\right) \\
+    &= F(n - 2, m-2) + (n - m - 1)F(n - 2, m-1) + mF(n-2, m) \\
+    &\hspace{1cm}+ \frac{(n+2)(n-1)}{2}\left(
+      % Expanded
+      % F(n-2, m-1) + (n - m - 2)F(n - 2, m) + (m + 1)F(n-2, m+1)
+      % - F(n-2, m-1) + F(n-2, m)
+      (n - m - 1)F(n - 2, m) + (m + 1)F(n-2, m+1)
+    \right) \\
+    &= F(n - 2, m-2)\\
+    &\hspace{1cm}+ (n - m - 1)F(n - 2, m-1)\\
+    &\hspace{1cm}+ \left(\frac{(n+2)(n-1)(n-m-1)}{2} + m\right)F(n-2, m)\\
+    &\hspace{1cm}+ \left(\frac{(n+2)(n-1)(m+1)}{2}\right)F(n-2, m+1)
+  \end{align}
+  Rewrite $F(n,m)$ in terms of $F(n-2, *)$,
+  \begin{align}
+    F(n,m) &=
+    F(n - 1, m-1) +
+    (n - m - 1)F(n - 1, m) +
+    (m + 1)F(n-1, m + 1) \\
+    &= % F(n-1, m-1)
+    F(n-2, m-2) + (n - m - 1)F(n - 2, m-1) + m F(n-2, m) \\
+    &\hspace{1cm}+ %(n - m - 1)F(n - 1, m)
+    (n-m-1)\left(F(n-2, m-1) + (n-m-2)F(n-2, m) + (m+1)F(n-2, m+1)\right)\\
+    &\hspace{1cm}+ %(m + 1)F(n-1, m + 1)
+    (m+1)\left(F(n-2, m) + (n-m-3)F(n-2, m+1) + (m+2)F(n-2, m+2)\right)\\
+    &= % regrouping
+    F(n-2, m-2) \\
+    &\hspace{1cm}+ 2(n-m-1)F(n-2, m-1) \\
+    &\hspace{1cm}+ (2 m + 1 + (n - m - 1)(n - m - 2))F(n-2, m) \\
+    &\hspace{1cm}+ 2(1+m)(n-m-2)F(n-2, m+1) \\
+    &\hspace{1cm}+ (m+1)(m+2)F(n-2, m+2)
+  \end{align}
+  The problem, $E[\pi_{\text{fix},1}^{n,m}] = (n - m + 2)/2$, and the algebra doesn't
+  obviously work out.
+\end{proof}
+\subsection{Take 2}
+  For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
+    F^{(1)}(n, m) &= F(n-1, m-1) \\
+    F^{(a)}(n, m) &=
+      F^{(a)}(n-1, m-1) +
+      \underbrace{(n - m - 2)F^{(a)}(n - 1, m)}_{\text{(B')}} +
+      (m + 1)F^{(a)}(n-1, m + 1)
+  \end{align} where the first recurrence comes from incrementing all of the letters and prepending $1$ and \begin{enumerate}[(B)]
+    \item[(B')] Choose one of the $n - m - 1 - 1$ non-fixed points \textit{that is not the first letter} of a word of length $n-1$ and $m$
+    fixed points, and replace it with $n$, append the chosen letter to the end.
+    This increases the length by one while preserving the number of fixed points.
+  \end{enumerate}
+  \begin{theorem}
+  \end{theorem}
+  \begin{proof}
+    Note that $F^{(a)}(n, m) = 0$ for $a > n$.
+    \begin{align}
+      F(n,m)E[\pi_{\text{fix},1}^{n,m}]
+      &= \sum_{a=1}^n aF^{(a)}(n, m) \\
+      &= F(n-1, m-1) \\
+      &\hspace{1cm} - F^{(1)}(n-1, m-1) + \sum_{a=1}^{n-1} a F^{(a)}(n-1, m-1) \\
+      &\hspace{1cm} + (n - m - 2)\left(-F^{(1)}(n-1, m)   + \sum_{a=1}^{n-1} a F^{(a)}(n-1, m)\right) \\
+      &\hspace{1cm} + (m + 1)    \left(-F^{(1)}(n-1, m+1) + \sum_{a=1}^{n-1} a F^{(a)}(n-1, m+1)\right)
+    \end{align}
+      Now use the recurrence (from Take 1) that \begin{align}
+      F^{(1)}(n, m) = F^{(1)}(n - 1, m-1) +
+        (n - m - 1)F^{(1)}(n - 1, m) +
+        mF^{(1)}(n-1, m + 1)
+      \end{align}
+    \begin{align}
+      \sum_{a=1}^n aF^{(a)}(n, m)
+      &= \sum_{a=1}^{n-1} a F^{(a)}(n-1, m-1) \\
+      &\hspace{1cm} + (n - m - 2)\left(\sum_{a=1}^{n-1} a F^{(a)}(n-1, m)\right) + F^{(1)}(n-1, m)\\
+      &\hspace{1cm} + (m + 1)\left(\sum_{a=1}^{n-1} a F^{(a)}(n-1, m+1)\right) -F^{(1)}(n-1, m+1)
+    \end{align}
+    By the induction hypothesis, these sums equal $F(n-1, m-1)E[\pi_{\text{fix},1}^{n-1,m-1}]$, $F(n-1, m)E[\pi_{\text{fix},1}^{n-1,m}]$, and $F(n-1, m + 1)E[\pi_{\text{fix},1}^{n-1,m + 1}]$ respectively, so
+    \begin{align}
+      \sum_{a=1}^n aF^{(a)}(n, m)
+      &= \frac{n-m+2}{2}F(n-1, m-1) + \frac{(n-m-2)(n-m+1)}{2}F(n-1, m) \\
+      &\hspace{1cm}
+      + \frac{(m+1)(n-m)}{2}F(n-1, m+1)
+      + F^{(1)}(n-1, m)
+      - F^{(1)}(n-1, m+1)
+    \end{align}
+    %   &= F(n-1, m-1) - F^{(1)}(n-1, m-1) - F^{(1)}(n - 1, m) - F^{(a)}(n-1, m + 1) \\
+    %   &+ F(n-1, m-1)E[\pi_{\text{fix},1}^{n-1,m-1}] +
+    %     (n - m - 2)F(n - 1, m)E[\pi_{\text{fix},1}^{n-1,m}] +
+    %     (m + 1)F(n-1, m+1)E[\pi_{\text{fix},1}^{n-1,m+1}]\\
+    %   &= F(n-1, m-1) - F^{(1)}(n-1, m-1) - F^{(1)}(n - 1, m) - F^{(a)}(n-1, m + 1) \\
+    %   &+ \frac12 (n-m+2) F(n-1, m-1) +
+    %     \frac12 (n-m+1)(n-m-2)F(n - 1, m) +
+    %     \frac12 (n-m)(m+1)F(n-1, m+1)\\
+    % \end{align}
+  \end{proof}
+
+\subsection{Take 3} (Mostly copy/pasted from Take 2.)
+  For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
+    F^{(1)}(n, m) &= F(n-1, m-1) \\
+    F^{(a)}(n, m) &=
+      F^{(a)}(n-1, m-1) +
+      \underbrace{(n - m - 2)F^{(a)}(n - 1, m)}_{\text{(B')}} +
+      (m + 1)F^{(a)}(n-1, m + 1) \\
+    F^{(n)}(n, m) &= F(n-1, m) - F(n-2,m-1) + F(n-2, m)
+  \end{align} where the first recurrence comes from incrementing all of the letters and prepending $1$, the last comes from Take 1, and \begin{enumerate}[(B)]
+    \item[(B')] Choose one of the $n - m - 1 - 1$ non-fixed points \textit{that is not the first letter} of a word of length $n-1$ and $m$
+    fixed points, and replace it with $n$, append the chosen letter to the end.
+    This increases the length by one while preserving the number of fixed points.
+  \end{enumerate}
+  \begin{theorem}
+  \end{theorem}
+  \begin{proof}
+    Note that $F^{(a)}(n, m) = 0$ for $a > n$.
+    \begin{equation}
+      \begin{split}
+        \sum_{a=1}^n aF^{(a)}(n, m) =
+        F(n-1, m-1) &-F^{(1)}(n-1, m-1) + \sum_{a=1}^{n-1} a F^{(a)}(n-1, m-1) \\
+        + (n - m - 2)&\left(-F^{(1)}(n-1, m) + \sum_{a=1}^{n-1} a F^{(a)}(n-1, m)\right) \\
+        + (m + 1)&\left(-F^{(1)}(n-1, m+1) + \sum_{a=1}^{n-1} a F^{(a)}(n-1, m+1)\right)
+      \end{split}
+    \end{equation}
+      Now use the recurrence (from Take 1) that \begin{align}
+      F^{(1)}(n, m) = F^{(1)}(n - 1, m-1) +
+        (n - m - 1)F^{(1)}(n - 1, m) +
+        mF^{(1)}(n-1, m + 1)
+      \end{align}
+    \begin{align}
+      \sum_{a=1}^n aF^{(a)}(n, m)
+      &= \sum_{a=1}^{n-1} a F^{(a)}(n-1, m-1) \\
+      &\hspace{1cm} + (n - m - 2)\left(\sum_{a=1}^{n-1} a F^{(a)}(n-1, m)\right) + F^{(1)}(n-1, m)\\
+      &\hspace{1cm} + (m + 1)\left(\sum_{a=1}^{n-1} a F^{(a)}(n-1, m+1)\right) -F^{(1)}(n-1, m+1)
+    \end{align}
+    By the induction hypothesis, these sums equal $F(n-1, m-1)E[\pi_{\text{fix},1}^{n-1,m-1}]$, $F(n-1, m)E[\pi_{\text{fix},1}^{n-1,m}]$, and $F(n-1, m + 1)E[\pi_{\text{fix},1}^{n-1,m + 1}]$ respectively, so
+    \begin{align}
+      \sum_{a=1}^n aF^{(a)}(n, m)
+      &= \frac{n-m+2}{2}F(n-1, m-1) + \frac{(n-m-2)(n-m+1)}{2}F(n-1, m) \\
+      &\hspace{1cm}
+      + \frac{(m+1)(n-m)}{2}F(n-1, m+1)
+      + F^{(1)}(n-1, m)
+      - F^{(1)}(n-1, m+1)
+    \end{align}
+    %   &= F(n-1, m-1) - F^{(1)}(n-1, m-1) - F^{(1)}(n - 1, m) - F^{(a)}(n-1, m + 1) \\
+    %   &+ F(n-1, m-1)E[\pi_{\text{fix},1}^{n-1,m-1}] +
+    %     (n - m - 2)F(n - 1, m)E[\pi_{\text{fix},1}^{n-1,m}] +
+    %     (m + 1)F(n-1, m+1)E[\pi_{\text{fix},1}^{n-1,m+1}]\\
+    %   &= F(n-1, m-1) - F^{(1)}(n-1, m-1) - F^{(1)}(n - 1, m) - F^{(a)}(n-1, m + 1) \\
+    %   &+ \frac12 (n-m+2) F(n-1, m-1) +
+    %     \frac12 (n-m+1)(n-m-2)F(n - 1, m) +
+    %     \frac12 (n-m)(m+1)F(n-1, m+1)\\
+    % \end{align}
+  \end{proof}
+\pagebreak
+\section{Descents}
+\subsection{1-Descents}
+  Let $D(n, m)$ denote the number of permutations on $S_n$ with $m$ descents,
+  and let $D^{(a)}(n, m)$ denote the number of permutations starting with the
+  letter $a$ on $S_n$ with $m$ descents.
+  Then the important recurrence relations hold for $n > 1$: \begin{align}
+    D(n, m)
+    = \underbrace{(n - m)D(n-1, m-1)}_\text{(A)}
+    + \underbrace{(m + 1)D(n-1, m)}_\text{(B)}
+  \end{align}
+  where \begin{enumerate}[(A)]
+    \item Increase the number of descents by one by appending $n$ to the
+    beginning or any non-descent. There are $n - 1 - m + 1$ such positions.
+    \item Preserve the number of descents by appending $n$ between any descent,
+    or at the end. There are $m + 1$ ways of doing this.
+  \end{enumerate}
+  Similarly, for $n > 1$: \begin{align}
+    D^{(n)}(n, m) &= D(n - 1, m - 1) \\
+    D^{(a)}(n, m)
+    &= \underbrace{(n - m - 1)D^{(a)}(n - 1, m - 1)}_\text{(C)}
+    + \underbrace{(m + 1)    D^{(a)}(n - 1, m)    }_\text{(D)} \text{ for } a \in [n-1].
+  \end{align} where the first recurrence comes from prepending $n$
+  which increments the number of descents, and \begin{enumerate}
+    \item[(C)] Increase the number of descents by placing $n$ between
+    any non-descent. There are $n - 1 - m$ such positions.
+    \item[(D)] Preserve the number of descents by appending $n$ between
+    any descent, or at the end. There are $m + 1$ ways of doing this.
+  \end{enumerate}
+  \begin{definition}
+    Let $E[\pi_\text{des}^{m, n}]$ denote the expected value of the first letter of a permutation $\pi \in S_n$ with $m$ descents. That is \begin{align}
+      E[\pi_\text{des}^{m, n}] = \frac{\sum_{a=1}^n a D^{(a)}(n, m)}{D(n, m)}.
+    \end{align}
+  \end{definition}
+  \begin{theorem}
+    The expected value of the first letter of a permutation $\pi \in S_n$ with $m$ descents is $m + 1$ \begin{align}
+      E[\pi_\text{des}^{m, n}] =  m + 1
+    \end{align} for $m \in \{0, 1, 2, \dots, n - 1\}$.
+  \end{theorem}
+  \begin{proof}
+    By induction on $n$ with induction hypothesis $
+      D(n, m)E[\pi_\text{des}^{m, n}] = \sum_{a=1}^n a D^{(a)}(n, m),
+    $ and base case clear for $n = 2$.
+    \begin{align}
+      \sum_{a=1}^n a D^{(a)}(n, m) &= n D^{(n)}(n, m) + \sum_{a=1}^{n-1} a D^{(a)}(n, m) \\
+      &= n D(n-1, m-1) + \sum_{a=1}^{n-1} a\left((n-m-1)D^{(a)}(n-1, m-1) + (m + 1)D^{(a)}(n - 1, m) \right)\\
+      &= n D(n-1, m-1)
+        + (n-m-1) \sum_{a=1}^{n-1} aD^{(a)}(n-1, m-1)
+        + (m + 1) \sum_{a=1}^{n-1} aD^{(a)}(n - 1, m)\\
+      \end{align}
+      By the induction hypothesis, these sums are $D(n-1,m-1)E[\pi_\text{des}^{m-1,n-1}] = mD(n-1,m-1)$ and $D(n-1,m)E[\pi_\text{des}^{m,n-1}] = (m + 1)D(n-1,m)$ respectively, so
+      \begin{align}
+      % &= n D(n-1, m-1) + (n - m - 1)mD(n-1,m-1) + (m+1)^2D(n-1,m) \\
+      \sum_{a=1}^n a D^{(a)}(n, m)
+      &= \underbrace{(mn - m^2 - m - n)}_{(n-m)(m+1)}D(n-1,m-1) + (m+1)^2D(n-1,m)
+      \\
+      &= (m + 1)
+      % \underbrace{
+        \left((n-m)D(n-1,m-1) + (m+1)D(n-1,m)\right)
+      % }_{D(n,m)}
+      \\
+      &= (m + 1)D(n, m).
+    \end{align}
+    Thus it directly follows that \begin{align}
+      E[\pi_\text{des}^{m, n}] = \frac{\sum_{a=1}^n a D^{(a)}(n, m)}{D(n, m)} = \frac{(m + 1) D(n, m)}{D(n, m)} = m + 1.
+    \end{align}
+  \end{proof}
+  \section{Cycles}
+  \begin{definition}
+    Let $\operatorname{cyc}_k(\pi)$ denote the number of $k$-cycles in $\pi$.
+  \end{definition}
+  \begin{definition}
+    Let $C_k(n,m)$ be the number of permutations $\pi \in S_n$ such that
+    $\operatorname{cyc}_k(\pi) = m$.
+  \end{definition}
+  \begin{lemma}
+    \label{cyc1Recurrence}
+    $C_k^{(1)}(n,m) = C_k(n-1, m)$ for all $k \geq 2$.
+  \end{lemma}
+  \begin{proof}
+    Writing $\pi$ as a word, consider the map
+    $\pi_1\pi_2\dots\pi_n \mapsto (\pi_2 - 1)\dots(\pi_n - 1)$. Since
+    $\pi_1 = 1$, the inverse map is clear.
+  \end{proof}
+  \begin{lemma}
+    \label{allSame}
+    $C_k^{(2)}(n,m) = \cdots = C_k^{(n)}(n,m)$.
+  \end{lemma}
+  \begin{proof}
+    It is enough to show that $C_k^{(a)}(n,m) = C_k^{(b)}(n,m)$ for all
+    $a, b > 1$. Since the permutations under consideration do not fix $1$,
+    conjugation by $(ab)$ is an isomorphism which takes all words starting
+    with $a$ to words starting with $b$ without changing the cycle structure.
+  \end{proof}
+  \begin{lemma}
+    \label{cycRecurrenceWithFixedBeginning}
+    For all $2 \leq a \leq n$, \begin{align}
+      C_k^{(a)}(n,m) = \frac{C_k(n, m) - C_k(n-1, m)}{n - 1}.
+    \end{align}
+  \end{lemma}
+  \begin{proof}
+    Since \begin{align}
+      C_k(n, m) = C_k^{(1)}(n, m) + C_k^{(2)}(n, m) + \dots + C_k^{(n)}(n, m)
+    \end{align} using Lemma \ref{allSame}, for all values $2 \leq a \leq n$,
+    this can be rewritten as \begin{align}
+      C_k(n, m) = C_k^{(1)}(n, m) + (n-1)C_k^{(a)}(n, m)
+    \end{align} solving for $C_k^{(a)}(n, m)$ and using the substitution from Lemma
+    \ref{cyc1Recurrence} gives the desired result: \begin{align}
+      C_k^{(a)}(n, m) = \frac{C_k(n, m) - C_k(n-1, m)}{n - 1}.
+    \end{align}
+  \end{proof}
+  \begin{note}
+    \label{basecase}
+    It appears that $C_k(n,0)$ is given by the expansion of the exponential 
+    generating function \[
+      \frac{\exp(-x^k/k)}{(1-x)},
+    \] and moreover, it appears that \[
+      C_k(n,0) = \sum_{i=0}^{\lfloor n/k \rfloor} \frac{n! (-1)^i}{i!\,k^i} = A122974(n,k).
+    \] These appear in the OEIS as
+    \begin{align}
+      C_1(n,0) &= A000166(n) \\
+      C_2(n,0) &= A000266(n) \\
+      C_3(n,0) &= A000090(n) \\
+      C_4(n,0) &= A000138(n) \\
+      C_5(n,0) &= A060725(n) \\
+      C_6(n,0) &= A060726(n)
+    \end{align}
+  \end{note}
+  \begin{theorem}
+    \label{cycRecurrence}
+    For all $k > 0, m > 0$ \begin{equation}
+      mC_k(n, m) = (k-1)!\binom{n}{k}C_k(n-k, m-1).
+    \end{equation}
+  \end{theorem}
+  \begin{proof}
+    As an abuse of notation, let $C_k(n, m) = \{ \pi \in S_n \mid \operatorname{cyc}_k(\pi) = m\}$.
+    Then consider the two sets, whose cardinalities match the left- and
+    right-hand sides of the equation above:
+    \begin{align}
+      S^{L}_{n,m,k} &= \{ (\pi, c) \mid \pi \in C_k(n, m), c \text{ a distinguished } k\text{-cycle of } \pi \} \\
+      S^{R}_{n,m,k} &= \{ (\sigma, d) \mid \pi \in C_k(n-m, m-1), d \text{ an } n\text{-ary necklace of length } k\}
+    \end{align}
+    The first set, $S^{L}_{n,m,k}$, is constructed by taking a permutation in
+    $C_k(n,m)$ and choosing one of its $m$ $k$-cycles to be distinguished, so
+    $S^{L}_{n,m,k} = mC_k(n,m)$.
+
+    In second set, $S^{R}_{n,m,k}$, the two parts of the tuple are independent.
+    There are $C_k(n-k, m-1)$ choices for $\sigma$ and $(k-1)!\binom{n}{k}$
+    choices for $d$. Thus $S^{R}_{n,m,k} = (k-1)!\binom{n}{k}C_k(n-k, m-1)$.
+
+    Now, consider the map $\phi \colon S^{L}_{n,m,k} \rightarrow S^{R}_{n,m,k}$
+    which in cycle notation does the following \[
+      (\pi_1\pi_2 \dots \pi_\ell, \pi_1) \mapsto (\pi'_2 \dots \pi'_\ell, \pi_1)
+    \] where $\pi'_i$ is $\pi_i$ after relabeling.
+
+    By construction, $\sigma$ has one fewer $k$-cycle and $k$ fewer letters
+    than $\pi$.
+  \end{proof}
+  \begin{example}
+    Suppose $\pi = (18)\mathbf{(37)}(254)$ in cycle notation with $(37)$ distinguished.
+    Then \begin{align}
+      ((18)(37)(254), (37)) \mapsto ((16)(243), (37))
+    \end{align} under this bijection.
+  \end{example}
+  \begin{theorem}
+    \label{expectedValueCyc2}
+    The expected value of a permutation $\pi \in S_n$ with $m$ $k$-cycles is
+    given by \begin{align}
+      E_{n,m}^{\text{cyc}_k} = \frac n2\left(1 - \frac{C_k(n-1,m)}{C_k(n,m)}\right) + 1.
+    \end{align}
+  \end{theorem}
+  \begin{proof}
+    By definition, \begin{align}
+      E_{n,m}^{\text{cyc}_k} = \frac{
+        \displaystyle \sum_{a = 1}^n aC_k^{(a)}(n, m)
+      }{
+        C_k(n, m)
+      }.
+    \end{align} Using Lemma \ref{allSame}, we can consolidate all but the first term of
+    the numerator \begin{align}
+      \sum_{a = 1}^n aC_k^{(a)}(n, m) &=
+      C_k^{(1)}(n,m) +
+      \sum_{a = 2}^n aC_k^{(n)}(n, m) \\
+      &= C_k^{(1)}(n,m) + C_k^{(n)}(n, m)\sum_{a = 2}^n a \\
+      &= C_k^{(1)}(n,m) + \frac{(n-1)(n+2)}{2} C_k^{(n)}(n, m) \\
+    \end{align}
+    Now using the recurrences in Lemmas \ref{cyc1Recurrence} and
+    \ref{cycRecurrenceWithFixedBeginning} \begin{align}
+      \sum_{a = 1}^n aC_k^{(a)}(n, m) &=
+      C_k(n-1,m) + \frac{(n-1)(n+2)}{2}\left(
+        \frac{C_k(n, m) - C_k(n-1, m)}{n - 1}
+      \right) \\
+      &= \left(\frac{n}{2} + 1\right) C_k(n,m) - \frac n2C_k(n-1,m).
+    \end{align}
+    Lastly, dividing by the numerator yields the result \begin{align}
+      E_{n,m}^{\text{cyc}_k}
+      = \frac{
+        \left(\frac{n}{2} + 1\right) C_k(n,m) - \frac n2C_k(n-1,m)
+      }{
+        C_k(n, m)
+      }
+      = \frac n2\left(1 - \frac{C_k(n-1,m)}{C_k(n,m)}\right) + 1.
+    \end{align}
+  \end{proof}
+  \begin{note}
+    In some sense, this theorem is all we could hope for, since between 
+    Note \ref{basecase} and Theorem \ref{cycRecurrence} 
+    this recurrence is easy to compute.
+  \end{note}
+  \subsection{$2$-cycles}
+  \begin{note}
+    $C_2(n,m) = A114320(n, m)$
+  \end{note}
+  \begin{definition}
+    $A161936(n)$ gives the number of direct isometries that are derangements 
+    of the $(n-1)$-dimensional facets of an $n$-cube.
+    (A direct isometry is a rotation of the hypercube.)
+  \end{definition}
+  \begin{definition}
+    $A000354(n)$ gives the expansion of the exponential generating function \[
+      \frac{\exp(-x)}{1 - 2x}.
+    \] which is also the number of $(n-1)$-dimensional facet derangements for 
+    the $n$-dimensional hypercube.
+  \end{definition}
+  \begin{note}
+    Heuristically, about half of the isometries which derange faces should be
+    direct isometries, and the other half should involve a reflection.
+  \end{note}
+  \begin{conjecture}
+    \begin{align}
+      E_{n,m}^{\text{cyc}_2} = \begin{cases}
+        \displaystyle\frac{n+1}{2} + \frac{(-1)^{n/2-m}}{2 A000354(\frac n2 - m)} & n \text{ is even}\\
+        \displaystyle\frac{n+1}{2} & \text{otherwise}
+      \end{cases}.
+    \end{align}
+  \end{conjecture}
+  \begin{conjecture}
+    \begin{align}
+      E_{n,m}^{\text{cyc}_2} = \begin{cases}
+        \displaystyle\frac n 2 + \frac{A161936(\frac n2-m)}{A000354(\frac n2-m)} & n \text{ is even}\\
+        \displaystyle\frac n 2 + \frac 1 2 & \text{otherwise}
+      \end{cases}
+    \end{align} extending the domain of A161936 so that $A161936(0) := 1$.
+  \end{conjecture}
+  \begin{conjecture}
+    This is equivalent to the conjecture that \begin{equation}
+      \frac{A161936(n-m)}{A000354(n-m)} + n\frac{C_2(2n-1,m)}{C_2(2n,m)} = 1
+    \end{equation} and \begin{equation}
+      (2n+1)C_2(2n,m) = C_2(2n+1,m).
+    \end{equation}
+  \end{conjecture}
+  \begin{note}
+    The ``odd'' part of the conjecture follows from Theorem
+    \ref{expectedValueCyc2} and the fact that $nC_2(n-1,m) = C_2(n,m)$ when $n$ is odd.
+    However, I don't know how to show the latter part, and ideally I'd like a bijective proof.
+    % the latter of which itself follows from an essentially similar proof to
+    % the one above (distinguishing $1$-cycles instead of $2$-cycles.)
+  \end{note}
+  \subsection{$3$-cycles}
+  \begin{conjecture}
+    \begin{equation}
+      E_{n,m}^{\text{cyc}_2} = \begin{cases}
+        \displaystyle\frac{n+1}{2} + \frac{(-1)^{n/3-m}}{2 A000180(\frac n3 - m)} & 3 \mid n \\
+        \displaystyle\frac{n+1}{2} & \text{otherwise}
+      \end{cases}.
+    \end{equation}
+  \end{conjecture}
+  \begin{note}
+    $A000180$ begins $1, 2, 13, 116, 1393, 20894, 376093, 7897952, 189550849, \dots$
+  \end{note}
+  \begin{note}
+    Does this relate to wreath products the way the $2$-cycle version relates 
+    to hypercube derangements?
+  \end{note}
+  \subsection{$k$-cycles}
+  \begin{conjecture}
+    \begin{equation}
+      E_{n,m}^{\text{cyc}_2} = \begin{cases}
+        \displaystyle\frac{n+1}{2} + \frac{(-1)^{n/k-m}}{2 A320032(\frac nk - m, k)} & k \mid n \\
+        \displaystyle\frac{n+1}{2} & \text{otherwise}
+      \end{cases},
+    \end{equation} where $A320032(n,k)$ is the expansion of \[
+      \frac{\exp(-x)}{1 - kx}.
+    \]
+  \end{conjecture}
+\end{document}
