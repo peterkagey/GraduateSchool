@@ -383,11 +383,11 @@ For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
   \begin{note}
     \label{basecase}
     It appears that $C_k(n,0)$ is given by the expansion of the exponential 
-    generating function \[
+    generating function \begin{equation}
       \frac{\exp(-x^k/k)}{(1-x)},
-    \] and moreover, it appears that \[
+    \end{equation} and moreover, it appears that \begin{equation}
       C_k(n,0) = \sum_{i=0}^{\lfloor n/k \rfloor} \frac{n! (-1)^i}{i!\,k^i} = A122974(n,k).
-    \] These appear in the OEIS as
+    \end{equation} These appear in the OEIS as
     \begin{align}
       C_1(n,0) &= A000166(n) \\
       C_2(n,0) &= A000266(n) \\
@@ -420,9 +420,9 @@ For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
     choices for $d$. Thus $S^{R}_{n,m,k} = (k-1)!\binom{n}{k}C_k(n-k, m-1)$.
 
     Now, consider the map $\phi \colon S^{L}_{n,m,k} \rightarrow S^{R}_{n,m,k}$
-    which in cycle notation does the following \[
+    which in cycle notation does the following \begin{equation}
       (\pi_1\pi_2 \dots \pi_\ell, \pi_1) \mapsto (\pi'_2 \dots \pi'_\ell, \pi_1)
-    \] where $\pi'_i$ is $\pi_i$ after relabeling.
+    \end{equation} where $\pi'_i$ is $\pi_i$ after relabeling.
 
     By construction, $\sigma$ has one fewer $k$-cycle and $k$ fewer letters
     than $\pi$.
@@ -435,7 +435,7 @@ For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
   \end{example}
   \begin{theorem}
     \label{expectedValueCyc2}
-    The expected value of a permutation $\pi \in S_n$ with $m$ $k$-cycles is
+    For $k > 1$, the expected value of a permutation $\pi \in S_n$ with $m$ $k$-cycles is
     given by \begin{align}
       E_{n,m}^{\text{cyc}_k} = \frac n2\left(1 - \frac{C_k(n-1,m)}{C_k(n,m)}\right) + 1.
     \end{align}
@@ -474,6 +474,9 @@ For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
     \end{align}
   \end{proof}
   \begin{note}
+    Why does this proof fail when $k = 1$?
+  \end{note}
+  \begin{note}
     In some sense, this theorem is all we could hope for, since between 
     Note \ref{basecase} and Theorem \ref{cycRecurrence} 
     this recurrence is easy to compute.
@@ -488,9 +491,9 @@ For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
     (A direct isometry is a rotation of the hypercube.)
   \end{definition}
   \begin{definition}
-    $A000354(n)$ gives the expansion of the exponential generating function \[
+    $A000354(n)$ gives the expansion of the exponential generating function \begin{equation}
       \frac{\exp(-x)}{1 - 2x}.
-    \] which is also the number of $(n-1)$-dimensional facet derangements for 
+    \end{equation} which is also the number of $(n-1)$-dimensional facet derangements for 
     the $n$-dimensional hypercube.
   \end{definition}
   \begin{note}
@@ -530,7 +533,7 @@ For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
   \subsection{$3$-cycles}
   \begin{conjecture}
     \begin{equation}
-      E_{n,m}^{\text{cyc}_2} = \begin{cases}
+      E_{n,m}^{\text{cyc}_3} = \begin{cases}
         \displaystyle\frac{n+1}{2} + \frac{(-1)^{n/3-m}}{2 A000180(\frac n3 - m)} & 3 \mid n \\
         \displaystyle\frac{n+1}{2} & \text{otherwise}
       \end{cases}.
@@ -545,13 +548,18 @@ For $n > 1$, $F$ satisfies the following recurrence relation \begin{align}
   \end{note}
   \subsection{$k$-cycles}
   \begin{conjecture}
+    For $k > 1$,
     \begin{equation}
-      E_{n,m}^{\text{cyc}_2} = \begin{cases}
+      E_{n,m}^{\text{cyc}_k} = \begin{cases}
         \displaystyle\frac{n+1}{2} + \frac{(-1)^{n/k-m}}{2 A320032(\frac nk - m, k)} & k \mid n \\
         \displaystyle\frac{n+1}{2} & \text{otherwise}
       \end{cases},
-    \end{equation} where $A320032(n,k)$ is the expansion of \[
+    \end{equation} where $A320032(n,k)$ is the expansion of the exponential 
+    generating function \begin{equation}
       \frac{\exp(-x)}{1 - kx}.
-    \]
+    \end{equation}
   \end{conjecture}
+  \begin{note}
+    These conjectures allow us to compute $C_k^{(1)}(n,k)$ and $C_k^{(\alpha)}(n,k)$ for $\alpha \neq 1$.
+  \end{note}
 \end{document}
