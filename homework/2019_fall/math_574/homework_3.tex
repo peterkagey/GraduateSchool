@@ -1,0 +1,211 @@
+\documentclass{article}
+
+\input{../../header}
+
+\begin{document}
+
+\title{Math 574: Homework 3}
+\author{Peter Kagey}
+\date{Friday, November 1, 2019}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} Let $A, B \in M_n(K)$ and assume that $AB = BA$.
+  \begin{enumerate}[(a)]
+    \item Show that $A$ and $B$ are simultaneously upper diagonalizable.
+    \item Show that if $A$ and $B$ are diagonalizable, they are simultaneously
+      diagonalizable.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~ % 2.4.8
+  \begin{enumerate}[(a)]
+    \item If $v$ is an eigenvector of $B$, then $Av$ is also an eigenvector of $B$
+    since \[
+      A(Bv) = A(\lambda v) = \lambda(Av) = B(Av),
+    \] so the eigenspace $E_\lambda$ of $B$ is invariant under multiplication
+    by $A$. Thus by conjugating $U^{-1}AU$ to Jordan canonical form, $U^{-1}BU$
+    must be upper triangular.
+    \item In the case of diagonalizable matrices, part (a) tells us that any
+    eigenbasis of $A$ is an eigenbasis of $B$, so
+    by writing $U^{-1}AU = D_A$ where the columns of $U$ are this common
+    eigenbasis, we also get that $U^{-1}BU = D_B$ is diagonal.
+
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2} Let $A \in M_n(\R)$
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+  \item
+  % It is sufficient to show that $v^\top AA^\top v \geq 0$. Of course,
+  % $(v^\top A)^\top = A^\top v$.
+  Let $v$ be a vector, and let $
+    A^\top v = \begin{bmatrix} a_1 & a_2 & \dots & a_n \end{bmatrix}.
+  $ Notice that $(A^\top v)^\top = v^\top A$, so \begin{align*}
+    v^\top AA^\top v
+    &= \begin{bmatrix}
+      a_1 & a_2 & \dots & a_n
+    \end{bmatrix}^\top
+    \begin{bmatrix}
+      a_1 & a_2 & \dots & a_n
+    \end{bmatrix} \\
+    &= a_1^2 + a_2^2 + \dots + a_n^2 \\
+    &\geq 0.
+  \end{align*} Since this argument holds for an arbitrary $v$, $AA^\top$ is
+  semipositive definite. Moreover $AA^\top$ equals its own transpose, \[
+    (AA^\top)^\top = (A^\top)^\top A^\top = AA^\top,
+  \] so $AA^\top$ is symmetric.
+  Notice that by singular value decomposition, $A = U\Sigma V^\top$, with $U$
+  and $V$ orthogonal and $\Sigma$ diagonal, so \begin{align*}
+    AA^\top
+      &= U\Sigma V^\top(U\Sigma V^\top)^\top
+      = U\Sigma \underbrace{V^\top V}_I\underbrace{\Sigma^\top}_\Sigma U^\top
+      = U\Sigma^2 U^\top \\
+    A^\top A
+      &= (U\Sigma V^\top)^\top U\Sigma V^\top
+      = V \underbrace{\Sigma^\top}_\Sigma \underbrace{U^\top U}_I\Sigma V^\top
+      = V\Sigma^2V^\top
+  \end{align*}
+  Therefore $AA^\top$ is similar to $A^\top A$ with \[
+    AA^\top
+      = U\Sigma^2U^{-1}
+      = U\underbrace{V^{-1}A^\top AV}_{\Sigma^2}U^{-1}
+      = (UV^{-1})A^\top A (VU^{-1}).
+  \]
+  \item A counter example is $
+    A = \begin{bmatrix} 0 & i \\ 0 & 1\end{bmatrix}
+  $. Notice \[
+    AA^\top =
+    \begin{bmatrix} 0 & i \\ 0 & 1\end{bmatrix}
+    \begin{bmatrix} 0 & 0 \\ i & 1\end{bmatrix} =
+    \begin{bmatrix} -1 & i \\ i & 1\end{bmatrix}
+  \] but \[
+    A^\top A =
+    \begin{bmatrix} 0 & 0 \\ i & 1\end{bmatrix}
+    \begin{bmatrix} 0 & i \\ 0 & 1\end{bmatrix} =
+    \begin{bmatrix} 0 & 0 \\ 0 & 0\end{bmatrix}
+  \] which have rank $1$ and $0$ respectively, so cannot be similar.
+\end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} ~
+  \begin{enumerate}[(a)]
+    \item Show that if $A$ is a positive definite Hermitian matrix, then there
+    is a unique $B$ that is positive definite Hermitian with $B^2 = A$.
+    \item Given an example of a complex square matrix $A$ so that $A \neq B^2$
+    for any $B$.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item If $A$ is positive definite Hermitian, then all eigenvalues are real
+    and positive, $\lambda_1, \lambda_2, \hdots, \lambda_n$, and $A$ is diagonalizable with $A = UD_AU^{-1}$ by letting $B = U\operatorname{diag}(\sqrt{\lambda_1}, \sqrt{\lambda_2}, \hdots, \sqrt{\lambda_n})U^{-1}$ we see that
+    $(UBU^{-1})^2 = UB^2U^{-1} = UD_AU^{-1} = A$.
+    \item Let $\displaystyle A = \begin{bmatrix} 0 & 1 \\ 0 & 0\end{bmatrix}$,
+    which has rank $1$. For sake of contradiction, assume there exists $B$ with
+    $B^2 = A$. Notice that $B$ cannot have rank $2$ (otherwise
+    $\det(B)^2 \neq 0$), and $B$ cannot have rank $0$ (because squaring the zero
+    matrix results in the zero matrix.)
+    Therefore $B$ must have rank $1$ and so its second row must be a linear
+    combination of the first. \[
+      B^2
+        = \begin{bmatrix} a & b \\ ca & cb\end{bmatrix}^2
+        = \begin{bmatrix} a^2 + cab & ab + cb^2 \\ ca^2+c^2ab & cab + c^2b^2\end{bmatrix}^2
+        = \begin{bmatrix} a(a + cb) & b(a + cb) \\ ac(a + cb) & cb(a + cb)\end{bmatrix}^2
+        = \begin{bmatrix} 0 & 1 \\ 0 & 0\end{bmatrix}
+        = A
+    \] since $b(a + cb) = 1$ and $cb(a + cb) = 0$, this implies that $c = 0$.
+    By looking at the first entry, this means that $a^2 = 0 = a$, but this is a
+    contradiction because if $a = c = 0$, then $b(a + cb) = 0 \neq 1$.
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4} Show that the set of cyclic elements in $M_n(\C)$ form an open dense subset of $M_n(\C)$.
+\end{problem}
+
+\begin{proof}
+  A matrix is cyclic if its Jordan normal form consists of blocks with distinct
+  eigenvalues.
+  \\
+  There are two things to show: (a) Given any cyclic $A \in M_n(\C)$, there
+  exists an open ball around $A$ such that all matrices in the open ball are
+  cyclic, and (b) Given a non-cyclic $B \in M_n(\C)$, every open ball around
+  $B$ contains a cyclic matrix.
+  \begin{enumerate}[(a)]
+    \item Given a matrix $A$ where each Jordan block has a distinct eigenvalue,
+    changing each entry by less than $\varepsilon$ means that each eigenvalue
+    can change by at most $n\varepsilon$. Thus we can choose $\varepsilon$ small
+    enough that the eigenvalues remain distinct.
+    \item Suppose that $B$ is not cyclic. Then an arbitrarily small change to the
+    entries of $B$ will change the eigenvalue corresponding to a Jordan block,
+    and therefore $B + \varepsilon a_{ij}$ will be cyclic. (Where $a_{ij}$
+    is notation for a matrix that is all zeroes except for a $1$ in the $ij$ entry.)
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{5} Let $A, B$ be Hermitian matrices with $A$ positive definite.
+  \begin{enumerate}[(a)]
+    \item Show that if $B$ is positive semidefinite then $A + B$ is positive
+    definite.
+    \item Show that the largest eigenvalue $\alpha$ of $A$ is
+    $\max\set{\langle Av, v \rangle : ||v|| = 1}$.
+    \item Show that there exists an invertible matrix $S$ such that
+    $SAS^* = I_n$ and $SBS*$ is diagonal.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item Let $v$ be an arbitrary nonzero vector of suitable size. Then since
+    $A$ is positive definite and $B$ is positive semidefinite, \[
+      v^\top(A + B)v
+        = \underbrace{v^\top A v}_{> 0} + \underbrace{v^\top B v}_{\geq 0}
+        > 0,
+    \] so $A + B$ is positive definite.
+    \item Let $\alpha$ be the largest eigenvalue with corresponding unite
+    eigenvector $v_\alpha$, and notice that \[
+      \max\set{\langle Av, v \rangle : ||v|| = 1} \geq \alpha
+    \] since $
+      \langle A v_\alpha, v_\alpha\rangle
+      = \langle \alpha v_\alpha, v_\alpha\rangle
+      = \alpha \underbrace{\langle v_\alpha, v_\alpha\rangle}_1
+      = \alpha.
+    $
+    Because $A$ is Hermitian, we can write an orthonormal basis of eigenvectors, $\set{v_1, v_2, \dots, v_n}$. With corresponding eigenvalues $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n$.
+    Then if we write $v = a_1v_1 + a_2v_2 + \dots + a_nv_n$, and $Av = \lambda_1a_1v_1 + \lambda_2a_2v_2 + \dots + \lambda_na_nv_n$, then \begin{align*}
+      \ang{v, Av}
+        &= \lambda_1a_1^2 + \lambda_2a_2^2 + \hdots + \lambda_na_n^2 \\
+        &\leq \lambda_1a_1^2 + \lambda_1a_2^2 + \hdots + \lambda_1a_n^2 \\
+        &= \lambda_1(a_1^2 + a_2^2 + \hdots + a_n^2) \\
+        &= \lambda_1
+    \end{align*}
+    with equality when $a_1 = 1$.
+    \item
+    % Since $A$ and $B$ are Hermitian, they are diagonalizable. Moreover,
+    % since $AB = BA$, they are simultaneously diagonalizable: $UAU^{-1}$ and $UBU^{-1}$ are diagonal.
+    Since $A$ is positive definite Hermitian, it can be factored as $U \Lambda U^*$
+    with $\Lambda = \operatorname{diag}(\lambda_1, \lambda_2, \dots, \lambda_n)$
+    and $\lambda_i > 0$.
+    Then let $D = D^* = \operatorname{diag}(\lambda_1^{-1/2}, \lambda_2^{-1/2}, \dots, \lambda_n^{-1/2})$ so that $D\Lambda D = I$. Next, letting $S = UD$ \[
+      S\Lambda S^* = UD\Lambda D^*U^* = UIU^* = I.
+    \]
+    The rest follows by Theorem 4.5.17 in Horn.
+  \end{enumerate}
+\end{proof}
+\end{document}

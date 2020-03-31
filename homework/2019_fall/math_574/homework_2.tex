@@ -160,7 +160,7 @@
         &= (c_0I + c_1A + \cdots + c_nA^n)A
     \end{align*} so $f(A) \in C(A)$.
     Conversely, suppose $v$ is a cyclic vector for $A$, that is
-    $\set{v, Av, A^2v, \cdots, A^{n-1}}$ is a basis for $M_n(K)$, meaning we can write \[
+    $\set{v, Av, A^2v, \cdots, A^{n-1}v}$ is a basis for $M_n(K)$, meaning we can write \[
       Bv = c_0v + c_1Av + \cdots + c_nA^nv = f(A)v.
     \]
     Moreover, we can write $B(A^kv) = f(A)(A^kv)$, and since ${A^k}_{k=0}^{n-1}$
@@ -171,9 +171,20 @@
       (c_0, c_1, \hdots, c_{n-1}) \mapsto c_0I + c_1A + \cdots + c_{n-1}A^{n-1} = f(A) = B
     \]
     is surjective since the minimal polynomial is degree $n$.
-    \item
-    % For general $A$, the set $\set{f(A) : f(x) \in k[x]}$ is a subspace of
-    % $C(A)$ since it is closed under
+    \item Suppose that $A$ is not necessarily cyclic. Notice that the set
+    $\set{f(A) : f(x) \in k[x]}$ is a subspace of $C(A)$ since it is closed
+    under addition and scalar multiplication. However,
+    $\dim\set{f(A) : f(x) \in k[x]}$ is the degree of the minimal polynomial.
+    \\
+    Let $J_A$ denote the Jordan normal form of $A$, $J_A = U^{-1}AU$. Next
+    let $B' = U^{-1}BU$ (with the same $U$ as above) and notice that
+    $\dim(C(A)) = \dim(C(J_A))$: \begin{align*}
+      AB = BA \Leftrightarrow
+      A\underbrace{UU^{-1}}_IB = B\underbrace{UU^{-1}}_IA
+      \Leftrightarrow \underbrace{U^{-1}AU}_{J_A} \underbrace{U^{-1}BU}_{B'} = \underbrace{U^{-1}BU}_{B'}\underbrace{U^{-1}AU}_{J_A}.
+    \end{align*}
+    So it is enough to consider the Jordan normal form of $A$, thus apply (a)
+    blockwise, since each block is cyclic.
   \end{enumerate}
 \end{proof}
 % -----------------------------------------------------
@@ -240,9 +251,36 @@
 % Fourth problem
 % -----------------------------------------------------
 \begin{problem}{4} %
+  Let $\fn T V V$ be a linear transformation, and fix $v \in V$.
+  \begin{enumerate}[(a)]
+    \item Show that there is a unique polynomial $g(x)$ so that $h(T)v = 0$ if
+    and only if $g | h$ and $g | m_T$.
+    \item Show that the degree of $G$ is the dimension of the span of
+    $\set{v, Tv, T^2v, \hdots}$.
+  \end{enumerate}
 \end{problem}
 
-\begin{proof} ~
+\begin{proof} First suppose that $\dim V = n$.
+  \begin{enumerate}[(a)]
+    \item
+    First notice that $\set{v, Tv, T^2v, \hdots, T^nv}$ cannot be linearly
+    independent, because it consists of $n + 1$ vectors.
+    Now take the largest $k$ such that $\set{v, Tv, T^2v, \hdots, T^kv}$
+    \textit{is} then, in particular, \[
+      h(T)v = c_{k+1}T^{k+1}v + c_{k}T^{k}v + \cdots + c_{1}Tv + c_0v = 0.
+    \] This forces $c_{k+1}$ to be nonzero, so let $g(x) = h(x)/c_n$, so that
+    $g(x)$ is monic. \\
+    Notice that there cannot be a different polynomial $f$ of equal or lower
+    degree than $g$,
+    otherwise the set $\set{v, Tv, T^2v, \hdots, T^kv}$ would be linearly
+    dependent.
+    Thus every polynomial $h(x)$ such that $h(T)v = 0$ is a multiple of $g(x)$.
+    \item By construction, $\set{v, Tv, T^2v, \hdots, T^kv}$ is the maximal
+    linearly independent set. Moreover $T^mv$ can be written as a linear
+    combination of this linearly independent set for all $m > k$, so applying
+    this procedure inductively, the aforementioned set is a basis for
+    $\set{v, Tv, T^2v, \hdots}$.
+  \end{enumerate}
 \end{proof}
 % -----------------------------------------------------
 % Fifth problem

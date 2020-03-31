@@ -1,0 +1,103 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bbm, enumerate}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{note}[1][Note.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\begin{document}
+
+\title{Matrix Analysis: Main ideas}
+\author{Peter Kagey}
+
+\maketitle
+
+\section{Definitions}
+\subsection{Companion matrix}
+A \textbf{companion matrix} to a monic polynomial \[
+  p(x) = a_0 + a_1x + \dots + a_{n-1}x^{n-1} + x^n
+\] is the $n \times n$ square matrix \[
+  \begin{bmatrix}
+    0 & 0 & \hdots & 0 & -a_0 \\
+    1 & 0 & \hdots & 0 & -a_1 \\
+    0 & 1 & \hdots & 0 & -a_2 \\
+    \vdots & \vdots & \ddots & \ddots & \vdots \\
+    0 & 0 & \hdots & 1 & -a_{n-1}
+  \end{bmatrix}
+\] which has the property that its characteristic and minimal polynomials are $p(x)$.
+
+\subsection{Cyclic matrix}
+An $n \times n$ matrix over a field $\mathbb F$ is called a
+\textbf{cyclic matrix} if there exists a vector
+$\vec v$ such that $\{\vec v, A\vec v, \dots, A^{n-1}\vec v\}$ is a basis for
+$\mathbb F^n$.
+
+\subsection{Normal matrix}
+A matrix $A$ is called \textbf{normal} if it commutes with its conjugate
+transpose, that is $A^*A = AA^*$.
+
+\subsection{Tensor product}
+...
+
+\subsection{Unitary matrix}
+A matrix $U$ is called \textbf{unitary} if its conjugate transpose $U^*$ is also its
+inverse, that is $U^*U = I$.
+
+% ---------------------------
+\section{Decompositions}
+
+\subsection{Schur decomposition}
+Each $A \in M_n(\mathbb C)$ can be written \[
+  A = QUQ^{-1}
+\] where $Q$ is unitary and $U$ is upper triangular.
+\subsection{Singular Value Decomposition}
+Let $M$ be an $m \times n$ complex matrix. Then $M$ can be written \[
+  M = U \Sigma V^*
+\] where $U$ and $V$ are unitary matrices.
+
+\section{Theorems}
+\subsection{Special cases of normal matrices}
+All unitary, Hermitian, and skew-Hermitian complex matrices are normal.
+All orthogonal, symmetric, and skew-symmetric real matrices are normal.
+\subsection{Spectral theorem}
+A matrix $A$ is normal if and only if it is unitarily similar to a diagonal
+matrix, that is \[
+  A = U^*DU
+\] for some unitary matrix $U$.
+
+\subsection{Hermitian matrices have real eigenvalues}
+
+\subsection{Perron theorem}
+Any positive $n \times n$ matrix has a simple eigenvalue $\lambda_1 = r$ such that
+all other eigenvalues are strictly smaller than $r$. Moreover, there exists
+a corresponding eigenvector $v$ such that all components are positive.
+\end{document}
+
+% 1.  Basic  notions (vector space, basis, linear independence, rank, linear transformation, etc).
+%
+% 2.  Classification of matrices (equivalent  linear transformations) by row equivalence (row reduced echelon form), two sided equivalence, rank + nullity theorem
+%
+% 3.  Basic notions of quotient spaces and tensor products.
+%
+% 4.  diagonalization and triangulizations of matrices (and commuting sets of matrices).
+%
+% 5.  eigenvalues, eigenspaces, characteristic polynomial, minimal polynomial, Cayley-Hamilton theorem
+%
+% 6.  Companion matrices, rational canonical form, Jordan canonical form, primary decomposition, cyclic matrices and linear transformations.
+%
+% 7.  Classification of quadratic forms over fields of characteristic not 2 and alternating forms in any characteristic. Sylvester's theorem.
+%
+% 8.  Inner product spaces, self adjoint operators,  spectral theorem for self adjoint operators and normal matrices.
+%
+% 9.  Positive definite Hermitian matrices.
+%
+% 10.  Basic properties of normed vector spaces (and the basic examples);
+% the c.
+%
+% 11.  Perron's theorem and variations;  stochastic matrices.
+%
+% 12.  matrix exponential, polynomials in matrices and linear transformations, limits in normed vector spaces.

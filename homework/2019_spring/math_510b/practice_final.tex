@@ -1,0 +1,131 @@
+\documentclass{article}
+
+\input{../../header}
+
+\begin{document}
+
+\title{Math 510b: 2015 Final Exam}
+\author{Peter Kagey}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1} ~
+  \begin{enumerate}[(i)]
+    \item Let $R$ be a PID and let $I$ be a non-zero ideal of $R$. Show that $R/I$ is Artinian.
+    Is the conclusion still true if $R$ is only a UFD?
+    \item Give an example of a Dedekind domain which is not a UFD.
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(i)]
+    \item Since $R$ is a PID, $I = \ang{a}$ for some $a \in R$.
+    Since an Artinian ring is a ring that satisfies the descending chain
+    condition on ideals, it is sufficient to show that all chains \[
+      I_1/\ang{a} \supset I_2/\ang{a} \supset \hdots = \ang{a_1}/\ang{a} \supset \ang{a_2}/\ang{a} \supset \hdots
+    \] are eventually constant, where (by the correspondence theorem)
+    $I_n = \ang{a_n} \subset \ang{a}$.
+    Now we can use the fact that $R$ is a PID and thus a UFD: since $a$ has
+    a finite number of prime factors.
+    In order for $\ang{a_i}/\ang{a} \supsetneq \ang{a_{i+1}}/\ang{a}$,
+    $a_{i+1} \mid a_i$ and $a_{i+1} \neq ua_i$ (where $u$ is a unit).
+    This means that $a_{i+1}$ must have fewer prime factors than $a_{i}$,
+    thus the descending chain can only have a finite number of proper inclusions,
+    and so satisfies the descending chain condition.
+
+    If $R$ is a UFD, this is not true. For example, let $R = \mathbb R[x,y]$,
+    then the ideals \[
+      \ang{y}/\ang{x} \supsetneq \ang{y^2}/\ang{x} \supsetneq \ang{y^3}/\ang{x} \supsetneq \hdots
+    \] do not satisfy the descending chain condition.
+
+    \item A Dedekind domain is
+    % is an integral domain in which every nonzero proper ideal factors into a product of prime ideals.
+
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2}
+  Let $R$ be a commutative $k$-algebra and let $S = M_n(R)$
+\end{problem}
+
+\begin{proof}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} ~
+  Let $R = \mathbb C[x, y]$ and consider the two ideals $I = (2x + y)$ and $J = (x^2 - y)$.
+  \begin{enumerate}[(a)]
+    \item Justify: $I$ and $J$ are both prime ideals of $R$, and each of them is
+    the intersection of all the maximal ideals containing it.
+    \item Give an explicit description of the maximal ideals containing each
+    ideal, and then give a geometric interpretation of your answer using
+    varieties in $\mathbb C^2$.
+    \item Consider the ideal $I + J$. Determine whether or not it is a prime
+    ideal. What is $\sqrt{I + J}$?
+    \item Answer (c) for $I \cap J$
+    \item Give a geometric interpretation of (c) and (d).
+  \end{enumerate}
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item To see that $I$ is a prime ideal, it is enough to see that $\C[x,y]$
+    is a domain, $2x + y$ is a degree $1$ polynomial, and $x^2 - y$ is prime
+    when viewed as $\C[y][x]$ via Eisenstein's criteria with prime $y$.
+    \item
+    \item Notice that \[
+      2x + y + x^2 - y = x^2 + 2x = x(x+2) \in I + J,
+    \] but $x \not\in I + J$ and $x + 2 \not\in I + J$, so $I + J$ is not prime.
+
+    By Nullstellensatz, $\mathbb I(\mathbb V(I + J)) = \sqrt{I + J}$.
+    \[
+      I + J
+      = \set{\alpha i + \beta j : \alpha, \beta \in \C[x, y], i \in I, j \in J}
+      = \ang{2x + y, x^2 - y}
+    \]
+    By definition, \[
+      \mathbb V(I + J) = \set{ (z,w) \in \mathbb C^2 : 2z + w = 0 = z^2 - w } = \set{(0, 0), (-2, 2)},
+    \] because the system of equations \begin{align*}
+      2z + w &= 0 \\
+      z^2 - w &= 0
+    \end{align*} has solutions of $z = 0$ or $z = -2$ (via adding the two equations to form $z^2 + 2z = 0$) and
+    corresponding values of $w = 0$ and $w = 2$. Then taking the ideal of
+    polynomials vanishing on this variety gives \begin{align*}
+      \mathbb I(\set{(0, 0), (-2, 2)})
+        &= \set{ f \in \C[x,y] : f(0, 0) = 0 = f(-2, 2) } \\
+        &= \set{f \in \C[x,y] : f(0, 0) = 0} \cap \set{f \in \C[x,y] : f(-2, 2) = 0} \\
+        &= \ang{x, y} \cap \ang{x + 2, y - 2}.
+    \end{align*} so $\sqrt{I + J} = \ang{x, y} \cap \ang{x + 2, y - 2}$
+    \item Similarly, we will compute $\sqrt{I \cap J} = \mathbb I(\mathbb V(I \cap J))$.
+  \end{enumerate}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4} ~
+\end{problem}
+
+\begin{proof}
+\end{proof}
+\pagebreak
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{5}
+
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+
+\end{document}

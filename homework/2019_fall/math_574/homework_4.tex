@@ -1,0 +1,268 @@
+\documentclass{article}
+
+\input{../../header}
+
+\begin{document}
+
+\title{Math 574: Homework 4}
+\author{Peter Kagey}
+\date{Wednesday, November 20, 2019}
+
+\maketitle
+
+% -----------------------------------------------------
+% First problem
+% -----------------------------------------------------
+\begin{problem}{1}
+  From \textit{Alternative version of \#4, problem 1}.
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item $A$ commutes with a cyclic matrix $C$ because it commutes with a
+    matrix with distinct eigenvalues. This means we can write $A = f(C)$.
+    \item Since the set of cyclic matrices is open and dense, there exists a
+    dense neighborhood of $B$ containing cyclic matrices. Thus the set $\{c \in \C : B + cC \text{ is cyclic}\}$ is dense in $\C$.
+    cyclic
+    \item If $(R, S)$ is a pair of commuting matrices with $S$ cyclic, then we
+    showed in homework 2 that $R = f(S)$. Now if we can find a diagonalizable
+    matrix $E$ that is $\varepsilon$ close to $R$, then $D = f(E)$ will be $f(\varepsilon) = \varepsilon'$ close to $S$. By (b), take
+    $c < \epsilon/n^2$ such that $E + cC$ is cyclic and call this $S$. Now $S$
+    is $\epsilon$-close to $E$ and so $R$ is $\epsilon'$-close to $D$.
+    \item Lastly since $c$ is dense, and $(D, E)$ is simultaneously
+    diagonalizable by the last homework, $(R, S)$ can be approximated
+    arbitrarily closely by simultaneously diagonalizable matrices.
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\begin{problem}{2}
+  Let $A, B \in M_n(\R)$ be skew symmetric.
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item Since $A$ is skew symmetric, that is $A^\top = -A$, so \[
+      % v^\top Av = (v^\top Av)^\top = v^\top \underbrace{A^\top}_{-A} v = -v^\top Av
+      \ang{Av, v} = (Av)^\top v = v^\top A^\top v = \ang{v, A^\top v} = \ang{v, -Av} = -\ang{v, Av}.
+    \] by the Hermitian Property, $\ang{v, Av} = \overline{\ang{Av, v}}$, so
+    when $v$ is an eigenvector with corresponding eigenvalue $\lambda$, \[
+      \ang{Av, v}
+      = -\overline{\ang{Av, v}}
+      = \lambda\ang{v, v}
+      = -\overline\lambda\ang{v, v}
+    \] since $\ang{v, v} > 0$ since $v$ is a nonzero eigenvector, $\lambda = -\overline{\lambda}$. Writing $\lambda = a + bi$, \[
+      \underbrace{a + bi}_\lambda
+      = \underbrace{-(a - bi)}_{-\overline\lambda}
+      = -a + bi,
+    \] so $a = 0$, and $\lambda$ is purely imaginary.
+    \\
+    Moreover, since $A$ is normal by \[
+      AA^* = AA^\top = A(-A) = -AA = A^\top A = A^*A,
+    \] it is diagonalizable by the Spectral Theorem.
+    \item Since $A$ and $B$ are similar, they have the same eigenvalues. So the
+    claim follows by Corollary 2.5.11(b) in Horn and Johnson:
+    \begin{quote}Two real skew-symmetric matrices are real orthogonally similar if and only if they have the same eigenvalues.\end{quote}
+    \item Let \[
+      A = \begin{bmatrix}
+        0  & 0  & i \\
+        0  & 0  & 1 \\
+        -i & -1 & 0
+      \end{bmatrix}
+    \]
+    Then \[
+      \det(A - \lambda I) =
+      \begin{vmatrix}
+        -\lambda  & 0  & i \\
+        0  & -\lambda  & 1 \\
+        -i & -1 & -\lambda
+      \end{vmatrix}
+      = -\lambda\begin{vmatrix}
+        -\lambda & 1 \\
+        -1 & -\lambda
+      \end{vmatrix}
+      -i\begin{vmatrix}
+        0 & i \\
+        -\lambda & 1
+      \end{vmatrix}
+      = -\lambda(\lambda^2 + 1) + \lambda
+      = -\lambda^3
+    \] so $A$ has all eigenvalues $0$.
+    But the dimension of the eigenspace corresponding to $0$ is the nullity of
+    $A$, which is $1$, since \[
+      \begin{bmatrix}
+        0  & 0  & i \\
+        0  & 0  & 1 \\
+        -i & -1 & 0
+      \end{bmatrix}
+      \begin{bmatrix} x \\ y \\ z \end{bmatrix}
+      = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
+      \text{ implies }
+      \begin{bmatrix} x \\ y \\ z \end{bmatrix}
+      = \begin{bmatrix} 1 \\ -i \\ 0 \end{bmatrix}t,
+    \] the dimension of the $0$ eigenspace is $1$. Thus $A$ is not
+    diagonalizable.
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Third problem
+% -----------------------------------------------------
+\begin{problem}{3} ~
+\end{problem}
+
+\begin{proof} ~ % Observation 7.1.2.
+  \begin{enumerate}[(a)]
+    \item
+    I'll illustrate with an example. Suppose $B$ is the first, fourth, and fifth
+    rows/columns of $A$, a $5 \times 5$ matrix. Then \[
+      \underbrace{
+        \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}^\top
+      }_{w^\top}
+      \underbrace{
+        \begin{bmatrix}
+          a_{11} & a_{14} & a_{15} \\
+          a_{41} & a_{44} & a_{45} \\
+          a_{51} & a_{54} & a_{55}
+        \end{bmatrix}
+      }_B
+      \underbrace{
+        \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}
+      }_{w} =
+      \underbrace{
+        \begin{bmatrix} x_1 \\ 0 \\ 0 \\ x_2 \\ x_3 \end{bmatrix}^\top
+      }_{v^\top}
+      \underbrace{
+        \begin{bmatrix}
+          a_{11} & a_{12} & a_{13} & a_{14} & a_{15} \\
+          a_{21} & a_{22} & a_{23} & a_{24} & a_{25} \\
+          a_{31} & a_{32} & a_{33} & a_{34} & a_{35} \\
+          a_{41} & a_{42} & a_{43} & a_{44} & a_{45} \\
+          a_{51} & a_{52} & a_{53} & a_{54} & a_{55}
+        \end{bmatrix}
+      }_A
+      \underbrace{
+        \begin{bmatrix} x_1 \\ 0 \\ 0 \\ x_2 \\ x_3 \end{bmatrix}
+      }_{v} > 0.
+    \] Zooming out now, if $B$ is a $d \times d$ principal submatrix of $A$,
+    then $B$ must be Hermitian, because this is inherited from $A$, which is
+    easy to see on ``inspection'', since the rows and columns that are deleted
+    are symmetric with respect to reflection over the main diagonal.
+    To see that $B$ is positive definite, it follows from the example above:
+    We can write \[
+      w^\top B w = v^\top A v > 0 \text{ for } v \neq 0,
+    \] where $v$ has essentially the same entries as $w$, but with zeroes
+    inserted in the positions of the deleted rows/columns. (See example.)
+    Since $v = 0$ if and only if $w = 0$, $B$ is positive definite.
+    \\~\\
+    Let $\lambda_{1,B}$ be the largest eigenvalue of $B$.
+    Since $A$ and $B$ are Hermitian, \[
+      \lambda_1 = \max_{|v| = 1}\,\langle Av, v\rangle \text { and }
+      \lambda_{1,B} = \max_{|w| = 1}\,\langle Bw, w\rangle.
+    \] By the above construction, $\langle Bw, w\rangle = \langle Av, v\rangle$
+    for $v$ with additional zeros (and so the same norm), thus as sets, \[
+      \set{\langle Bw, w\rangle : |w| = 1} \subset
+      \set{\langle Av, v\rangle : |v| = 1},
+    \] so $\lambda_{1,B} \leq \lambda_1$.
+    \item In part (a), I showed that $\lambda_{1,B} \leq \lambda_1$ for any
+    principal submatrix $B$, so in particular this holds for an
+    $n - 1 \times n - 1$ principal submatrix. Thus it only remains to show that
+    we can find some $\lambda_{1,B} \geq \lambda_2$.
+    \\
+    Say that $B$ is the $n - 1 \times n - 1$ principal submatrix with the $i$th
+    row/column removed. Furthermore, since \[
+      \lambda_{1,B}
+      = \max\set{\langle Bw, w\rangle : |w| = 1}
+      = \max\set{\langle Av, v\rangle : |v| = 1 \text{ and } v_i = 0}
+    \] it suffices to construct a unit vector $w$ such that
+    $\langle Bw, w\rangle \geq \lambda_2$.
+    Let $v$ and $u$ be eigenvectors corresponding to $\lambda_1$ and
+    $\lambda_2$ respectively, and find $\alpha, \beta$ such that $\alpha v_i + \beta u_i$ so that $\alpha v + \beta u$ has a $0$ in the $i$th position.
+    Call this vector \[
+      w' = \underbrace{\alpha v}_{v'} + \underbrace{\beta u}_{u'},
+    \] which is designed so that \[
+      Aw' = A(v' + u') = Av' + Au' = \lambda_1v' + \lambda_2u'.
+    \] By scaling, we can choose $\alpha, \beta$ so that
+    $|w'| = 1$.
+    Let $w$ be $w'$ with its $i$th entry removed. Then \begin{align*}
+      \langle Bw, w\rangle
+      &= \langle Aw', w'\rangle \\
+      &= \langle A(v' + u'), v' + u'\rangle \\
+      &= \langle \lambda_1v' + \lambda_2u', v' + u' \rangle \\
+      &\geq \langle \lambda_2v' + \lambda_2u', v' + u' \rangle \\
+      &= \lambda_2 \underbrace{\langle v' + u', v' + u' \rangle}_{=1}
+    \end{align*} as desired.
+  \end{enumerate}
+\end{proof}
+
+% -----------------------------------------------------
+% Fourth problem
+% -----------------------------------------------------
+\begin{problem}{4}
+  Let $V$ be a finite dimensional normed vector space over $\mathbb C$,
+  and let $W$ be a proper subspace of $V$. Define a map
+  $\fn {|\cdot|_q} {V/W} {\mathbb R}$ by \[
+    |v|_q = \inf_{w \in W} |v + w|.
+  \]
+\end{problem}
+
+\begin{proof}
+  \begin{enumerate}[(i)]
+    \item \textbf{Nonnegativity.}
+    Firstly, let $v = 0 \in V/W$. Then \[
+      0 \leq \inf_{w \in W} |v + w| \leq |0 + 0| = 0,
+    \] so $|0|_q = 0$ since it is bounded above and below by 0.
+    \\
+    Conversely, assume that $|v|_q = |v + w| = 0$, by nonnegativity of the norm
+    on $V$, this implies $v + w = 0$.
+    Of course this means that $v = -w \in W$, so $v = 0 \in W/V$.
+    \item \textbf{Scaling.}
+    Let $\alpha \in \mathbb C$, and consider \[
+      |\alpha v|_q
+      = \inf_{w \in W} |\alpha v + w|
+      = \inf_{w \in W} |\alpha v + \alpha w|
+      = \alpha\left(\inf_{w \in W} |v + w|\right)
+      = \alpha |v|_q
+    \] because multiplying by $\alpha$ is surjective when $\alpha \neq 0$.
+    (And the claim follows by (i) when $\alpha = 0$.)
+    \item \textbf{Triangle inequality.}
+    \begin{align*}
+      |v + u|_q
+      &= \inf_{w \in W} |v + u + w| \\
+      &= \inf_{w \in W} |v + u + 2w| \\
+      &= \inf_{w \in W} |v + w + u + w| \\
+      &\leq \inf_{w \in W} \left(|v + w| + |u + w|\right) \\
+      &\leq \inf_{w \in W} |v + w| + \inf_{w' \in W} |u + w'| \\
+      &= |v|_q + |u|_q,
+    \end{align*} where the second equality follows from the surjectivity of the
+    scalar multiplication by $2$.
+  \end{enumerate}
+\end{proof}
+% -----------------------------------------------------
+% Fifth problem
+% -----------------------------------------------------
+\begin{problem}{5}
+  Let $A,B \in M_n(K)$, and let $T(X) = AX - XB$.
+\end{problem}
+
+\begin{proof} ~
+  \begin{enumerate}[(a)]
+    \item Let $x$ and $y$ be eigenvectors of $A$ and $B$ respectively.
+    Consider the induced transformation
+    $T(x \otimes y) = (I_n \otimes A - B^\top \otimes I_n)(x \otimes y)$,
+    where by Schur Decomposition, we can write two upper triangular
+    matrices \begin{align*}
+      \Delta_A &= U^*AU \\
+      \Delta_B^\top &= V^*BV
+    \end{align*} where $U$ and $V$ are unitary. Notice that $(I_n \otimes A)(B^\top \otimes I_n) = (B^\top \otimes I_n)(I_n \otimes A)$
+    \item Now let $W = V \times U$ so that way $W^(I_n \otimes A)*W$ and
+    $W^*(B^\top \otimes I_n)W$ are composed of blocks of $\Delta_A$ and
+    $\Delta_B^\top$ respectively.
+    \item Then $W^(I_n \otimes A - B^\top \otimes I_n)*W$ has blocks of
+    $\Delta_A - \Delta_B^\top$. Since eigenvalues are preserved during the triangularization process, the eigenvalues of this transformation are
+    precisely $a - b$ where $a$ and $b$ are eigenvalues of $A$ and $B$ respectively.
+    \item If $A = B$, then for each eigenvalue $\lambda$ of $A$, $\lambda - \lambda = 0$ is an eigenvalue of the transformation. There are are least $n$ such
+    corresponding eigenvectors or generalized eigenvectors, so $\dim\ker(T) \geq n$.
+  \end{enumerate}
+\end{proof}
+\end{document}
